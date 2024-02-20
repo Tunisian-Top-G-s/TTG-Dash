@@ -1,0 +1,236 @@
+
+.div-container-all-sidebar{
+    width: 422px;
+   
+}
+.container-sidebar-v{
+    height: 70vh;
+    border-radius: 0px 0px 10px 10px;
+    border: 0.5px solid #ffffff6a;
+    background: rgba(73, 73, 73, 0.12);
+    box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    font-family: 'Poppins', sans-serif;
+    overflow-y: auto; /* Enables vertical scrolling */
+    position: relative; /* Ensure the container is positioned */
+}
+.container-sidebar::-webkit-scrollbar-thumb {
+    background: radial-gradient(325.78% 172.71% at 109.69% 123.93%, #54469c 1.34%, #9d98b6 100%), radial-gradient(325.78% 172.71% at 109.69% 123.93%, #2c0ebf 1.34%, #000 100%);
+  border-radius:40px;
+  }
+
+  .container-sidebar::-webkit-scrollbar {
+    width: 5px;
+    border-radius:40px;
+  }
+  
+  .container-sidebar::-webkit-scrollbar-track {
+    background: #ffffff00; 
+  border-radius:40px;
+  }
+  .container-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #190505; 
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+.all-container-steps-modules{
+
+}
+
+.foundation{
+  
+    border-radius: 10px 10px 0px 0px;
+    background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
+    padding: 10px 25px;
+}
+.title-summary-course{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 27.918px; /* 139.59% */
+    letter-spacing: 0.2px;
+}
+.flex-foundation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.under-foundation{
+    display: flex;
+    flex-direction: column;
+    
+}
+.percentage-progess{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27px; /* 225% */
+       
+}
+.progress-bar-container {
+    width: 301px;
+     /* Full width */
+    background-color: #ddd; /* Light grey background */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Ensures the inner bar stays within the container */
+    
+  }
+.progress-bar {
+    height: 9px; /* Height of the progress bar */
+    width: 70%; /* Initial width of the progress bar */
+    background: #FFD600; /* Green background */
+    text-align: center; /* Center the text (optional) */
+    line-height: 20px; /* Align the text vertically */
+    color: white; /* Text color */
+    border-radius: 50px; /* Rounded corners on the left side */
+  }
+.counter-modules-lessons{
+    display: flex;
+    flex-direction: row;
+    padding: 2px 0px 0px 0px;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+}
+.flex-ml{
+    display: flex;
+    flex-direction: row;
+    padding-right: 15px;
+}
+.modules-number{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 27px; /* 225% */
+    padding-right: 5px;
+}
+.modules-text{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27px;
+}
+.overview{
+    display: flex;
+    padding: 5px 0px;
+    border: 0.5px solid #ffffff6a;
+    background: rgba(73, 73, 73, 0.12);
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.overview-text {
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27px;
+    padding-left: 5px;
+}
+
+.container-modules{
+    display: flex;
+    flex-direction: column;
+}
+.dropdown-modules{
+    display: flex;
+    flex-direction: row;
+    border: 0.5px solid #ffffff6a;
+    justify-content: space-between;
+    padding: 10px 15px;
+    align-items: center;
+    cursor: pointer; /* Make it clear it's clickable */
+    user-select: none;
+}
+.module-text{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 27.918px; /* 164.223% */
+    letter-spacing: 0.17px;
+}
+.icon-default{
+    width: 20px;
+    height: 20px;
+}
+/* ------------------------------------------ */
+.modules {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0s ease-out, visibility 0s ease-out;
+    visibility: hidden;
+}
+
+.modules.is-active {
+    max-height: 1000px; /* Adjust this value based on your content's height */
+    visibility: visible;
+    transition: max-height 0.5s ease-out;
+}
+.dropdown-content{
+    display: flex;
+    flex-direction: column;
+}
+.step{
+    border: 0.5px solid #ffffff6a;
+    background: rgba(73, 73, 73, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 15px;
+    height: 60px;
+    
+}
+.flex-right-intro {
+    display: flex;
+    align-items: center;
+}
+.icon-done-iamg {
+    width: 35px;
+    height: 35px;
+    padding: 0px 5px;
+}
+.step-title{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+}
+.title-text{
+    color: #FFF;
+    font-family: Poppins;
+    font-size: 18.473px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.185px;
+}
+.content-info{
+    color: rgba(149, 149, 149, 0.98);
+    font-family: Poppins;
+    font-size: 10.866px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.109px;
+}
+.button-icon{
+
+}
+.icon-done{
+    height: 33px;
+    height: 33px;
+    border: 1px solid transparent; /* Makes all borders transparent */
+    border-left-color: #FFCA28; /* Sets the left border color to golden */
+
+}

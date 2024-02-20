@@ -1,0 +1,31 @@
+{% extends "course.html" %}
+{% load static %}
+
+{% block course-head %}
+<link rel="stylesheet" href="{% static "styles/video-course.css" %}">
+
+{% endblock course-head %}
+
+{% block course-content %}
+        <div class="container-lesson">
+            <div class="iconlike">
+                <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
+            </div>
+            <div class="fill">
+                    <span class="lesson-text">New trader indroduction</span>
+            </div>
+            <div class="lesson">
+                <div class="lesson-video">
+                    <video class="video-class" src="{% static "assets/-9793-41dd-895b-abd6b1a01ef3.mp4" %}" controls></video>
+                </div>
+                <div class="lesson-container">
+                    <span class="title-lesson-description">New trader indroduction</span>
+                    <span class="description-step-video">Make sure to communicate with other staff members effectively and keep them updated on any important information .</span>
+                    </div>
+                <div class="next-lesson">
+                    <a href="#" class="keep-next">NEXT</a>
+                </div>
+        </div>
+</div>
+
+{% endblock course-content %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static "styles/404.css" %}">
+{% endblock header %}
+
+{% block main %}
+
+<div class="container-404">
+    <img class="animation-picture-404" src="{% static "assets/404Img.svg" %}" alt="404">
+    <div class="wrapper-404">
+    <h1>the page you are looking for doesn’t exist </h1>
+    <p>this page may have been moved or you typed in the wrong URL</p>
+    <a class="btn btn-back" href="" onclick="goBack(); return false;">Go back</a>
+</div>
+</div>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
+{% endblock main %}

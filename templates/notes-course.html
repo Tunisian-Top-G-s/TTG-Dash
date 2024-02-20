@@ -1,0 +1,38 @@
+{% extends "course.html" %}
+{% load static %}
+
+{% block course-head %}
+<link rel="stylesheet" href="{% static "styles/notes-course.css" %}">
+
+{% endblock course-head %}
+
+{% block course-content %}
+    <div class="container-lesson">
+        <div class="iconlike">
+            <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
+        </div>
+        
+        <div class="fill">
+                <span class="lesson-text">lesson 1 </span>
+        </div>
+    
+        <div class="content-lesson">
+            <span class="context-hints"></span>
+            <span class="content-text-inside">
+                Breakout Trading Final Advice
+If you choose breakout trading, here is my advice to you for a system: Note: On Day 19 I discussed a few different ways you can enter and exit Breakouts. You can use any of the rules from Day 19, but the rules below are the simplest in my experience. 1. Choosing the asset and timeframe is entirely up to you. 2. Your entry should be a confirmed BOS on that timeframe. I advise you ignore Volume Harmony rule for the purposes of White Belt testing. One entry rule is best to begin. 3. Your stop loss should be an interim high or low. 4. Your take profit should be a fixed RR. The video explains why. 5. You can trade both long and short using the same rules. 6. For White Belt back testing you can ignore my advice about only testing on the times that you would be available to trade in real life. Remember: you're learning HOW to back test. Doing 100 reps is the most important thing here. Once you know this, then you can adapt it to your own style, personal life, free time in future. Watch now before you choose 📹
+            </span>
+        </div>
+
+    <div class="next-lesson">
+        <div>
+        <a href="#" class="keep-next">BACK</a>
+    </div>
+    <div>
+        <a href="#" class="keep-next">NEXT</a>
+    </div>
+    </div>
+</div>
+
+
+{% endblock course-content %}

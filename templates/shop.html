@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/shop.css" %}">
+<link rel="icon" type="image/x-icon" href="{% static "assets/img/logo.png" %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+{% block title %}<title>Shop</title>{% endblock title %}
+
+{% endblock head %}
+
+{% block main %}
+{% include "components/navbar.html" %}
+
+    <!-- main content -->
+    <main class="omor">
+        <!-- deals section -->
+        <section class="deals-section">
+          <span class="h1-text">Deals</span>
+  
+          <div class="deal-content">
+            <div class="flex flex-col deal-text">
+              <span class="deal-title">TUNISIAN TOP Gs SHOP</span>
+              <span class="p-text">
+                Get ready to squad up in style with our Squad Pack Deal! This
+                exclusive offer includes four trendy and comfortable t-shirts,
+                perfect for you and your crew.
+              </span>
+            </div>
+  
+            <img class="deal-img wobble-hor-bottom" alt="ttg-shirts" src="{% static "assets/img/shirts-deals.png" %}">
+          </div>
+        </section>
+  
+        <!-- items section -->
+        <section class="items-section">
+          <span class="h1-text">Items</span>
+  
+          <div class="flex flex-wrap items-content">
+            <!-- card #1 -->
+            <div class="item-card">
+              <button class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              </button>
+  
+              <div class="flex flex-center card-banner">
+                <span class="p-text">Promo</span>
+              </div>
+  
+              <div class="flex flex-center card-body">
+                <img alt="black-shirt" src="{% static "assets/img/black-shirt-2.png" %}" width="220">
+              </div>
+  
+              <div class="flex card-footer">
+                <div class="flex flex-col item-name">
+                  <span class="h1-text">TTG T-SHIRT</span>
+                  <span class="p-text">slim fit</span>
+                </div>
+                <div class="flex flex-col flex-center item-price">
+                  <span class="p-text">40DT</span>
+                  <span class="h1-text">35DT</span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- card #2 -->
+            <div class="item-card">
+              <button class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              </button>
+  
+              <div class="flex flex-center card-body">
+                <img alt="black-shirt" src="{% static "assets/img/white-shirt.png" %}" width="220">
+              </div>
+  
+              <div class="flex card-footer">
+                <div class="flex flex-col item-name">
+                  <span class="h1-text">TTG T-SHIRT</span>
+                  <span class="p-text">slim fit</span>
+                </div>
+                <div class="flex flex-col flex-center item-price">
+                  <span class="h1-text">35DT</span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- card #3 -->
+            <div class="item-card">
+              <button class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              </button>
+  
+              <div class="flex flex-center card-body">
+                <img alt="black-shirt" src="{% static "assets/img/white-shirt-2.png" %}" width="220">
+              </div>
+  
+              <div class="flex card-footer">
+                <div class="flex flex-col item-name">
+                  <span class="h1-text">TTG T-SHIRT</span>
+                  <span class="p-text">slim fit</span>
+                </div>
+                <div class="flex flex-col flex-center item-price">
+                  <span class="h1-text">35DT</span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- card #4 -->
+            <div class="item-card">
+              <button class="card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              </button>
+  
+              <div class="flex flex-center card-banner">
+                <span class="p-text">Promo</span>
+              </div>
+  
+              <div class="flex flex-center card-body">
+                <img alt="black-shirt" src="{% static "assets/img/black-shirt.png" %}" width="220">
+              </div>
+  
+              <div class="flex card-footer">
+                <div class="flex flex-col item-name">
+                  <span class="h1-text">TTG T-SHIRT</span>
+                  <span class="p-text">slim fit</span>
+                </div>
+                <div class="flex flex-col flex-center item-price">
+                  <span class="p-text">40DT</span>
+                  <span class="h1-text">35DT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <!-- pagination section -->
+      </main>
+
+
+{% endblock main %}
+
+{% block footer %}{% endblock footer %}
+
+{% block sctipts %}
+
+    <script src="{% static "js/shop.js" %}"></script>
+
+{% endblock sctipts %}

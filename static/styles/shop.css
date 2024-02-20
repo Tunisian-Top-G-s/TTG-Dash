@@ -1,0 +1,373 @@
+.omor {
+  padding: 1rem 10rem;
+}
+
+/* reusable classes */
+
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+/* specific classes */
+
+.items-section > .h1-text,
+.deals-section > .h1-text {
+  font-weight: 800;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: var(--WHITE-C);
+  letter-spacing: 1px;
+}
+
+/* deals section */
+.deal-content {
+  margin-top: 1rem;
+  position: relative;
+  width: 100%;
+  background: radial-gradient(
+      66.8% 559.37% at 104.01% 112.43%,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(99.84deg, #260fb8 -36.4%, #9747ff 131.27%);
+  border-radius: 12px;
+}
+
+.deal-text {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  padding-left: 2rem;
+}
+
+.deal-title {
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 50px;
+  -webkit-text-stroke: 2px white;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.16em;
+}
+
+.deal-content .p-text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.07em;
+  text-align: left;
+  width: 50%;
+  color: var(--WHITE-C);
+}
+
+.deal-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 12px;
+  width: 300px;
+}
+
+.deal-dots {
+  padding-bottom: 1.5rem;
+  gap: 10px;
+}
+
+.dot-btn {
+  cursor: pointer;
+  border: transparent;
+  border-radius: 50%;
+  background-color: #dcdcdc;
+  height: 8px;
+  width: 8px;
+}
+
+/* items section */
+
+.items-section {
+  margin-top: 2rem;
+}
+
+.items-content {
+  margin-top: 1rem;
+  justify-content: space-between;
+}
+
+.item-card {
+  position: relative;
+  width: 300px;
+  height: 330px;
+  border: 0.5px solid #fff;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  background: linear-gradient(0deg, rgba(6, 6, 6, 0.18), rgba(6, 6, 6, 0.18)),
+    radial-gradient(
+      113.84% 113.84% at 50% 50%,
+      rgba(164, 92, 246, 0.2) 0%,
+      rgba(164, 92, 246, 0) 100%
+    );
+  box-shadow: 0px 20px 100px 0px #00000040;
+  transition: all 0.3s ease-in-out;
+}
+
+.item-card:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+.card-icon {
+  position: absolute;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 0;
+  top: 1rem;
+  left: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-icon:hover {
+  color: #5cff9c;
+}
+
+.card-banner {
+  position: absolute;
+
+  right: 0;
+  top: 40px;
+  width: 106px;
+  height: 28px;
+  border-radius: 8px 0px 0px 8px;
+  background: linear-gradient(105.44deg, #735cff -18.01%, #5cff9c 151.51%);
+}
+
+.card-body {
+  height: 75%;
+}
+
+.card-banner > .p-text {
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--WHITE-C);
+}
+
+.card-footer {
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.item-name > .h1-text {
+  font-weight: 800;
+  font-size: 25px;
+  color: var(--WHITE-C);
+}
+
+.item-name > .p-text {
+  font-weight: 300;
+  font-size: 16px;
+  color: #bdc4cd;
+}
+
+.item-price > .p-text {
+  font-weight: 500;
+  font-size: 14px;
+  color: #8a8a8a;
+  text-decoration: line-through;
+}
+
+.item-price > .h1-text {
+  font-size: 27px;
+  font-style: italic;
+  font-weight: 700;
+  color: #5cff9c;
+}
+
+/* pagination section */
+
+.pagination-section {
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+
+.pagination-btn {
+  cursor: pointer;
+  color: #fff;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  background-color: #382e66;
+}
+
+.pagination-btn--disabled {
+  cursor: auto;
+  color: gray;
+}
+
+.pagination-btn--active {
+  color: yellow;
+}
+
+@media screen and (max-width: 768px) {
+  .omor {
+    padding: 2rem !important;
+  }
+
+  .deal-content .p-text {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  .deal-text {
+    padding-left: 1.2rem;
+    gap: 20px;
+  }
+
+  .items-content {
+    margin-top: 1rem;
+    justify-content: space-evenly;
+  }
+
+  .deal-img {
+    display: none;
+  }
+
+  .deal-title {
+    font-size: 32.5px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .deal-img {
+    display: none;
+  }
+
+  .deal-text {
+    gap: 20px;
+  }
+
+  .omor {
+    padding: 1rem 5rem;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .main {
+    overflow-x: hidden;
+  }
+  .omor {
+    padding: 1rem 6rem;
+  }
+
+  .deal-content .p-text {
+    width: 80% !important;
+  }
+
+  .item-name > .h1-text {
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 30px;
+    color: var(--WHITE-C);
+  }
+
+  .item-card {
+    width: 260px;
+    height: 330px;
+  }
+
+  .item-price > .h1-text {
+    font-size: 24px;
+  }
+}
+
+.wobble-hor-bottom {
+  -webkit-animation: wobble-hor-bottom 0.8s both;
+  animation: wobble-hor-bottom 0.8s both;
+}
+/* ----------------------------------------------
+ * Generated by Animista on 2024-2-17 23:17:36
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation wobble-hor-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes wobble-hor-bottom {
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+@keyframes wobble-hor-bottom {
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+    transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+    transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+    transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}

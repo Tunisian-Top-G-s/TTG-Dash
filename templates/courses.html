@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/courses.css" %}">
+
+{% endblock head %}
+
+
+
+  {% block main %}
+  {% include "components/navbar.html" %}
+  <div class="course-container">
+    <span class="h1-text">Popular Courses</span>
+    <div class="nav"></div>
+    <div class="popular-courses">
+      <div class="course-list">
+        {% for course in courses %}
+        
+        <div class="course" style = "background: url('{{course.img.url}}') no-repeat;">
+          <div class="layer"></div>
+          <div class="course-layout">
+            <div class="course-header">
+              <img
+                class="owner-icon"
+                src="{{course.img}}"
+                alt="course-bg"
+              />
+
+              <div class="course-owner">
+                <span class="h1-text">{{course.professor.user.username}}</span>
+                <span class="p-text">6 Years of experience</span>
+              </div>
+
+              <div class="course-pricing">
+                <span class="price">{{course.price}} DT - One Time</span>
+                <span class="duration">82 min</span>
+              </div>
+            </div>
+            <div class="course-title">
+              <span class="h1-text">{{course.title}}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="deco-asset"></div>
+  </div>
+  {% endblock main %}
+
+{% block footer %}{% endblock footer %}
+
+{% block scripts %}
+
+<script>
+
+</script>
+
+{% endblock scripts %}

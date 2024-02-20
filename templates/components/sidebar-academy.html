@@ -1,0 +1,75 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/sidebar-academy.css' %}">
+
+<div class="div-container-all-sidebar">
+    <div class="foundation">
+        <span class="title-summary-course">The Foundation</span>
+        <div class="flex-foundation">
+            <div class="under-foundation">
+                <div class="percentage-progess">100 % complete</div>
+                <div id="progressBarContainer" class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <div class="counter-modules-lessons">
+                    <div class="flex-ml">
+                        <span class="modules-number">2</span>
+                        <span class="modules-text">Modules</span>
+                    </div>
+                    <div class="flex-ml">
+                        <span class="modules-number">9</span>
+                        <span class="modules-text">Lessons</span>
+                    </div>
+                </div>
+            </div>
+            <div class="icon-course">
+                <img src="{% static 'assets/icon-course.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container-sidebar-v">
+        <div class="overview">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                <path d="M12.958 22.5C18.4809 22.5 22.958 18.0228 22.958 12.5C22.958 6.97715 18.4809 2.5 12.958 2.5C7.43516 2.5 2.95801 6.97715 2.95801 12.5C2.95801 18.0228 7.43516 22.5 12.958 22.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.958 16.5V12.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.958 8.5H12.968" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="overview-text">Overview</span>
+        </div>
+        <div class="container-modules">
+            {% for module in modules %}
+                <div class="all-container-steps-modules">
+                    <div class="dropdown-modules">
+                        <span class="module-text">Module {{module.module_number}} “{{module.title}}”</span>
+                        <a href="#" class="dropdownToggle"><img class="icon-default" src="{% static 'assets/arrow-down.png' %}" alt="Toggle Dropdown"></a>
+                    </div>
+                    <div class="modules">
+                        {% for video in module.video_set.all %}
+                        <div data-VideoId="{{video.id}}" class="modules-dropdowns">
+                            <div class="dropdown-content">
+                                <div class="step">
+                                    <div class="flex-right-intro">
+                                        <div class="icon-done">
+                                            <img class="icon-done-iamg" src="{% static 'assets/done-step.png' %}" alt="icon-done">
+                                        </div>
+                                        <div class="step-title">
+                                            <span class="title-text">{{module.description}}</span>
+                                            <span class="content-info">1 video + Exams</span>
+                                        </div>
+                                    </div>
+                                    <div class="button-icon">
+                                        <a href=""><img class="icon-default" src="{% static 'assets/arrow-right.png' %}" alt=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- Additional modules can follow the same structure as above -->
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/sidebar-academy.js' %}"></script>

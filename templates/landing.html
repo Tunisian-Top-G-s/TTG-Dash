@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/landing.css" %}">
+<link rel="stylesheet" href="{% static "styles/preloader.css" %}">
+<link rel="stylesheet" href="{% static "styles/components/navbar.css" %}">
+{% endblock head %}
+
+{% block title %}
+<title>landing</title>
+{% endblock title %}
+
+{% block main %}
+<!-- <div id="preloader"></div> -->
+
+<div class="landing">
+  <div class="div-center-navbar">
+    <div class="header-navbar">
+      <div class="logo">
+        <img
+          src="{% static "assets/logo-ttg-white.png" %}"
+          width="{130}"
+          height="{50}"
+        />
+      </div>
+
+      <ul class="navbar-list">
+        <a class="links-aa" href="{% url "home" %}">
+          <span class="list">Home</span>
+        </a>
+        <a class="links-aa" href="{% url "home" %}">
+          <span class="list">Academy</span>
+        </a>
+        <a class="links-aa" href="#Aboutus"
+          ><span class="list gij">About Us</span></a
+        >
+        <a class="links-aa" href="/ContactUs"
+          ><span class="list">Contact</span></a
+        >
+      </ul>
+
+      {% if user.is_authenticated == False %}
+      <div class="buttons">
+        <a href="{% url "login" %}" class="btn btn-login">Login</a>
+        <a href="{% url "register" %}" class="btn btn-signup">Sign Up</a>
+      </div>
+      {% else %}
+      <div class="profile-b">
+        <div class="notification">
+            <button data-nav-button>
+                <i data-lucide="bell" color="white"></i>
+            </button>
+            <div class="menu">
+                <div class="header">
+                    <i data-lucide="bell" color="black"></i>
+                    <label>Notifications</label>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li class="--unread" onclick="modifyContent(this)">
+                            <div class="notification-content">
+                                <div class="notif">
+                                    <i data-lucide="check-circle" color="#7dd475"></i>
+                                    <span>
+                                        <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="--unread" onclick="modifyContent(this)">
+                            <div class="notification-content">
+                                <div class="notif">
+                                    <i data-lucide="x-circle" color="#D15950"></i>
+                                    <span>
+                                        <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="--unread" onclick="modifyContent(this)">
+                            <div class="notification-content">
+                                <div class="notif">
+                                    <i data-lucide="alert-circle" color="#DCA048"></i>
+                                    <span>
+                                        <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="messages">
+            <button data-nav-button>
+                <i data-lucide="messages-square" color="white"></i>
+            </button>
+            <div class="menu">
+                <div class="header">
+                    <i data-lucide="messages-square" color="white"></i>
+
+                    <label>Messages</label>
+                </div>
+                <div class="content">
+                    <ul>
+                        <li class="--unread">
+                            <div>
+                                <div class="UserStatus">
+                                    <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                    <span class="status --donotdisturb"></span>
+                                </div>
+                                <span>
+                                    <b>Completed course “trading”</b>
+                                    <span class="received-msg">
+                                        Lorem ipsum dolor, sit amet consectetur ...
+                                    </span>
+                            </div>
+                        </li>
+                        <li class="--unread">
+                            <div>
+                                <div class="UserStatus">
+                                    <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                    <span class="status --online"></span>
+                                </div>
+                                <span>
+                                    <b>Completed course “trading”</b>
+                                    <span class="received-msg">
+                                        Lorem ipsum dolor, sit amet consectetur ...
+                                    </span>
+                            </div>
+                        </li>
+                        <li class="--unread">
+                            <div>
+                                <div class="UserStatus">
+                                    <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                    <span class="status --offline"></span>
+                                </div>
+                                <span>
+                                    <b>Completed course “trading”</b>
+                                    <span class="received-msg">
+                                        Lorem ipsum dolor, sit amet consectetur ...
+                                    </span>
+                            </div>
+                        </li>
+                        <li class="--unread">
+                            <div>
+                                <div class="UserStatus">
+                                    <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                    <span class="status --studying"></span>
+                                </div>
+                                <span>
+                                    <b>Completed course “trading”</b>
+                                    <span class="received-msg">
+                                        Lorem ipsum dolor, sit amet consectetur ...
+                                    </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-profile" id="profile-dropdown">
+            <img class="profile-imgs" src="{{user.customuser.pfp.url}}" alt="">
+            <span class="username">{{user.username}}</span>
+            <i id="chevron-down-icon" data-lucide="chevron-down" color="white"></i>
+            <div class="container-profile">
+                <div class="edit-profile">
+                    <i data-lucide="user-round-cog"></i>
+                    <span class="settings-text">Edit Profile</span>
+                </div>
+                <div class="settings-profile">
+                    <i data-lucide="settings"></i>
+                    <span class="settings-text">Settings</span>
+                </div>
+                <hr>
+                <div class="logout-profile">
+                    <i data-lucide="log-out"></i>
+                    <a href="{% url "logout" %}">
+                      <span class="logout-text">Log out</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+      {% endif %}
+      <!-- Updated Hamburger Menu -->
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="container nav-container" id="navContainer">
+      <div class="logo">
+        <img src="{% static "assets/logo-ttg-white.png" %}" alt="Logo TTG" />
+      </div>
+      <input class="checkbox" type="checkbox" name="" id="navToggle" />
+      <div class="hamburger-lines">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+      <div class="menu-items" id="dropDownMenu">
+        <li><a class="menu-item" href="{% url "home" %}">Home</a></li>
+        <li><a class="menu-item" href="{% url "home" %}">Academy</a></li>
+        <li><a class="menu-item" href="#Aboutus">About Us</a></li>
+        <li><a class="menu-item" href="#">Contact</a></li>
+        <li><a class="menu-item" href="{% url "login" %}" class="btn btn-login">Login</a></li>
+        <li><a class="menu-item" href="{% url "register" %}" class="btn btn-signup">Sign Up</a></li>
+      </div>
+    </div>
+  </div>
+  <div class="title-container">
+    <span class="title">
+      <span>Top Academy For</span> <br />
+      <span class="animate-charcter">Next Generation</span>
+    </span>
+    <div class="description">
+      Unlock Your Financial Potential: Master E-Commerce and <br />
+      Trading with Our Comprehensive Course Where Knowledge <br />
+      Meets Profit
+    </div>
+  </div>
+  <img src="{% static "assets/star.png" %}" alt="devimg" class="starImg" />
+  <div class="vid-container">
+    <div class="center-video">
+      <iframe
+        class="frame-video"
+        src="https://player.vimeo.com/video/898480357?h=b88feedadf"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+      ></iframe>
+    </div>
+  </div>
+
+  <div class="landingPage-main">
+    <div class="academy-container" id="Academy">
+      <div class="academy-titles">
+        <span class="h1-text">OUR ACADEMY</span>
+        <span class="h2-text">What are our courses ?</span>
+        <span class="p-text">The objective and our main mission</span>
+      </div>
+      <div class="courses-container">
+        <div class="cr-container" onclick="setCourseDetails('dev')">
+          <div class="cr-content">
+            <span class="h2-text">The Development Journey</span>
+            <div class="cr-learn-more">
+              <span class="p-text">
+                Learn More &nbsp;
+                <i data-lucide="move-right"></i>
+              </span>
+            </div>
+          </div>
+          <div class="cr-images">
+            <img
+              src="{% static "assets/dev-img.png" %}"
+              alt="devimg"
+              width="480"
+              height="269"
+            />
+          </div>
+        </div>
+        <div class="cr-container" onclick="setCourseDetails('trade')">
+          <div class="cr-content">
+            <span class="h2-text">Money Making From Trading</span>
+            <div class="cr-learn-more">
+              <span class="p-text">
+                Learn More &nbsp;
+                <i data-lucide="move-right"></i>
+              </span>
+            </div>
+          </div>
+          <div class="cr-images">
+            <img
+              src="{% static "assets/trade-img.png" %}"
+              alt="tradeimg"
+              width="480"
+              height="269"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="knowleadge-wrapper">
+      <div class="knowleadge-container">
+        <div class="knowleadge-content">
+          <span class="yellow-spans">ELEVATE YOUR KNOWLEADGE</span>
+          <span class="h-one">
+            Take your knowleadge to the next level with our platform
+          </span>
+          <div class="getStarted-content">
+            <a href="#" class="btn-get-started"
+              >Get Started Now
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Frame">
+                  <path
+                    id="Vector"
+                    d="M6.39205 11.2102L5.36932 10.1988L8.92045 6.64768H0V5.17041H8.92045L5.36932 1.62496L6.39205 0.60791L11.6932 5.90905L6.39205 11.2102Z"
+                    fill="#F5F5F5"
+                  />
+                </g>
+              </svg>
+            </a>
+            <div class="students">
+              <div>
+                <img
+                  src="{% static "assets/studentsImg.png" %}"
+                  alt="devimg"
+                  width="{200}"
+                  height="{200}"
+                  layout="responsive"
+                />
+              </div>
+              <div class="center-join-student-text">
+                <span>Join 100+ students</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="knowleadge-images">
+          <div class="cr-images">
+            <img
+              src="{% static "assets/trade-chart.png" %}"
+              alt="devimg"
+              width="{607}"
+              height="{329}"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedbacks-container" id="feedbacksContainer">
+      <div class="feedbacks-img" id="feedbacksImgContainer">
+
+
+
+        
+      </div>
+      <div class="feedbacks-content">
+        <span class="h-two-feedbacks"
+          >Voices of Success: What Our Clients Are Saying</span
+        >
+        <span class="feedback-prgph">
+          Discover the transformative experiences shared by our valued
+          clients who have embarked on a journey of growth and achievement
+          with us. At TTG, we take pride in fostering a community of
+          success-driven individuals, and our clients' reviews speak volumes
+          about the impact of our courses.
+        </span>
+      </div>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-title">
+        our students are
+        <span
+          >winning
+          <img src="{% static "assets/winning.svg" %}" width="{278}" height="{73}" />
+        </span>
+      </div>
+      <div class="sliderContainer" id="sliderContainer">
+        <div class="slider" id="slider"></div>
+      </div>
+
+      <div class="reverseSliderContainer" id="reverseSliderContainer">
+        <div class="reverseSlider" id="reverseSlider"></div>
+      </div>
+    </div>
+
+    <div class="ordonothing-container">
+      <div class="ordonothing-content">
+        <span>OR DO NOTHING</span>
+        <span>Go watch Netlix & Work a 9-5</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-content">
+        <span>UPSKILL FOR A BETTER FUTURE</span>
+        <span>Request More Information</span>
+        <span>TTG team is available for your questions 24h/24h</span>
+        <button class="btn btn-footer">Contact Us</button>
+      </div>
+      <hr />
+      <div class="sub-footer">
+        <div class="logo">
+          <img
+            src="{% static "assets/logo-ttg-white.png" %}"
+            alt="Logo TTG"
+            width="{154}"
+            height="{60}"
+          />
+        </div>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="">Sign Up</a></li>
+          <li class="footer-link"><a href="">Login</a></li>
+          <li class="footer-link"><a href="">Home</a></li>
+        </ul>
+        <div class="footer-socials">
+          <a href="https://discord.gg/tunisiantopgs" target="_blank">
+            <img
+              src="{% static "assets/discord.svg" %}"
+              class="social-icon"
+              alt="discord"
+            />
+          </a>
+          <a href="https://www.youtube.com/@ttgs01" target="_blank">
+            <i data-lucide="youtube" class="social-icon"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/tunisian_topgs/"
+            target="_blank"
+          >
+            <i data-lucide="instagram" class="social-icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <img
+        src="{% static "assets/footer-asset.svg" %}"
+        width="{400}"
+        height="{400}"
+        alt="footer asset"
+        class="footer-asset"
+      />
+    </div>
+  </div>
+</div>
+{% endblock main %}
+
+{% block scripts %}
+<script src="{% static "js/landing.js" %}"></script>
+{% endblock scripts %}
