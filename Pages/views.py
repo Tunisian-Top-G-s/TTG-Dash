@@ -220,6 +220,7 @@ def getRanking(request, *args, **kwargs):
             rankIco += 1
             serialized_users.append(serialized_user)
 
+
         # Pass the serialized top 5 users to the JsonResponse
         return JsonResponse({"success": True, "top_users": serialized_users})
     else:
@@ -327,3 +328,9 @@ def addTransaction(request):
             return JsonResponse({"success": True})
         else:
             return JsonResponse({"success": False, "errors": form.errors})
+        
+
+
+def privateSessionView(request, *args, **kwargs):
+    
+    return render(request, 'privateSession.html', {})

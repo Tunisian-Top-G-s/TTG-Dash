@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/privateSession.css" %}">
+{% endblock head %}
+
+{% block main %}
+<main>
+    <div class="schedule-container">
+        <div class="schedule-header">
+          <span>LOOKING TO HAVE A <br> PRIVATE SESSION?</span>
+          <div class="img">
+            <img src="{% static "assets/ttgq.svg" %}" alt="" />
+          </div>
+        </div>
+        <div class="schedule-body">
+          <div class="schedule-body-left">
+            <span>Schedule Private Session  with Professor : </span>
+            <form id="sessionForm" method="get">
+              <div class="inputs">
+                <div>
+                  <div class="input-container">
+                    <label for="name">First Name</label>
+                    <input type="text" id="FirstName" name="FirstName" placeholder="Enter your first name" required/>
+                  </div>
+                  <div class="input-container">
+                    <label for="name">Email</label>
+                    <input type="email" id="Email" name="Email" placeholder="Enter your email" required/>
+                  </div>
+
+                </div>
+                <div>
+                  <div class="input-container">
+                    <label for="name">Last Name</label>
+                    <input type="text" id="LastName" name="LastName" placeholder="Enter your last name" required/>
+                  </div>
+                  <div class="input-container">
+                    <label for="name">Phone Number</label>
+                    <input type="tel" id="PhoneNum" name="PhoneNum" placeholder="+216 00 000 000" required/>
+                  </div>
+                </div>
+              </div>
+            
+            <div class="TimeSelection">
+              <span>Select Time</span>
+              <div class="TimesAvailable">
+                <div>
+                <div class="checkbox">
+                  <label class="checkbox-wrapper">
+                    <input type="radio" name="SessionTime" value="30Min"class="checkbox-input" required/>
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">30  Minutes</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label class="checkbox-wrapper">
+                    <input type="radio" name="SessionTime" value="60Min" class="checkbox-input" required/>
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">1 Hour</span>
+                    </span>
+                  </label>
+                </div>
+                </div>
+                <div>
+                <div class="checkbox">
+                  <label class="checkbox-wrapper">
+                    <input type="radio" name="SessionTime" value="90Min" class="checkbox-input" required/>
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">1H 30 Minutes</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label class="checkbox-wrapper">
+                    <input type="radio" name="SessionTime" value="120Min" class="checkbox-input" required/>
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">2 Hours</span>
+                    </span>
+                  </label>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="schedule-body-right">
+          <ul class="tabs">
+            <li class="tab-link current" data-tab="tab-1"></li>
+            <li class="tab-link" data-tab="tab-2"></li>
+            <li class="tab-link" data-tab="tab-3"></li>
+          </ul>
+          
+          <div id="tab-1" class="tab-content current">
+            <span>select the private session mode :</span>
+            <div class="checkbox-group">
+            <div class="checkbox">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="SessionMode" value="Mode1" class="checkbox-input" required/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">a session by yourself alone</span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="SessionMode" value="Mode2" class="checkbox-input" />
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">a session just between you and your friends</span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="SessionMode" value="Mode3" class="checkbox-input" required/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">a session inculding you and another group</span>
+                </span>
+              </label>
+            </div>
+            </div>
+              <button type="button" class="next-tab-btn float-right">Confirm</button>
+          </div>
+          <div id="tab-2" class="tab-content">
+            <span>select your professor :</span>
+            <div class="checkbox-group">
+            <div class="checkbox slide-in-left">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="ProfessorSelector" value="Adem" class="checkbox-input" required/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">
+                    <div class="professor">
+                      <img src="{% static "assets/Professor1.svg" %}" alt="Professor Img" />
+                      <span>Professor 1</span>
+                    </div>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox slide-in-left">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="ProfessorSelector" value="Oussama" class="checkbox-input" required/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">
+                    <div class="professor">
+                      <img src="{% static "assets/Professor2.svg" %}" alt="Professor Img" />
+                      <span>Professor 2</span>
+                    </div>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox slide-in-left">
+              <label class="checkbox-wrapper">
+                <input type="radio" name="ProfessorSelector" value="Iyed" class="checkbox-input" required/>
+                <span class="checkbox-tile">
+                  <span class="checkbox-label">
+                    <div class="professor">
+                      <img src="{% static "assets/Professor3.svg" %}" alt="Professor Img" />
+                      <span>Professor 3</span>
+                    </div>
+                  </span>
+                </span>
+              </label>
+            </div>
+            </div>
+            <div class="button-group">
+              <button class="back-tab-btn">
+                <i data-lucide="chevron-left"></i>
+                Previous
+              </button>
+              <button type="button" class="next-tab-btn">Contine</button>
+            </div>
+          </div>
+          <div id="tab-3" class="tab-content">
+            <p>Tab content 3</p>
+            <div class="button-group">
+              <button class="back-tab-btn">
+                <i data-lucide="chevron-left"></i>
+                Previous
+              </button>
+              <button type="submit" class="next-tab-btn submit">Contine</button>
+            </div>
+          </div>
+          
+        </div>
+        </form>
+    </div>
+</main>
+
+
+{% endblock main %}
+
+{% block footer %}{% endblock footer %}
+
+{% block scripts %}
+<script src="{% static "js/privateSession.js" %}"></script>
+{% endblock scripts %}
