@@ -66,5 +66,6 @@ urlpatterns = [
     path('add_transaction/', views.addTransaction, name="add_transaction"),
 
     path('private-session/', views.privateSessionView, name="private_session"),
+    path('private-session-done/', views.privateSessionScheduleDoneView, name="private_session_done"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
