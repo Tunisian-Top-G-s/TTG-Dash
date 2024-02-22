@@ -334,3 +334,7 @@ def addTransaction(request):
 def privateSessionView(request, *args, **kwargs):
     
     return render(request, 'privateSession.html', {})
+
+def privateSessionScheduleDoneView(request, *args, **kwargs):
+
+    return render(request, 'privateSessionScheduleDone.html', {})
