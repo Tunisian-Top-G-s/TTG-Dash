@@ -163,6 +163,7 @@
                             <span class="old-price">120 DT</span>
                             <span class="price">92 DT</span>
                             <!-- <a href="#">ADD TO CART</a> -->
+                            <a class="button-30" onclick="addToCart()">ADD TO CART</a>
                           </div>
                         </div>
                       </div>
@@ -200,7 +201,7 @@
             <div class="left-container">
                 <div class="player-container"> 
                     <div id="player02" class="player horizontal">
-                      <img src="https://cdn.pixabay.com/photo/2016/03/26/13/09/cup-of-coffee-1280537_1280.jpg" alt="Logo Music Image">
+                      <img src="../static/assets/cover.png" alt="Logo Music Image">
                     
                       <div class="wrapper">
                        
@@ -248,65 +249,88 @@
                        </div>
                        
                       </div>
+
                     </div>
                   </div>
                   
                     <div class="members-container">
                       <div class="members-title">
-                          Meet the Community
+                          Talk The Proffesor <i data-lucide="info"></i> 
                       </div>
                       <div class="members-wraps-all">
-                          <div class="members-wrap">
-                            <div class="left-user-membre">  
-                            <img src="{% static "assets/profileuser.png" %}" alt="">
-                              <span>John Doe</span>
-                              </div>
-                              <div class="inter-icon">
-                                <i class="icons-membres" data-lucide="message-circle-more"></i>
-                               <i class="icons-membres" data-lucide="send-horizontal"></i>
-                              </div>
+                        <div class="icon-left" >
+                          <i data-lucide="chevron-left"></i>
+                        </div>
+                        <div class="proffesor-wrapper">
+                          <div class="proffessors-divs">
+
+                            <div class="picture-users">
+                              <img class="user-picture" src="{% static "assets/profileuser.png" %}" alt="userPic">
+                              <img class="rank-prof" src="{% static 'assets/badges/Staffp.png' %}"  alt="Rank" class="ranking-pic">
                             </div>
-                            <div class="members-wrap">
-                              <div class="left-user-membre">  
-                              <img src="{% static "assets/profileuser.png" %}" alt="">
-                                <span>John Doe</span>
-                                </div>
-                                <div class="inter-icon">
-                                  <i class="icons-membres" data-lucide="message-circle-more"></i>
-                                 <i class="icons-membres" data-lucide="send-horizontal"></i>
-                                </div>
-                              </div>
-                              <div class="members-wrap">
-                                <div class="left-user-membre">  
-                                <img src="{% static "assets/profileuser.png" %}" alt="">
-                                  <span>John Doe</span>
-                                  </div>
-                                  <div class="inter-icon">
-                                    <i class="icons-membres" data-lucide="message-circle-more"></i>
-                                   <i class="icons-membres" data-lucide="send-horizontal"></i>
-                                  </div>
-                                </div>
-                                <div class="members-wrap">
-                                  <div class="left-user-membre">  
-                                  <img src="{% static "assets/profileuser.png" %}" alt="">
-                                    <span>John Doe</span>
-                                    </div>
-                                    <div class="inter-icon">
-                                      <i class="icons-membres" data-lucide="message-circle-more"></i>
-                                     <i class="icons-membres" data-lucide="send-horizontal"></i>
-                                    </div>
-                                  </div>
-                                  <div class="members-wrap">
-                                    <div class="left-user-membre">  
-                                    <img src="{% static "assets/profileuser.png" %}" alt="">
-                                      <span>John Doe</span>
-                                      </div>
-                                      <div class="inter-icon">
-                                        <i class="icons-membres" data-lucide="message-circle-more"></i>
-                                       <i class="icons-membres" data-lucide="send-horizontal"></i>
-                                      </div>
-                                    </div>
-                       
+
+                            <div class="user-prof">
+                              <span class="user-name">Adam</span>
+                            </div>
+
+                            <div class="message-icon-f">
+                              <i class="message-icon" data-lucide="message-circle-more"></i>
+                            </div>
+
+                          </div>
+                          <div class="proffessors-divs">
+
+                            <div class="picture-users">
+                              <img class="user-picture"  src="{% static "assets/profileuser.png" %}" alt="userPic">
+                              <img class="rank-prof"     src="{% static 'assets/badges/Staffp.png' %}"  alt="Rank" class="ranking-pic">
+                            </div>
+
+                            <div class="user-prof">
+                              <span class="user-name">Adam</span>
+                            </div>
+
+                            <div class="message-icon-f">
+                              <i data-lucide="message-circle-more"></i>
+                            </div>
+
+                          </div>
+                          <div class="proffessors-divs">
+
+                            <div class="picture-users">
+                              <img class="user-picture"  src="{% static "assets/profileuser.png" %}" alt="userPic">
+                              <img class="rank-prof"     src="{% static 'assets/badges/Staffp.png' %}"  alt="Rank" class="ranking-pic">
+                            </div>
+
+                            <div class="user-prof">
+                              <span class="user-name">Adam</span>
+                            </div>
+
+                            <div class="message-icon-f">
+                              <i data-lucide="message-circle-more"></i>
+                            </div>
+
+                          </div>
+                          <div class="proffessors-divs">
+
+                            <div class="picture-users">
+                              <img class="user-picture"  src="{% static "assets/profileuser.png" %}" alt="userPic">
+                              <img class="rank-prof"     src="{% static 'assets/badges/Staffp.png' %}"  alt="Rank" class="ranking-pic">
+                            </div>
+
+                            <div class="user-prof">
+                              <span class="user-name">Adam</span>
+                            </div>
+
+                            <div class="message-icon-f">
+                              <i data-lucide="message-circle-more"></i>
+                            </div>
+
+                          </div>
+                          
+                        </div>
+                        <div class="icon-right" >
+                          <i data-lucide="chevron-right"></i>
+                        </div>
 
                   </div>
                 </div>
@@ -571,9 +595,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
         // Array of music tracks URLs
-        const tracks = ["", "",
+    const tracks = ["", "",
         // Add more tracks as needed
-      ];
+];
       
       let currentTrackIndex = 0;
   let isPlaying = false;
