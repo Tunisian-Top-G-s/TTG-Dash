@@ -3,14 +3,19 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "styles/privateSession.css" %}">
+{% block title %}<title>Tunisian Top Gs | Private Session</title>{% endblock title %}
 {% endblock head %}
 
 {% block main %}
-<main>
+{% include "components/navbar.html" %}
+
+  <div class='wrapper-conatiner-prvsession' >
+
+
     <div class="schedule-container">
         <div class="schedule-header">
           <span>LOOKING TO HAVE A <br> PRIVATE SESSION?</span>
-          <div class="img">
+          <div class="session-pictures">
             <img src="{% static "assets/ttgq.svg" %}" alt="" />
           </div>
         </div>
@@ -186,8 +191,8 @@
         </div>
         </form>
     </div>
-</main>
 
+  </div>
 
 {% endblock main %}
 

@@ -6,7 +6,6 @@
 {% block title %}<title>Tunisian Top Gs | Home</title>{% endblock title %}
 {% endblock head %}
 
-
 {% block main %}
 {% include "components/navbar.html" %}
 
@@ -17,9 +16,12 @@
               <div class="profile-container">
                     <div class="profile-img">
                         <img class="username-picture-pdf" src="{{user.customuser.pfp.url}}" alt="Profile Picture">
-                    </div>
+                    </div >
                     <div class="welcome-container">
+                      <div class="wrapper-user-badges">
                         <span>Welcome Back , {{user.username}}</span>
+                        <img class="user-badges" src="{% static "assets/badges/Trusted_Seller.svg" %}" alt="Level Bar">
+                      </div>
                         <span>You’ve learned <span style="color:#FBC550">{{user.customuser.calculate_overall_progress}}%</span>  of your goal ! Keep it up and improve your progress.</span>
                         <div class="level-bar">
                             <div class="inner-bar" style="width: {{user.customuser.calculate_overall_progress}}%%;">
@@ -334,7 +336,7 @@
 
                   </div>
                 </div>
-
+<!--   ====================== Support ====================-->
                     <div class="support-container">
                       <div class="support-Title">
                           Need Support <i data-lucide="info"></i>
@@ -355,13 +357,15 @@
             </div>
         </div>
     </div>
-
+<!--   =========================================================-->
+<!--  Pop Up's -->
+<!--   =========================================================-->
     <div id="popupMessage" class="popup-message">
       <img id="popupImage" src="" alt="">
       <span id="popupSpan" class="span-popup"></span>
       <button id="popUpCloseButton" class="pop-up-close-button">Close</button>
     </div>
-
+<!--   =========================================================-->
 
 
 {% endblock main %}
@@ -370,33 +374,11 @@
 
 {% block scripts %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--   =========================================================-->
+<!--   =========================================================-->
+<!--  Bootstrap core JavaScript -->
+<!--   =========================================================-->
+<!--   =========================================================-->
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -426,7 +408,8 @@ document.querySelectorAll('.rating a').forEach(icon => {
 document.getElementById('submit-btn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevents navigating to a new page if href="#".
     // Ensure you target the correct element for your thank you message
-    document.querySelector('.told-wrapper').innerHTML = '<div class="thank-you-message">Thank you for your reviews! ; ) </div>';
+    document.querySelector('.told-wrapper').innerHTML = 
+    '<div class="thank-you-message"><span>Thank you for your reviews! ; ) </span> </div>';
     // Trigger animation after setting innerHTML
     document.querySelector('.thank-you-message').classList.add('slide-in');
 });
@@ -599,7 +582,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Add more tracks as needed
 ];
       
-      let currentTrackIndex = 0;
+  let currentTrackIndex = 0;
   let isPlaying = false;
   const audio = new Audio();
   
