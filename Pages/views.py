@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 
 from django.utils import timezone
 from datetime import timedelta
+from PrivateSessions.forms import PrivateSessionForm
 from Users.forms import TransactionForm
 from Users.models import Transaction
 from .forms import LogInForm, SignUpForm
@@ -333,7 +334,13 @@ def addTransaction(request):
 
 def privateSessionView(request, *args, **kwargs):
     
-    return render(request, 'privateSession.html', {})
+    form = PrivateSessionForm()
+
+    session_time_choices = form.fields['session_time'].choices
+    separated_choices = [session_time_choices[i:i+2] for i in range(0, len(session_time_choices), 2)]
+    print(separated_choices)
+
+    return render(request, 'privateSession.html', {'form': form, "separated_choices": separated_choices})
 
 def privateSessionScheduleDoneView(request, *args, **kwargs):
 
