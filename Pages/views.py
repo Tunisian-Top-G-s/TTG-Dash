@@ -345,3 +345,19 @@ def privateSessionView(request, *args, **kwargs):
 def privateSessionScheduleDoneView(request, *args, **kwargs):
 
     return render(request, 'privateSessionScheduleDone.html', {})
+
+def settingsView(request, *args, **kwargs):
+
+    return render(request, 'settings.html', {})
+
+def settingsResetPasswordView(request, *args, **kwargs):
+
+    return render(request, 'settingsResetPassword.html', {})
+
+def paymentView(request, *args, **kwargs):
+
+    return render(request, 'payment.html', {})
+
+def PersonalInfoView(request, *args, **kwargs):
+
+    return render(request, 'personalInfo.html', {})

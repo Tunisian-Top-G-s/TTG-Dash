@@ -1,0 +1,231 @@
+:root {
+    --body-bg: #201654;
+    --body-color: #fff;
+    --font: "Poppins", sans-serif;
+  }
+  
+  /* tag selectors */
+  
+  body {
+    margin: 0;
+    padding: 0;
+    color: var(--body-color);
+    background-color: var(--body-bg);
+    font-family: var(--font);
+  }
+  
+  main {
+    padding-left: 28rem;
+    padding-right: 28rem;
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* reusable classes */
+  
+  .flex {
+    display: flex;
+  }
+  
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  
+  .flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .personal-information-section {
+    width: 1081px;
+    height: 100%;
+    border: 0.5px solid #ffffff;
+    border-radius: 16px;
+    background: #4949491f;
+    box-shadow: 0px 20px 100px 0px #00000040;
+    margin-bottom: 1rem;
+    padding: 3rem;
+  }
+  
+  .personal-information-section > .h1-text {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  
+  .personal-information-body {
+    margin-top: 5rem;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .card-item {
+    width: 500px;
+    height: 100px;
+    border-radius: 8px;
+    background: #f5f5f526;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .card-item:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  
+  .info-section {
+    width: 50%;
+  }
+  
+  .info-section .p-text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .secondary-text {
+    font-weight: 400 !important;
+    color: #9cb3c9;
+    font-size: 16px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .change-btn {
+    background-color: #fff;
+    border: none;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: medium;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    font-weight: 600;
+  }
+  
+  .change-btn:hover {
+    opacity: 0.7;
+  }
+  
+  .personal-info {
+    flex: 1;
+  }
+  
+  .profile-pic {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-name > .h1-text {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .icon-btn {
+    width: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .profile-icons {
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .profile-stats {
+    width: 100%;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+  
+  .stat-item > .p-text {
+    font-size: 12px;
+    font-weight: 700;
+  }
+  
+  .stat-item > .h1-text {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  .profile-bio {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .profile-bio > .h1-text {
+    font-weight: 700;
+  }
+  
+  /* media queries */
+  
+  /* extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    main {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin-top: 5rem;
+    }
+  
+    .personal-information-section {
+      width: 300px;
+      padding: 2rem;
+    }
+  
+    .personal-information-section > .h1-text {
+      font-size: 30px;
+      font-weight: 700;
+    }
+  
+    .card-item {
+      width: 250px;
+    }
+  }
+  
+  /* small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) and (max-width: 768px) {
+    main {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin-top: 5rem;
+    }
+  
+    .personal-information-section {
+      width: 620px;
+      padding: 2rem;
+    }
+  
+    .personal-information-section > .h1-text {
+      font-size: 30px;
+      font-weight: 700;
+    }
+  }
+  
+  /* large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) and (max-width: 1440px) {
+    main {
+      padding-left: 5rem;
+      padding-right: 5rem;
+      margin-top: 5rem;
+    }
+  
+    .personal-information-section {
+      width: 800px;
+      padding: 2rem;
+    }
+  
+    .card-item {
+      width: 400px;
+    }
+  }
+  
