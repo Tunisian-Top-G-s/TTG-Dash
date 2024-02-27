@@ -490,7 +490,29 @@
     margin-left: 1.3em;
     font-size: 18px;
 }
-@media screen and (max-width: 1024px) {
+@media only screen and (max-width:1384px) {
+    .notification .messages{
+        display: none;
+    }
+
+}
+@media only screen and (max-width:1024px) {
+    .van-text{
+        font-size: 14px ;
+    }
+    .nav-slipe > svg {
+        width: 18px;
+        height: 25px;
+    }
+    .fkkk{
+        gap: 10px;
+    }
+}
+@media screen and (max-width: 770px) {
+    .van-text{
+        font-size: 14px 
+    }
+   
     .container {
         margin: auto;
       }
@@ -656,6 +678,7 @@
       .nav-container input[type="checkbox"]:checked ~ .logo {
         display: none;
       }
+      
 
 }
 

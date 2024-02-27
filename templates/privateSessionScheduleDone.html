@@ -6,7 +6,9 @@
 {% endblock head %}
 
 {% block main %}
-<main>
+{% include "components/navbar.html" %}
+
+<div class="wrapper-allcontainer-done">
     <div class="schedule-container">
       <div class="schedule-header">
         <span>LOOKING TO HAVE A <br> PRIVATE SESSION?</span>
@@ -27,8 +29,7 @@
         </div>
       </div>
     </div>
-  </main>
-
+  </div>
 {% endblock main %}
 
 {% block footer %}{% endblock footer %}
