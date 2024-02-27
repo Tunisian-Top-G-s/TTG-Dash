@@ -16,14 +16,18 @@
     <div class="popular-courses">
       <div class="course-list">
         {% for course in courses %}
-        
-        <div class="course" style = "background: url('{{course.img.url}}') no-repeat;">
+        <!-- <a href="" class="courses-links">   -->
+        <div class="course volls" 
+        style="
+        background: url('{{course.img.url}}') no-repeat center;
+        background-size: 155% 100%;
+        ">
           <div class="layer"></div>
           <div class="course-layout">
             <div class="course-header">
               <img
                 class="owner-icon"
-                src="{{course.img}}"
+                src="{{course.img.url}}"
                 alt="course-bg"
               />
 
@@ -33,8 +37,8 @@
               </div>
 
               <div class="course-pricing">
-                <span class="price">{{course.price}} DT - One Time</span>
-                <span class="duration">82 min</span>
+                <span class="price">{{course.price}} DT - Monthly</span>
+                {% comment %} <span class="duration">82 min</span> {% endcomment %}
               </div>
             </div>
             <div class="course-title">
@@ -42,10 +46,12 @@
             </div>
           </div>
         </div>
+      <!-- </a> -->
         {% endfor %}
       </div>
     </div>
     <div class="deco-asset"></div>
+    <div class="deco-asset2"></div>
   </div>
   {% endblock main %}
 

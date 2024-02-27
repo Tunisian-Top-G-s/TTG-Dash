@@ -13,12 +13,11 @@
 {% endblock header %}
 
 {% block main %}
-  </head>
-  <body>
+
     <div class="settings-container">
       <span class="h1-text">Settings</span>
-      <div class="settings">
-        <div class="setting">
+      <div class="settings" >
+        <div class="setting" onclick="redirectToUrl('{% url 'personal_info' %}')">
           <i data-lucide="square-user"></i>
           <div class="setting-body">
             <span class="h1-text">Personal Info</span>
@@ -29,7 +28,7 @@
         </div>
         <div class="setting">
           <i data-lucide="shield-half"></i>
-          <div class="setting-body">
+          <div class="setting-body" onclick="redirectToUrl('{% url 'settingd_reset_password' %}')">
             <span class="h1-text">Login & Security</span>
             <span class="p-text"
               >Update your password and secure your account</span
@@ -47,7 +46,7 @@
         </div>
         <div class="setting">
           <i data-lucide="banknote"></i>
-          <div class="setting-body">
+          <div class="setting-body" onclick="redirectToUrl('{% url 'payment' %}')" >
             <span class="h1-text">Payments & Payouts</span>
             <span class="p-text">Review payments, payouts, coupons</span>
           </div>
@@ -69,4 +68,11 @@
 
 {% block footer %}{% endblock footer %}
 
-{% block scripts %}{% endblock scripts %}
+{% block scripts %}
+<script>
+  // JavaScript function to handle redirection
+  function redirectToUrl(url) {
+    window.location.href = url;
+  }
+  </script>
+  {% endblock scripts %}

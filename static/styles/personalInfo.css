@@ -4,20 +4,10 @@
     --font: "Poppins", sans-serif;
   }
   
-  /* tag selectors */
-  
-  body {
-    margin: 0;
-    padding: 0;
-    color: var(--body-color);
-    background-color: var(--body-bg);
-    font-family: var(--font);
-  }
+
   
   main {
-    padding-left: 28rem;
-    padding-right: 28rem;
-    margin-top: 5rem;
+
     display: flex;
     justify-content: center;
   }
@@ -28,7 +18,7 @@
     display: flex;
   }
   
-  .flex-wrap {
+  .flex-wrap { 
     flex-wrap: wrap;
   }
   
@@ -39,28 +29,35 @@
   
   .flex-col {
     flex-direction: column;
+    display: flex;
+    gap: 10px;
+  }
+
+  .info-card{
+    display: flex;
   }
   
   .personal-information-section {
     width: 1081px;
     height: 100%;
     border: 0.5px solid #ffffff;
-    border-radius: 16px;
+    border-radius: 15px;
     background: #4949491f;
     box-shadow: 0px 20px 100px 0px #00000040;
-    margin-bottom: 1rem;
-    padding: 3rem;
+    padding: 50px;
+    color: white;
+    display: flex;
+    gap: 32px;
+
   }
   
   .personal-information-section > .h1-text {
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 700;
   }
   
   .personal-information-body {
-    margin-top: 5rem;
-    justify-content: space-between;
-    gap: 30px;
+
   }
   
   .card-item {
@@ -70,21 +67,20 @@
     background: #f5f5f526;
     align-items: center;
     justify-content: space-between;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 0px 22px;
   }
   
   .card-item:not(:last-child) {
-    margin-bottom: 1rem;
   }
   
   .info-section {
     width: 50%;
   }
   
-  .info-section .p-text {
-    font-size: 18px;
-    font-weight: 600;
+  .p-text {
+    font-size: 16px;
+    font-weight: 300;
+    text-align: left;
   }
   
   .secondary-text {
@@ -99,11 +95,11 @@
   .change-btn {
     background-color: #fff;
     border: none;
-    padding: 0.7rem 2rem;
+    padding: 10px 30px;
     cursor: pointer;
-    border-radius: 6px;
-    font-size: medium;
-    font-weight: 600;
+    border-radius: 5px;
+    font-size: 14px;
+    /* font-weight: 600; */
     transition: all 0.3s ease-in-out;
     font-weight: 600;
   }
@@ -121,7 +117,6 @@
     height: 130px;
     border-radius: 50%;
     background-color: #fff;
-    margin-bottom: 1rem;
   }
   
   .profile-name > .h1-text {
@@ -130,10 +125,9 @@
   }
   
   .icon-btn {
-    width: 5px;
+    width: 30px;
     background-color: transparent;
     border: none;
-    cursor: pointer;
   }
   
   .profile-icons {
@@ -144,7 +138,6 @@
   .profile-stats {
     width: 100%;
     gap: 10px;
-    margin-top: 2rem;
   }
   
   .stat-item > .p-text {
@@ -155,13 +148,10 @@
   .stat-item > .h1-text {
     font-size: 20px;
     font-weight: 700;
+    
   }
   
-  .profile-bio {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 16px;
-  }
+
   
   .profile-bio > .h1-text {
     font-weight: 700;
@@ -174,7 +164,6 @@
     main {
       padding-left: 2rem;
       padding-right: 2rem;
-      margin-top: 5rem;
     }
   
     .personal-information-section {
@@ -197,7 +186,6 @@
     main {
       padding-left: 2rem;
       padding-right: 2rem;
-      margin-top: 5rem;
     }
   
     .personal-information-section {
@@ -216,7 +204,6 @@
     main {
       padding-left: 5rem;
       padding-right: 5rem;
-      margin-top: 5rem;
     }
   
     .personal-information-section {

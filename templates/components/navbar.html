@@ -36,7 +36,7 @@
                                 <span class="van-text">Chat</span>
                             </div>
                         </a>
-                        <a href="#" id="schedules">
+                        <a href="{% url "private_session" %}" id="schedules">
                             <div class="nav-slipe">
                                 <i data-lucide="calendar-check" color="white"></i>
                                 
@@ -175,10 +175,10 @@
                                 <i data-lucide="user-round-cog"></i>
                                 <span class="settings-text">Edit Profile</span>
                             </div>
-                            <div class="settings-profile">
+                            <a href="{% url "settings" %}" class="settings-profile">
                                 <i data-lucide="settings"></i>
                                 <span class="settings-text">Settings</span>
-                            </div>
+                            </a>
                             <hr>
                             <a class="logout-profile" href="{% url "logout" %}">
                                 <i data-lucide="log-out"></i>

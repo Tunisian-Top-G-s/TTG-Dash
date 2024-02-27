@@ -11,8 +11,9 @@
 {% endblock header %}
 
 {% block main %}
+<a href="#" onclick="goBack()">Go Back</a>
 
-    <main>
+   
       <section class="flex flex-col payments-section">
         <span class="h1-text">Payment & Payouts</span>
         <span class="p-text">Payment Methods</span>
@@ -127,6 +128,10 @@
           </div>
         </div>
       </section>
-    </main>
-
+      <script>
+        function goBack() {
+          window.history.back();
+          return false; // Prevent default link behavior
+        }
+        </script>
 {% endblock main %}
