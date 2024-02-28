@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/settingsNotification.css" %}">
+{% endblock head %}
+
+{% block header %}
+    {% include "components/navbar.html" %}
+{% endblock header %}
+
+{% block main %}
+
+    <div class="main">
+      <div class="form">
+        <div class="form-header">
+          <span class="h1-text">Notifications</span>
+          <span class="p-text"
+            >Updating a password using the old password involves changing the
+            existing password without additional verification, providing a
+            convenient method for users.</span
+          >
+        </div>
+        <div class="form-body">
+          <div class="left-block">
+            <span class="h1-text">Plateform Notifications</span>
+            <div class="notification-setting">
+              <span class="p-text">Allow General Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+            <div class="notification-setting">
+              <span class="p-text">Allow Chat Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+            <div class="notification-setting">
+              <span class="p-text">Allow Courses Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+          </div>
+
+          <div class="divisier"></div>
+
+          <div class="right-block">
+            <span class="h1-text">E-Mail notifications</span>
+            <div class="notification-setting">
+              <span class="p-text">Allow General Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+            <div class="notification-setting">
+              <span class="p-text">Allow Chat Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+            <div class="notification-setting">
+              <span class="p-text">Allow Courses Notifications</span>
+              <input class="container_toggle" type="checkbox" id="switch" name="mode">
+              <label for="switch">Toggle</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- Toggle js can be helpful 
+ var checkbox = document.querySelector('input[name=mode]');
+
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                trans()
+                document.documentElement.setAttribute('data-theme', 'dark')
+            } else {
+                trans()
+                document.documentElement.setAttribute('data-theme', 'light')
+            }
+        })
+
+        let trans = () => {
+            document.documentElement.classList.add('transition');
+            window.setTimeout(() => {
+                document.documentElement.classList.remove('transition');
+            }, 1000)
+        }
+-->
+{% endblock main %}
+
+{% block footer %}{% endblock footer %}
+
+{% block scripts %}
+
+  {% endblock scripts %}

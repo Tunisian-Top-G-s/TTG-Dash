@@ -72,6 +72,7 @@ urlpatterns = [
     path('settings_reset_password/', views.settingsResetPasswordView, name="settingd_reset_password"),
     path('payment/', views.paymentView, name="payment"),
     path('personal_info/', views.personalInfoView, name="personal_info"),
+    path('settings_notification/', views.notificationView, name="settings_notification"),
 
 
     path('checkout/', views.checkoutView, name="checkout"),

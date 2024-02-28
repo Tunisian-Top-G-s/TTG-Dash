@@ -373,3 +373,8 @@ def orderCompleteView(request, *args, **kwargs):
 def cartView(request, *args, **kwargs):
 
     return render(request, 'cart.html', {})
+
+def notificationView(request, *args, **kwargs):
+
+    return render(request, 'settingsNotification.html', {})
+
