@@ -9,8 +9,10 @@
 {% block main %}
 {% include "components/navbar.html" %}
 
+<div class="wrap-text">
+<span class="h1-text">Crypto Trading Learning Center</span>
+</div>
 <div class="learning-center">
-  <span class="h1-text">Crypto Trading Learning Center</span>
   <div class="learning-center-wrapper">
     {% for level in levels %}
       <div data-id='{{level.id}}' class="learning-step">
