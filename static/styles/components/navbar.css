@@ -84,6 +84,16 @@
     gap: 10px;
     bottom: -5.5rem;
 }
+span.sort-by-up-arrow {
+    border-bottom: 15px solid #fff;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    height: 0;
+    right: 47px;
+    position: absolute;
+    top: -8px;
+    width: 0;
+}
 .container-profile hr{
     width: 100%;
     border-color: #F5F5F5;
@@ -100,6 +110,12 @@
 .container-profile > .settings-profile > svg, .container-profile > .logout-profile > svg , .container-profile > .edit-profile > svg{
     color: #201654;
     font-size: 16px;
+}
+.container-profile > .edit-profile:hover > svg{
+    color: #201654;
+}
+.container-profile > .edit-profile:hover > span{
+    color: #201654;
 }
 .container-profile > .settings-profile > span, .container-profile > .logout-profile > span , .container-profile > .edit-profile > span{
     color: #201654;
@@ -160,8 +176,6 @@
     top: 95%;
     right: 100px;
     width: 375px;
-    background-color: #0A0338;
-    box-shadow: 0px 0px 30px -5px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     opacity: 0;
     pointer-events: none;
@@ -169,6 +183,9 @@
     transform-origin: top right;
     transform: scaleY(0);
     z-index: 10;
+    background: rgb(0 0 0 / 58%);
+    box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
 }
 
 .notification.--active > .menu {
@@ -270,10 +287,8 @@
 .messages > .menu {
     position: absolute;
     top: 95%;
-    right: 70px;
+    right: 100px;
     width: 375px;
-    background-color: #0A0338;
-    box-shadow: 0px 0px 30px -5px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     opacity: 0;
     pointer-events: none;
@@ -281,6 +296,9 @@
     transform-origin: top right;
     transform: scaleY(0);
     z-index: 10;
+    background: rgb(0 0 0 / 58%);
+    box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
 }
 
 .messages.--active > .menu {
@@ -658,4 +676,5 @@
       }
 
 }
+
 

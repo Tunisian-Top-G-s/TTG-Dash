@@ -71,6 +71,11 @@ urlpatterns = [
     path('settings/', views.settingsView, name="settings"),
     path('settings_reset_password/', views.settingsResetPasswordView, name="settingd_reset_password"),
     path('payment/', views.paymentView, name="payment"),
-    path('personal_info/', views.PersonalInfoView, name="personal_info"),
+    path('personal_info/', views.personalInfoView, name="personal_info"),
+
+
+    path('checkout/', views.checkoutView, name="checkout"),
+    path('order_complete/', views.orderCompleteView, name="order_complete"),
+    path('cart/', views.cartView, name="cart"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

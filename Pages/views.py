@@ -358,6 +358,18 @@ def paymentView(request, *args, **kwargs):
 
     return render(request, 'payment.html', {})
 
-def PersonalInfoView(request, *args, **kwargs):
+def personalInfoView(request, *args, **kwargs):
 
     return render(request, 'personalInfo.html', {})
+
+def checkoutView(request, *args, **kwargs):
+
+    return render(request, 'checkout.html', {})
+
+def orderCompleteView(request, *args, **kwargs):
+
+    return render(request, 'orderComplete.html', {})
+
+def cartView(request, *args, **kwargs):
+
+    return render(request, 'cart.html', {})
