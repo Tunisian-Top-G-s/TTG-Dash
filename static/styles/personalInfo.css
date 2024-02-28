@@ -57,7 +57,17 @@
   }
   
   .personal-information-body {
-
+    flex-direction: column;
+  }
+  .personal-information-body > a{
+    color: white;
+    font-size: large;
+    flex-direction: row;
+    display: flex;
+    gap: 10px;
+  }
+  .personal-information-body > a:hover{
+    color: lightgrey;
   }
   
   .card-item {
