@@ -13,6 +13,7 @@
 
     <div class="main">
       <div class="form">
+        <a href="#" class="go_back" onclick="goBack()"><i data-lucide="undo-2"></i> Go Back</a>
         <div class="form-header">
           <span class="h1-text">Notifications</span>
           <span class="p-text"
@@ -91,5 +92,10 @@
 {% block footer %}{% endblock footer %}
 
 {% block scripts %}
-
+<script>
+  function goBack() {
+    window.history.back();
+    return false; // Prevent default link behavior
+  }
+  </script>
   {% endblock scripts %}

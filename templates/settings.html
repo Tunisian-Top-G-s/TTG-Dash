@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block head %}
+{% block title %}<title>Settings | Tunisian Top Gs</title>{% endblock title %}
 <link rel="stylesheet" href="{% static "styles/settings.css" %}">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,7 +36,7 @@
             >
           </div>
         </div>
-        <div class="setting">
+        <div class="setting disabled">
           <i data-lucide="toggle-right"></i>
           <div class="setting-body">
             <span class="h1-text">Global Preferences</span>
@@ -53,7 +54,7 @@
         </div>
         <div class="setting">
           <img src="{% static "assets/info-icon.png" %}" alt="info-icon" />
-          <div class="setting-body">
+          <div class="setting-body" onclick="redirectToUrl('{% url 'settings_notification' %}')">
             <span class="h1-text">Notifications</span>
             <span class="p-text"
               >Choose notification preferences and how you want to be
