@@ -5,10 +5,11 @@
 <link rel="stylesheet" href="{% static "styles/landing.css" %}">
 <link rel="stylesheet" href="{% static "styles/preloader.css" %}">
 <link rel="stylesheet" href="{% static "styles/components/navbar.css" %}">
+  
 {% endblock head %}
 
 {% block title %}
-<title>landing</title>
+<title>Tunisian Top Gs | For Next Generation</title>
 {% endblock title %}
 
 {% block main %}
@@ -29,7 +30,7 @@
         <a class="links-aa" href="{% url "home" %}">
           <span class="list">Home</span>
         </a>
-        <a class="links-aa" href="{% url "home" %}">
+        <a class="links-aa" href="#Academy">
           <span class="list">Academy</span>
         </a>
         <a class="links-aa" href="#Aboutus"
@@ -200,7 +201,7 @@
       </div>
       <div class="menu-items" id="dropDownMenu">
         <li><a class="menu-item" href="{% url "home" %}">Home</a></li>
-        <li><a class="menu-item" href="{% url "home" %}">Academy</a></li>
+        <li><a class="menu-item" href="#Academy">Academy</a></li>
         <li><a class="menu-item" href="#Aboutus">About Us</a></li>
         <li><a class="menu-item" href="#">Contact</a></li>
         <li><a class="menu-item" href="{% url "login" %}" class="btn btn-login">Login</a></li>
@@ -219,7 +220,7 @@
       Meets Profit
     </div>
   </div>
-  <img src="{% static "assets/star.png" %}" alt="devimg" class="starImg" />
+  <img src="{% static "assets/LadnigStar.png" %}" alt="devimg" class="starImg" />
   <div class="vid-container">
     <div class="center-video">
       <iframe
@@ -363,6 +364,7 @@
           <img src="{% static "assets/winning.svg" %}" width="{278}" height="{73}" />
         </span>
       </div>
+      
       <div class="sliderContainer" id="sliderContainer">
         <div class="slider" id="slider"></div>
       </div>
@@ -370,6 +372,7 @@
       <div class="reverseSliderContainer" id="reverseSliderContainer">
         <div class="reverseSlider" id="reverseSlider"></div>
       </div>
+
     </div>
 
     <div class="ordonothing-container">
@@ -397,9 +400,9 @@
           />
         </div>
         <ul class="footer-links">
-          <li class="footer-link"><a href="">Sign Up</a></li>
-          <li class="footer-link"><a href="">Login</a></li>
-          <li class="footer-link"><a href="">Home</a></li>
+          <li class="footer-link"><a href="/register/">Sign Up</a></li>
+          <li class="footer-link"><a href="/login">Login</a></li>
+          <li class="footer-link"><a href="/">Home</a></li>
         </ul>
         <div class="footer-socials">
           <a href="https://discord.gg/tunisiantopgs" target="_blank">

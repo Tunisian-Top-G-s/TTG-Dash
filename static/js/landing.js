@@ -144,6 +144,8 @@ function getPreloaderHTML() {
 function setCourseDetails(type) {
   const devSelected = type === "dev";
   const tradeSelected = type === "trade";
+  const coursesContainer = document.querySelector(".courses-container");
+  
 
   // Handle logic based on devSelected and tradeSelected
   if (devSelected) {
@@ -151,6 +153,10 @@ function setCourseDetails(type) {
           <div class="details-wrapper"> 
           <div class="details">
             <div class="details-container">
+            <button class="goBack">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+            Go Back
+            </button>
                 <div class="details-title">
                     <span>Money  Making From Trading</span>
                     <span>700DT/ Monthly</span>
@@ -215,6 +221,10 @@ function setCourseDetails(type) {
           <div class="details-wrapper"> 
           <div class="details">
             <div class="details-container">
+            <button class="goBack">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-left"><path d="M6 8L2 12L6 16"/><path d="M2 12H22"/></svg>
+            Go Back
+            </button>
                 <div class="details-title">
                     <span>Money  Making From Trading</span>
                     <span>700DT/ Monthly</span>
@@ -275,7 +285,53 @@ function setCourseDetails(type) {
             </div>
             </div>`;
   }
-}
+  const goBackButton = document.querySelector(".goBack");
+  goBackButton.addEventListener("click", function () {
+    // Reset course details
+    coursesContainer.innerHTML = `      <div class="courses-container">
+    <div class="cr-container" onclick="setCourseDetails('dev')">
+      <div class="cr-content">
+        <span class="h2-text">The Development Journey</span>
+        <div class="cr-learn-more">
+          <span class="p-text">
+            Learn More &nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="move-right" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg>
+          </span>
+        </div>
+      </div>
+      <div class="cr-images">
+        <img
+          src="/static/assets/dev-img.png"
+          alt="devimg"
+          width="480"
+          height="269"
+        />
+      </div>
+    </div>
+    <div class="cr-container" onclick="setCourseDetails('trade')">
+      <div class="cr-content">
+        <span class="h2-text">Money Making From Trading</span>
+        <div class="cr-learn-more">
+          <span class="p-text">
+            Learn More &nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="move-right" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg>
+          </span>
+        </div>
+      </div>
+      <div class="cr-images">
+        <img
+          src="/static/assets/trade-img.png"
+          alt="tradeimg"
+          width="480"
+          height="269"
+        />
+      </div>
+    </div>
+  </div>`;
+    // Or you can set it to some default content
+    // coursesContainer.innerHTML = "<div>Default content</div>";
+  });
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   const feedbacksImgContainer = document.getElementById(
@@ -348,12 +404,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const images = [
-  "../static/assets/gain1.svg",
-  "../static/assets/gain2.svg",
-  "../static/assets/gain3.svg",
-  "../static/assets/gain4.svg",
-  "../static/assets/gain5.svg",
-  "../static/assets/gain6.svg",
+  "../static/assets/gain1.png",
+  "../static/assets/gain2.png",
+  "../static/assets/gain3.png",
+  "../static/assets/gain4.png",
+  "../static/assets/gain5.png",
+  "../static/assets/gain6.png",
+  "../static/assets/gain14.png",
 ];
 
 const sliderContainer = document.getElementById("sliderContainer");
@@ -370,18 +427,15 @@ const interval = setInterval(() => {
   updateSlider();
 }, 1500);
 
-// Uncomment the following line if you want to stop the slider when the page loses focus
-// window.addEventListener('blur', () => clearInterval(interval));
 
 images.forEach((image, index) => {
   const imgElement = document.createElement("img");
   imgElement.src = image;
-  imgElement.alt = `Slide ${index}`;
+  imgElement.alt = `StudentWins ${index}`;
   imgElement.className = "sliderImage";
   slider.appendChild(imgElement);
 });
 
-// window.addEventListener('blur', () => clearInterval(interval));
 
 images.forEach((image, index) => {
   const imgElement = document.createElement("img");
@@ -392,12 +446,13 @@ images.forEach((image, index) => {
 });
 
 const reverseImages = [
-  "../static/assets/gain1.svg",
-  "../static/assets/gain2.svg",
-  "../static/assets/gain3.svg",
-  "../static/assets/gain4.svg",
-  "../static/assets/gain5.svg",
-  "../static/assets/gain6.svg",
+  "../static/assets/gain7.png",
+  "../static/assets/gain8.png",
+  "../static/assets/gain9.png",
+  "../static/assets/gain10.png",
+  "../static/assets/gain11.png",
+  "../static/assets/gain12.png",
+  "../static/assets/gain13.png",
 ];
 
 const reverseSliderContainer = document.getElementById(
@@ -408,8 +463,7 @@ const reverseSlider = document.getElementById("reverseSlider");
 let reverseCurrentIndex = 0;
 
 const updateReverseSlider = () => {
-  reverseCurrentIndex =
-    (reverseCurrentIndex - 1 + reverseImages.length) % reverseImages.length;
+  reverseCurrentIndex = (reverseCurrentIndex - 1 + reverseImages.length) % reverseImages.length;
   reverseSlider.style.transform = `translateX(-${reverseCurrentIndex * 10}%)`;
 };
 
@@ -420,7 +474,7 @@ const ReverseInterval = setInterval(() => {
 reverseImages.forEach((image, index) => {
   const imgElement = document.createElement("img");
   imgElement.src = image;
-  imgElement.alt = `Slide ${index}`;
+  imgElement.alt = `StudentWins ${index}`;
   imgElement.className = "sliderImage";
   reverseSlider.appendChild(imgElement);
 });
@@ -456,3 +510,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+

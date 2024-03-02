@@ -1,25 +1,10 @@
 
-<<<<<<< HEAD
-  body {
-    margin: 0;
-    padding: 0;
-    color: var(--body-color);
-    background-color: var(--body-bg);
-    font-family: var(--font);
-  }
-=======
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   
   .settings-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-<<<<<<< HEAD
-    margin: auto;
-    width: 60%;
-=======
     width: 100%;
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
     gap: 40px;
   }
   
@@ -35,12 +20,8 @@
     font-size: 32px;
     font-style: normal;
     font-weight: 600;
-<<<<<<< HEAD
-    line-height: 36px; /* 112.5% */
-=======
     line-height: 36px;
     align-items: center;
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   }
   
   .settings {
@@ -49,13 +30,6 @@
     flex-flow: row wrap;
     width: 100%;
     max-height: 100%;
-<<<<<<< HEAD
-    gap: 20px;
-    justify-content: flex-start;
-  }
-  
-  .setting {
-=======
     gap: 25px;
     justify-content: flex-start;
     padding: 0px 200px;
@@ -64,7 +38,6 @@
   
   .setting {
     cursor: pointer;
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
     padding: 16px;
     flex-direction: column;
     justify-content: center;
@@ -78,10 +51,6 @@
     width: fit-content;
     min-width: 29%;
     max-width: 29%;
-<<<<<<< HEAD
-  }
-  
-=======
     transition: opacity 0.5s ease-out;
   }
   .setting:hover{
@@ -90,66 +59,54 @@
     backdrop-filter: blur(260.2599182128906px);
     
   }
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   .setting > .setting-body {
     display: flex;
     flex-direction: column;
     gap: 12px;
     width: 100%;
-<<<<<<< HEAD
-=======
     
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   }
   
   .setting-body > .h1-text {
     color: #f5f5f5;
     font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
-    font-size: larger;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 125% */
-    padding-top: 20px;
-=======
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
     /* line-height: 20px; */
     padding-top: 15px;
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   }
   
   .setting-body > .p-text {
     color: #d9d9d9;
     font-family: "Poppins", sans-serif;
-<<<<<<< HEAD
-    font-size: medium;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18px; /* 128.571% */
-=======
     font-size: 15px;
     font-style: normal;
     font-weight: 200;
     line-height: 23px;
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
   }
   .setting > svg {
     width: 32px;
     height: 32px;
-<<<<<<< HEAD
-  }
-  
-  
-  
-  
-=======
     color: white;
   }
-  
-
->>>>>>> 31cfdc5ec1acbf659a618540a846c1aee1b01704
+  .setting.disabled{
+    border: 0.5px solid #4b4b4b;
+    background: rgb(59 59 59 / 33%);
+    cursor: not-allowed;
+  }
+  .setting.disabled > svg{
+    color: gray;
+  }
+  .setting.disabled > .setting-body{
+    color: gray;
+  }
+  .setting.disabled .h1-text{
+    color: gray;
+  }
+  .setting.disabled .p-text{
+    color: gray;
+  }
   @media screen and (max-width: 1440px) {
     .settings-container {
       height: 100%;
