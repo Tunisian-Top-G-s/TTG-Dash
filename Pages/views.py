@@ -378,3 +378,11 @@ def notificationView(request, *args, **kwargs):
 
     return render(request, 'settingsNotification.html', {})
 
+def serverChatView(request, *args, **kwargs):
+
+    return render(request, 'serverChat.html', {})
+
+def privateChatView(request, *args, **kwargs):
+
+    return render(request, 'privateChat.html', {})
+

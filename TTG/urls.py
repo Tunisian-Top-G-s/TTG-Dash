@@ -79,4 +79,8 @@ urlpatterns = [
     path('order_complete/', views.orderCompleteView, name="order_complete"),
     path('cart/', views.cartView, name="cart"),
 
+
+    path('server-chat/', views.serverChatView, name="server_chat"),
+    path('private-chat/', views.privateChatView, name="private_chat"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
