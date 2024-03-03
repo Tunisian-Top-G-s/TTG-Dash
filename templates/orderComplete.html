@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="{% static "styles/orderComplete.css" %}">
 {% endblock head %}
 
-    
+{% block header %}
+{% include "components/navbar.html" %}
+{% endblock header %}
 
 {% block main %}
 <div class="completation-container">

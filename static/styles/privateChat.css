@@ -1,18 +1,5 @@
-:root {
-    --body-bg: #201654;
-    --body-color: #fff;
-    --font: "Poppins", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
 
-/* tag selectors */
-
-body {
-    margin: 0;
-    padding: 0;
-    color: var(--body-color);
-    background-color: var(--body-bg);
-    font-family: var(--font);
-}
 .chat-wrapper {
     display: flex;
     flex-direction: row;
@@ -265,13 +252,15 @@ button{
     border-radius: 14px;
     border: 0.5px solid #F5F5F5;
     background: rgba(245, 245, 245, 0.10);
-    padding: 10px 10px;
+    padding: 5px 10px;
     width: 85%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 .chat-header{
     width: 100%;
@@ -282,7 +271,7 @@ button{
     border-bottom: 0.5px solid #F5F5F5;
 }
 .chat-title{
-    padding: 2rem;
+    padding: 1rem;
     padding-left: 4.5rem;
     display: flex;
     flex-direction: row;
@@ -488,6 +477,8 @@ button{
 .message-replied > span{
     margin: 0;
     color: lightgray;
+    font-size: small;
+    font-family: 'Noto Color Emoji', sans-serif; /* Use Noto Color Emoji font */
 }
 .message-replied > .user-tag{
     padding: 2px 5px;
@@ -497,6 +488,7 @@ button{
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    font-size: small;
 }
 .reactions-box{
     display: flex;
@@ -516,6 +508,7 @@ button{
 .reactions-box > .react > .emoji{
     width: 18px;
     height: 18px;
+    font-size: small;
 }
 .reactions-box > .react > .count{
     color: #7F8389;
@@ -685,11 +678,10 @@ button{
     text-align: center;
     display: flex;
     justify-content: center;
-    padding: 2rem;
+    padding: 1.5rem;
     flex-direction: column;
     align-items: center;
     border-bottom: 0.5px solid #F5F5F5;
-
 }
 .chat-members-header > div{
     flex-direction: row;
@@ -749,7 +741,7 @@ button{
     border-radius: 5px;
 }
 .memebers-list{
-    padding: 2rem 1rem;
+    padding: 1rem 10px;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -786,14 +778,15 @@ button{
     padding: 5px 9px;
 }
 .users-list > li.user > .user-pic{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     position: relative;
+    display: block;
 }
 .users-list > li.user > .user-pic > img{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     position: relative;
 }
@@ -801,8 +794,8 @@ button{
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     background-color: #2ECC71;
     transition: background-color 0.5s ease;
@@ -867,6 +860,7 @@ button{
     flex-direction: column;
     max-width: min-content;
     overflow-x: hidden;
+    width: -webkit-fill-available;
 }
 .message-infos > div {
     display: flex;
@@ -1023,5 +1017,8 @@ button{
     }
     .mute-btn{
         margin: 0;
+    }
+    .chat-input{
+        padding: 10px;
     }
 }
