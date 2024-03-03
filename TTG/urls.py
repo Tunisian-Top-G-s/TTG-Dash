@@ -68,6 +68,9 @@ urlpatterns = [
     path('private-session/', views.privateSessionView, name="private_session"),
     path('private-session-done/', views.privateSessionScheduleDoneView, name="private_session_done"),
 
+    path('schedulePrivateSession/', views.schedulePrivateSessionView, name="schedule_private_session"),
+
+
     path('settings/', views.settingsView, name="settings"),
     path('settings_reset_password/', views.settingsResetPasswordView, name="settingd_reset_password"),
     path('payment/', views.paymentView, name="payment"),

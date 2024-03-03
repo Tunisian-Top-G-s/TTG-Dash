@@ -48,3 +48,52 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+
+form = document.querySelector("#sessionForm")
+submitButton = document.querySelector(".next-tab-btn.submit")
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    formData = new FormData(form)
+
+
+    for (const entry of formData.entries()) {
+        console.log(entry);
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/schedulePrivateSession/',
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },
+        success: function(response) {
+            
+            console.log(response);
+            
+        },
+        error: function(error) {
+            console.error('Error filtering products:', error);
+        }
+    });
+
+});
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }

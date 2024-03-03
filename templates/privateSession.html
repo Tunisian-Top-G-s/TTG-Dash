@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="input-container">
                                     <label for="name">Phone Number</label>
-                                    {{form.phone_number}}
+                                    {{form.phone}}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="TimeSelection">
                             <span>Select Time</span>
                             <div class="TimesAvailable">
-                              {% for row in separated_choices %}
+                              {% for row in separated_duration_choices %}
                                 <div>
                                   {% for value, text in row %}
                                     <div class="checkbox">
@@ -66,96 +66,71 @@
                               {% endfor %}
                           </div>
                         </div>
-                </div>
-                <div class="schedule-body-right">
-                    <ul class="tabs">
-                        <li class="tab-link current" data-tab="tab-1"></li>
-                        <li class="tab-link" data-tab="tab-2"></li>
-                        <li class="tab-link" data-tab="tab-3"></li>
-                    </ul>
-
-                    <div id="tab-1" class="tab-content current">
-                        <span>select the private session mode :</span>
-                        <div class="checkbox-group">
-                          {% for choice in form.session_mode %}
-                            <div class="checkbox">
-                                <label class="checkbox-wrapper">
-                                    <input type="radio" name="SessionMode" value="{{ choice.0 }}" class="checkbox-input" required/>
-                                    <span class="checkbox-tile">
-                                        <span class="checkbox-label">{{ choice }}</span>
-                                    </span>
-                                </label>
-                            </div>
-                          {% endfor %}
-                      
                         </div>
-                        <button type="button" class="next-tab-btn float-right">Confirm</button>
-                    </div>
-                    <div id="tab-2" class="tab-content">
-                        <span>select your professor :</span>
-                        <div class="checkbox-group">
-                            {% for prof in form.professor_selector %}
-                              <div class="checkbox slide-in-left">
-                                <label class="checkbox-wrapper">
-                                    <input type="radio" name="ProfessorSelector" value="{{prof}}" class="checkbox-input" required/>
-                                    <span class="checkbox-tile">
-                                        <span class="checkbox-label">
-                                            <div class="professor">
-                                                <img src="{% static "assets/Professor1.svg" %}" alt="Professor Img" />
-                                                <span>prof</span>
-                                            </div>
-                                        </span>
-                                    </span>
-                                </label>
-                              </div>
-                            {% endfor %}
-                            <div class="checkbox slide-in-left">
-                                <label class="checkbox-wrapper">
-                                    <input type="radio" name="ProfessorSelector" value="Oussama" class="checkbox-input" required/>
-                                    <span class="checkbox-tile">
-                                        <span class="checkbox-label">
-                                            <div class="professor">
-                                                <img src="{% static "assets/Professor2.svg" %}" alt="Professor Img" />
-                                                <span>Professor 2</span>
-                                            </div>
-                                        </span>
-                                    </span>
-                                </label>
+                        <div class="schedule-body-right">
+                            <ul class="tabs">
+                                <li class="tab-link current" data-tab="tab-1"></li>
+                                <li class="tab-link" data-tab="tab-2"></li>
+                                <li class="tab-link" data-tab="tab-3"></li>
+                            </ul>
+                        
+                            <div id="tab-1" class="tab-content current">
+                                <span>select the private session mode :</span>
+                                <div class="checkbox-group">
+                                    {% for choice_value, choice_label in form.session_mode.field.choices %}
+                                    <div class="checkbox">
+                                        <label class="checkbox-wrapper">
+                                            <input type="radio" name="session_mode" value="{{ choice_value }}" class="checkbox-input"/>
+                                            <span class="checkbox-tile">
+                                                <span class="checkbox-label">{{ choice_label }}</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                
+                                </div>
+                                <button type="button" class="next-tab-btn float-right">Confirm</button>
                             </div>
-                            <div class="checkbox slide-in-left">
-                                <label class="checkbox-wrapper">
-                                    <input type="radio" name="ProfessorSelector" value="Iyed" class="checkbox-input" required/>
-                                    <span class="checkbox-tile">
-                                        <span class="checkbox-label">
-                                            <div class="professor">
-                                                <img src="{% static "assets/Professor3.svg" %}" alt="Professor Img" />
-                                                <span>Professor 3</span>
-                                            </div>
-                                        </span>
-                                    </span>
-                                </label>
+                            <div id="tab-2" class="tab-content">
+                                <span>select your professor :</span>
+                                <div class="checkbox-group">
+                                
+                                    {% for prof_id, prof_name in professor_choices_list %}
+                                        <div class="checkbox slide-in-left">
+                                            <label class="checkbox-wrapper">
+                                                <input type="radio" name="selected_professor" value="{{ prof_id }}" class="checkbox-input"/>
+                                                <span class="checkbox-tile">
+                                                    <span class="checkbox-label">
+                                                        <div class="professor">
+                                                            <img src="{% static "assets/Professor1.svg" %}" alt="Professor Img" />
+                                                            <span>{{ prof_name }}</span>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="button-group">
+                                    <button class="back-tab-btn">
+                                        <i data-lucide="chevron-left"></i>
+                                        Previous
+                                    </button>
+                                    <button type="button" class="next-tab-btn">Continue</button>
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-content">
+                                <p>Tab content 3</p>
+                                <div class="button-group">
+                                    <button class="back-tab-btn">
+                                        <i data-lucide="chevron-left"></i>
+                                        Previous
+                                    </button>
+                                    <button type="submit" class="next-tab-btn submit">Continue</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="button-group">
-                            <button class="back-tab-btn">
-                                <i data-lucide="chevron-left"></i>
-                                Previous
-                            </button>
-                            <button type="button" class="next-tab-btn">Continue</button>
-                        </div>
-                    </div>
-                    <div id="tab-3" class="tab-content">
-                        <p>Tab content 3</p>
-                        <div class="button-group">
-                            <button class="back-tab-btn">
-                                <i data-lucide="chevron-left"></i>
-                                Previous
-                            </button>
-                            <button type="submit" class="next-tab-btn submit">Continue</button>
-                        </div>
-                    </div>
-                </div>
-                </form>
+                    </form>
             </div>
         </div>
     </div>

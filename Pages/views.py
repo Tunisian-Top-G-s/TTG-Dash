@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 
 from django.utils import timezone
 from datetime import timedelta
-from PrivateSessions.forms import PrivateSessionForm
+from PrivateSessions.forms import PrivateSessionForm, PrivateSessionRequestForm
 from Users.forms import TransactionForm
 from Users.models import Transaction
 from .forms import LogInForm, SignUpForm
@@ -333,14 +333,37 @@ def addTransaction(request):
 
 
 def privateSessionView(request, *args, **kwargs):
-    
-    form = PrivateSessionForm()
+    form = PrivateSessionRequestForm()
 
-    session_time_choices = form.fields['session_time'].choices
-    separated_choices = [session_time_choices[i:i+2] for i in range(0, len(session_time_choices), 2)]
-    print(separated_choices)
+    # Accessing the choices from the form field
+    professor_choices = form.fields['selected_professor'].choices
 
-    return render(request, 'privateSession.html', {'form': form, "separated_choices": separated_choices})
+    # Convert the choices to a list for easier manipulation
+    professor_choices_list = list(professor_choices)
+
+    # Exclude the first element in the list
+    professor_choices_list = professor_choices_list[1:]
+
+    # Now you can manipulate the choices
+
+    print(professor_choices_list)
+
+    # Accessing the choices for duration_hours
+    session_time_choices = form.fields['duration_hours'].choices
+
+    # Convert the choices to a list for easier manipulation
+    session_time_choices_list = list(session_time_choices)
+
+    # Exclude the first element in the list
+    session_time_choices_list = session_time_choices_list[1:]
+
+    # Now you can manipulate the choices
+    separated_duration_choices = [session_time_choices_list[i:i+2] for i in range(0, len(session_time_choices_list), 2)]
+
+    print(separated_duration_choices)
+
+    return render(request, 'privateSession.html', {'form': form, "professor_choices_list": professor_choices_list, "separated_duration_choices": separated_duration_choices})
+
 
 def privateSessionScheduleDoneView(request, *args, **kwargs):
 
@@ -386,3 +409,19 @@ def privateChatView(request, *args, **kwargs):
 
     return render(request, 'privateChat.html', {})
 
+def schedulePrivateSessionView(request):
+    if request.method == 'POST':
+        form = PrivateSessionRequestForm(request.POST)
+        print("testing form validation", request.POST)
+        if form.is_valid():
+            form.save()
+            print("wooooooooooooooooooo")
+            # Return a JSON response indicating success
+            return JsonResponse({'success': True})
+        else:
+            # Return a JSON response with form errors
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        # Handle GET requests, assuming there's some logic for GET requests
+        # You can return an HttpResponse or render a template here
+        return HttpResponse("GET request handled")
