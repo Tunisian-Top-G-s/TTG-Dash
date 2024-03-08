@@ -1,0 +1,229 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "styles/components/navbar.css" %}">
+
+        <div class="container-sidebar">
+            <div class="topbar">
+                <div class="logo">
+                    <img class="logo-v" src="{% static "assets/ttgjuguigi.png" %}" alt="logo">
+                </div>
+                <div class="menu">
+                    <div class="fkkk">
+                        <a href="{% url "home" %}" id="Home">
+                            <div class="nav-slipe">
+                                <i data-lucide="home" color="white"></i>
+
+                                <span class="van-text">Home</span>
+                            </div>
+                        </a>
+                        <a href="{% url "dashboard" %}" id="dashboard">
+                            <div class="nav-slipe">
+                                <i data-lucide="layout-dashboard" color="white"></i>
+
+                                <span class="van-text">Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="{% url "courses" %}" id="courses">
+                            <div class="nav-slipe">
+                                <i data-lucide="book-copy" color="white"></i>
+
+                                <span class="van-text">Academy</span>
+                            </div>
+                        </a>
+                        <a href="{% url "server_chat" %}"  id="chat">
+                            <div class="nav-slipe">
+                                <i data-lucide="message-circle" color="white"></i>
+
+                                <span class="van-text">Chat</span>
+                            </div>
+                        </a>
+                        <a href="{% url "private_session" %}" id="schedules">
+                            <div class="nav-slipe">
+                                <i data-lucide="calendar-check" color="white"></i>
+                                
+                                <span class="van-text">Schedules</span>
+                            </div>
+                        </a>
+                        <a href="{% url "shop" %}" id="shop">
+                            <div class="nav-slipe">
+                                <i data-lucide="shopping-cart" color="white"></i>
+                                
+                                <span class="van-text">Shop</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="profile-b">
+                    <div class="notification">
+                        <button data-nav-button>
+                            <i data-lucide="bell" color="white"></i>
+                        </button>
+                        <div class="menu">
+                            <div class="header">
+                                <i data-lucide="bell" color="black"></i>
+                                <label>Notifications</label>
+                            </div>
+                            <div class="content">
+                                <ul>
+                                    <li class="--unread" onclick="modifyContent(this)">
+                                        <div class="notification-content">
+                                            <div class="notif">
+                                                <i data-lucide="check-circle" color="#7dd475"></i>
+                                                <span>
+                                                    <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="--unread" onclick="modifyContent(this)">
+                                        <div class="notification-content">
+                                            <div class="notif">
+                                                <i data-lucide="x-circle" color="#D15950"></i>
+                                                <span>
+                                                    <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="--unread" onclick="modifyContent(this)">
+                                        <div class="notification-content">
+                                            <div class="notif">
+                                                <i data-lucide="alert-circle" color="#DCA048"></i>
+                                                <span>
+                                                    <b>Completed course “trading”</b> <br>Today 10:00 AM
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="messages">
+                        <button data-nav-button>
+                            <i data-lucide="messages-square" color="white"></i>
+                        </button>
+                        <div class="menu">
+                            <div class="header">
+                                <i data-lucide="messages-square" color="white"></i>
+
+                                <label>Messages</label>
+                            </div>
+                            <div class="content">
+                                <ul>
+                                    <li class="--unread">
+                                        <div>
+                                            <div class="UserStatus">
+                                                <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                                <span class="status --donotdisturb"></span>
+                                            </div>
+                                            <span>
+                                                <b>Completed course “trading”</b>
+                                                <span class="received-msg">
+                                                    Lorem ipsum dolor, sit amet consectetur ...
+                                                </span>
+                                        </div>
+                                    </li>
+                                    <li class="--unread">
+                                        <div>
+                                            <div class="UserStatus">
+                                                <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                                <span class="status --online"></span>
+                                            </div>
+                                            <span>
+                                                <b>Completed course “trading”</b>
+                                                <span class="received-msg">
+                                                    Lorem ipsum dolor, sit amet consectetur ...
+                                                </span>
+                                        </div>
+                                    </li>
+                                    <li class="--unread">
+                                        <div>
+                                            <div class="UserStatus">
+                                                <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                                <span class="status --offline"></span>
+                                            </div>
+                                            <span>
+                                                <b>Completed course “trading”</b>
+                                                <span class="received-msg">
+                                                    Lorem ipsum dolor, sit amet consectetur ...
+                                                </span>
+                                        </div>
+                                    </li>
+                                    <li class="--unread">
+                                        <div>
+                                            <div class="UserStatus">
+                                                <img src="{% static "assets/profileuser.png" %}" alt="userPic">
+                                                <span class="status --studying"></span>
+                                            </div>
+                                            <span>
+                                                <b>Completed course “trading”</b>
+                                                <span class="received-msg">
+                                                    Lorem ipsum dolor, sit amet consectetur ...
+                                                </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-profile" id="profile-dropdown">
+                        <img class="profile-imgs" src="{% static "assets/profileuser.png" %}" alt="">
+                        <span class="username">{{user.username}}</span>
+                        <i id="chevron-down-icon" data-lucide="chevron-down" color="white"></i>
+                        <div class="container-profile">
+                            <span class="sort-by-up-arrow"></span>
+                            <div class="edit-profile">
+                                <i data-lucide="user-round-cog"></i>
+                                <span class="settings-text">Edit Profile</span>
+                            </div>
+                            <a href="{% url "settings" %}" class="settings-profile">
+                                <i data-lucide="settings"></i>
+                                <span class="settings-text">Settings</span>
+                            </a>
+                            <hr>
+                            <a class="logout-profile" href="{% url "logout" %}">
+                                <i data-lucide="log-out"></i>
+                                <span class="logout-text">Log out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar">
+            <div class="container nav-container" id="navContainer">
+                <div class="logo">
+                    <img src="{% static "assets/logo-ttg-white.png" %}" alt="Logo TTG" />
+                </div>
+                <input class="checkbox" type="checkbox" name="" id="navToggle" />
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <div class="menu-items" id="dropDownMenu">
+                    <li><a class="menu-item" href="{% url "home" %}">
+                            <i data-lucide="home" color="white"></i>
+                            Home</a>
+                    </li>
+                    <li><a class="menu-item" href="{% url "dashboard" %}">
+                            <i data-lucide="layout-dashboard" color="white"></i>
+                            Dashboard</a></li>
+                    <li><a class="menu-item" href="{% url "courses" %}">
+                            <i data-lucide="book-copy" color="white"></i>
+                            Academy</a></li>
+                    <li><a class="menu-item" href="#">
+                            <i data-lucide="message-circle" color="white"></i>
+                            Chat</a></li>
+                    <li><a class="menu-item" href="#">
+                            <i data-lucide="calendar-check" color="white"></i>
+                            Schedules</a></li>
+                    <li><a class="menu-item" href="{% url "shop" %}">
+                            <i data-lucide="shopping-cart" color="white"></i>
+                            Shop</a></li>
+                </div>
+
+            </div>
+        </div>
+
+<script src="{% static "js/components/navbar.js" %}"></script>
