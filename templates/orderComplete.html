@@ -3,6 +3,9 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "styles/orderComplete.css" %}">
+{% block title%}
+<title>Order Complete - Tunisian Top Gs</title>
+{% endblock title%}
 {% endblock head %}
 
 {% block header %}
@@ -24,4 +27,10 @@
 {% endblock main %}
 
 {% block scripts %}
+after 6 seconds redirect to home page
+<script>
+  setTimeout(() => {
+    window.location.href = "/";
+  }, 6000);
+</script>
 {% endblock scripts %}

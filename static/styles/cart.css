@@ -13,7 +13,7 @@ body {
   font-family: var(--font);
 }
 
-main {
+main > .cart-wrapper {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -59,10 +59,10 @@ main {
   background: rgba(73, 73, 73, 0.12);
   box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
-  height: 90vh;
+  height: 83vh;
 }
 .items-list{
-  height: 90vh;
+  height: 83vh;
   overflow-y: scroll;
 }
 .items-list::-webkit-scrollbar {
@@ -154,7 +154,7 @@ main {
 }
 .order {
   display: flex;
-  width: 19rem;
+  width: 15rem;
   height: fit-content;
   padding: 32px;
   flex-direction: column;
@@ -165,14 +165,14 @@ main {
   background: rgba(73, 73, 73, 0.12);
   box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
-  margin-top: 3.2rem;
+  margin-top: 2.2rem;
 }
 
 .order-details > .h1-text {
   align-self: stretch;
   color: #ededed;
   font-family: "Poppins", sans-serif;
-  font-size: 24px;
+  font-size: x-large;
   font-weight: 700;
   line-height: 32px; /* 133.333% */
 }
@@ -228,10 +228,29 @@ main {
 .shopping-cart > .h1-text{
   margin-bottom: 1rem;
 }
+span.p-text {
+  font-size: medium;
+}
+@media only screen and (max-width: 1024px) {
+  main > .cart-wrapper{
+    padding: 20px;
+    height: 100vh;
+  }
+  .item-container{
+    width: auto;
+    height: auto;
+    padding: 1rem;
+  }
+  .order{
+    margin-top: 2.65rem;
+  }
+}
 @media only screen and (max-width: 768px) {
-  main {
+  main > .cart-wrapper{
     flex-direction: column;
+    gap: 20px;
     padding: 10px;
+    height: auto;
   }
   .item-container {
     width: auto;

@@ -19,18 +19,21 @@ signinSubmit.addEventListener("click", (event) => {
         success: function(response) {
             if (response.success) {
                 console.log(response);
-                window.location.href = "/"
-
-            }
-            else{
+                window.location.href = "/";
+            } else {
                 console.log(response);
-
+                // Display error in the error div
+                const errorMessageDiv = document.getElementById("errorMessage");
+                errorMessageDiv.textContent = "Invalid username or password";
+                errorMessageDiv.style.display = "flex";
             }
         },
     
         error: function(error) {
-
-            console.log(error);
+            console.log("AJAX Error:", error);
+            // Display error in the error div
+            const errorMessageDiv = document.getElementById("errorMessage");
+            errorMessageDiv.textContent = "An error occurred while processing your request.";
         }
     });
 })

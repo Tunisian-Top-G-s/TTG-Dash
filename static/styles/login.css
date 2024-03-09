@@ -379,3 +379,12 @@
    .login-btn:active {
     transform: scale(0.95);
    }
+   .error-message{
+    display: none;
+    font-size: 16Px;
+    background: #ff00004a;
+    padding: 0 20px;
+    border-radius: 5px;
+    color: red;
+    border: 1px solid;
+   }
