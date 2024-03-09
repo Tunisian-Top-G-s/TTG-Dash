@@ -7,7 +7,7 @@
 {% endblock head %}
 
 {% block header %}
-    {% include "components/navbar.html" %}
+    {% comment %} {% include "components/navbar.html" %} {% endcomment %}
 {% endblock header %}
 
 {% block main %}
@@ -24,18 +24,7 @@
 
         <div class="chat-rooms">
             <div class="chat-rooms-header">
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M17.814 21.236L17.544 21.694C17.4875 21.7876 17.4077 21.865 17.3125 21.9187C17.2173 21.9724 17.1098 22.0006 17.0005 22.0006C16.8912 22.0006 16.7837 21.9724 16.6885 21.9187C16.5933 21.865 16.5135 21.7876 16.457 21.694L16.186 21.236C15.976 20.881 15.87 20.703 15.701 20.605C15.533 20.507 15.32 20.503 14.895 20.495C14.267 20.485 13.873 20.446 13.543 20.31C13.2397 20.1844 12.9641 20.0002 12.7319 19.7681C12.4998 19.5359 12.3156 19.2603 12.19 18.957C12 18.497 12 17.915 12 16.75V16.25C12 14.613 12 13.795 12.368 13.194C12.5742 12.8573 12.8573 12.5742 13.194 12.368C13.794 12 14.614 12 16.25 12H17.75C19.387 12 20.205 12 20.806 12.368C21.1427 12.5742 21.4258 12.8573 21.632 13.194C22 13.794 22 14.614 22 16.25V16.75C22 17.915 22 18.497 21.81 18.957C21.6844 19.2603 21.5002 19.5359 21.2681 19.7681C21.0359 20.0002 20.7603 20.1844 20.457 20.31C20.127 20.446 19.733 20.485 19.105 20.496C18.68 20.503 18.467 20.506 18.299 20.605C18.129 20.703 18.025 20.882 17.814 21.236Z"
-                            fill="#F5F5F5" />
-                        <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.2 2.277C10.2951 2.30324 10.384 2.34798 10.4618 2.40864C10.5395 2.4693 10.6046 2.5447 10.6531 2.63053C10.7017 2.71636 10.7329 2.81092 10.7449 2.90881C10.7569 3.0067 10.7494 3.10599 10.723 3.201L9.32 8.25H16.763L18.277 2.8C18.3033 2.70506 18.348 2.61621 18.4086 2.53855C18.4692 2.46088 18.5445 2.39591 18.6302 2.34734C18.7159 2.29878 18.8103 2.26757 18.9081 2.2555C19.0059 2.24343 19.1051 2.25074 19.2 2.277C19.2949 2.30327 19.3838 2.34798 19.4615 2.40857C19.5391 2.46917 19.6041 2.54448 19.6527 2.63019C19.7012 2.71589 19.7324 2.81033 19.7445 2.9081C19.7566 3.00587 19.7493 3.10506 19.723 3.2L18.32 8.25H22C22.1989 8.25 22.3897 8.32902 22.5303 8.46967C22.671 8.61033 22.75 8.80109 22.75 9C22.75 9.19892 22.671 9.38968 22.5303 9.53033C22.3897 9.67098 22.1989 9.75 22 9.75H17.902C17.8505 9.8965 17.7547 10.0234 17.628 10.1131C17.5013 10.2029 17.3498 10.2511 17.1945 10.2511C17.0392 10.2511 16.8877 10.2029 16.761 10.1131C16.6343 10.0234 16.5385 9.8965 16.487 9.75H8.903L7.376 15.25H9C9.19891 15.25 9.38968 15.329 9.53033 15.4697C9.67098 15.6103 9.75 15.8011 9.75 16C9.75 16.1989 9.67098 16.3897 9.53033 16.5303C9.38968 16.671 9.19891 16.75 9 16.75H6.959L5.723 21.2C5.66996 21.3918 5.54291 21.5546 5.36982 21.6527C5.19672 21.7507 4.99175 21.776 4.8 21.723C4.60825 21.67 4.44542 21.5429 4.34734 21.3698C4.24926 21.1967 4.22396 20.9918 4.277 20.8L5.402 16.75H2C1.80109 16.75 1.61032 16.671 1.46967 16.5303C1.32902 16.3897 1.25 16.1989 1.25 16C1.25 15.8011 1.32902 15.6103 1.46967 15.4697C1.61032 15.329 1.80109 15.25 2 15.25H5.819L7.347 9.75H4C3.80109 9.75 3.61032 9.67098 3.46967 9.53033C3.32902 9.38968 3.25 9.19892 3.25 9C3.25 8.80109 3.32902 8.61033 3.46967 8.46967C3.61032 8.32902 3.80109 8.25 4 8.25H7.763L9.277 2.8C9.30324 2.70494 9.34797 2.61598 9.40864 2.53822C9.4693 2.46047 9.5447 2.39544 9.63053 2.34686C9.71635 2.29828 9.81092 2.2671 9.90881 2.25512C10.0067 2.24313 10.106 2.25057 10.201 2.277"
-                            fill="#F5F5F5" />
-                    </svg>
-                    TTG Rooms
-                    <i data-lucide="x" class="close-rooms"></i>
-                </span>
+              
                 <div class="to-courses">
                     <span>
 
@@ -108,7 +97,7 @@
                     </div>
                     <div class="status busy">
                         <span class="status-busy"></span>
-                        <span class="status-text">Busy</span>
+                        <span class="status-text">Do Not Disturb</span>
                     </div>
                 </div>
                 <div class="user-profile">
@@ -239,9 +228,15 @@
                     </button>
                 </div>
                 <div class="chat-input">
-                    <i data-lucide="paperclip"></i>
+                    <!-- Existing elements -->
+                    <i data-lucide="paperclip" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;"></i>
                     <input type="text" id="userInput" placeholder="Type your message here...">
+                    
+                    <!-- Hidden file input for images -->
+                    <input type="file" id="imageUpload" accept="image/*" style="display:none;" onchange="previewImage(event)">
+                    
                     <div class="buttons-group">
+                        <!-- Existing buttons -->
                         <button class="emoji-button" onclick="toggleEmojiPicker()">
                             <i data-lucide="smile"></i>
                         </button>
@@ -249,11 +244,10 @@
                             <i data-lucide="send"></i>
                         </button>
                     </div>
-                    <!-- Emoji Picker Modal -->
-                    <div class="emoji-picker" id="emojiPicker">
-                        <!-- Emoji results will go here -->
-                    </div>
+                    <!-- Existing emoji picker -->
+                    <div class="emoji-picker" id="emojiPicker"></div>
                 </div>
+                
             </div>
             
             
@@ -343,11 +337,80 @@
                                 <span class="user-name">John Doe</span>
                             </li>
                     </ul>
+                    <div class="members-titel">
+                        <img src="{% static "assets/caht.png" %}" alt="Members Badge">
+                        <span>Member - <span class="counter">1</span></span>
+                    </div>
+                    <ul class="users-list">
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                    </ul>
+                    <div class="members-titel">
+                        <img src="{% static "assets/caht.png" %}" alt="Members Badge">
+                        <span>Member - <span class="counter">1</span></span>
+                    </div>
+                    <ul class="users-list">
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
     </div>
+
 {% endblock main %}
 
 {% block footer %}{% endblock footer %}
@@ -356,4 +419,538 @@
 
 
 <script src="{% static 'js/serverChat.js' %}"></script>
+<script>
+    // SVGS
+    const SmileSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smile" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>`;
+    const ReplySvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="reply" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"></polyline><path d="M20 18v-2a4 4 0 0 0-4-4H4"></path></svg>`;
+    let currentReplyMessage = null;
+    document.addEventListener("DOMContentLoaded", function() {
+        // Select all toggle buttons
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+    
+        // Add click event listener to each toggle button
+        toggleButtons.forEach(function(toggleButton) {
+            toggleButton.addEventListener('click', function() {
+                const parentGroup = toggleButton.closest('.text-group');
+                const channelsList = parentGroup.querySelector('.channels-list');
+                const toggleButtonIcon = toggleButton.querySelector('svg');
+    
+                // Toggle channels visibility
+                channelsList.classList.toggle('hidden');
+                if (channelsList.classList.contains('hidden')) {
+                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+                } else {
+                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+                }
+            });
+    
+            // Find the add-channel button relative to the parent text-group
+            const parentGroup = toggleButton.closest('.text-group');
+            const addChannelButton = parentGroup.querySelector('.add-channel');
+            addChannelButton.addEventListener('click', function() {
+                const channelsList = parentGroup.querySelector('.channels-list');
+                const newChannelName = prompt('Enter new channel name:');
+                if (newChannelName) {
+                    addChannel(newChannelName, channelsList);
+                }
+            });
+        });
+    
+        // Function to add a new channel to the list
+        function addChannel(channelName, channelsList) {
+            const newChannel = document.createElement('li');
+            newChannel.className = 'channel-link';
+            newChannel.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="hash" class="lucide lucide-hash"><line x1="4" x2="20" y1="9" y2="9"></line><line x1="4" x2="20" y1="15" y2="15"></line><line x1="10" x2="8" y1="3" y2="21"></line><line x1="16" x2="14" y1="3" y2="21"></line></svg> ${channelName}`;
+            channelsList.appendChild(newChannel);
+        }
+    });
+        // --------------------------------------------------
+    // --------------------------------------------------
+    function send() {
+        if (currentReplyMessage) {
+            // If there's a message being replied to, use the reply logic
+            sendReplyMessage();
+        } else {
+            // Logic for sending a new message
+            const messageInput = document.getElementById("userInput");
+            const message = messageInput.value;
+            const imageInput = document.getElementById("imageUpload");
+            const imageFile = imageInput.files[0];
+        
+            if (message.trim() === "" && !imageFile) {
+                console.error("No message or image to send");
+                return;
+            }
+        
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    createAndAppendMessage(message, e.target.result); // Assuming this function exists
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                createAndAppendMessage(message); // Assuming this function exists
+            }
+        
+            // Reset the form
+            messageInput.value = "";
+            imageInput.value = "";
+            const preview = document.querySelector(".preview");
+            if (preview) {
+                preview.remove();
+            }
+        }
+    }
+    
+    // --------------------------------------------------
+    // Function to send a regular message
+    function sendMessage(message) {
+        // Assuming you have a way to get the image data (e.g., from a preview element)
+        var imageData = document.querySelector(".preview") ? document.querySelector(".preview").src : null;
+    
+        // Create a new message element that can handle both text and image
+        var newMessage = createMessageElementWithImage("You", message, imageData); // You need to implement this function
+    
+        // Append the new message to the chat box
+        var chatBox = document.querySelector(".chat-box");
+        chatBox.appendChild(newMessage);
+    
+        // Clear the input field and remove the image preview after sending
+        document.getElementById("userInput").value = "";
+        var imagePreview = document.querySelector(".preview");
+        if (imagePreview) {
+            imagePreview.parentNode.removeChild(imagePreview);
+        }
+    }
+    // --------------------------------------------------
+    // Function to send a reply message
+    function replyToMessage(messageContent) {
+        // Set the message you're replying to
+        currentReplyMessage = messageContent;
+        
+        // Optionally, update the UI to show that you're replying to a specific message
+        // For example, showing a "Replying to: ..." indicator somewhere in your UI
+        const replyingToIndicator = document.getElementById('replyingToIndicator'); // Make sure you have this element in your HTML
+        if (replyingToIndicator) {
+            replyingToIndicator.textContent = `Replying to: ${currentReplyMessage}`;
+            replyingToIndicator.style.display = 'block'; // Make the indicator visible
+        }
+    
+        // Set focus to the input field to start typing your reply
+        document.getElementById("userInput").focus();
+    }
+    // --------------------------------------------------
+    // Function to close the "Replying to" section
+    function closeReplyMessage() {
+        var replyingToDiv = document.querySelector(".chat-footer-box .replying-to");
+        replyingToDiv.style.display = "none";
+    }
+    // --------------------------------------------------
+    function createAndAppendMessage(message, imageData = null) {
+        const chatBox = document.querySelector('.chat-box');
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message');
+    
+        const userProfilePic = document.querySelector('.user-profile .user-pic img').src;
+        const userName = document.querySelector('.user-profile .user-name').textContent;
+    
+        let messageContent = `
+            <div class="message-header">
+                <div class="user-pic"><img src="${userProfilePic}" alt="user-pic"></div>
+            </div>
+            <div class="message-content">
+                <div class="user-info">
+                    <span class="user-name">${userName}</span>
+                    <span class="message-date">Today</span>
+                    <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                </div>
+                <div class="message-text">${message}</div>
+                ${imageData ? `<div class="message-image"><img src="${imageData}" style="max-width: 400px;"></div>` : ""}
+            </div>
+        `;
+    
+        // Create reply-react container
+        const replyReactContainer = document.createElement('div');
+        replyReactContainer.classList.add('reply-react');
+    
+        // Create the reply button
+        const replyButton = document.createElement('button');
+        replyButton.classList.add('reply');
+        replyButton.innerHTML = ReplySvg;
+        replyButton.addEventListener('click', () => replyToMessage(message));
+    
+        // Create the react div
+        const reactDiv = document.createElement('div');
+        reactDiv.classList.add('react');
+        reactDiv.innerHTML = SmileSvg;
+        reactDiv.addEventListener('click', toggleEmojiPicker);
+    
+        // Append the reply button and react div to the container
+        replyReactContainer.appendChild(replyButton);
+        replyReactContainer.appendChild(reactDiv);
+    
+        // Append the message content and reply-react container to the message div
+        messageDiv.innerHTML = messageContent;
+        messageDiv.appendChild(replyReactContainer);
+    
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+    }
+    
+    // --------------------------------------------------
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewContainer = document.querySelector(".chat-input");
+            let previewImage = previewContainer.querySelector(".preview");
+            if (!previewImage) {
+                previewImage = document.createElement("img");
+                previewImage.classList.add("preview");
+                previewContainer.insertBefore(previewImage, previewContainer.firstChild);
+            }
+            previewImage.src = e.target.result;
+            previewImage.style.maxWidth = "100px";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    // Placeholder for replyToMessage function
+    function replyToMessage(messageContent) {
+        console.log("Setting up reply to message:", messageContent);
+        currentReplyMessage = messageContent; // Store the message being replied to
+    
+        // Update UI to reflect replying status if necessary
+        // This is just an example, adjust according to your actual UI elements
+        const replyingToIndicator = document.querySelector(".replying-to");
+        if (replyingToIndicator) {
+            replyingToIndicator.style.display = "block";
+            replyingToIndicator.textContent = `Replying to: ${currentReplyMessage}`;
+        }
+    }
+    
+    // --------------Preview Image before post---------------------
+    function resetInputsAndPreview() {
+        // Reset inputs
+        document.getElementById("userInput").value = "";
+        document.getElementById("imageUpload").value = "";
+
+        // Remove image preview if it exists
+        const preview = document.querySelector(".preview");
+        if (preview) {
+            preview.remove();
+        }
+    }
+    // --------------------------------------------------
+    // Function to create a message element
+    function createMessageElementWithImage(userName, message, imageData) {
+        var newMessage = document.createElement("div");
+        newMessage.classList.add("chat-message");
+        
+        // Message header similar to the createMessageElement function
+        var messageHeader = document.createElement("div");
+        messageHeader.classList.add("message-header");
+        var userPic = document.createElement("div");
+        userPic.classList.add("user-pic");
+        userPic.innerHTML = '<img src="{% static "assets/userpic.svg" %}" alt="user-pic">';
+        messageHeader.appendChild(userPic);
+        
+        // Message content
+        var messageContent = document.createElement("div");
+        messageContent.classList.add("message-content");
+        var userInfo = document.createElement("div");
+        userInfo.classList.add("user-info");
+        userInfo.innerHTML = `<span class="user-name">${userName}</span>`;
+        var messageDate = document.createElement("span");
+        messageDate.classList.add("message-date");
+        messageDate.innerText = "Today";
+        var messageTime = document.createElement("span");
+        messageTime.classList.add("message-time");
+        var currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        messageTime.innerText = currentTime;
+        userInfo.appendChild(messageDate);
+        userInfo.appendChild(messageTime);
+        messageContent.appendChild(userInfo);
+        
+        // Message text
+        var messageText = document.createElement("div");
+        messageText.classList.add("message-text");
+        messageText.innerText = message;
+        messageContent.appendChild(messageText);
+        
+        // If imageData is provided, create and append an image element
+        if (imageData) {
+            var messageImage = document.createElement("img");
+            messageImage.src = imageData;
+            messageImage.style.maxWidth = "200px"; // Set a max width for the image
+            messageContent.appendChild(messageImage);
+        }
+        
+        // Append the message header and content to the new message element
+        newMessage.appendChild(messageHeader);
+        newMessage.appendChild(messageContent);
+        
+        // You can reuse the reply and react section from your existing createMessageElement function here
+        var replyReactSection = createReplyReactSection();
+        newMessage.appendChild(replyReactSection);
+        
+        return newMessage;
+    }
+    // Function to toggle the emoji picker
+    function toggleEmojiPicker() {
+        var emojiPicker = document.getElementById("emojiPicker");
+        emojiPicker.classList.toggle("show");
+        fetchEmojis(); // Fetch emojis when the picker is toggled
+        console.log("Toggling emoji picker");
+    }
+    // --------------------------------------------------
+    // Adjusted sendReplyMessage function
+    function sendReplyMessage(replyMessage) {
+        // Make sure there's a message to reply to
+        if (!currentReplyMessage || !replyMessage) {
+            console.error("No message selected for reply or reply message is empty.");
+            return;
+        }
+
+        console.log(`Replying with: ${replyMessage} to message: ${currentReplyMessage}`);
+
+        // Create a new reply message element
+        const newReplyMessage = document.createElement("div");
+        newReplyMessage.classList.add("reply-message");
+        
+        // Message replied section
+        const messageReplied = document.createElement("div");
+        messageReplied.classList.add("message-replied");
+        messageReplied.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 46 16" fill="none">
+            <path d="M1 15V15C1 7.26801 7.26801 1 15 1H45" stroke="#ADABAB" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <div class="user-pic">
+            <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+        </div>
+        <div class="user-tag">@Figgy</div>
+        <span>${currentReplyMessage}</span>
+        `;
+
+        // Assuming createAndAppendMessage is correctly implemented to handle the construction and display of new messages
+        createAndAppendMessage(replyMessage);
+
+        // Reset currentReplyMessage after sending the reply
+        currentReplyMessage = null;
+        // Optionally reset the input field
+        document.getElementById("userInput").value = "";
+    }
+
+    function prepareReply(message) {
+        // Implementation of preparing a reply to a message
+        console.log("Preparing reply to:", message);
+        // Set the message as currentReplyMessage or implement your reply preparation logic
+        currentReplyMessage = message;
+    } 
+    
+
+    // -----------Show count of emojis------------------------
+    function addReact(react, messageContent) {
+        // Find the existing reactions box or create a new one
+        var reactionsBox = messageContent.querySelector(".reactions-box");
+        if (!reactionsBox) {
+            reactionsBox = document.createElement("div");
+            reactionsBox.classList.add("reactions-box");
+            messageContent.appendChild(reactionsBox);
+        }
+
+        // Check if the reaction already exists
+        var existingReact = reactionsBox.querySelector(`.react .emoji[data-emoji="${react}"]`);
+        if (existingReact) {
+            // If the reaction already exists, increase the count
+            var countDiv = existingReact.parentElement.querySelector('.count');
+            var currentCount = parseInt(countDiv.innerText);
+            countDiv.innerText = currentCount + 1;
+        } else {
+            // If the reaction does not exist, create a new one
+            var reactDiv = document.createElement("div");
+            reactDiv.classList.add("react");
+            var emojiDiv = document.createElement("div");
+            emojiDiv.classList.add("emoji");
+            emojiDiv.setAttribute("data-emoji", react);
+            emojiDiv.innerText = react;
+            var countDiv = document.createElement("div");
+            countDiv.classList.add("count");
+            countDiv.innerText = "1"; // Initial count is 1
+
+            reactDiv.appendChild(emojiDiv);
+            reactDiv.appendChild(countDiv);
+
+            reactionsBox.appendChild(reactDiv);
+        }
+    }
+    // --------------------------------------------------
+    // Function to fetch emojis from the API
+    function fetchEmojis() {
+        var emojiPicker = document.getElementById("emojiPicker");
+        emojiPicker.innerHTML = ""; // Clear previous results
+    
+        fetch("https://emoji-api.com/emojis?access_key=36648086e6b1d3c021726d4a3399bafaa5c2eaa3")
+            .then(response => response.json())
+            .then(data => {
+                // Loop through the emoji data and create buttons for each emoji
+                data.forEach(emoji => {
+                    var emojiButton = document.createElement("button");
+                    emojiButton.innerHTML = emoji.character;
+                    emojiButton.classList.add("emoji");
+                    emojiButton.addEventListener("click", function() {
+                        insertEmoji(emoji.character);
+                    });
+                    emojiPicker.appendChild(emojiButton);
+                });
+            })
+            .catch(error => console.error('Error fetching emojis:', error));
+    }
+    // --------------------------------------------------
+    // Function to insert the selected emoji into the input field
+    function insertEmoji(emoji) {
+        var userInput = document.getElementById("userInput");
+        var cursorPosition = userInput.selectionStart;
+        var textBefore = userInput.value.substring(0, cursorPosition);
+        var textAfter = userInput.value.substring(cursorPosition);
+        userInput.value = textBefore + emoji + textAfter;
+    
+        // Move the cursor position after the inserted emoji
+        userInput.selectionStart = cursorPosition + emoji.length;
+        userInput.selectionEnd = cursorPosition + emoji.length;
+    
+        // Hide the emoji picker after inserting
+        var emojiPicker = document.getElementById("emojiPicker");
+        emojiPicker.classList.remove("show");
+    }
+    // --------------------------------------------------
+    function toggleRoomsMobile() {
+        var rooms = document.querySelector('.chat-rooms');
+        var close = document.querySelector('.close-rooms');
+        rooms.classList.toggle('show');
+        //give body style overlay Y none 
+    
+        // IF CLOSE BUTTON IS CLICKED CLOSE ROOMS
+        close.addEventListener('click', function() {
+            rooms.classList.remove('show');
+    
+        });
+    }
+    // --------------------------------------------------
+    function toggleMembersMobile() {
+        var rooms = document.querySelector('.chat-members');
+        var close = document.querySelector('.close-toggle');
+        rooms.classList.toggle('show');
+        // IF CLOSE BUTTON IS CLICKED CLOSE ROOMS
+        close.addEventListener('click', function() {
+            rooms.classList.remove('show');
+        });
+        
+    }
+    // --------------Change Status----------------
+    document.addEventListener("DOMContentLoaded", function() {
+        const changeStatusButtons = document.querySelectorAll('.change-status .status');
+        const userProfile = document.querySelector('.user-profile');
+        const changeStatusSection = document.querySelector('.change-status');
+        const toggleButtonIcon = document.querySelector('.change-status-btn svg');
+    
+        // Toggle change-status section visibility when button is clicked
+        document.querySelector('.change-status-btn').addEventListener('click', function() {
+            changeStatusSection.classList.toggle('hidden');
+            if (changeStatusSection.classList.contains('hidden')) {
+                toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+            } else {
+                toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+            }
+        });
+    
+        // Add click event listener to each change status button
+        changeStatusButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const status = button.classList[1]; // Get the second class which represents the status
+                updateStatus(status);
+                changeStatusSection.classList.add('hidden'); // Hide change-status section after selecting a status
+                if (changeStatusSection.classList.contains('hidden')) {
+                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+                } else {
+                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+                }
+            });
+        });
+    
+        // Function to update user status
+        function updateStatus(status) {
+            const userStatus = userProfile.querySelector('.user-status-text');
+            const userStatusIcon = userProfile.querySelector('.user-status');
+            const statusText = userProfile.querySelector('.status-text');
+            const statusIcons = userProfile.querySelectorAll('.status');
+            
+            // Remove 'active' class from all status icons
+            statusIcons.forEach(icon => icon.classList.remove('active'));
+    
+            // Update user status and status text
+            userStatus.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+            statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    
+            // Set background color based on status
+            if (status === 'online') {
+                userStatusIcon.style.backgroundColor = '#4CAF50'; // Green for Online
+            } else if (status === 'away') {
+                userStatusIcon.style.backgroundColor = '#FFC107'; // Yellow for Away
+            } else if (status === 'busy') {
+                userStatusIcon.style.backgroundColor = '#FF5722'; // Orange for Busy
+            }
+    
+            // Add 'active' class to the clicked status icon
+            userProfile.querySelector(`.status-${status}`).classList.add('active');
+        }
+    });
+    // --------------Change Status 2-----------------------
+    document.addEventListener("DOMContentLoaded", function() {
+        const changeStatusButtons = document.querySelectorAll('.change-status .status');
+    
+        // Add click event listener to each change status button
+        changeStatusButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const status = button.classList[1]; // Get the second class which represents the status
+                updateStatus(status);
+            });
+        });
+    
+        // Function to update user status
+        function updateStatus(status) {
+            const userStatusText = document.querySelector('.user-status-text');
+            const userStatus = document.querySelector('.user-status');
+            
+            // Update user status and status text
+            userStatusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+    
+            // Remove all existing status classes
+            userStatus.classList.remove('online', 'away', 'busy');
+    
+            // Add the appropriate status class
+            userStatus.classList.add(status);
+    
+            // Update background color based on status
+            if (status === 'online') {
+                userStatus.style.backgroundColor = '#2ECC71'; // Green for Online
+            } else if (status === 'away') {
+                userStatus.style.backgroundColor = '#FFC107'; // Yellow for Away
+            } else if (status === 'busy') {
+                userStatus.style.backgroundColor = '#FF5722'; // Orange for Busy
+            }
+        }
+    });
+        // --------------------------------------------------
+    // --------------Change Status 3----------------------
+    document.addEventListener("DOMContentLoaded", function() {
+        const changeStatusButtons = document.querySelectorAll('.change-status-btn');
+        const changeStatusSection = document.querySelector('.change-status');
+    
+        // Add click event listener to the toggle button
+        changeStatusButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                changeStatusSection.classList.toggle('visible');
+            });
+        });
+    });
+</script>
 {% endblock scripts %}
