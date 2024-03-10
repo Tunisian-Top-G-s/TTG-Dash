@@ -463,3 +463,7 @@ def videoFinishedView(request, *args, **kwargs):
     video.finished = True
     video.save()
     return JsonResponse({'success': True, 'message':"video finished successfully"})
+
+
+def ProductView (request, *args, **kwargs):
+    return render(request, 'product.html', {})

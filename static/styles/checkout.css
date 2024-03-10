@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
   --body-bg: #201654;
   --body-color: #fff;
@@ -61,7 +61,7 @@ main {
   height: fit-content;
   padding: 2rem;
 }
-.items-list{
+.items-list {
   height: 90vh;
   overflow-y: scroll;
 }
@@ -69,10 +69,12 @@ main {
   -webkit-appearance: none;
   width: 0;
 }
-.order-details , .order-total{
+.order-details,
+.order-total {
   display: flex;
-    flex-direction: column;
-    gap: 10px;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 10px;
 }
 .item-container {
   display: flex;
@@ -145,9 +147,8 @@ main {
   font-weight: 700;
   color: #5cff9c;
 }
-.greener{
+.greener {
   color: #5cff9c;
-
 }
 .total > .p-text {
   font-weight: 600;
@@ -165,7 +166,7 @@ main {
   background: rgba(73, 73, 73, 0.12);
   box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
-  margin-top: 3.2rem;
+  margin-top: 2.2rem;
 }
 
 .order-details > .h1-text {
@@ -180,7 +181,7 @@ main {
 .order-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
 }
 
@@ -206,7 +207,7 @@ main {
   align-self: stretch;
   border-radius: 4px;
   background: transparent;
-  border: 1px solid #A2A3B1;
+  border: 1px solid #a2a3b1;
   padding-left: 1rem;
 }
 
@@ -224,29 +225,31 @@ main {
   background: #a45cf6;
   border: none;
   text-decoration: none;
+  margin-top: 2%;
 }
-.shopping-cart > .h1-text{
+.shopping-cart > .h1-text {
   margin-bottom: 1rem;
 }
-.place-order{
+.place-order {
   font-weight: 200;
   font-size: small;
 }
-.items-container > .Title{
-  color: #FFF;
+.items-container > .Title {
+  color: #fff;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  margin-bottom: 4px;
 }
-.items-container > form label{
-  color: #FFF;
-  font-size: 18px;
+.items-container > form label {
+  color: #fff;
+  font-size: 15px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
 }
-.items-container > form input{
+.items-container > form input {
   display: flex;
   color: #fff;
   font-size: 15px;
@@ -257,22 +260,23 @@ main {
   align-self: stretch;
   border-radius: 4px;
   background: transparent;
-  border: 1px solid #A2A3B1;
+  border: 1px solid #a2a3b1;
   padding-left: 1rem;
 }
-.items-container > form .input-container{
+.items-container > form .input-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
+  margin-top: 12px;
 }
-.items-container > form div{
+.items-container > form div {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   gap: 20px;
 }
-.delivery-container{
+.delivery-container {
   border-radius: 10px;
   border: 0.5px solid #fff;
   background: rgba(73, 73, 73, 0.12);
@@ -285,16 +289,16 @@ main {
   flex-direction: column;
   gap: 20px;
 }
-.delivery-container > .Title{
-  color: #FFF;
+.delivery-container > .Title {
+  color: #fff;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 }
-.payment-method .payment{
+.payment-method .payment {
   border-radius: 10px;
-  border: 1px solid #A45CF6;
+  border: 1px solid #a45cf6;
   background: rgba(73, 73, 73, 0.12);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   width: 50%;
@@ -305,15 +309,18 @@ main {
   align-items: center;
   justify-content: space-between;
 }
-.payment-method .payment > label{
+
+.payment-method .payment > label {
   margin-right: auto;
+  font-size: 16px !important;
 }
+
 @media only screen and (max-width: 768px) {
   main {
     flex-direction: column;
     padding: 10px;
   }
-  .items-container > form div{
+  .items-container > form div {
     flex-direction: column;
   }
   .item-container {
@@ -322,10 +329,15 @@ main {
     height: auto;
     justify-content: center;
   }
-  .order{
+  .order {
     width: auto;
   }
-  .price, .discount, .shipping, .coupon, .total, .delivery{
+  .price,
+  .discount,
+  .shipping,
+  .coupon,
+  .total,
+  .delivery {
     width: 100%;
   }
   .item-description {
@@ -340,30 +352,101 @@ main {
     align-items: flex-end;
     justify-content: center;
   }
-  .payment-method .payment{
+  .payment-method .payment {
     width: 100%;
   }
 }
 
-input[type=radio]:checked {
+@media screen and (max-width: 1440px) {
+  .shopping-cart {
+    width: 50%;
+  }
+
+  .order {
+    width: 14rem;
+    padding: 25px;
+    margin-top: 2.4rem;
+  }
+
+  .items-container > form input {
+    font-size: 12px;
+    height: 38px;
+  }
+
+  .order-total > .btn {
+    font-size: 14px;
+    padding: 10px 40px;
+  }
+
+  .place-order {
+    font-size: 12px !important;
+  }
+
+  .order-details > .h1-text {
+    font-size: 22px;
+  }
+
+  .items-container {
+    padding: 1.5rem;
+  }
+
+  .delivery-container {
+    padding: 1.5rem;
+  }
+
+  .delivery-container > .Title {
+    font-size: 18px;
+  }
+
+  .payment-method .payment > label {
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .items-container > form input {
+    width: 100%;
+  }
+}
+
+input[type="radio"]:checked {
   border-color: var(--c);
   background-size: 100% 100%;
 }
-input[type=radio] {
-  --s: 1em;
-  --c: #A45CF6;
+input[type="radio"] {
+  --s: 0.7em;
+  --c: #a45cf6;
   height: var(--s);
   aspect-ratio: 1;
-  border: calc(var(--s)/8) solid #939393;
-  padding: calc(var(--s)/8);
-  background: radial-gradient(farthest-side,var(--c) 94%,#0000) 50%/0 0 no-repeat content-box;
+  border: calc(var(--s) / 8) solid #939393;
+  padding: calc(var(--s) / 8);
+  background: radial-gradient(farthest-side, var(--c) 94%, #0000) 50%/0 0
+    no-repeat content-box;
   border-radius: 50%;
-  outline-offset: calc(var(--s)/10);
+  outline-offset: calc(var(--s) / 10);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   cursor: pointer;
   font-size: inherit;
-  transition: .3s;
+  transition: 0.3s;
   margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  main{
+    height: 100vh;
+  }
+}
+@media screen and (max-width: 768px) {
+  main{
+    height: auto;
+  }
+  .shopping-cart{
+    width: 100%;
+  }
+  .order{
+    width: 100%;
+  }
+  
 }

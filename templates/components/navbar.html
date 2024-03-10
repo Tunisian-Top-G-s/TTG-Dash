@@ -167,7 +167,7 @@
                         </div>
                     </div>
                     <div class="right-profile" id="profile-dropdown">
-                        <img class="profile-imgs" src="{% static "assets/profileuser.png" %}" alt="">
+                        <img class="profile-imgs" src="{{user.customuser.pfp.url}}" alt="">
                         <span class="username">{{user.username}}</span>
                         <i id="chevron-down-icon" data-lucide="chevron-down" color="white"></i>
                         <div class="container-profile">
@@ -212,10 +212,10 @@
                     <li><a class="menu-item" href="{% url "courses" %}">
                             <i data-lucide="book-copy" color="white"></i>
                             Academy</a></li>
-                    <li><a class="menu-item" href="#">
+                    <li><a class="menu-item" href="{% url "server_chat" %}">
                             <i data-lucide="message-circle" color="white"></i>
                             Chat</a></li>
-                    <li><a class="menu-item" href="#">
+                    <li><a class="menu-item" href="{% url "private_session" %}">
                             <i data-lucide="calendar-check" color="white"></i>
                             Schedules</a></li>
                     <li><a class="menu-item" href="{% url "shop" %}">
