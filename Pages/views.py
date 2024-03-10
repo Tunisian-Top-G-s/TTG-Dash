@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import redirect, render
 
 from django.utils import timezone
@@ -7,7 +8,7 @@ from Users.forms import TransactionForm
 from Users.models import Transaction
 from .forms import LogInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
-from Courses.models import Course, CourseProgression, Level, LevelProgression
+from Courses.models import Course, CourseProgression, Level, LevelProgression, Module, Video
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
@@ -37,7 +38,12 @@ def levelsView(request, *args, **kwargs):
 
 def videoCourseView(request, level_id):
     level = Level.objects.get(id=level_id)
-    return render(request, 'video-course.html', {"modules": level.module_set.all()})
+    first_module = level.modules.first()  # Get the first module in the level
+    if first_module:
+        first_video = first_module.videos.first()  # Get the first video in the first module
+    else:
+        first_video = None
+    return render(request, 'video-course.html', {"modules": level.modules.all(), "level": level, "video": first_video})
 
 def notesCourseView(request, level_id):
     level = Level.objects.get(id=level_id)
@@ -425,3 +431,39 @@ def schedulePrivateSessionView(request):
         # Handle GET requests, assuming there's some logic for GET requests
         # You can return an HttpResponse or render a template here
         return HttpResponse("GET request handled")
+    
+
+def getVideoView(request, *args, **kwargs):
+    if request.method == 'POST':
+        videoId = request.POST.get("videoId")
+        print(videoId) # Debugging purpose
+        try:
+            video = Video.objects.get(id=videoId)
+            serialized_video = {
+                "title": video.title,
+                "video_file": video.video_file.url,
+                "notes": video.notes,
+                "summary": video.summary,
+                'finished': video.finished,
+                'quiz_id': video.quiz.id,
+                'quiz_question': video.quiz.id,
+                'quiz_options': video.quiz.options,
+                'answer': video.quiz.answer,
+            }
+            return JsonResponse({'success': True, "video": serialized_video})
+        except Video.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Video not found'}, status=404)
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
+    
+def videoFinishedView(request, *args, **kwargs):
+    videoId = request.POST.get("videoId")
+    print(videoId) # Debugging purpose
+    video = Video.objects.get(id=videoId)
+    video.finished = True
+    video.save()
+    return JsonResponse({'success': True, 'message':"video finished successfully"})
+
+
+def ProductView (request, *args, **kwargs):
+    return render(request, 'product.html', {})
