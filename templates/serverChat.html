@@ -467,21 +467,16 @@
         // --------------------------------------------------
     // --------------------------------------------------
     function send() {
+        var message = document.getElementById("userInput").value;
+    
         if (currentReplyMessage) {
             // If there's a message being replied to, use the reply logic
-            sendReplyMessage();
-        } else {
+            sendReplyMessage(message);
+        } else if (message.trim() !== "") {
             // Logic for sending a new message
-            const messageInput = document.getElementById("userInput");
-            const message = messageInput.value;
             const imageInput = document.getElementById("imageUpload");
             const imageFile = imageInput.files[0];
-        
-            if (message.trim() === "" && !imageFile) {
-                console.error("No message or image to send");
-                return;
-            }
-        
+    
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -491,16 +486,19 @@
             } else {
                 createAndAppendMessage(message); // Assuming this function exists
             }
-        
+    
             // Reset the form
-            messageInput.value = "";
+            document.getElementById("userInput").value = "";
             imageInput.value = "";
             const preview = document.querySelector(".preview");
             if (preview) {
                 preview.remove();
             }
+        } else {
+            console.error("No message or image to send");
         }
     }
+    
     
     // --------------------------------------------------
     // Function to send a regular message
@@ -522,24 +520,7 @@
             imagePreview.parentNode.removeChild(imagePreview);
         }
     }
-    // --------------------------------------------------
-    // Function to send a reply message
-    function replyToMessage(messageContent) {
-        // Set the message you're replying to
-        currentReplyMessage = messageContent;
-        
-        // Optionally, update the UI to show that you're replying to a specific message
-        // For example, showing a "Replying to: ..." indicator somewhere in your UI
-        const replyingToIndicator = document.getElementById('replyingToIndicator'); // Make sure you have this element in your HTML
-        if (replyingToIndicator) {
-            replyingToIndicator.textContent = `Replying to: ${currentReplyMessage}`;
-            replyingToIndicator.style.display = 'block'; // Make the indicator visible
-        }
-    
-        // Set focus to the input field to start typing your reply
-        document.getElementById("userInput").focus();
-    }
-    // --------------------------------------------------
+
     // Function to close the "Replying to" section
     function closeReplyMessage() {
         var replyingToDiv = document.querySelector(".chat-footer-box .replying-to");
@@ -595,6 +576,8 @@
     
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+
+        return messageDiv;
     }
     
     // --------------------------------------------------
@@ -613,20 +596,108 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     }
-    // Placeholder for replyToMessage function
-    function replyToMessage(messageContent) {
-        console.log("Setting up reply to message:", messageContent);
-        currentReplyMessage = messageContent; // Store the message being replied to
-    
-        // Update UI to reflect replying status if necessary
-        // This is just an example, adjust according to your actual UI elements
-        const replyingToIndicator = document.querySelector(".replying-to");
-        if (replyingToIndicator) {
-            replyingToIndicator.style.display = "block";
-            replyingToIndicator.textContent = `Replying to: ${currentReplyMessage}`;
+   // Updated replyToMessage function to set currentReplyMessage
+        function replyToMessage(messageContent) {
+            console.log("Setting up reply to message:", messageContent);
+            currentReplyMessage = messageContent; // Store the message being replied to
+
+            // Update UI to reflect replying status if necessary
+            // This is just an example, adjust according to your actual UI elements
+            const replyingToIndicator = document.querySelector(".replying-to");
+            if (replyingToIndicator) {
+                replyingToIndicator.style.display = "flex";
+                replyingToIndicator.innerHTML = `
+                <span>Replying to:</span>
+                <div class="message-replied">
+                    <div class="user-pic">
+                        <img src="../static/assets/userpic.svg" alt="user-pic">
+                    </div>
+                    <div class="user-tag">@Figgy</div>
+                    <span>${currentReplyMessage}</span>
+                </div>
+                <button class="close" onclick="closeReplyMessage()">
+                    <i data-lucide="x-circle"></i>
+                </button>`;
+            }
+            document.getElementById("userInput").focus();
         }
-    }
-    
+
+        // --------------------------------------------------
+        // Adjusted sendReplyMessage function
+        function sendReplyMessage(replyMessage) {
+            // Make sure there's a message to reply to
+            if (!currentReplyMessage || !replyMessage) {
+                console.error("No message selected for reply or reply message is empty.");
+                return;
+            }
+        
+            console.log(`Replying with: ${replyMessage} to message: ${currentReplyMessage}`);
+        
+            // Create a new reply message element
+            const newReplyMessage = document.createElement("div");
+            newReplyMessage.classList.add("reply-message");
+        
+            // Message replied section
+            const messageReplied = document.createElement("div");
+            messageReplied.classList.add("message-replied");
+            messageReplied.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 46 16" fill="none">
+                    <path d="M1 15V15C1 7.26801 7.26801 1 15 1H45" stroke="#ADABAB" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <div class="user-pic">
+                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                </div>
+                <div class="user-tag">@Figgy</div>
+                <span>${currentReplyMessage}</span>
+            `;
+        
+            // Append the messageReplied to the newReplyMessage
+            newReplyMessage.appendChild(messageReplied);
+        
+            // Check if there's an image uploaded
+            const imageInput = document.getElementById("imageUpload");
+            const imageFile = imageInput.files[0];
+        
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imageData = e.target.result;
+                    // Create and append the reply message with image
+                    const replyMessageElement = createAndAppendMessage(replyMessage, imageData);
+                    newReplyMessage.appendChild(replyMessageElement);
+                    finishReply();
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                // Create and append the reply message without image
+                const replyMessageElement = createAndAppendMessage(replyMessage, null);
+                newReplyMessage.appendChild(replyMessageElement);
+                finishReply();
+            }
+        
+            function finishReply() {
+                // Get the chat box and append the new reply message
+                const chatBox = document.querySelector(".chat-box");
+                chatBox.appendChild(newReplyMessage);
+        
+                // Reset currentReplyMessage after sending the reply
+                closeReplyMessage();
+                currentReplyMessage = null;
+        
+                // Optionally reset the input field
+                document.getElementById("userInput").value = "";
+                imageInput.value = "";
+                const preview = document.querySelector(".preview");
+                if (preview) {
+                    preview.remove();
+                }
+                // Scroll to the bottom of the chat box
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+        
+        
+        
     // --------------Preview Image before post---------------------
     function resetInputsAndPreview() {
         // Reset inputs
@@ -639,6 +710,7 @@
             preview.remove();
         }
     }
+
     // --------------------------------------------------
     // Function to create a message element
     function createMessageElementWithImage(userName, message, imageData) {
@@ -701,43 +773,7 @@
         fetchEmojis(); // Fetch emojis when the picker is toggled
         console.log("Toggling emoji picker");
     }
-    // --------------------------------------------------
-    // Adjusted sendReplyMessage function
-    function sendReplyMessage(replyMessage) {
-        // Make sure there's a message to reply to
-        if (!currentReplyMessage || !replyMessage) {
-            console.error("No message selected for reply or reply message is empty.");
-            return;
-        }
 
-        console.log(`Replying with: ${replyMessage} to message: ${currentReplyMessage}`);
-
-        // Create a new reply message element
-        const newReplyMessage = document.createElement("div");
-        newReplyMessage.classList.add("reply-message");
-        
-        // Message replied section
-        const messageReplied = document.createElement("div");
-        messageReplied.classList.add("message-replied");
-        messageReplied.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 46 16" fill="none">
-            <path d="M1 15V15C1 7.26801 7.26801 1 15 1H45" stroke="#ADABAB" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <div class="user-pic">
-            <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-        </div>
-        <div class="user-tag">@Figgy</div>
-        <span>${currentReplyMessage}</span>
-        `;
-
-        // Assuming createAndAppendMessage is correctly implemented to handle the construction and display of new messages
-        createAndAppendMessage(replyMessage);
-
-        // Reset currentReplyMessage after sending the reply
-        currentReplyMessage = null;
-        // Optionally reset the input field
-        document.getElementById("userInput").value = "";
-    }
 
     function prepareReply(message) {
         // Implementation of preparing a reply to a message
