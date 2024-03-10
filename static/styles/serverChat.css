@@ -874,9 +874,19 @@ button{
 .close-rooms,.close-toggle{
     display: none;
 }
+.to-courses:hover{
+    background: linear-gradient(271deg, #510aad 48.8%, #1890FF 151.36%);
+    transition: background 0.5s ease;
+}
 @media screen and (max-width: 1024px) {
     .chat-container > .chat-box {
         padding: 10px 10px;
+    }
+    .message-image > img{
+        max-width: 300px !important;
+    }
+    .memebers-list{
+        max-height: 86vh;
     }
 }
 @media screen and (max-width: 768px) {
@@ -969,6 +979,9 @@ button{
     }
     .close-rooms,.close-toggle{
         display: block;
+    }
+    .chat-footer-box{
+        background: #231054;
     }
 }
 

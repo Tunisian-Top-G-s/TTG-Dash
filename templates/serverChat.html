@@ -25,7 +25,7 @@
         <div class="chat-rooms">
             <div class="chat-rooms-header">
               
-                <div class="to-courses">
+                <a href="/courses" class="to-courses">
                     <span>
 
                         <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
@@ -38,7 +38,7 @@
                         </svg>
                         courses
                     </span>
-                </div>
+                </a>
             </div>
             <div class="text-channels">
                 <div class="text-group">
@@ -564,7 +564,20 @@
         const reactDiv = document.createElement('div');
         reactDiv.classList.add('react');
         reactDiv.innerHTML = SmileSvg;
-        reactDiv.addEventListener('click', toggleEmojiPicker);
+        var ReactsAvailable = document.createElement("div");
+        ReactsAvailable.classList.add("reacts-available");
+        var reactionsList = ['😂', '😍', '👍', '👎', '😢', '😡'];
+        reactionsList.forEach(function(react) {
+            var reactSpan = document.createElement("span");
+            reactSpan.innerText = react;
+            reactSpan.onclick = function() {
+                var messageContentDiv = messageDiv.querySelector(".message-content").innerHTML;
+                addReact(react, messageContentDiv);
+            };
+            ReactsAvailable.appendChild(reactSpan);
+        });
+    
+        reactDiv.appendChild(ReactsAvailable);
     
         // Append the reply button and react div to the container
         replyReactContainer.appendChild(replyButton);
@@ -791,31 +804,6 @@
             reactionsBox = document.createElement("div");
             reactionsBox.classList.add("reactions-box");
             messageContent.appendChild(reactionsBox);
-        }
-
-        // Check if the reaction already exists
-        var existingReact = reactionsBox.querySelector(`.react .emoji[data-emoji="${react}"]`);
-        if (existingReact) {
-            // If the reaction already exists, increase the count
-            var countDiv = existingReact.parentElement.querySelector('.count');
-            var currentCount = parseInt(countDiv.innerText);
-            countDiv.innerText = currentCount + 1;
-        } else {
-            // If the reaction does not exist, create a new one
-            var reactDiv = document.createElement("div");
-            reactDiv.classList.add("react");
-            var emojiDiv = document.createElement("div");
-            emojiDiv.classList.add("emoji");
-            emojiDiv.setAttribute("data-emoji", react);
-            emojiDiv.innerText = react;
-            var countDiv = document.createElement("div");
-            countDiv.classList.add("count");
-            countDiv.innerText = "1"; // Initial count is 1
-
-            reactDiv.appendChild(emojiDiv);
-            reactDiv.appendChild(countDiv);
-
-            reactionsBox.appendChild(reactDiv);
         }
     }
     // --------------------------------------------------
