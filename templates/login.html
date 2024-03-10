@@ -3,6 +3,9 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "styles/login.css" %}">
+{% block title%}
+<title>Log In - Tunisian Top Gs</title>
+{% endblock title %}
 {% endblock head %}
 
 
@@ -33,7 +36,7 @@
       <div class="divisier">
         <span class="text-divisier">or</span>
       </div>
-
+      <div id="errorMessage" class="error-message"></div>
       <form>
         {% csrf_token %}
             {{ LoginForm.non_field_errors }}

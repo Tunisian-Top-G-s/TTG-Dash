@@ -8,11 +8,10 @@
     top: 0;
     left: 0;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    padding: 0 0px;
     height: 80px;
+    justify-content: space-around;
+    align-items: center;
 }
 .logo-v {
     width: 145px;
@@ -29,7 +28,7 @@
     gap: 20px;
 }
 .fkkk > .active{
-    background: linear-gradient(100deg, #260FB8 -36.4%, #9747FF 131.27%);
+    background: linear-gradient(100deg, #c9c3f2 -36.4%, #9747FF 131.27%);
     border-radius: 5px;
     text-decoration: none;
 }
@@ -167,6 +166,7 @@ span.sort-by-up-arrow {
     font-weight: 600;
     line-height: 28px;
     letter-spacing: -0.36px;
+    text-transform: capitalize;
 }
 .navbar{
     display: none;
@@ -204,7 +204,7 @@ span.sort-by-up-arrow {
 }
 
 .notification > .menu > .content {
-    color: #8e98a0;
+    color: white;
     height: 295px;
 }
 
@@ -364,6 +364,7 @@ span.sort-by-up-arrow {
 }
 .messages > .menu > .content > ul > li > div > span > b{
     text-wrap: nowrap;
+    color: white;
 }
 .messages > .menu > .content > ul > li > div > span > .received-msg{
     text-wrap: nowrap;

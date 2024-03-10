@@ -3,11 +3,15 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "styles/cart.css" %}">
+{% block title%}
+<title>Cart - Tunisian Top Gs</title>
+{% endblock title %}
+
 {% endblock head %}
-    
 
 {% block main %}
-<main>
+{% include "components/navbar.html" %}
+<div class="cart-wrapper">
   <div class="shopping-cart">
     <div class="h1-text">Shopping Cart</div>
     <div class="items-container">
@@ -127,7 +131,7 @@
       </div>
     </div>
   </div>
-</main>
+  <div>
 {% endblock main %}
 
 {% block scripts %}

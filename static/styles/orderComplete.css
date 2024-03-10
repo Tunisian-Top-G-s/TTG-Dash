@@ -73,7 +73,9 @@
     body {
       overflow-y: hidden;
     }
-  
+    main{
+      height: 100vh;
+    }
     .completation-container {
       display: flex;
       flex-direction: column;
