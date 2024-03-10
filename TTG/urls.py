@@ -30,9 +30,15 @@ urlpatterns = [
     path('<int:course_id>/levels/', views.levelsView, name="levels"),
     path('<int:level_id>/video-course/', views.videoCourseView, name="video-course"),
     path('<int:level_id>/notes-course/', views.notesCourseView, name="notes-course"),
+
     path('<int:level_id>/imgQuizz-course/', views.imgQuizzCourseView, name="imgQuizz-course"),
+
     path('<int:level_id>/textQuizz-course/', views.textQuizzCourseView, name="textQuizz-course"),
     path('<int:level_id>/lesson-completed/', views.lessonCompletedView, name="lesson-completed"),
+
+    path('get-video/', views.getVideoView, name="get-video"),
+    path('videoFinished/', views.videoFinishedView, name="videoFinished"),
+
 
     path('register/', views.registerView, name="register"),
     path('registerf/', views.registerf, name="registerf"),
