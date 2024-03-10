@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "styles/product.css" %}">
+<link rel="icon" type="image/x-icon" href="{% static "assets/img/logo.png" %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;600;800;900&display=swap"
+      rel="stylesheet"
+    />
+{% block title %}<title>Shop</title>{% endblock title %}
+
+{% endblock head %}
+
+{% block main %}
+{% include "components/navbar.html" %}
+      <!-- selected item section -->
+      <section class="flex selected-item-section">
+        <div class="flex flex-col selected-item-photos">
+          <div class="flex flex-center photo-container">
+            <img src="{% static "assets/img/black-shirt-2.png" %}" width="250" />
+          </div>
+
+          <div class="flex flex-center selected-item-photos-views">
+            <div class="flex flex-center photos-views-container active-view">
+              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
+            </div>
+            <div class="flex flex-center photos-views-container">
+              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
+            </div>
+            <div class="flex flex-center photos-views-container">
+              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col selected-item">
+          <span class="h1-text">TTG Hoodie</span>
+
+          <div class="selected-item-price">
+            <span class="h1-text">35DT</span>
+          </div>
+
+          <div class="selected-item-description">
+            <span class="h1-text">Description</span>
+          </div>
+
+          <div class="selected-item-description-body">
+            <span class="p-text">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum.
+            </span>
+          </div>
+
+          <div class="flex selected-item-rating">
+            <span class="p-text">4.5/5</span>
+            <div class="stars-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-star"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-star"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-star"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-star"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-star"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="selected-item-color">
+            <span class="h1-text">Colors</span>
+          </div>
+
+          <div class="flex selected-item-color-body">
+            <div class="item-color bg-pink"></div>
+            <div class="item-color bg-purple"></div>
+            <div class="item-color bg-yellow"></div>
+            <div class="item-color bg-white"></div>
+          </div>
+
+          <div class="selected-item-size">
+            <span class="h1-text">Size</span>
+          </div>
+
+          <div class="flex selected-item-size-body">
+            <div class="flex flex-center size-item">
+              <input type="checkbox" id="m-size" name="M" />
+              <label for="m-size">M</label>
+            </div>
+            <div class="flex flex-center size-item">
+              <input type="checkbox" id="m-size" name="M" />
+              <label for="m-size">L</label>
+            </div>
+            <div class="flex flex-center size-item">
+              <input type="checkbox" id="m-size" name="M" />
+              <label for="m-size">XL</label>
+            </div>
+          </div>
+
+          <div class="flex selected-item-submit">
+            <button>Order Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- similar products section -->
+      <section class="items-section">
+        <span class="h1-text">Similar Products</span>
+
+        <div class="flex flex-wrap items-content">
+          <!-- card #1 -->
+          <div class="item-card">
+            <button class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-heart"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
+              </svg>
+            </button>
+
+            <div class="flex flex-center card-banner">
+              <span class="p-text">Promo</span>
+            </div>
+
+            <div class="flex flex-center card-body">
+              <img
+                alt="black-shirt"
+                src="{% static "assets/img/black-shirt-2.png" %}"
+                width="220"
+              />
+            </div>
+
+            <div class="flex card-footer">
+              <div class="flex flex-col item-name">
+                <span class="h1-text">TTG T-SHIRT</span>
+                <span class="p-text">slim fit</span>
+              </div>
+              <div class="flex flex-col flex-center item-price">
+                <span class="p-text">40DT</span>
+                <span class="h1-text">35DT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- card #2 -->
+          <div class="item-card">
+            <button class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-heart"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
+              </svg>
+            </button>
+
+            <div class="flex flex-center card-body">
+              <img
+                alt="black-shirt"
+                src="{% static "assets/img/black-shirt-2.png" %}"
+                width="220"
+              />
+            </div>
+
+            <div class="flex card-footer">
+              <div class="flex flex-col item-name">
+                <span class="h1-text">TTG T-SHIRT</span>
+                <span class="p-text">slim fit</span>
+              </div>
+              <div class="flex flex-col flex-center item-price">
+                <span class="h1-text">35DT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- card #3 -->
+          <div class="item-card">
+            <button class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-heart"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
+              </svg>
+            </button>
+
+            <div class="flex flex-center card-body">
+              <img
+                alt="black-shirt"
+                src="{% static "assets/img/black-shirt-2.png" %}"
+                width="220"
+              />
+            </div>
+
+            <div class="flex card-footer">
+              <div class="flex flex-col item-name">
+                <span class="h1-text">TTG T-SHIRT</span>
+                <span class="p-text">slim fit</span>
+              </div>
+              <div class="flex flex-col flex-center item-price">
+                <span class="h1-text">35DT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- card #4 -->
+          <div class="item-card">
+            <button class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-heart"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
+              </svg>
+            </button>
+
+            <div class="flex flex-center card-banner">
+              <span class="p-text">Promo</span>
+            </div>
+
+            <div class="flex flex-center card-body">
+              <img
+                alt="black-shirt"
+                src="{% static "assets/img/black-shirt-2.png" %}"
+                width="220"
+              />
+            </div>
+
+            <div class="flex card-footer">
+              <div class="flex flex-col item-name">
+                <span class="h1-text">TTG T-SHIRT</span>
+                <span class="p-text">slim fit</span>
+              </div>
+              <div class="flex flex-col flex-center item-price">
+                <span class="p-text">40DT</span>
+                <span class="h1-text">35DT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endblock main %}
+
+    {% block footer %}{% endblock footer %}
+    
+    {% block sctipts %}
+    
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script>
+          lucide.createIcons();
+        </script>
+    
+    {% endblock sctipts %}
+
