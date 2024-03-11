@@ -2,30 +2,531 @@
 {% load static %}
 
 {% block course-head %}
-<link rel="stylesheet" href="{% static "styles/video-course.css" %}">
-
+    <link rel="stylesheet" href="{% static "styles/video-course.css" %}">
+    <link rel="stylesheet" href="{% static "styles/notes-course.css" %}">
+    <link rel="stylesheet" href="{% static "styles/textQuizz-course.css" %}">
+    <link rel="stylesheet" href="{% static "styles/lessonComplete.css" %}">
 {% endblock course-head %}
 
 {% block course-content %}
-        <div class="container-lesson">
-            <div class="iconlike">
-                <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
-            </div>
-            <div class="fill">
-                    <span class="lesson-text">New trader indroduction</span>
-            </div>
-            <div class="lesson">
-                <div class="lesson-video">
-                    <video class="video-class" src="{% static "assets/-9793-41dd-895b-abd6b1a01ef3.mp4" %}" controls></video>
-                </div>
-                <div class="lesson-container">
-                    <span class="title-lesson-description">New trader indroduction</span>
-                    <span class="description-step-video">Make sure to communicate with other staff members effectively and keep them updated on any important information .</span>
-                    </div>
-                <div class="next-lesson">
-                    <a href="#" class="keep-next">NEXT</a>
-                </div>
+    <div class="container-lesson" >
+        <div class="iconlike">
+            <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
         </div>
-</div>
+        <div class="fill">
+            <span class="lesson-text">{{video.title}}</span>
+        </div>
+        <div class="lesson">
+            <div class="lesson-video">
+                <video controls>
+                    <source class="videoSRC" src="{{ video.video_file.url }}" type="video/mp4">
+               </video>
+            </div>
+            <div class="lesson-container">
+                <span class="title-lesson-description">{{video.title}}</span>
+                <span class="description-step-video">{{video.notes}}</span>
+            </div>
+            <div class="next-lesson">
+                <a href="#" class="keep-next">NEXT</a>
+            </div>
+        </div>
+    </div>
 
+    <div class="container-lesson" style="display:none">
+        <div class="iconlike">
+            <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
+        </div>
+        
+        <div class="fill">
+            <span class="lesson-text">lesson 1 </span>
+        </div>
+    
+        <div class="content-lesson">
+            <span class="context-hints"></span>
+            <span class="content-text-inside">
+                {{video.summary}}
+            </span>
+        </div>
+
+        <div class="next-lesson">
+            <div>
+                <a href="#" class="prev-btn">BACK</a>
+            </div>
+            <div>
+                <a href="#" class="keep-next">NEXT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-quiz container-lesson" style="display:none">
+        <div class="iconlike">
+            <img src="{% static "assets/like.png" %}" alt="iconlike">
+        </div>
+        <div class="title-default-quiz">
+            <span class="text-default-quiz">QUIZZEZ</span>
+        </div>
+        <div class="fill-question">
+            <span class="question-text">Question : {{video.quiz.question}} </span>
+        </div>
+        <div id="container-answers" class="answers-design">
+
+
+
+
+        </div>
+
+        <div class="next-lesson">
+            <div>
+                <a href="#" class="prev-btn">BACK</a>
+            </div>
+            <div>
+                <a href="#" class="keep-next">NEXT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-container container-lesson container-quiz" style="display:none">
+        <div class="lesson-header">
+            <img src="{% static "assets/check-icon.png" %}" alt="check-icon" />
+            <span class="h1-title">Lesson Complete</span>
+        </div>
+        <div class="lesson-body">
+            <span class="p-text">Congratulations on completing this lesson! 🌟</span>
+        </div>
+        <div class="lesson-controls">
+            <button class="prev-btn">Back</button>
+            <div class="next-btn-container">
+                <button class="next-btn finishStep" id="finishStep">Finish Step</button>
+                <img src="{% static "assets/next-icon-cropped.svg" %}" alt="next-icon" height="{30}" width="{30}" />
+            </div>
+        </div>
+    </div>
 {% endblock course-content %}
+
+{% block scripts %}
+<script src="{% static "js/textQuizz-course.js" %}"></script>
+<script>
+
+
+    var moduleDropdowns = document.querySelectorAll('.modules-dropdowns');
+    var moduleIds = [];
+
+    moduleDropdowns.forEach(function(dropdown) {
+        var moduleId = dropdown.dataset.id; // Extract the data-id attribute
+        moduleIds.push(moduleId); // Append the module ID to the list
+
+        dropdown.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the default action of the event
+            var videoId = moduleId; // Assuming moduleId contains the ID of the clicked video
+            console.log(videoId); // Output the updated videoId
+            changeVideo(videoId)
+            // Send the videoId to the server using AJAX
+            $.ajax({
+                type: 'POST',
+                url: '/get-video/',
+                data: { "videoId": videoId }, // Send data as an object
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error('Error', error);
+                }
+            });
+        });
+    });
+
+    console.log(moduleIds); // Output the list of module IDs
+
+    // Extract the videoId from the URL if it exists
+    var urlParams = new URLSearchParams(window.location.search);
+    var videoIdParam = urlParams.get('id');
+
+    // Check if the videoIdParam exists and is in moduleIds
+    if (videoIdParam && moduleIds.includes(videoIdParam)) {
+        var videoId = videoIdParam;
+        console.log("there is")
+        changeVideo(videoId)
+    } else {
+        // Default videoId set to the first video ID
+        var videoId = moduleIds.length > 0 ? moduleIds[0] : null;
+    }
+    console.log(videoId);
+
+    function updateProgressBar(percentage) {
+        var progressBar = document.getElementById("progressBar");
+        progressBar.style.width = percentage + '%';
+        //progressBar.innerHTML = percentage + '%'; // Optional: Display the percentage
+      }
+      
+      // Example usage: Update the progress bar to 70%
+      updateProgressBar(80);
+      
+      document.addEventListener('DOMContentLoaded', function () {
+        var dropdownToggles = document.querySelectorAll('.dropdownToggle');
+    
+        dropdownToggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function(event) {
+                event.preventDefault();
+                var modules = this.parentNode.nextElementSibling; // Assuming .modules is always the next sibling
+                modules.classList.toggle('is-active');
+            });
+        });
+    });
+    
+    
+    levelProgressText = document.querySelector('.percentage-progess');
+    
+    $.ajax({
+        type: 'POST',
+        url:'/level_progress/',
+        data: {
+            level_id: {{level.id}}
+        },  
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },
+        success: function(response) {
+            if (response.success) {
+                console.log(response);
+                // Set the width of the progress bar for the current course
+                levelProgressText.innerText = `${response.level_progression}% complete`;
+                updateProgressBar(response.level_progression);
+            } else {
+                console.log(response);
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    
+    
+
+    
+
+    // Other parts of your script...
+    
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentIndex = 0;
+    
+        function showLesson(index) {
+            const lessonContainers = document.querySelectorAll('.container-lesson');
+            lessonContainers.forEach((container, i) => {
+                if (i === index) {
+                    container.style.display = 'block';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
+        }
+    
+        function nextLesson() {
+            const lessonContainers = document.querySelectorAll('.container-lesson');
+            if (currentIndex < lessonContainers.length - 1) {
+                currentIndex++;
+                showLesson(currentIndex);
+            }
+        }
+    
+        function prevLesson() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showLesson(currentIndex);
+            }
+        }
+    
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('.keep-next')) {
+                nextLesson();
+            } else if (event.target.matches('.prev-btn')) {
+                prevLesson();
+            }
+        });
+    
+        // Show the first lesson initially
+        showLesson(currentIndex);
+    });
+
+
+
+
+
+
+
+    var answers = []
+
+    $.ajax({
+        type: 'POST',
+        url: '/get-video/',
+        data: { "videoId": videoId }, // Send data as an object
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },
+        success: function(response) {
+            console.log(response.video.quiz_options);
+        
+            var list_of_dicts = [];
+        
+            // Iterate through the original dictionary
+            for (var key in response.video.quiz_options) {
+                if (response.video.quiz_options.hasOwnProperty(key)) {
+                    // Create a new dictionary for each key-value pair
+                    var new_dict = {'id': parseInt(key) + 1, 'text': response.video.quiz_options[key]};
+                    // Append the new dictionary to the list
+                    list_of_dicts.push(new_dict);
+                }
+            }
+
+            
+            console.log(list_of_dicts);
+            
+            answers = list_of_dicts;
+            generateAnswers(answers, {{video.quiz.answer}})
+        },
+        error: function(error) {
+            console.error('Error', error);
+        }
+    });
+
+
+    
+
+    function generateAnswers(answers, rightAnswer) {
+        const container = document.querySelector('#container-answers');
+        container.innerHTML = ''; // Clear the container first if needed
+
+        // Remove any existing feedback message
+        const existingFeedback = document.querySelector('.feedback-message');
+        if (existingFeedback) {
+            existingFeedback.remove();
+        }
+        console.log(answers, "answersanswersanswersanswers")
+        answers.forEach(answer => {
+            const answerDiv = document.createElement('div');
+            const answerSpan = document.createElement('span');
+
+            answerDiv.classList.add(`answer-${answer.id}`);
+            answerSpan.classList.add('answers-texts');
+            answerSpan.textContent = answer.text;
+
+            answerDiv.appendChild(answerSpan);
+            container.appendChild(answerDiv);
+
+            answerDiv.addEventListener('click', function() {
+                // Disable further clicks
+                container.querySelectorAll('div').forEach(div => {
+                    div.style.pointerEvents = 'none';
+                });
+
+                let selectedCorrectly = answer.id === 3; // Check if the selected answer is correct
+                answers.forEach(ans => {
+                    const div = document.querySelector(`.answer-${ans.id}`);
+                    if (ans.id === rightAnswer) { // Correct answer
+                        div.classList.add('answer-right');
+                        if (!div.querySelector('img')) {
+                            const iconImage = document.createElement('img');
+                            iconImage.src = './assets/Check Mark.png';
+                            iconImage.alt = 'Correct';
+                            div.appendChild(iconImage);
+                        }
+                    } else if (ans.id === answer.id) { // Selected answer if it's wrong
+                        div.classList.add('answer-wrong');
+                        const iconImage = document.createElement('img');
+                        iconImage.src = './assets/Close.png';
+                        iconImage.alt = 'Incorrect';
+                        div.appendChild(iconImage);
+                    }
+                });
+
+                if (!selectedCorrectly) {
+                    displayFeedbackMessage("Sorry, that's incorrect. Please try again.");
+                }
+
+                // Show a retry button
+                showRetryButton();
+            });
+        });
+    }
+
+    function showRetryButton() {
+        const retryButton = document.createElement('button');
+        retryButton.textContent = 'Retry Quiz';
+        retryButton.classList.add('retry-button'); // Use the class for styling
+        retryButton.onclick = function() {
+            document.location.reload(true); // Reload the page for simplicity
+        };
+
+        const container = document.querySelector('#container-answers');
+        // Remove existing retry button if it exists to prevent duplicates
+        const existingButton = document.querySelector('.retry-button');
+        if (!existingButton) {
+            container.after(retryButton); // Place the retry button outside and below the container
+        }
+    }
+
+    function displayFeedbackMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('feedback-message');
+        messageDiv.textContent = message;
+
+        const container = document.querySelector('#container-answers');
+        container.after(messageDiv); // Place the message below the container
+    }
+
+
+    var finishStepButton = document.getElementById('finishStep');
+
+    if (finishStepButton) {
+        finishStepButton.addEventListener('click', function(event) {
+            console.log('finishStep event was triggered!');
+
+            $.ajax({
+                type: 'POST',
+                url: '/videoFinished/',
+                data: { "videoId": videoId }, // Send data as an object
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+                },
+                success: function(response) {
+                    console.log(response);
+                    var currentIndex = moduleIds.indexOf(videoId);
+
+                    // Check if the current video ID exists in the array and if there is a next video ID available
+                    if (currentIndex !== -1 && currentIndex < moduleIds.length - 1) {
+                        // Get the next video ID
+                        var nextVideoId = moduleIds[currentIndex + 1];
+                        console.log("Next Video ID:", nextVideoId);
+                    } else {
+                        console.log("No next video available or current video ID not found in the list.");
+                    }
+                    window.location.href = "/" + {{ level.id }} + '/video-course/?id=' + nextVideoId;
+
+                },
+                error: function(error) {
+                    console.error('Error', error);
+                }
+            });
+
+        });
+    }
+
+    const lessonTextElements = document.querySelectorAll('.lesson-text');
+    const titleLessonDescriptionElements = document.querySelectorAll('.title-lesson-description');
+    const descriptionStepVideoElements = document.querySelectorAll('.description-step-video');
+    const contentTextInsideElements = document.querySelectorAll('.content-text-inside');
+    const questionTextElements = document.querySelectorAll('.question-text');
+    const videosrc = document.querySelector('.videoSRC');
+
+    function changeVideo(videoId) {
+        console.log("Changing video")
+        $.ajax({
+            type: 'POST',
+            url: '/get-video/',
+            data: { "videoId": videoId }, // Send data as an object
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+            },
+            success: function(response) {
+
+                var answers = []
+
+    $.ajax({
+        type: 'POST',
+        url: '/get-video/',
+        data: { "videoId": videoId }, // Send data as an object
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },
+        success: function(response) {
+            console.log(response.video.quiz_options);
+        
+            var list_of_dicts = [];
+        
+            // Iterate through the original dictionary
+            for (var key in response.video.quiz_options) {
+                if (response.video.quiz_options.hasOwnProperty(key)) {
+                    // Create a new dictionary for each key-value pair
+                    var new_dict = {'id': parseInt(key) + 1, 'text': response.video.quiz_options[key]};
+                    // Append the new dictionary to the list
+                    list_of_dicts.push(new_dict);
+                }
+            }
+
+            
+            console.log(list_of_dicts);
+            
+            answers = list_of_dicts;
+            generateAnswers(answers, video.answer)
+        },
+        error: function(error) {
+            console.error('Error', error);
+        }
+    });
+
+                console.log(response);
+                lessonTextElements.forEach(element => {
+                    console.log('Change video for lesson text:', element);
+                    element.innerText = response.video.title;
+                });
+                
+                titleLessonDescriptionElements.forEach(element => {
+                    console.log('Change video for title lesson description:', element);
+                    element.innerText = response.video.title;
+                });
+
+                videosrc.src = response.video.video_file
+                let video = document.querySelector('video');
+                video.load();
+                descriptionStepVideoElements.forEach(element => {
+                    console.log('Change video for description step video:', element);
+                    element.innerText = JSON.stringify(response.video.notes);
+                });
+                
+                contentTextInsideElements.forEach(element => {
+                    console.log('Change video for content text inside:', element);
+                    element.innerText = JSON.stringify(response.video.summary);
+                });
+                
+                questionTextElements.forEach(element => {
+                    console.log('Change video for question text:', element);
+                    element.innerText = response.video.quiz_question;
+                });
+
+                rightAnswer = response.video.answer
+
+            },
+            error: function(error) {
+                console.error('Error', error);
+            }
+        });
+        
+        
+    }
+
+</script>
+{% endblock scripts %}

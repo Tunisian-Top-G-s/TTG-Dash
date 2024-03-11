@@ -2,12 +2,10 @@
 {% load static %}
 
 {% block course-head %}
-<link rel="stylesheet" href="{% static "styles/textQuizz-course.css" %}">
-
+    <link rel="stylesheet" href="{% static "styles/textQuizz-course.css" %}">
 {% endblock course-head %}
 
 {% block course-content %}
-
     <div class="container-quiz">
         <div class="iconlike">
             <img src="{% static "assets/like.png" %}" alt="iconlike">
@@ -17,26 +15,20 @@
         </div>
         <div class="fill-question">
             <span class="question-text">Question : who created the crypto named Bitcoin ? </span>
-    </div>
-    <div id="container-answers" class="answers-design"></div>
-   
+        </div>
+        <div id="container-answers" class="answers-design"></div>
 
-   
-   
-    <div class="next-lesson">
-        <div>
-        <a href="#" class="keep-next">BACK</a>
+        <div class="next-lesson">
+            <div>
+                <a href="#" class="keep-next">BACK</a>
+            </div>
+            <div>
+                <a href="#" class="keep-next">NEXT</a>
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="#" class="keep-next">NEXT</a>
-    </div>
-    </div>
-    </div>
-
-</div>
-
 {% endblock course-content %}
 
 {% block scripts %}
-<script src="{% static "js/textQuizz-course.js" %}"></script>
+    <script src="{% static "js/textQuizz-course.js" %}"></script>
 {% endblock scripts %}

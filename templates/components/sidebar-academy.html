@@ -4,10 +4,10 @@
 
 <div class="div-container-all-sidebar">
     <div class="foundation">
-        <span class="title-summary-course">The Foundation</span>
+        <span class="title-summary-course">{{level.title}}</span>
         <div class="flex-foundation">
             <div class="under-foundation">
-                <div class="percentage-progess">100 % complete</div>
+                <div class="percentage-progess">100% complete</div>
                 <div id="progressBarContainer" class="progress-bar-container">
                     <div id="progressBar" class="progress-bar"></div>
                 </div>
@@ -17,7 +17,7 @@
                         <span class="modules-text">Modules</span>
                     </div>
                     <div class="flex-ml">
-                        <span class="modules-number">9</span>
+                        <span class="modules-number">{{level.videos_count}}</span>
                         <span class="modules-text">Lessons</span>
                     </div>
                 </div>
@@ -40,12 +40,14 @@
             {% for module in modules %}
                 <div class="all-container-steps-modules">
                     <div class="dropdown-modules">
+                        
                         <span class="module-text">Module {{module.module_number}} “{{module.title}}”</span>
+                        <h6>{{module.videos.count}} videos</h6>
                         <a href="#" class="dropdownToggle"><img class="icon-default" src="{% static 'assets/arrow-down.png' %}" alt="Toggle Dropdown"></a>
                     </div>
                     <div class="modules">
-                        {% for video in module.video_set.all %}
-                        <div data-VideoId="{{video.id}}" class="modules-dropdowns">
+                        {% for video in module.videos.all %}
+                        <div data-id="{{video.id}}" class="modules-dropdowns">
                             <div class="dropdown-content">
                                 <div class="step">
                                     <div class="flex-right-intro">
@@ -53,8 +55,7 @@
                                             <img class="icon-done-iamg" src="{% static 'assets/done-step.png' %}" alt="icon-done">
                                         </div>
                                         <div class="step-title">
-                                            <span class="title-text">{{module.description}}</span>
-                                            <span class="content-info">1 video + Exams</span>
+                                            <span class="title-text">{{video.title}}</span>
                                         </div>
                                     </div>
                                     <div class="button-icon">
@@ -72,4 +73,7 @@
     </div>
 </div>
 
-<script src="{% static 'js/sidebar-academy.js' %}"></script>
+<script>
+    
+</script>
+{% comment %} <script src="{% static 'js/sidebar-academy.js' %}"></script> {% endcomment %}

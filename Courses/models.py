@@ -1,21 +1,16 @@
 from django.db import models
 from django.db.models import Sum
 
-# Create your models here.
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     price = models.IntegerField(default=0)
     img = models.ImageField(upload_to="Course_img", blank=True, null=True)
-    professor = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, related_name='professor_course', null=True, blank=True)
-    members_count = models.IntegerField(default=0)  # New field to track members count
+    professor = models.ForeignKey("Users.Professor", on_delete=models.CASCADE, related_name='courses', null=True, blank=True)
+    members_count = models.IntegerField(default=0)
 
     def course_progression(self, user):
-        """
-        Retrieve CourseProgression for a given user and course.
-        """
         try:
-            # Attempt to retrieve the CourseProgression instance for the user and current course
             progression = CourseProgression.objects.get(course=self, user=user)
             return progression
         except CourseProgression.DoesNotExist:
@@ -26,56 +21,57 @@ class Course(models.Model):
         self.save()
 
 class Level(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='levels')
     image = models.ImageField(upload_to="levels_images", blank=True, null=True)
     level_number = models.IntegerField()
     title = models.CharField(max_length=255)
     description = models.TextField()
 
+    def videos_count(self):
+        modules = self.modules.all()
+        total_videos = 0
+        for module in modules:
+            total_videos += module.videos.count()
+        return total_videos
+
 class Module(models.Model):
-    level = models.ForeignKey(Level, on_delete=models.CASCADE)
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=255)
     module_number = models.IntegerField(blank=True, null=True)
     description = models.TextField()
 
 class Video(models.Model):
-    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='videos')
     title = models.CharField(max_length=255)
-    video_url = models.URLField()
+    video_file = models.FileField(upload_to="coursesVideos", max_length=100, blank=True, null=True)
+    summary = models.JSONField(default=dict)
     notes = models.JSONField(default=dict)
+    finished = models.BooleanField(default=False)
 
 class Quiz(models.Model):
-    video = models.OneToOneField(Video, on_delete=models.CASCADE)
+    video = models.OneToOneField(Video, on_delete=models.CASCADE, related_name='quiz')
     question = models.TextField()
     options = models.JSONField()
-    correct_option = models.JSONField()
+    answer = models.IntegerField(blank=True, null=True)
 
 class Exam(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     quizzes = models.ManyToManyField(Quiz)
 
-
 class LevelProgression(models.Model):
-    user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, blank=True)
-    level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, blank=True, related_name='level_progressions')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True, related_name='progressions')
     progress = models.IntegerField(default=0, null=True, blank=True)
 
 class CourseProgression(models.Model):
-    user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, blank=True)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, blank=True, related_name='course_progressions')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, related_name='user_progressions')
 
     def calculate_progression(self):
-        # Get all levels associated with the course
-        course_levels = self.course.level_set.all()
-
-        # Get LevelProgression instances where the level is in course_levels
+        course_levels = self.course.levels.all()
         level_progressions = LevelProgression.objects.filter(level__in=course_levels, user=self.user)
-
-        # Calculate the total progress by summing the progress of all related level_progressions
         total_progress = level_progressions.aggregate(Sum('progress'))['progress__sum']
-
-        # Ensure that total_progress is not None, set it to 0 if it is None
         total_progress = total_progress or 0
         print('Total progress', total_progress)
         return total_progress

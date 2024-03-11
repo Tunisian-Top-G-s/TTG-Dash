@@ -108,6 +108,7 @@ class Transaction(models.Model):
 
 class Professor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='professor')
+    description = models.CharField(max_length=255, blank=False, null=True)
 
     def __str__(self):
         return str(self.user)

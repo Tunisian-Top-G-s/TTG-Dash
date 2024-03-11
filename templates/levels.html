@@ -29,7 +29,7 @@
           <div class="learning-titles">
             <span class="h1-text">{{level.title}}</span>
             <span class="p-text">{{level.description}}</span>
-            <a href="#">{{level.module_set.all.count}} modules</a>
+            <a href="{% url "video-course" level_id=level.id %}">{{level.module_set.all.count}} modules</a>
           </div>
         </div>
       </div>

@@ -2,65 +2,45 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "styles/courses.css" %}">
-
+    <link rel="stylesheet" href="{% static "styles/courses.css" %}">
 {% endblock head %}
 
-
-
-  {% block main %}
-  {% include "components/navbar.html" %}
-  <div class="course-container">
-    <span class="h1-text">Popular Courses</span>
-    <div class="nav"></div>
-    <div class="popular-courses">
-      <div class="course-list">
-        {% for course in courses %}
-        <!-- <a href="" class="courses-links">   -->
-        <div class="course volls" 
-        style="
-        background: url('{{course.img.url}}') no-repeat center;
-        background-size: 155% 100%;
-        ">
-          <div class="layer"></div>
-          <div class="course-layout">
-            <div class="course-header">
-              <img
-                class="owner-icon"
-                src="{{course.img.url}}"
-                alt="course-bg"
-              />
-
-              <div class="course-owner">
-                <span class="h1-text">{{course.professor.user.username}}</span>
-                <span class="p-text">6 Years of experience</span>
-              </div>
-
-              <div class="course-pricing">
-                <span class="price">{{course.price}} DT - Monthly</span>
-                {% comment %} <span class="duration">82 min</span> {% endcomment %}
-              </div>
+{% block main %}
+    {% include "components/navbar.html" %}
+    <div class="course-container">
+        <span class="h1-text">Popular Courses</span>
+        <div class="nav"></div>
+        <div class="popular-courses">
+            <div class="course-list">
+                {% for course in courses %}
+                    <a href="{% url 'levels' course_id=course.id %}" class="course volls" style="background: url('{{course.img.url}}') no-repeat center; background-size: 155% 100%;">
+                        <div class="layer"></div>
+                        <div class="course-layout">
+                            <div class="course-header">
+                                <img class="owner-icon" src="{{course.img.url}}" alt="course-bg" />
+                                <div class="course-owner">
+                                    <span class="h1-text">{{course.professor.user.user.username}}</span>
+                                    <span class="p-text">{{course.professor.description}}</span>
+                                </div>
+                                <div class="course-pricing">
+                                    <span class="price">{{course.price}} DT - Monthly</span>
+                                    {% comment %} <span class="duration">82 min</span> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="course-title">
+                                <span class="h1-text">{{course.title}}</span>
+                            </div>
+                        </div>
+                      </a>
+                    <!-- </a> -->
+                {% endfor %}
             </div>
-            <div class="course-title">
-              <span class="h1-text">{{course.title}}</span>
-            </div>
-          </div>
         </div>
-      <!-- </a> -->
-        {% endfor %}
-      </div>
+        <div class="deco-asset"></div>
+        <div class="deco-asset2"></div>
     </div>
-    <div class="deco-asset"></div>
-    <div class="deco-asset2"></div>
-  </div>
-  {% endblock main %}
+{% endblock main %}
 
 {% block footer %}{% endblock footer %}
 
-{% block scripts %}
-
-<script>
-
-</script>
-
-{% endblock scripts %}
+{% block scripts %}{% endblock scripts %}
