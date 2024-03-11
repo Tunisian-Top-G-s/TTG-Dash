@@ -18,6 +18,7 @@
 {% block main %}
 {% include "components/navbar.html" %}
       <!-- selected item section -->
+    <div class="product-main">
       <section class="flex selected-item-section">
         <div class="flex flex-col selected-item-photos">
           <div class="flex flex-center photo-container">
@@ -26,7 +27,7 @@
 
           <div class="flex flex-center selected-item-photos-views">
             <div class="flex flex-center photos-views-container active-view">
-              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
+              <img src="{% static "assets/img/black-shirt.png" %}" width="80" />
             </div>
             <div class="flex flex-center photos-views-container">
               <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
@@ -43,26 +44,6 @@
           <div class="selected-item-price">
             <span class="h1-text">35DT</span>
           </div>
-
-          <div class="selected-item-description">
-            <span class="h1-text">Description</span>
-          </div>
-
-          <div class="selected-item-description-body">
-            <span class="p-text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </span>
-          </div>
-
           <div class="flex selected-item-rating">
             <span class="p-text">4.5/5</span>
             <div class="stars-container">
@@ -148,40 +129,58 @@
               </svg>
             </div>
           </div>
-
-          <div class="selected-item-color">
-            <span class="h1-text">Colors</span>
+          <div class="selected-item-description">
+            <span class="h1-text">Description</span>
           </div>
 
-          <div class="flex selected-item-color-body">
-            <div class="item-color bg-pink"></div>
-            <div class="item-color bg-purple"></div>
-            <div class="item-color bg-yellow"></div>
-            <div class="item-color bg-white"></div>
+          <div class="selected-item-description-body">
+            <span class="p-text">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries.
+            </span>
           </div>
-
-          <div class="selected-item-size">
-            <span class="h1-text">Size</span>
-          </div>
-
-          <div class="flex selected-item-size-body">
-            <div class="flex flex-center size-item">
-              <input type="checkbox" id="m-size" name="M" />
-              <label for="m-size">M</label>
+          <form>
+            <div class="selected-item-color">
+              <span class="h1-text">Colors</span>
             </div>
-            <div class="flex flex-center size-item">
-              <input type="checkbox" id="m-size" name="M" />
-              <label for="m-size">L</label>
-            </div>
-            <div class="flex flex-center size-item">
-              <input type="checkbox" id="m-size" name="M" />
-              <label for="m-size">XL</label>
-            </div>
-          </div>
 
-          <div class="flex selected-item-submit">
-            <button>Order Now</button>
-          </div>
+            <div class="flex selected-item-color-body">
+              <div class="item-color bg-pink Pink" onclick="selectColor(this)"></div>
+              <div class="item-color bg-purple Purple" onclick="selectColor(this)"></div>
+              <div class="item-color bg-yellow Yellow" onclick="selectColor(this)"></div>
+              <div class="item-color bg-white White" onclick="selectColor(this)"></div>
+            </div>
+
+            <div class="selected-item-size">
+              <span class="h1-text">Size</span>
+            </div>
+
+            <div class="flex selected-item-size-body">
+              <div class="flex flex-center size-item">
+                <input type="radio" id="m-size" name="Size" value="S" />
+                <label for="m-size">S</label>
+              </div>
+              <div class="flex flex-center size-item">
+                <input type="radio" id="m-size" name="Size" value="M" />
+                <label for="m-size">M</label>
+              </div>
+              <div class="flex flex-center size-item">
+                <input type="radio" id="m-size" name="Size"  value="L"/>
+                <label for="m-size">L</label>
+              </div>
+              <div class="flex flex-center size-item">
+                <input type="radio" id="m-size" name="Size" value="XL" />
+                <label for="m-size">XL</label>
+              </div>
+            </div>
+
+            <div class="flex selected-item-submit">
+              <button onclick="addToCart()">Add to Cart</button>
+            </div>
+          </form>
         </div>
       </section>
 
@@ -361,16 +360,118 @@
           </div>
         </div>
       </section>
+    </div>
     {% endblock main %}
 
     {% block footer %}{% endblock footer %}
     
-    {% block sctipts %}
+    {% block scripts %}
     
         <script src="https://unpkg.com/lucide@latest"></script>
         <script>
           lucide.createIcons();
+
+
+          const views = document.querySelectorAll(".photos-views-container");
+          const photo = document.querySelector(".photo-container img");
+
+          views.forEach((view) => {
+            view.addEventListener("click", () => {
+              views.forEach((v) => v.classList.remove("active-view"));
+              view.classList.add("active-view");
+              photo.src = view.querySelector("img").src;
+            });
+          });
+
+          function selectColor(element) {
+            // Remove 'selected' class from all color divs
+            const colorDivs = document.querySelectorAll('.item-color');
+            colorDivs.forEach(div => {
+              div.classList.remove('selected');
+            });
+          
+            // Add 'selected' class to the clicked color div
+            element.classList.add('selected');
+          }
+
+
+{% comment %}           const cards = document.querySelectorAll(".item-card");
+          cards.forEach((card) => {
+            card.addEventListener("click", () => {
+              window.location.href = "/product";
+            });
+          }); {% endcomment %}
+
+          document.addEventListener('DOMContentLoaded', function() {
+            const likeButtons = document.querySelectorAll('.card-icon');
+            likeButtons.forEach(button => {
+              button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const svg = this.querySelector('svg');
+                // Toggle SVG fill color between red and none (or its initial state)
+                if (svg.style.fill === '') {
+                  svg.style.fill = '#E2264D';
+                } else {
+                  svg.style.fill = '';
+                }
+              });
+            });
+          });
+
+
+          function addToCart() {
+            // Get the selected color
+            const selectedColor = document.querySelector('.item-color.selected');
+            const color = selectedColor ? selectedColor.classList[2] : ''; // Assumes the second class is the color class
+          
+            // Get the selected size
+            const selectedSize = document.querySelector('input[name="Size"]:checked');
+            const size = selectedSize ? selectedSize.value : '';
+          
+            if (!color || !size) {
+              alert('Please select a color and size before adding to cart.');
+              return;
+            }
+          
+            // Get other product details
+            const productName = document.querySelector('.selected-item .h1-text').textContent;
+            const price = document.querySelector('.selected-item-price .h1-text').textContent;
+            const productImage = document.querySelector('.selected-item-photos img').src;
+          
+            // Create the item object
+            const item = {
+              color: color,
+              size: size,
+              name: productName,
+              img: productImage,
+              price: price,
+              quantity: 1 // You can add a quantity field if needed
+            };
+          
+            // Check if cart exists in localStorage
+            let cart = localStorage.getItem('cart');
+            if (!cart) {
+              // If cart does not exist, create an empty cart
+              cart = [];
+            } else {
+              // If cart exists, parse the JSON string to get the cart array
+              cart = JSON.parse(cart);
+            }
+          
+            // Add the item to the cart
+            cart.push(item);
+          
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+          
+            // Optionally, you can provide feedback to the user
+            console.log('Item added to cart!');
+          
+            // Redirect to the cart page
+            window.location.href = 'cart.html'; // Replace with your actual cart page URL
+          }
+          
         </script>
     
-    {% endblock sctipts %}
+    {% endblock scripts %}
 

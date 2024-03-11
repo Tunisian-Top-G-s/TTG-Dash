@@ -15,82 +15,15 @@
   <div class="shopping-cart">
     <div class="h1-text">Shopping Cart</div>
     <div class="items-container">
-      <div class="items-list">
-        <div class="item-container">
-          <div class="item-description">
-            <img src="{% static "assets/white-shirt.png" %}" alt="product-img" />
-            <div class="item-recap">
-              <span class="h1-text">TTG HOODIE</span>
-              <span class="item-size">size: <span class="p-text">M</span></span>
-              <span class="item-color"
-                >color: <span class="p-text">Blue</span></span
-              >
+      <div class="items-list" id="items-list">
+            <!-- Cart items will be dynamically added here -->
+            <div class="empty-cart" id="emptyCart">
+              <img src="{% static "assets/img/empty-cart.png" %}" alt="cart" class="empty-cart" />
+              <div class="empty-cart-container">
+                <span class="h1-text">Your cart is empty</span>
+                <a href="/shop" class="btn">Continue Shopping</a>
+              </div>
             </div>
-          </div>
-          <div class="item-price">
-            <span class="h1-text">35DT</span>
-          </div>
-        </div>
-        <div class="item-container">
-          <div class="item-description">
-            <img src="{% static "assets/white-shirt.png" %}" alt="product-img" />
-            <div class="item-recap">
-              <span class="h1-text">TTG HOODIE</span>
-              <span class="item-size">size: <span class="p-text">M</span></span>
-              <span class="item-color"
-                >color: <span class="p-text">Blue</span></span
-              >
-            </div>
-          </div>
-          <div class="item-price">
-            <span class="h1-text">35DT</span>
-          </div>
-        </div>
-        <div class="item-container">
-          <div class="item-description">
-            <img src="{% static "assets/white-shirt.png" %}" alt="product-img" />
-            <div class="item-recap">
-              <span class="h1-text">TTG HOODIE</span>
-              <span class="item-size">size: <span class="p-text">M</span></span>
-              <span class="item-color"
-                >color: <span class="p-text">Blue</span></span
-              >
-            </div>
-          </div>
-          <div class="item-price">
-            <span class="h1-text">35DT</span>
-          </div>
-        </div>
-        <div class="item-container">
-          <div class="item-description">
-            <img src="{% static "assets/white-shirt.png" %}" alt="product-img" />
-            <div class="item-recap">
-              <span class="h1-text">TTG HOODIE</span>
-              <span class="item-size">size: <span class="p-text">M</span></span>
-              <span class="item-color"
-                >color: <span class="p-text">Blue</span></span
-              >
-            </div>
-          </div>
-          <div class="item-price">
-            <span class="h1-text">35DT</span>
-          </div>
-        </div>
-        <div class="item-container">
-          <div class="item-description">
-            <img src="{% static "assets/white-shirt.png" %}" alt="product-img" />
-            <div class="item-recap">
-              <span class="h1-text">TTG HOODIE</span>
-              <span class="item-size">size: <span class="p-text">M</span></span>
-              <span class="item-color"
-                >color: <span class="p-text">Blue</span></span
-              >
-            </div>
-          </div>
-          <div class="item-price">
-            <span class="h1-text">35DT</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -124,7 +57,7 @@
         </div>
         <div class="delivery">
           <span class="p-text">Estimated Delivery by</span>
-          <span class="p-text">01 Feb, 2024</span>
+          <span class="p-text">∞</span>
         </div>
         <input placeholder="Coupon Code" />
         <a href="#" class="btn">Proceed to Checkout</a>
@@ -135,4 +68,156 @@
 {% endblock main %}
 
 {% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the cart items from localStorage
+    let cart = localStorage.getItem('cart');
+    const emptyCart = document.getElementById('emptyCart');
+    if (!cart) {
+      cart = [];
+      emptyCart.style.display = "flex";
+    } else {
+      cart = JSON.parse(cart);
+      emptyCart.style.display = "none";
+
+    }
+  
+    // Get the items container
+    const itemsList = document.getElementById('items-list');
+  
+    // Iterate through each item in the cart and create HTML for it
+    cart.forEach(function(item) {
+      // Create item container
+      const itemContainer = document.createElement('div');
+      itemContainer.classList.add('item-container');
+  
+      // Create item description
+      const itemDescription = document.createElement('div');
+      itemDescription.classList.add('item-description');
+  
+      // Create image element
+      const img = document.createElement('img');
+      img.src = item.img; // You can update this to use the actual image URL from the item
+      img.alt = "product-img";
+  
+      // Create item recap
+      const itemRecap = document.createElement('div');
+      itemRecap.classList.add('item-recap');
+  
+      // Create item name
+      const itemName = document.createElement('span');
+      itemName.classList.add('h1-text');
+      itemName.textContent = item.name;
+  
+      // Create item size
+      const itemSize = document.createElement('span');
+      itemSize.classList.add('item-size');
+      itemSize.innerHTML = `size: <span class="p-text">${item.size}</span>`;
+  
+      // Create item color
+      const itemColor = document.createElement('span');
+      itemColor.classList.add('item-color');
+      itemColor.innerHTML = `color: <span class="p-text">${item.color}</span>`;
+  
+      // Append elements to their respective parents
+      itemRecap.appendChild(itemName);
+      itemRecap.appendChild(itemSize);
+      itemRecap.appendChild(itemColor);
+  
+      itemDescription.appendChild(img);
+      itemDescription.appendChild(itemRecap);
+  
+      // Create item price
+      const itemPrice = document.createElement('div');
+      itemPrice.classList.add('item-price');
+      itemPrice.innerHTML = `<span class="h1-text">${item.price}</span>`;
+  
+      // Append item description and price to item container
+      itemContainer.appendChild(itemDescription);
+      itemContainer.appendChild(itemPrice);
+  
+      // Append item container to items container
+      itemsList.appendChild(itemContainer);
+    });
+    
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to calculate the total price of items in cart
+    function calculateTotal(cart) {
+      let total = 0;
+      cart.forEach(function(item) {
+        // Assuming the price is stored as a string with "$" prefix
+        const itemPrice = parseFloat(item.price.replace('$', ''));
+        total += itemPrice;
+      });
+      return total;
+    }
+  
+    // Get the cart items from localStorage
+    let cart = localStorage.getItem('cart');
+    if (!cart) {
+      cart = [];
+    } else {
+      cart = JSON.parse(cart);
+    }
+  
+    // Get elements from the order summary
+    const priceElement = document.querySelector('.price span:last-child');
+    const discountElement = document.querySelector('.discount span:last-child');
+    const couponElement = document.querySelector('.coupon span:last-child');
+    const totalElement = document.querySelector('.total span:last-child');
+    const deliveryElement = document.querySelector('.delivery span:last-child');
+  
+    // Calculate total price of items in cart
+    const totalPrice = calculateTotal(cart);  
+    console.log(totalPrice);
+  
+    // Set the price element
+    priceElement.textContent = `${totalPrice.toFixed(2)}DT`;
+  
+    // For demonstration purposes, let's assume a discount and shipping
+    const shipping = 'Free';
+    const coupon = 0.00;
+    const discount = totalPrice * 0.1; // 10% discount
+
+    // Set the discount, shipping, and coupon elements
+    discountElement.textContent = `${discount.toFixed(2)}DT`;
+    couponElement.textContent = `${coupon.toFixed(2)}DT`;
+  
+    // Calculate the total
+    const total = totalPrice - discount + coupon;
+    totalElement.textContent = `${total.toFixed(2)}DT`;
+  
+    // Set the estimated delivery date (you can update this as needed)
+    const today = new Date();
+
+    // Add three days to today's date
+    const deliveryDate = new Date(today);
+    deliveryDate.setDate(deliveryDate.getDate() + 3);
+    const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+
+    if (cart.length === 0) {
+      // Cart is empty, set delivery date as '∞'
+      deliveryElement.textContent = '∞';
+    } else {
+      // Cart has items, set the formatted delivery date
+      deliveryElement.textContent = formattedDeliveryDate;
+    }
+      
+    // Add event listener for the "Proceed to Checkout" button if needed
+    const checkoutBtn = document.querySelector('.btn');
+    checkoutBtn.addEventListener('click', function(event) {
+      // You can add logic here to proceed to checkout
+      // For now, let's just prevent the default action
+      event.preventDefault();
+      alert('Proceeding to checkout!');
+    });
+  });
+  
+</script>  
 {% endblock scripts %}
