@@ -11,6 +11,9 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;600;800;900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 {% block title %}<title>Shop</title>{% endblock title %}
 
 {% endblock head %}
@@ -22,19 +25,36 @@
     <main class="omor">
         <!-- deals section -->
         <section class="deals-section">
+          <div class="top-wrapper-shop">
           <span class="h1-text">Deals</span>
+          <div class="cart-shopping">
+            <div class="counter-items-cart">1</div>
+          <i data-lucide="shopping-cart"></i>
+        </div>
+        </div>
   
-          <div class="deal-content">
-            <div class="flex flex-col deal-text">
-              <span class="deal-title">TUNISIAN TOP Gs SHOP</span>
-              <span class="p-text">
-                Get ready to squad up in style with our Squad Pack Deal! This
-                exclusive offer includes four trendy and comfortable t-shirts,
-                perfect for you and your crew.
-              </span>
-            </div>
-  
-            <img class="deal-img wobble-hor-bottom" alt="ttg-shirts" src="{% static "assets/img/shirts-deals.png" %}">
+        <div class="mainhero">
+          <div class="herodiv">
+              <div class="hero__slider swiper mySwiper">
+                  <div class="swiper-wrapper">
+                      
+                      <div class="swiper-slide unselectable">
+                        <a class="gallery-shop" href="#"><img src="{% static "assets/backgroundtrader2.webp" %}" alt=""></a>
+                      </div>
+
+                  </div>
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-pagination"></div>
+                  <div class="autoplay-progress">
+                      <svg viewBox="0 0 48 48">
+                          <circle cx="24" cy="24" r="20"></circle>
+                      </svg>
+                      <span></span>
+                  </div>
+              </div>
+          </div>
+        </div>
           </div>
         </section>
   
@@ -44,12 +64,13 @@
   
           <div class="flex flex-wrap items-content">
             <!-- card #1 -->
-            <a href="{% url "product" %}" class="item-card">
-              <button class="card-icon">
+            <a href="#" class="item-card">
+              <button id="likeButton" class="card-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
                 </svg>
-              </button>
+            </button>
+            
   
               <div class="flex flex-center card-banner">
                 <span class="p-text">Promo</span>
@@ -155,8 +176,68 @@
 
 {% block footer %}{% endblock footer %}
 
-{% block sctipts %}
+{% block scripts %}
 
-    <script src="{% static "js/shop.js" %}"></script>
+    
+<script>
 
-{% endblock sctipts %}
+  document.addEventListener('DOMContentLoaded', function() {
+    const likeButtons = document.querySelectorAll('.card-icon');
+    likeButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        const svg = this.querySelector('svg');
+        // Toggle SVG fill color between red and none (or its initial state)
+        svg.style.fill = svg.style.fill === '#E2264D' ? '' : '#E2264D';
+      });
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Example array of image URLs
+    const images = [
+     '{% static "assets/backgroundtraderTTG.webp" %}', // Add your image paths here
+      '{% static "assets/ttgtraderTunisian.webp" %}', // Existing image
+      '{% static "assets/Tunisianttgbackgroundtrader.webp" %}',
+      
+
+      
+      // Add as many images as you like
+    ];
+  
+    // Reference to the swiper-wrapper element
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+  
+    // Dynamically create and append swiper-slide elements for each image
+    images.forEach((imageUrl) => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide unselectable';
+      slide.innerHTML = `<a class="gallery-shop" href="#"><img src="${imageUrl}" alt=""></a>`;
+      swiperWrapper.appendChild(slide);
+    });
+  
+    // Initialize Swiper or update if it's already initialized
+    const swiper = new Swiper('.mySwiper', {
+      // Swiper options here
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+      },
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  
+    // Update Swiper to recognize the new slides
+    swiper.update();
+  });
+</script>
+{% endblock scripts %}

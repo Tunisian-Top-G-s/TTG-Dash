@@ -46,8 +46,6 @@
     gap: 17px;
     border-radius: 10px;
     background-color: transparent;
-    -webkit-animation: text-focus-in 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: text-focus-in 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
 .nav-slipe:hover{
     border-radius: 5px;
@@ -509,6 +507,9 @@ span.sort-by-up-arrow {
     margin-left: 1.3em;
     font-size: 18px;
 }
+/* ------------------ */
+/* Media Queries  */
+/* ------------------ */
 @media screen and (max-width: 1024px) {
     .container {
         margin: auto;
