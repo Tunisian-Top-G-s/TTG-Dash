@@ -26,12 +26,12 @@
         <!-- deals section -->
         <section class="deals-section">
           <div class="top-wrapper-shop">
-          <span class="h1-text">Deals</span>
-          <div class="cart-shopping">
-            <div class="counter-items-cart">1</div>
-          <i data-lucide="shopping-cart"></i>
-        </div>
-        </div>
+            <span class="h1-text">Deals</span>
+            <a href="/cart" class="cart-shopping">
+              <div class="counter-items-cart">1</div>
+              <i data-lucide="shopping-cart"></i>
+            </a>
+          </div>
   
         <div class="mainhero">
           <div class="herodiv">
@@ -239,5 +239,22 @@
     // Update Swiper to recognize the new slides
     swiper.update();
   });
+
+
+  // Get the cart items from localStorage
+  let cart = localStorage.getItem('cart');
+  if (!cart) {
+    cart = [];
+  } else {
+    cart = JSON.parse(cart);
+  }
+
+  // Get the item counter element
+  const counterElement = document.querySelector('.counter-items-cart');
+
+  // Update the item counter with the number of items in the cart
+  if (counterElement) {
+    counterElement.textContent = cart.length.toString();
+  }
 </script>
 {% endblock scripts %}

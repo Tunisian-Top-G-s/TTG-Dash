@@ -4,16 +4,6 @@
   --font: "Poppins", sans-serif;
 }
 
-/* tag selectors */
-
-body {
-  margin: 0;
-  padding: 0;
-  color: var(--body-color);
-  background-color: var(--body-bg);
-  font-family: var(--font);
-}
-
 
 /* reusable classes */
 
@@ -33,6 +23,17 @@ body {
 .flex-col {
   flex-direction: column;
 }
+.product-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto auto;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 2rem;
+  gap: 30px;
+}
 
 .dot-btn {
   cursor: pointer;
@@ -46,7 +47,6 @@ body {
 /* items section */
 
 .items-section {
-  margin-top: 2rem;
 }
 
 .items-content {
@@ -114,6 +114,7 @@ body {
   font-style: italic;
   font-weight: 400;
   line-height: 28px;
+  color: #fff;
 }
 
 .card-footer {
@@ -126,6 +127,7 @@ body {
 .item-name > .h1-text {
   font-weight: 800;
   font-size: 25px;
+  color: #fff;
 }
 
 .item-name > .p-text {
@@ -148,6 +150,9 @@ body {
   color: #5cff9c;
 }
 
+.selected-item > .h1-text{
+  color: #ffff;
+}
 .selected-item-section {
   flex-wrap: wrap;
   gap: 100px;
@@ -156,6 +161,7 @@ body {
 
 .selected-item {
   flex: 1;
+  gap: 8px;
 }
 
 .selected-item > .h1-text {
@@ -167,20 +173,19 @@ body {
 .photos-views-container {
   width: 360px;
   height: 330px;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: #fff;
   box-shadow: 0px 20px 100px 0px #00000040;
 }
 
 .selected-item-photos-views {
-  gap: 15px;
+  gap: 10px;
 }
 
 .photos-views-container {
   cursor: pointer;
   width: 110px;
   height: 120px;
-  margin-top: 0.5rem;
   transition: all ease-in-out 0.3s;
 }
 
@@ -195,8 +200,8 @@ body {
 .selected-item-description,
 .selected-item-color,
 .selected-item-size {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  /* margin-top: 0.5rem; */
+  /* margin-bottom: 0.5rem; */
 }
 
 .selected-item-description > .h1-text,
@@ -204,6 +209,7 @@ body {
 .selected-item-size > .h1-text {
   font-weight: 600;
   font-size: 20px;
+  color: white;
 }
 
 .selected-item-price > .h1-text {
@@ -213,15 +219,14 @@ body {
 }
 
 .selected-item-rating {
-  color: yellow;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  color: gold;
 }
 
 .selected-item-rating > .p-text {
-  margin-right: 1.2rem;
-}
-
-.selected-item-rating {
-  margin-top: 1rem;
+  font-size: medium;
 }
 
 .stars-container > svg:hover {
@@ -237,6 +242,7 @@ body {
 .selected-item-color-body,
 .selected-item-size-body {
   gap: 15px;
+  padding: 5px 0;
 }
 
 .item-color {
@@ -262,6 +268,9 @@ body {
   background-color: #fff;
 }
 
+.size-item{
+  gap: 10px;
+}
 .size-item > input[type="checkbox"] {
   width: 15px;
   height: 15px;
@@ -270,23 +279,22 @@ body {
 
 .size-item > label {
   font-weight: 500;
-  margin-left: 5px;
+  color: white;
+  font-size: large;
 }
 
 .selected-item-submit > button {
   border: none;
   width: 100%;
-  padding: 0.8rem;
+  padding: 15px;
   color: #fff;
   font-weight: 500;
   font-size: 15px;
   border-radius: 3px;
   background-color: #9747ff;
   cursor: pointer;
-  margin-top: 2rem;
   transition: all 0.3s ease-in-out;
-  width: fit-content;
-  padding: 1rem 5rem;
+  /* width: fit-content; */
   font-weight: 700;
 }
 
@@ -294,7 +302,52 @@ body {
   background-color: rgb(160, 109, 227);
 }
 
+.selected-item-description-body > .p-text{
+  font-size: medium;
+  color: #fff;
+  display: flex;
+}
+.stars-container{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.items-section > .h1-text {
+  font-weight: 800;
+  font-size: 30px;
+  color: #fff;
+}
+.selected-item-photos{
+  gap: 15px;
+}
 /* media queries */
+.card-icon:hover {   color: #E2264D; }
+
+.selected {
+  border: 2px solid #5cff9c; /* Change to desired color when selected */
+}
+input[type="radio"] {
+  --s: 0.7em;
+  --c: #a45cf6;
+  height: var(--s);
+  aspect-ratio: 1;
+  border: calc(var(--s) / 8) solid #939393;
+  padding: calc(var(--s) / 8);
+  background: radial-gradient(farthest-side, var(--c) 94%, #0000) 50% / 0 0 no-repeat content-box;
+  border-radius: 50%;
+  outline-offset: calc(var(--s) / 10);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  font-size: inherit;
+  transition: 0.3s;
+  margin: 0;
+}
+input[type="radio"]:checked {
+  border-color: var(--c);
+  background-size: 100% 100%;
+}
 
 /* extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -336,6 +389,6 @@ body {
 
 @media screen and (min-width: 1441px) {
   .selected-item-section{
-    width: 75%;
+    width: 85%;
   }
 }

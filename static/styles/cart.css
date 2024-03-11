@@ -231,6 +231,31 @@ main > .cart-wrapper {
 span.p-text {
   font-size: medium;
 }
+
+.empty-cart{
+  display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.empty-cart > img{
+  width: 70%;
+  display: block;
+}
+.empty-cart-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.empty-cart-container > .btn{
+  background: #a45cf6;
+  color: #fff;
+  font-size: large;
+  border-radius: 8px;
+  padding: 10px;
+}
+
 @media only screen and (max-width: 1024px) {
   main > .cart-wrapper{
     padding: 20px;

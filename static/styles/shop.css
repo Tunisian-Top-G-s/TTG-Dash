@@ -71,22 +71,26 @@
   position: relative;
   cursor: pointer;
 }
-.counter-items-cart{
+.counter-items-cart {
   width: 15px;
   height: 15px;
-  background-color: red;
+  background-color: #ff002f;
+  color: white;
   border-radius: 510%;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: -3px;
   font-size: 14px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
 }
-
+.cart-shopping > svg{
+  color: white;
+}
 
 .deal-content .p-text {
   font-size: 18px;
@@ -433,10 +437,13 @@
 }
 .swiper-slide img {
   z-index: -10;
-  width: 106vh;
+  width: 100%;
   height: 44vh;
   object-fit: cover;
-  border-radius: 30px;
+  border-radius: 10px;
+}
+.swiper-button-next{
+  color: darkorchid !important;
 }
 .autoplay-progress {
   position: absolute;
