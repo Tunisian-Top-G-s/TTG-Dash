@@ -19,7 +19,7 @@ signinSubmit.addEventListener("click", (event) => {
         success: function(response) {
             if (response.success) {
                 console.log(response);
-                window.location.href = "/";
+                window.location.href = "../home";
             } else {
                 console.log(response);
                 // Display error in the error div

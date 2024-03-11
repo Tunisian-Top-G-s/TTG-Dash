@@ -86,7 +86,7 @@ JAZZMIN_SETTINGS = {
     "site_title": "TTG",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    #"site_header": "GameZone",
+    "site_header": "TTG",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "TTG",
@@ -117,7 +117,7 @@ JAZZMIN_SETTINGS = {
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    "search_model": ["auth.User", "auth.Group", "Products.Product"],
+    "search_model": ["auth.User", "auth.Group"],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -133,17 +133,13 @@ JAZZMIN_SETTINGS = {
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # external url that opens in a new window (Permissions can be added)
-        #{"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
 
         # model admin to link to (Permissions checked against model)
         {"model": "auth.User"},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "Products"},
-
-        {"app": "Carts"},
-
-        {"app": "Orders"},
+       
     ],
 
     #############

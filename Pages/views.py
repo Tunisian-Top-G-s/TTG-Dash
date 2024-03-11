@@ -15,6 +15,9 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from .models import Dashboard
 from django.core.serializers import serialize
 from Users.models import CustomUser
+from django.shortcuts import render
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 def homeView(request, *args, **kwargs):
     courses = Course.objects.all()
@@ -121,7 +124,7 @@ def loginf(request, *args, **kwargs):
 def logoutf(request):
     logout(request)
     # Redirect to a specific page after logout
-    return redirect('home')
+    return redirect('')
 
 def pageNotFoundView(request, *args, **kwargs):
     return render(request, '404.html', {})
@@ -467,3 +470,9 @@ def videoFinishedView(request, *args, **kwargs):
 
 def ProductView (request, *args, **kwargs):
     return render(request, 'product.html', {})
+
+def logout_view(request):
+    logout(request)
+    next_page = request.GET.get('next', '/')  # Redirige vers  par défaut
+    return redirect(next_page)
+
