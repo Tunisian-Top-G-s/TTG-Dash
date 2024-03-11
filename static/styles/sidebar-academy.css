@@ -54,6 +54,7 @@
     font-weight: 600;
     line-height: 27.918px; /* 139.59% */
     letter-spacing: 0.2px;
+    text-transform: capitalize;
 }
 .flex-foundation{
     display: flex;
@@ -72,7 +73,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 27px; /* 225% */
-       
+    text-transform:capitalize;
 }
 .progress-bar-container {
     width: 301px;
@@ -153,15 +154,22 @@
     align-items: center;
     cursor: pointer; /* Make it clear it's clickable */
     user-select: none;
+    transition: 4s ease-in-out ease ease-out;
+
+}
+.dropdown-modules:hover{
+    background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
+    transition: 4s ease-in-out ease ease-out;
 }
 .module-text{
-    color: #FFF;
+    color: #fff;
     font-family: Poppins;
-    font-size: 17px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 27.918px; /* 164.223% */
+    font-weight: 400;
+    line-height: 34px;
     letter-spacing: 0.17px;
+    text-transform: capitalize;
 }
 .icon-default{
     width: 20px;
@@ -199,8 +207,8 @@
     align-items: center;
 }
 .icon-done-iamg {
-    width: 35px;
-    height: 35px;
+    width: 43px;
+    height: 33px;
     padding: 0px 5px;
 }
 .step-title{
@@ -211,10 +219,11 @@
 .title-text{
     color: #FFF;
     font-family: Poppins;
-    font-size: 18.473px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0.185px;
+    text-transform: capitalize;
 }
 .content-info{
     color: rgba(149, 149, 149, 0.98);
@@ -233,4 +242,11 @@
     border: 1px solid transparent; /* Makes all borders transparent */
     border-left-color: #FFCA28; /* Sets the left border color to golden */
 
+}
+.dropdown-modules > h6{
+    color: #a8a3a3;
+    font-size: 12px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    text-align: center;
 }

@@ -1,7 +1,7 @@
 
 .contain-all {
     display: flex;
-    padding: 1rem 2rem  0 2rem;
+    padding: 15px 112px 30px 123px;
 }
 
 .main{
@@ -23,6 +23,16 @@
     justify-content: center;
     
 }
+.lesson-video video{
+    
+}
+.fill{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
 .video-class{
     width: 700px;
     height: 391px;
@@ -41,12 +51,12 @@
 }
 .lesson-container{
     display: flex;
-    justify-content: center;
+    width: 100%;
+    height: 15vh;
+    padding: 5px 0px;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    gap: 15px;
-    padding-top: 10px;
-   
 }
 .lesson{
     display: flex;
@@ -57,10 +67,16 @@
     position: relative;
 }
 .next-lesson{
-    align-self: flex-end;
+    display: flex;
+    width: 100%;
+    align-self: end;
+    align-items: center;
+    justify-content: center;
 }
 .iconlike{
     align-self: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 .title-lesson-description{
     
