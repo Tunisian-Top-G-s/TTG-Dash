@@ -155,7 +155,7 @@ main {
 }
 .order {
   display: flex;
-  width: 19rem;
+  width: 15rem;
   height: fit-content;
   padding: 32px;
   flex-direction: column;
@@ -314,7 +314,9 @@ main {
   margin-right: auto;
   font-size: 16px !important;
 }
-
+span.p-text{
+  font-size: medium;
+}
 @media only screen and (max-width: 768px) {
   main {
     flex-direction: column;

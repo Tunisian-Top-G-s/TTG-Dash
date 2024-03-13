@@ -3,6 +3,9 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "styles/checkout.css" %}">
+{% block title %}
+  <title>Checkout - Tunisian Top Gs</title>
+{% endblock title%}
 
 {% endblock head %}
 
@@ -105,3 +108,89 @@
 
 
 {% endblock main %}
+
+{% block scripts%}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to calculate the total price of items in cart
+      function calculateTotal(cart) {
+        let total = 0;
+        cart.forEach(function(item) {
+          // Assuming the price is stored as a string with "DT" suffix
+          const itemPrice = parseFloat(item.price.replace('DT', ''));
+          total += itemPrice * item.quantity;
+        });
+        return total;
+      }
+  
+      // Function to update the order summary based on cart items
+      function updateOrderSummary() {
+        // Get the cart items from localStorage
+        let cart = localStorage.getItem('cart');
+        if (!cart) {
+          cart = [];
+        } else {
+          cart = JSON.parse(cart);
+        }
+  
+        // Get elements from the order summary
+        const priceElement = document.querySelector('.price span:last-child');
+        const discountElement = document.querySelector('.discount span:last-child');
+        const couponElement = document.querySelector('.coupon span:last-child');
+        const totalElement = document.querySelector('.total span:last-child');
+        const deliveryElement = document.querySelector('.delivery span:last-child');
+  
+        // Calculate total price of items in cart
+        const totalPrice = calculateTotal(cart);
+        console.log(totalPrice);
+  
+        // For demonstration purposes, let's assume a discount and shipping
+        const shipping = 'Free';
+        const coupon = 0.00;
+        const discount = totalPrice * 0.1; // 10% discount
+  
+        // Set the price element
+        priceElement.textContent = `${totalPrice.toFixed(2)}DT`;
+  
+        // Set the discount, shipping, and coupon elements
+        discountElement.textContent = `${discount.toFixed(2)}DT`;
+        couponElement.textContent = `${coupon.toFixed(2)}DT`;
+  
+        // Calculate the total
+        const total = totalPrice - discount + coupon;
+        totalElement.textContent = `${total.toFixed(2)}DT`;
+  
+        // Set the estimated delivery date (you can update this as needed)
+        const today = new Date();
+  
+        // Add three days to today's date
+        const deliveryDate = new Date(today);
+        deliveryDate.setDate(deliveryDate.getDate() + 3);
+        const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+  
+        if (cart.length === 0) {
+          // Cart is empty, set delivery date as '∞'
+          deliveryElement.textContent = '∞';
+        } else {
+          // Cart has items, set the formatted delivery date
+          deliveryElement.textContent = formattedDeliveryDate;
+        }
+      }
+  
+      // Update order summary when the page loads
+      updateOrderSummary();
+  
+      // Add event listener for the "Place Order" button if needed
+      const placeOrderBtn = document.querySelector('.btn');
+      placeOrderBtn.addEventListener('click', function(event) {
+        // Here you can add logic to place the order
+        // For now, let's just console log a message
+        console.log('Placing order...');
+      });
+    });  
+</script>
+{% endblock scripts %}

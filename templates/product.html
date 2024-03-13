@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;600;800;900&display=swap"
       rel="stylesheet"
     />
-{% block title %}<title>Shop</title>{% endblock title %}
+{% block title %}<title>Product - Tunisian Top Gs</title>{% endblock title %}
 
 {% endblock head %}
 
@@ -178,7 +178,7 @@
             </div>
 
             <div class="flex selected-item-submit">
-              <button onclick="addToCart()">Add to Cart</button>
+              <button onclick="addToCart(event)">Add to Cart</button>
             </div>
           </form>
         </div>
@@ -419,25 +419,27 @@
           });
 
 
-          function addToCart() {
+          function addToCart(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
             // Get the selected color
             const selectedColor = document.querySelector('.item-color.selected');
             const color = selectedColor ? selectedColor.classList[2] : ''; // Assumes the second class is the color class
-          
+            
             // Get the selected size
             const selectedSize = document.querySelector('input[name="Size"]:checked');
             const size = selectedSize ? selectedSize.value : '';
-          
+            
             if (!color || !size) {
               alert('Please select a color and size before adding to cart.');
               return;
             }
-          
+            
             // Get other product details
             const productName = document.querySelector('.selected-item .h1-text').textContent;
             const price = document.querySelector('.selected-item-price .h1-text').textContent;
             const productImage = document.querySelector('.selected-item-photos img').src;
-          
+            
             // Create the item object
             const item = {
               color: color,
@@ -447,7 +449,7 @@
               price: price,
               quantity: 1 // You can add a quantity field if needed
             };
-          
+            
             // Check if cart exists in localStorage
             let cart = localStorage.getItem('cart');
             if (!cart) {
@@ -457,19 +459,21 @@
               // If cart exists, parse the JSON string to get the cart array
               cart = JSON.parse(cart);
             }
-          
+            
             // Add the item to the cart
             cart.push(item);
-          
+            
             // Save the updated cart back to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
-          
+            
             // Optionally, you can provide feedback to the user
             console.log('Item added to cart!');
-          
+            
             // Redirect to the cart page
-            window.location.href = 'cart.html'; // Replace with your actual cart page URL
+            window.location.href = '/cart'; // Replace with your actual cart page URL
           }
+          
+        
           
         </script>
     

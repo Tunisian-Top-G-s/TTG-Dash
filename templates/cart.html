@@ -14,17 +14,18 @@
 <div class="cart-wrapper">
   <div class="shopping-cart">
     <div class="h1-text">Shopping Cart</div>
-    <div class="items-container">
-      <div class="items-list" id="items-list">
-            <!-- Cart items will be dynamically added here -->
-            <div class="empty-cart" id="emptyCart">
-              <img src="{% static "assets/img/empty-cart.png" %}" alt="cart" class="empty-cart" />
-              <div class="empty-cart-container">
-                <span class="h1-text">Your cart is empty</span>
-                <a href="/shop" class="btn">Continue Shopping</a>
-              </div>
-            </div>
-      </div>
+      <div class="items-container">
+        <div class="empty-cart" id="emptyCart">
+          <!-- Empty cart message -->
+          <img src="{% static "assets/img/empty-cart.png" %}" alt="cart empty" />
+          <div class="empty-cart-container">
+            <span class="h1-text">Your cart is empty</span>
+            <a href="/shop" class="btn">Continue Shopping</a>
+          </div>
+        </div>
+        <div class="items-list" id="items-list">
+          <!-- Cart items will be dynamically added here -->
+        </div>
     </div>
   </div>
 
@@ -60,7 +61,7 @@
           <span class="p-text">∞</span>
         </div>
         <input placeholder="Coupon Code" />
-        <a href="#" class="btn">Proceed to Checkout</a>
+        <a href="/checkout" class="btn goCheckout">Proceed to Checkout</a>
       </div>
     </div>
   </div>
@@ -70,77 +71,111 @@
 {% block scripts %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Get the cart items from localStorage
-    let cart = localStorage.getItem('cart');
+    const itemsList = document.getElementById('items-list');
     const emptyCart = document.getElementById('emptyCart');
-    if (!cart) {
-      cart = [];
-      emptyCart.style.display = "flex";
-    } else {
-      cart = JSON.parse(cart);
-      emptyCart.style.display = "none";
-
+    const itemsContainer = document.querySelector('.items-container');
+  
+    // Function to delete an item from the cart
+    function deleteItem(index) {
+      let cart = getCartFromStorage();
+      cart.splice(index, 1); // Remove item from cart array
+      localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+      renderCart(); // Re-render the cart
     }
   
-    // Get the items container
-    const itemsList = document.getElementById('items-list');
+    // Function to get the cart from localStorage
+    function getCartFromStorage() {
+      return JSON.parse(localStorage.getItem('cart')) || [];
+    }
   
-    // Iterate through each item in the cart and create HTML for it
-    cart.forEach(function(item) {
-      // Create item container
-      const itemContainer = document.createElement('div');
-      itemContainer.classList.add('item-container');
+    // Function to render the cart
+    function renderCart() {
+      let cart = getCartFromStorage();
+      
+      // Clear existing items
+      itemsList.innerHTML = '';
   
-      // Create item description
-      const itemDescription = document.createElement('div');
-      itemDescription.classList.add('item-description');
+      if (cart.length === 0) {
+        emptyCart.style.display = 'flex'; // Show the empty cart message
+        itemsList.style.height = 'auto'; // Hide the items list
+        itemsContainer.style.height = 'auto'; // Center the empty cart message
+      } else {
+        emptyCart.style.display = 'none'; // Hide the empty cart message
   
-      // Create image element
-      const img = document.createElement('img');
-      img.src = item.img; // You can update this to use the actual image URL from the item
-      img.alt = "product-img";
+        // Iterate through each item in the cart and create HTML for it
+        cart.forEach(function(item, index) {
+          // Create item container
+          const itemContainer = document.createElement('div');
+          itemContainer.classList.add('item-container');
   
-      // Create item recap
-      const itemRecap = document.createElement('div');
-      itemRecap.classList.add('item-recap');
+          // Create item description
+          const itemDescription = document.createElement('div');
+          itemDescription.classList.add('item-description');
   
-      // Create item name
-      const itemName = document.createElement('span');
-      itemName.classList.add('h1-text');
-      itemName.textContent = item.name;
+          // Create image element
+          const img = document.createElement('img');
+          img.src = item.img; // Update this to use the actual image URL from the item
+          img.alt = 'product-img';
   
-      // Create item size
-      const itemSize = document.createElement('span');
-      itemSize.classList.add('item-size');
-      itemSize.innerHTML = `size: <span class="p-text">${item.size}</span>`;
+          // Create item recap
+          const itemRecap = document.createElement('div');
+          itemRecap.classList.add('item-recap');
   
-      // Create item color
-      const itemColor = document.createElement('span');
-      itemColor.classList.add('item-color');
-      itemColor.innerHTML = `color: <span class="p-text">${item.color}</span>`;
+          // Create item name
+          const itemName = document.createElement('span');
+          itemName.classList.add('h1-text');
+          itemName.textContent = item.name;
   
-      // Append elements to their respective parents
-      itemRecap.appendChild(itemName);
-      itemRecap.appendChild(itemSize);
-      itemRecap.appendChild(itemColor);
+          // Create item size
+          const itemSize = document.createElement('span');
+          itemSize.classList.add('item-size');
+          itemSize.innerHTML = `size: <span class="p-text">${item.size}</span>`;
   
-      itemDescription.appendChild(img);
-      itemDescription.appendChild(itemRecap);
+          // Create item color
+          const itemColor = document.createElement('span');
+          itemColor.classList.add('item-color');
+          itemColor.innerHTML = `color: <span class="p-text">${item.color}</span>`;
   
-      // Create item price
-      const itemPrice = document.createElement('div');
-      itemPrice.classList.add('item-price');
-      itemPrice.innerHTML = `<span class="h1-text">${item.price}</span>`;
+          // Create item price
+          const itemPrice = document.createElement('span');
+          itemPrice.classList.add('item-price');
+          itemPrice.innerHTML = `<span class="p-text">${item.price}</span>`;
   
-      // Append item description and price to item container
-      itemContainer.appendChild(itemDescription);
-      itemContainer.appendChild(itemPrice);
+          // Create delete icon
+          const deleteIcon = document.createElement('button');
+          deleteIcon.classList.add('delete-icon');
+          deleteIcon.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
+            </svg>
+          `;
   
-      // Append item container to items container
-      itemsList.appendChild(itemContainer);
-    });
-    
+          // Add click event listener to delete icon
+          deleteIcon.addEventListener('click', () => deleteItem(index));
+  
+          // Append elements to their respective parents
+          itemRecap.appendChild(itemName);
+          itemRecap.appendChild(itemSize);
+          itemRecap.appendChild(itemColor);
+          itemRecap.appendChild(itemPrice);
+  
+          itemDescription.appendChild(img);
+          itemDescription.appendChild(itemRecap);
+  
+          // Append item description, delete icon to item container
+          itemContainer.appendChild(itemDescription);
+          itemContainer.appendChild(deleteIcon);
+  
+          // Append item container to items container
+          itemsList.appendChild(itemContainer);
+        });
+      }
+    }
+  
+    // Call renderCart to initially render the cart items
+    renderCart();
   });
+  
 
   document.addEventListener('DOMContentLoaded', function() {
     // Function to calculate the total price of items in cart
@@ -208,16 +243,22 @@
       // Cart has items, set the formatted delivery date
       deliveryElement.textContent = formattedDeliveryDate;
     }
-      
-    // Add event listener for the "Proceed to Checkout" button if needed
-    const checkoutBtn = document.querySelector('.btn');
-    checkoutBtn.addEventListener('click', function(event) {
-      // You can add logic here to proceed to checkout
-      // For now, let's just prevent the default action
-      event.preventDefault();
-      alert('Proceeding to checkout!');
-    });
   });
-  
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkoutBtn = document.querySelector('.goCheckout');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+      checkoutBtn.style.cursor = 'not-allowed';
+      checkoutBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+    } else {
+      checkoutBtn.addEventListener('click', function(event) {
+        // Redirect to checkout page
+        window.location.href = '/checkout';
+      });
+    }
+  });
 </script>  
 {% endblock scripts %}

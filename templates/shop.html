@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-{% block title %}<title>Shop</title>{% endblock title %}
+{% block title %}<title>Shop - Tunisian Top Gs</title>{% endblock title %}
 
 {% endblock head %}
 
@@ -83,7 +83,7 @@
               <div class="flex card-footer">
                 <div class="flex flex-col item-name">
                   <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">slim fit</span>
+                  <span class="p-text">WINTER DROP</span>
                 </div>
                 <div class="flex flex-col flex-center item-price">
                   <span class="p-text">40DT</span>
@@ -107,7 +107,7 @@
               <div class="flex card-footer">
                 <div class="flex flex-col item-name">
                   <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">slim fit</span>
+                  <span class="p-text">TTG X GOMYCODE</span>
                 </div>
                 <div class="flex flex-col flex-center item-price">
                   <span class="h1-text">35DT</span>
@@ -130,7 +130,7 @@
               <div class="flex card-footer">
                 <div class="flex flex-col item-name">
                   <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">slim fit</span>
+                  <span class="p-text">SPECIAL EDITION</span>
                 </div>
                 <div class="flex flex-col flex-center item-price">
                   <span class="h1-text">35DT</span>
@@ -157,7 +157,7 @@
               <div class="flex card-footer">
                 <div class="flex flex-col item-name">
                   <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">slim fit</span>
+                  <span class="p-text">SUMMER DROP</span>
                 </div>
                 <div class="flex flex-col flex-center item-price">
                   <span class="p-text">40DT</span>
@@ -188,7 +188,11 @@
         event.preventDefault();
         const svg = this.querySelector('svg');
         // Toggle SVG fill color between red and none (or its initial state)
-        svg.style.fill = svg.style.fill === '#E2264D' ? '' : '#E2264D';
+        if (svg.style.fill === '') {
+          svg.style.fill = '#E2264D';
+        } else {
+          svg.style.fill = '';
+        }
       });
     });
   });
