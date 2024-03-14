@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from PrivateSessions.forms import PrivateSessionForm, PrivateSessionRequestForm
+from Products.models import Product
 from Users.forms import TransactionForm
 from Users.models import Transaction
 from .forms import LogInForm, SignUpForm
@@ -25,7 +26,8 @@ def homeView(request, *args, **kwargs):
     return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal})
 
 def shopView(request, *args, **kwargs):
-    return render(request, 'shop.html', {})
+    products = Product.objects.all()
+    return render(request, 'shop.html', {"products": products})
 
 def coursesView(request, *args, **kwargs):
     courses = Course.objects.all()
@@ -468,8 +470,9 @@ def videoFinishedView(request, *args, **kwargs):
     return JsonResponse({'success': True, 'message':"video finished successfully"})
 
 
-def ProductView (request, *args, **kwargs):
-    return render(request, 'product.html', {})
+def ProductView (request, product_id, *args, **kwargs):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'product.html', {"product": product})
 
 def logout_view(request):
     logout(request)

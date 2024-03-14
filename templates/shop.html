@@ -63,108 +63,34 @@
           <span class="h1-text">Items</span>
   
           <div class="flex flex-wrap items-content">
-            <!-- card #1 -->
-            <a href="#" class="item-card">
-              <button id="likeButton" class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
+            {% for product in products %}
+              <a href="{% url "product" product.id%}" class="item-card">
+                <button class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
                     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                </svg>
-            </button>
-            
-  
-              <div class="flex flex-center card-banner">
-                <span class="p-text">Promo</span>
-              </div>
-  
-              <div class="flex flex-center card-body">
-                <img alt="black-shirt" src="{% static "assets/img/black-shirt-2.png" %}" width="220">
-              </div>
-  
-              <div class="flex card-footer">
-                <div class="flex flex-col item-name">
-                  <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">WINTER DROP</span>
+                  </svg>
+                </button>
+              
+                <div class="flex flex-center card-banner">
+                  <span class="p-text">Promo</span>
                 </div>
-                <div class="flex flex-col flex-center item-price">
-                  <span class="p-text">40DT</span>
-                  <span class="h1-text">35DT</span>
+              
+                <div class="flex flex-center card-body">
+                  <img alt="black-shirt" src="{{product.img.url}}" width="220">
                 </div>
-              </div>
-            </a>
-  
-            <!-- card #2 -->
-            <a href="{% url "product" %}"class="item-card">
-              <button class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                </svg>
-              </button>
-  
-              <div class="flex flex-center card-body">
-                <img alt="black-shirt" src="{% static "assets/img/white-shirt.png" %}" width="220">
-              </div>
-  
-              <div class="flex card-footer">
-                <div class="flex flex-col item-name">
-                  <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">TTG X GOMYCODE</span>
+              
+                <div class="flex card-footer">
+                  <div class="flex flex-col item-name">
+                    <span class="h1-text">{{product.title}}</span>
+                    <span class="p-text">{{product.offer}}</span>
+                  </div>
+                  <div class="flex flex-col flex-center item-price">
+                    <span class="p-text">{{product.price}}DT</span>
+                    <span class="h1-text">{{product.price}}DT</span>
+                  </div>
                 </div>
-                <div class="flex flex-col flex-center item-price">
-                  <span class="h1-text">35DT</span>
-                </div>
-              </div>
-            </a>
-  
-            <!-- card #3 -->
-            <a href="{% url "product" %}" class="item-card">
-              <button class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                </svg>
-              </button>
-  
-              <div class="flex flex-center card-body">
-                <img alt="black-shirt" src="{% static "assets/img/white-shirt-2.png" %}" width="220">
-              </div>
-  
-              <div class="flex card-footer">
-                <div class="flex flex-col item-name">
-                  <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">SPECIAL EDITION</span>
-                </div>
-                <div class="flex flex-col flex-center item-price">
-                  <span class="h1-text">35DT</span>
-                </div>
-              </div>
-            </a>
-  
-            <!-- card #4 -->
-            <a href="{% url "product" %}" class="item-card">
-              <button class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                </svg>
-              </button>
-  
-              <div class="flex flex-center card-banner">
-                <span class="p-text">Promo</span>
-              </div>
-  
-              <div class="flex flex-center card-body">
-                <img alt="black-shirt" src="{% static "assets/img/black-shirt.png" %}" width="220">
-              </div>
-  
-              <div class="flex card-footer">
-                <div class="flex flex-col item-name">
-                  <span class="h1-text">TTG T-SHIRT</span>
-                  <span class="p-text">SUMMER DROP</span>
-                </div>
-                <div class="flex flex-col flex-center item-price">
-                  <span class="p-text">40DT</span>
-                  <span class="h1-text">35DT</span>
-                </div>
-              </div>
-            </a>
+              </a>
+            {% endfor %}
           </div>
         </section>
   

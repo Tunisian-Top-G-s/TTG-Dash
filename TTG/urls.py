@@ -25,6 +25,7 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/', views.shopView, name="shop"),
+    path('product/<int:product_id>/', views.ProductView, name="product"),
     path('home/', views.homeView, name="home"),
     path('courses/', views.coursesView, name="courses"),
     path('<int:course_id>/levels/', views.levelsView, name="levels"),
@@ -91,7 +92,7 @@ urlpatterns = [
 
     path('server-chat/', views.serverChatView, name="server_chat"),
     path('private-chat/', views.privateChatView, name="private_chat"),
-    path('product/', views.ProductView, name="product"),
+    
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

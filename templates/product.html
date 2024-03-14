@@ -22,27 +22,27 @@
       <section class="flex selected-item-section">
         <div class="flex flex-col selected-item-photos">
           <div class="flex flex-center photo-container">
-            <img src="{% static "assets/img/black-shirt-2.png" %}" width="250" />
+            <img src="{{product.image.url}}" width="250" />
           </div>
 
           <div class="flex flex-center selected-item-photos-views">
             <div class="flex flex-center photos-views-container active-view">
-              <img src="{% static "assets/img/black-shirt.png" %}" width="80" />
+              <img src="{{product.image.url}}" width="80" />
             </div>
-            <div class="flex flex-center photos-views-container">
-              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
-            </div>
-            <div class="flex flex-center photos-views-container">
-              <img src="{% static "assets/img/black-shirt-2.png" %}" width="80" />
-            </div>
+            
+            {% for subImg in product.sub_images.all %}
+              <div class="flex flex-center photos-views-container">
+                <img src="{{subImg.sub_image.url}}" width="80" />
+              </div>
+            {% endfor %}
           </div>
         </div>
 
         <div class="flex flex-col selected-item">
-          <span class="h1-text">TTG Hoodie</span>
+          <span class="h1-text">{{product.title}}</span>
 
           <div class="selected-item-price">
-            <span class="h1-text">35DT</span>
+            <span class="h1-text">{{product.price}}DT</span>
           </div>
           <div class="flex selected-item-rating">
             <span class="p-text">4.5/5</span>
@@ -135,11 +135,7 @@
 
           <div class="selected-item-description-body">
             <span class="p-text">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries.
+              {{product.description}}
             </span>
           </div>
           <form>
@@ -148,10 +144,9 @@
             </div>
 
             <div class="flex selected-item-color-body">
-              <div class="item-color bg-pink Pink" onclick="selectColor(this)"></div>
-              <div class="item-color bg-purple Purple" onclick="selectColor(this)"></div>
-              <div class="item-color bg-yellow Yellow" onclick="selectColor(this)"></div>
-              <div class="item-color bg-white White" onclick="selectColor(this)"></div>
+              {% for color in product.colors.all %}
+                <div class="item-color bg-{{color}} {{color}}" onclick="selectColor(this)"></div>
+              {% endfor %}
             </div>
 
             <div class="selected-item-size">
@@ -159,22 +154,12 @@
             </div>
 
             <div class="flex selected-item-size-body">
-              <div class="flex flex-center size-item">
-                <input type="radio" id="m-size" name="Size" value="S" />
-                <label for="m-size">S</label>
-              </div>
-              <div class="flex flex-center size-item">
-                <input type="radio" id="m-size" name="Size" value="M" />
-                <label for="m-size">M</label>
-              </div>
-              <div class="flex flex-center size-item">
-                <input type="radio" id="m-size" name="Size"  value="L"/>
-                <label for="m-size">L</label>
-              </div>
-              <div class="flex flex-center size-item">
-                <input type="radio" id="m-size" name="Size" value="XL" />
-                <label for="m-size">XL</label>
-              </div>
+              {% for size in product.sizes.all %}
+                <div class="flex flex-center size-item">
+                  <input type="radio" id="m-size" name="Size" value="{{size}}" />
+                  <label for="m-size">{{size}}</label>
+                </div>
+              {% endfor %}
             </div>
 
             <div class="flex selected-item-submit">
@@ -189,175 +174,51 @@
         <span class="h1-text">Similar Products</span>
 
         <div class="flex flex-wrap items-content">
-          <!-- card #1 -->
-          <div class="item-card">
-            <button class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-heart"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+          {% for relatedProduct in product.relatedProducts.all %}
+            <div class="item-card">
+              <button class="card-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-heart"
+                >
+                  <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                  />
+                </svg>
+              </button>
+
+              <div class="flex flex-center card-banner">
+                <span class="p-text">Promo</span>
+              </div>
+
+              <div class="flex flex-center card-body">
+                <img
+                  alt="black-shirt"
+                  src="{% static "assets/img/black-shirt-2.png" %}"
+                  width="220"
                 />
-              </svg>
-            </button>
-
-            <div class="flex flex-center card-banner">
-              <span class="p-text">Promo</span>
-            </div>
-
-            <div class="flex flex-center card-body">
-              <img
-                alt="black-shirt"
-                src="{% static "assets/img/black-shirt-2.png" %}"
-                width="220"
-              />
-            </div>
-
-            <div class="flex card-footer">
-              <div class="flex flex-col item-name">
-                <span class="h1-text">TTG T-SHIRT</span>
-                <span class="p-text">slim fit</span>
               </div>
-              <div class="flex flex-col flex-center item-price">
-                <span class="p-text">40DT</span>
-                <span class="h1-text">35DT</span>
+
+              <div class="flex card-footer">
+                <div class="flex flex-col item-name">
+                  <span class="h1-text">{{relatedProduct.title}}</span>
+                  <span class="p-text">{{relatedProduct.offer}}</span>
+                </div>
+                <div class="flex flex-col flex-center item-price">
+                  <span class="p-text">{{relatedProduct.price}}DT</span>
+                  <span class="h1-text">{{relatedProduct.price}}DT</span>
+                </div>
               </div>
             </div>
-          </div>
-
-          <!-- card #2 -->
-          <div class="item-card">
-            <button class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-heart"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                />
-              </svg>
-            </button>
-
-            <div class="flex flex-center card-body">
-              <img
-                alt="black-shirt"
-                src="{% static "assets/img/black-shirt-2.png" %}"
-                width="220"
-              />
-            </div>
-
-            <div class="flex card-footer">
-              <div class="flex flex-col item-name">
-                <span class="h1-text">TTG T-SHIRT</span>
-                <span class="p-text">slim fit</span>
-              </div>
-              <div class="flex flex-col flex-center item-price">
-                <span class="h1-text">35DT</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- card #3 -->
-          <div class="item-card">
-            <button class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-heart"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                />
-              </svg>
-            </button>
-
-            <div class="flex flex-center card-body">
-              <img
-                alt="black-shirt"
-                src="{% static "assets/img/black-shirt-2.png" %}"
-                width="220"
-              />
-            </div>
-
-            <div class="flex card-footer">
-              <div class="flex flex-col item-name">
-                <span class="h1-text">TTG T-SHIRT</span>
-                <span class="p-text">slim fit</span>
-              </div>
-              <div class="flex flex-col flex-center item-price">
-                <span class="h1-text">35DT</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- card #4 -->
-          <div class="item-card">
-            <button class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-heart"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                />
-              </svg>
-            </button>
-
-            <div class="flex flex-center card-banner">
-              <span class="p-text">Promo</span>
-            </div>
-
-            <div class="flex flex-center card-body">
-              <img
-                alt="black-shirt"
-                src="{% static "assets/img/black-shirt-2.png" %}"
-                width="220"
-              />
-            </div>
-
-            <div class="flex card-footer">
-              <div class="flex flex-col item-name">
-                <span class="h1-text">TTG T-SHIRT</span>
-                <span class="p-text">slim fit</span>
-              </div>
-              <div class="flex flex-col flex-center item-price">
-                <span class="p-text">40DT</span>
-                <span class="h1-text">35DT</span>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </section>
     </div>

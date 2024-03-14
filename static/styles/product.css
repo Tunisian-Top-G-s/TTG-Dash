@@ -264,6 +264,14 @@
   background-color: #ffff00;
 }
 
+.bg-red {
+  background-color: red;
+}
+
+.bg-black {
+  background-color: black;
+}
+
 .bg-white {
   background-color: #fff;
 }
