@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'PrivateSessions',
     'Reports',
     'Courses',
+    'Carts',
+    'Orders',
     'livereload',
 
     'django.contrib.admin',
