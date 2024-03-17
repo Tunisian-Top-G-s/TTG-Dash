@@ -1,8 +1,9 @@
 import json
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from django.utils import timezone
 from datetime import timedelta
+from Carts.models import Cart, CartItem
 from PrivateSessions.forms import PrivateSessionForm, PrivateSessionRequestForm
 from Products.models import Product
 from Users.forms import TransactionForm
@@ -479,3 +480,49 @@ def logout_view(request):
     next_page = request.GET.get('next', '/')  # Redirige vers  par défaut
     return redirect(next_page)
 
+
+
+
+def add_to_cart(request):
+    if request.method == 'POST':
+        # Get the product ID and types from the POST data
+        product_id = request.POST.get('product_id')
+        color = request.POST.get('color')
+        size = request.POST.get('size')
+        print('aaaaaaa',request.user)
+        if product_id:
+            # Get the product object
+            product = get_object_or_404(Product, id=product_id)
+
+            # Get the user's cart or create one if it doesn't exist
+            user_cart, created = Cart.objects.get_or_create(user=CustomUser.objects.get(user=request.user))
+
+            # Check if the product is already in the cart
+            # Parse the 'types' JSON string into a Python dictionary
+
+            # Check if the item already exists in the cart with the same product and types
+            cart_item, item_created = CartItem.objects.get_or_create(
+                cart=user_cart,
+                product=product,
+                color=color,
+                size=size,
+            )
+
+            if not item_created:
+                # If the item already exists in the cart, increment its quantity
+                cart_item.quantity += 1
+                cart_item.save()
+
+            # Set the created_at timestamp for the cart if it's newly created
+            if created:
+                user_cart.created_at = timezone.now()
+                user_cart.save()
+
+            # Return a JSON response indicating success
+            return JsonResponse({'success': True})
+        else:
+            # Return a JSON response indicating failure
+            return JsonResponse({'success': False, 'message': 'Product ID not provided'})
+    else:
+        # Return a JSON response indicating failure for non-POST requests
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})

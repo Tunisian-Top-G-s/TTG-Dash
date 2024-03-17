@@ -93,6 +93,6 @@ urlpatterns = [
     path('server-chat/', views.serverChatView, name="server_chat"),
     path('private-chat/', views.privateChatView, name="private_chat"),
     
-
+    path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
