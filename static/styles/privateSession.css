@@ -38,6 +38,7 @@
   display: flex;
   padding: 30px;
   padding-bottom: 0;
+  justify-content: center;
 }
 .schedule-header span{
   color: #FFF;
@@ -276,7 +277,7 @@ ul.tabs li{
 	color: #222;
 	display: inline-block;
 	padding: 2px;
-	cursor: pointer;
+	cursor: default;
 	width: 100%;
 }
 
@@ -420,7 +421,78 @@ ul.tabs li.current{
   align-items: center;
 }
 
+.popup-message {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 8px;
+  border: 1px solid #620D0D;
+  background: #351B1B;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  padding: 8px;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 51vh;
+  gap: 10px;
+}
+.img-info{
+  display: flex;
+}
+.img-info > svg{
+  color: #D15950;
+}
+.tab-link{
+  cursor: default;
+}
+@media screen and (max-width: 768px) {
+  .span-popup{
+    padding: 0 1rem;
+  }
+  .popup-message{
+    width: fit-content;
+  }
+  .button-group{
+    flex-direction: column;
+  }
+  .calendar{
+    padding: 5px 0;
+  }
+  .next-tab-btn{
+    margin: 1rem 0;
+  }
+  .done-body{
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+  }
+  .done-container > span:nth-child(2){
+    text-align: start;
+  }
+  .schedule-container{
+    width: 90%;
+  }
+  .done-body > .schedule-body-right{
+    padding: 0;
+  }
+}
 
+.popup-show {
+  display: flex;
+  animation: fadeIn 1s;
+}
+.pop-up-close-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-left: auto;
+}
 /* -------------Media Querie---------------------- */
 
 @media screen and (max-width: 1215px) {
@@ -779,4 +851,30 @@ ul.tabs li.current{
     -webkit-animation-timing-function: ease-out;
             animation-timing-function: ease-out;
   }
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 5px 1rem;
+}
+
+.calendar-day {
+  border: 1px solid #ccc;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 5px;
+  color: white;
+  font-size: large;
+}
+
+.calendar-day.unavailable {
+  background-color: #61616140;
+  cursor: not-allowed;
+  color: #0a0338;
+}
+
+.calendar-day.selected {
+  background-color: #6e30f5;
+  color: white;
 }

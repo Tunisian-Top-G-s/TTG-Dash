@@ -17,7 +17,7 @@
             <div class="schedule-header">
                 <span>LOOKING TO HAVE A <br> PRIVATE SESSION?</span>
                 <div class="session-pictures">
-                    <img src="{% static "assets/ttgq.svg" %}" alt="" />
+                    <img src="{% static "assets/ttgq.svg" %}" alt="Schedule Image" width="654px" height="288px"/>
                 </div>
             </div>
             <div class="schedule-body">
@@ -120,7 +120,13 @@
                                 </div>
                             </div>
                             <div id="tab-3" class="tab-content">
-                                <p>Tab content 3</p>
+                                <span>Choose your perfect day :</span>
+                                <div class="calendar-container">
+                                    <div class="calendar"></div>
+                                    <form id="selectedDateForm" style="display: none;">
+                                        <input type="hidden" id="selectedDateInput" name="selected_date">
+                                    </form>
+                                </div>
                                 <div class="button-group">
                                     <button class="back-tab-btn">
                                         <i data-lucide="chevron-left"></i>
@@ -134,6 +140,18 @@
             </div>
         </div>
     </div>
+
+    <!--   =========================================================-->
+    <!--  Pop Up's -->
+    <!--   =========================================================-->
+    <div id="popupMessage" class="popup-message">
+        <div class="img-info">
+            <i data-lucide="info"></i>
+        </div>
+        <span id="popupSpan" class="span-popup"></span>
+        <button id="popUpCloseButton" class="pop-up-close-button">Close</button>
+    </div>
+<!--   =========================================================-->
 
 {% endblock main %}
 
