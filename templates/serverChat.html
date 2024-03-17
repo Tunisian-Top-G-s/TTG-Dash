@@ -11,6 +11,7 @@
 {% endblock header %}
 
 {% block main %}
+{% include "components/navbar.html" %}
     <div class="chat-wrapper">
 
         <div class="mobile-toggles-btn">
@@ -229,8 +230,9 @@
                 </div>
                 <div class="chat-input">
                     <!-- Existing elements -->
-                    <i data-lucide="paperclip" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;"></i>
-                    <input type="text" id="userInput" placeholder="Type your message here...">
+                   
+                    <i data-lucide="circle-plus" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;" ></i>
+                    <textarea  type="text" id="userInput" placeholder="Type your message here..."></textarea>
                     
                     <!-- Hidden file input for images -->
                     <input type="file" id="imageUpload" accept="image/*" style="display:none;" onchange="previewImage(event)">
@@ -238,14 +240,15 @@
                     <div class="buttons-group">
                         <!-- Existing buttons -->
                         <button class="emoji-button" onclick="toggleEmojiPicker()">
-                            <i data-lucide="smile"></i>
+                            <i data-lucide="laugh"></i>
                         </button>
                         <button class="send-message" onclick="send()">
-                            <i data-lucide="send"></i>
+                            <i data-lucide="send-horizontal"></i>
                         </button>
                     </div>
                     <!-- Existing emoji picker -->
                     <div class="emoji-picker" id="emojiPicker"></div>
+                    
                 </div>
                 
             </div>
@@ -466,39 +469,64 @@
     });
         // --------------------------------------------------
     // --------------------------------------------------
+    let messageIdCounter = 0; // Global counter for message IDs
+    const messageReactions = {}; // Object to track reactions for each message
     function send() {
-        var message = document.getElementById("userInput").value;
+        var message = document.getElementById("userInput").value.trim();
+        const imageInput = document.getElementById("imageUpload");
+        const imageFile = imageInput.files[0];
     
-        if (currentReplyMessage) {
-            // If there's a message being replied to, use the reply logic
-            sendReplyMessage(message);
-        } else if (message.trim() !== "") {
-            // Logic for sending a new message
-            const imageInput = document.getElementById("imageUpload");
-            const imageFile = imageInput.files[0];
-    
+        if (imageFile || message) {
+            // Handle sending of the message and/or image
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    createAndAppendMessage(message, e.target.result); // Assuming this function exists
+                    // If there's an image, send it with or without text
+                    createAndAppendMessage(message, e.target.result);
+                    // Reset the input fields
+                    resetInputsAndPreview();
                 };
                 reader.readAsDataURL(imageFile);
             } else {
-                createAndAppendMessage(message); // Assuming this function exists
-            }
-    
-            // Reset the form
-            document.getElementById("userInput").value = "";
-            imageInput.value = "";
-            const preview = document.querySelector(".preview");
-            if (preview) {
-                preview.remove();
+                // If there's no image but there is text, just send the text
+                createAndAppendMessage(message);
+                // Reset the input fields
+                resetInputsAndPreview();
             }
         } else {
             console.error("No message or image to send");
         }
     }
     
+    function resetInputsAndPreview() {
+        // Reset the text input and image input
+        document.getElementById("userInput").value = "";
+        document.getElementById("imageUpload").value = "";
+        // Remove the image preview if it exists
+        const preview = document.querySelector(".preview");
+        if (preview) {
+            preview.remove();
+        }
+    }
+    
+    document.getElementById("userInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // Prevent the default action to stop form submission or newline
+            send(); // Call your send function
+        }
+        // No need for an else case to specifically handle Shift+Enter, as the textarea naturally supports it
+    });
+    
+    
+    const userInput = document.getElementById("userInput");
+
+    userInput.addEventListener("input", function() {
+        // Reset the height to a default minimum height or to 'auto' to properly reduce its size if necessary
+        this.style.height = 'auto';
+        // Set the height to scrollHeight to accommodate all content
+        //this.style.height = (this.scrollHeight) + 'px';
+    });
+
     
     // --------------------------------------------------
     // Function to send a regular message
@@ -521,21 +549,36 @@
         }
     }
 
+
     // Function to close the "Replying to" section
     function closeReplyMessage() {
         var replyingToDiv = document.querySelector(".chat-footer-box .replying-to");
         replyingToDiv.style.display = "none";
     }
+
+    const replyReactContainer = createReplyReactContainer(message, messageId); // Pass messageId here
+    messageDiv.appendChild(replyReactContainer);
     // --------------------------------------------------
     function createAndAppendMessage(message, imageData = null) {
+        const messageId = `message-${messageIdCounter++}`; // Generate a unique message ID
+        messageReactions[messageId] = {};
+
         const chatBox = document.querySelector('.chat-box');
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('chat-message');
+        messageDiv.classList.add('chat-message', 'fade-in');
+        messageDiv.setAttribute('data-message-id', messageId);
+    
+        // Format message to replace newline characters with HTML line breaks
+        const formattedMessage = message.replace(/\n/g, '<br>');
+    
+        // Check and process any URLs in the formatted message
+        const processedMessage = processMessageForVideoLinks(formattedMessage);    
     
         const userProfilePic = document.querySelector('.user-profile .user-pic img').src;
         const userName = document.querySelector('.user-profile .user-name').textContent;
     
-        let messageContent = `
+        // Construct the message structure, excluding the image part for now
+        let messageContentHTML = `
             <div class="message-header">
                 <div class="user-pic"><img src="${userProfilePic}" alt="user-pic"></div>
             </div>
@@ -545,70 +588,130 @@
                     <span class="message-date">Today</span>
                     <span class="message-time">${new Date().toLocaleTimeString()}</span>
                 </div>
-                <div class="message-text">${message}</div>
-                ${imageData ? `<div class="message-image"><img src="${imageData}" style="max-width: 400px;"></div>` : ""}
+                <div class="message-text">${processedMessage}</div>
             </div>
         `;
     
-        // Create reply-react container
-        const replyReactContainer = document.createElement('div');
-        replyReactContainer.classList.add('reply-react');
+        messageDiv.innerHTML = messageContentHTML;
+        const messageContent = messageDiv.querySelector('.message-content');
+        messageDiv.setAttribute('data-message-id', messageId);
+
+        // Append the image if present
+        if (imageData) {
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('message-image');
+            const messageImage = document.createElement('img');
+            messageImage.src = imageData;
+            messageImage.classList.add("chat-message-image");
+            messageImage.style.cursor = 'pointer';
+            messageImage.onclick = () => showImageInModal(imageData);
+            imageContainer.appendChild(messageImage);
+            messageContent.appendChild(imageContainer);
+        }
     
-        // Create the reply button
-        const replyButton = document.createElement('button');
-        replyButton.classList.add('reply');
-        replyButton.innerHTML = ReplySvg;
-        replyButton.addEventListener('click', () => replyToMessage(message));
-    
-        // Create the react div
-        const reactDiv = document.createElement('div');
-        reactDiv.classList.add('react');
-        reactDiv.innerHTML = SmileSvg;
-        var ReactsAvailable = document.createElement("div");
-        ReactsAvailable.classList.add("reacts-available");
-        var reactionsList = ['😂', '😍', '👍', '👎', '😢', '😡'];
-        reactionsList.forEach(function(react) {
-            var reactSpan = document.createElement("span");
-            reactSpan.innerText = react;
-            reactSpan.onclick = function() {
-                var messageContentDiv = messageDiv.querySelector(".message-content").innerHTML;
-                addReact(react, messageContentDiv);
-            };
-            ReactsAvailable.appendChild(reactSpan);
-        });
-    
-        reactDiv.appendChild(ReactsAvailable);
-    
-        // Append the reply button and react div to the container
-        replyReactContainer.appendChild(replyButton);
-        replyReactContainer.appendChild(reactDiv);
-    
-        // Append the message content and reply-react container to the message div
-        messageDiv.innerHTML = messageContent;
+        // Append the reply-react container
+        const replyReactContainer = createReplyReactContainer(messageId);
         messageDiv.appendChild(replyReactContainer);
     
         chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-
-        return messageDiv;
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
     
-    // --------------------------------------------------
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const previewContainer = document.querySelector(".chat-input");
-            let previewImage = previewContainer.querySelector(".preview");
-            if (!previewImage) {
-                previewImage = document.createElement("img");
-                previewImage.classList.add("preview");
-                previewContainer.insertBefore(previewImage, previewContainer.firstChild);
-            }
-            previewImage.src = e.target.result;
-            previewImage.style.maxWidth = "100px";
-        };
-        reader.readAsDataURL(event.target.files[0]);
+    // Function to handle reaction addition
+    function addReact(emoji, messageId) {
+        if (!messageReactions[messageId][emoji]) {
+            messageReactions[messageId][emoji] = 1;
+        } else {
+            messageReactions[messageId][emoji]++;
+        }
+        
+        console.log(`Message ${messageId} reactions:`, messageReactions[messageId]);
     }
+
+    // Function to create a container for reactions
+    function createReplyReactContainer(messageId) {
+        const container = document.createElement('div');
+        container.classList.add('reply-react');
+        
+        // List of reactions
+        const reactionsList = ['😂', '😍', '👍', '👎', '😢', '😡'];
+        reactionsList.forEach(emoji => {
+            const reactSpan = document.createElement("span");
+            reactSpan.innerText = emoji;
+            reactSpan.addEventListener('click', () => {
+                addReact(emoji, messageId);
+            });
+            container.appendChild(reactSpan);
+        });
+
+        return container;
+    }
+
+    function showImageInModal(imageSrc) {
+        let modal = document.getElementById('image-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'image-modal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background-color:  rgb(0 0 0 / 78%); z-index: 10000; cursor: pointer;';
+            modal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            document.body.appendChild(modal);
+        }
+
+        modal.innerHTML = `<img src="${imageSrc}" style="
+        max-width: 50%;
+        max-height: 50%;
+        border-radius: 10px;
+        -webkit-box-shadow: 3px 2px 30px -6px rgb(175 174 174 / 28%);
+        -moz-box-shadow: 3px 2px 30px -6px rgba(0,0,0,0.75);
+        box-shadow: 3px 2px 30px -6px rgb(142 133 133 / 39%);">`;
+        modal.style.display = 'flex';
+    }
+
+    function processMessageForVideoLinks(message) {
+        const urlRegex = /(\bhttps?:\/\/\S+)/gi;
+        return message.replace(urlRegex, function(url) {
+            // Simple check for YouTube URLs
+            if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
+                const videoId = extractYoutubeVideoID(url);
+                if (videoId) {
+                    return `<iframe style='border-radius:10px;' width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                }
+            }
+            return `<a href="${url}" target="_blank">${url}</a>`;
+        });
+    }
+    
+    function extractYoutubeVideoID(url) {
+        let id = '';
+        url = url.replace(/(>|<)/gi, '').split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+        if (url[2] !== undefined) {
+            id = url[2].split(/[^0-9a-z_\-]/i);
+            id = id[0];
+        } else {
+            id = url;
+        }
+        return id;
+    }
+
+    
+    // --------------------------------------------------
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewContainer = document.querySelector(".chat-input");
+                let previewImage = previewContainer.querySelector(".preview");
+                if (!previewImage) {
+                    previewImage = document.createElement("img");
+                    previewImage.classList.add("preview");
+                    previewContainer.insertBefore(previewImage, previewContainer.firstChild);
+                }
+                previewImage.src = e.target.result;
+                previewImage.style.maxWidth = "100px";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
    // Updated replyToMessage function to set currentReplyMessage
         function replyToMessage(messageContent) {
             console.log("Setting up reply to message:", messageContent);
@@ -709,15 +812,15 @@
             }
         }
         
-        
-        
     // --------------Preview Image before post---------------------
     function resetInputsAndPreview() {
-        // Reset inputs
+        // Reset the text input and image input
         document.getElementById("userInput").value = "";
         document.getElementById("imageUpload").value = "";
-
-        // Remove image preview if it exists
+        // Reset the height of the textarea
+        document.getElementById("userInput").style.height = "100px"; // Adjust "100px" to your default height
+    
+        // Remove the image preview if it exists
         const preview = document.querySelector(".preview");
         if (preview) {
             preview.remove();
@@ -796,16 +899,7 @@
     } 
     
 
-    // -----------Show count of emojis------------------------
-    function addReact(react, messageContent) {
-        // Find the existing reactions box or create a new one
-        var reactionsBox = messageContent.querySelector(".reactions-box");
-        if (!reactionsBox) {
-            reactionsBox = document.createElement("div");
-            reactionsBox.classList.add("reactions-box");
-            messageContent.appendChild(reactionsBox);
-        }
-    }
+
     // --------------------------------------------------
     // Function to fetch emojis from the API
     function fetchEmojis() {
