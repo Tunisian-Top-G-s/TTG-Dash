@@ -93,15 +93,17 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .lesson-container > .lesson-controls{
+    width: fit-content;
+    gap: 10px;
+  }
+}
 /* small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) and (max-width: 768px) {
   .lesson-container > .lesson-body {
     width: 70vw;
     font-size: 3px !important;
     text-align: center;
-  }
-
-  .lesson-controls {
-    width: 70vw !important;
   }
 }

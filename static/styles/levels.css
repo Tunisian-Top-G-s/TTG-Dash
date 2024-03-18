@@ -141,22 +141,31 @@
 }
 /* media queries */
 /* extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1024px) {
+  .main {
+    min-height: 100vh !important;
+    height: max-content;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
   .learning-center {
     width: 100%;
-    height: 260vh;
   }
 
   .learning-center > .learning-center-wrapper {
     height: 100%;
   }
 
-  .learning-step > .learning-body {
-    height: 41vh;
-  }
-
   .learning-center > .h1-text {
     font-size: 26px;
+  }
+  .wrap-text{
+    text-align: center;
+    padding: 1rem;
+  }
+  .wrap-text > .h1-text{
+    font-weight: 26px;
   }
 }
 
