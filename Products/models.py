@@ -27,6 +27,7 @@ class Product(models.Model):
     colors = models.ManyToManyField(Color, blank=True)
     sizes = models.ManyToManyField(Size, blank=True)
     image = models.ImageField(upload_to="Product_Images", null=True, blank=True)
+    oldPrice = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     is_available = models.BooleanField(default=False)
     relatedProducts = models.ManyToManyField("Products.Product", blank=True)

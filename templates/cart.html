@@ -2,263 +2,176 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "styles/cart.css" %}">
-{% block title%}
-<title>Cart - Tunisian Top Gs</title>
-{% endblock title %}
-
+    <link rel="stylesheet" href="{% static "styles/cart.css" %}">
+    {% block title %}
+        <title>Cart - Tunisian Top Gs</title>
+    {% endblock title %}
 {% endblock head %}
 
 {% block main %}
-{% include "components/navbar.html" %}
-<div class="cart-wrapper">
-  <div class="shopping-cart">
-    <div class="h1-text">Shopping Cart</div>
-      <div class="items-container">
-        <div class="empty-cart" id="emptyCart">
-          <!-- Empty cart message -->
-          <img src="{% static "assets/img/empty-cart.png" %}" alt="cart empty" />
-          <div class="empty-cart-container">
-            <span class="h1-text">Your cart is empty</span>
-            <a href="/shop" class="btn">Continue Shopping</a>
-          </div>
+    {% include "components/navbar.html" %}
+    <div class="cart-wrapper">
+        <div class="shopping-cart">
+            <div class="h1-text">Shopping Cart</div>
+            <div class="items-container">
+                <div class="empty-cart" id="emptyCart">
+                    <!-- Empty cart message -->
+                    <img src="{% static "assets/img/empty-cart.png" %}" alt="cart empty" />
+                    <div class="empty-cart-container">
+                        <span class="h1-text">Your cart is empty</span>
+                        <a href="/shop" class="btn">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="items-list" id="items-list">
+                    {% for item in cart.cart_items.all %}
+                        <div class="item-container">
+                            <div class="item-description">
+                                <img src="../static/assets/white-shirt.png" alt="product-img" />
+                                <div class="item-recap">
+                                    <span class="h1-text">{{item.product.title}}</span>
+                                    <span class="item-size">size: <span class="p-text">{{item.size}}</span></span>
+                                    <span class="item-color">color: <span class="p-text">{{item.color}}</span></span>
+                                    <div class="item-price">
+                                        <span class="h1-text">{{item.product.price}}DT</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="delete-icon" data-item-id="{{ item.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
+                                </svg>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <div class="items-list" id="items-list">
-          <!-- Cart items will be dynamically added here -->
+        <div class="order">
+            <div class="order-container">
+                <div class="order-details">
+                    <span class="h1-text">Order Summary</span>
+                    <div class="price">
+                        <span class="p-text">Price</span>
+                        <span class="p-text subTotal">${{cart.calculate_total_price}}</span>
+                    </div>
+                    <div class="discount">
+                        <span class="p-text">Discount</span>
+                        <span class="p-text">$0</span>
+                    </div>
+                    <div class="shipping">
+                        <span class="p-text">Shipping</span>
+                        <span class="p-text greener shippingtotal">Free</span>
+                    </div>
+                    <div class="coupon">
+                        <span class="p-text">Coupon Applied</span>
+                        <span class="p-text">$0.00</span>
+                    </div>
+                </div>
+                <div class="divisier"></div>
+                <div class="order-total">
+                    <div class="total">
+                        <span class="p-text">Total</span>
+                        <span class="p-text TTotal">${{cart.calculate_total_price}}</span>
+                    </div>
+                    <div class="delivery">
+                        <span class="p-text">Estimated Delivery by</span>
+                        <span class="p-text">∞</span>
+                    </div>
+                    <input placeholder="Coupon Code" />
+                    <a class="btn goCheckout checkoutbtn">Proceed to Checkout</a>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-
-  <div class="order">
-    <div class="order-container">
-      <div class="order-details">
-        <span class="h1-text">Order Summary</span>
-        <div class="price">
-          <span class="p-text">Price</span>
-          <span class="p-text">$319.98</span>
-        </div>
-        <div class="discount">
-          <span class="p-text">Discount</span>
-          <span class="p-text">$31.9</span>
-        </div>
-        <div class="shipping">
-          <span class="p-text">Shipping</span>
-          <span class="p-text greener">Free</span>
-        </div>
-        <div class="coupon">
-          <span class="p-text">Coupon Applied</span>
-          <span class="p-text">$0.00</span>
-        </div>
-      </div>
-      <div class="divisier"></div>
-      <div class="order-total">
-        <div class="total">
-          <span class="p-text">Total</span>
-          <span class="p-text">$288.08</span>
-        </div>
-        <div class="delivery">
-          <span class="p-text">Estimated Delivery by</span>
-          <span class="p-text">∞</span>
-        </div>
-        <input placeholder="Coupon Code" />
-        <a href="/checkout" class="btn goCheckout">Proceed to Checkout</a>
-      </div>
-    </div>
-  </div>
-  <div>
 {% endblock main %}
 
 {% block scripts %}
-<script>
+<script type='text/javascript'>
   document.addEventListener('DOMContentLoaded', function() {
-    const itemsList = document.getElementById('items-list');
-    const emptyCart = document.getElementById('emptyCart');
-    const itemsContainer = document.querySelector('.items-container');
-  
-    // Function to delete an item from the cart
-    function deleteItem(index) {
-      let cart = getCartFromStorage();
-      cart.splice(index, 1); // Remove item from cart array
-      localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
-      renderCart(); // Re-render the cart
-    }
-  
-    // Function to get the cart from localStorage
-    function getCartFromStorage() {
-      return JSON.parse(localStorage.getItem('cart')) || [];
-    }
-  
-    // Function to render the cart
-    function renderCart() {
-      let cart = getCartFromStorage();
+      // Define variables
+      const subTotalDiv = document.querySelector(".subTotal");
+      const TotalDiv = document.querySelector('.TTotal');
+
+      const deleteButtons = document.querySelectorAll('.delete-icon');
+      const shippingTotalDiv = document.querySelector('.shippingtotal');
+      let TotalPrice = {{cart.calculate_total_price}}
+      let shippingCost = 0
       
-      // Clear existing items
-      itemsList.innerHTML = '';
-  
-      if (cart.length === 0) {
-        emptyCart.style.display = 'flex'; // Show the empty cart message
-        itemsList.style.height = 'auto'; // Hide the items list
-        itemsContainer.style.height = 'auto'; // Center the empty cart message
-      } else {
-        emptyCart.style.display = 'none'; // Hide the empty cart message
-  
-        // Iterate through each item in the cart and create HTML for it
-        cart.forEach(function(item, index) {
-          // Create item container
-          const itemContainer = document.createElement('div');
-          itemContainer.classList.add('item-container');
-  
-          // Create item description
-          const itemDescription = document.createElement('div');
-          itemDescription.classList.add('item-description');
-  
-          // Create image element
-          const img = document.createElement('img');
-          img.src = item.img; // Update this to use the actual image URL from the item
-          img.alt = 'product-img';
-  
-          // Create item recap
-          const itemRecap = document.createElement('div');
-          itemRecap.classList.add('item-recap');
-  
-          // Create item name
-          const itemName = document.createElement('span');
-          itemName.classList.add('h1-text');
-          itemName.textContent = item.name;
-  
-          // Create item size
-          const itemSize = document.createElement('span');
-          itemSize.classList.add('item-size');
-          itemSize.innerHTML = `size: <span class="p-text">${item.size}</span>`;
-  
-          // Create item color
-          const itemColor = document.createElement('span');
-          itemColor.classList.add('item-color');
-          itemColor.innerHTML = `color: <span class="p-text">${item.color}</span>`;
-  
-          // Create item price
-          const itemPrice = document.createElement('span');
-          itemPrice.classList.add('item-price');
-          itemPrice.innerHTML = `<span class="p-text">${item.price}</span>`;
-  
-          // Create delete icon
-          const deleteIcon = document.createElement('button');
-          deleteIcon.classList.add('delete-icon');
-          deleteIcon.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
-            </svg>
-          `;
-  
-          // Add click event listener to delete icon
-          deleteIcon.addEventListener('click', () => deleteItem(index));
-  
-          // Append elements to their respective parents
-          itemRecap.appendChild(itemName);
-          itemRecap.appendChild(itemSize);
-          itemRecap.appendChild(itemColor);
-          itemRecap.appendChild(itemPrice);
-  
-          itemDescription.appendChild(img);
-          itemDescription.appendChild(itemRecap);
-  
-          // Append item description, delete icon to item container
-          itemContainer.appendChild(itemDescription);
-          itemContainer.appendChild(deleteIcon);
-  
-          // Append item container to items container
-          itemsList.appendChild(itemContainer);
-        });
+      function reloadPrices(totalPrice, shippingMethod) {
+          subTotalDiv.innerText = `TND ${totalPrice}`
+          TotalDiv.innerText = `TND ${totalPrice + calculateShippingCost(shippingMethod)}`;
+          TotalPrice = totalPrice
       }
-    }
-  
-    // Call renderCart to initially render the cart items
-    renderCart();
-  });
-  
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Function to calculate the total price of items in cart
-    function calculateTotal(cart) {
-      let total = 0;
-      cart.forEach(function(item) {
-        // Assuming the price is stored as a string with "$" prefix
-        const itemPrice = parseFloat(item.price.replace('$', ''));
-        total += itemPrice;
+      // Add event listeners to all delete buttons
+      deleteButtons.forEach(button => {
+          button.addEventListener('click', function () {
+              const itemId = button.dataset.itemId; // Access dataset attribute of the button
+  
+              // Send a POST request to delete the cart item
+              $.ajax({
+                  type: 'POST',
+                  url: '/delete-cart-item/',
+                  data: { itemId: itemId }, // Pass the item ID in the request data
+                  beforeSend: function (xhr, settings) {
+                      xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+                  },
+                  success: function (response) {
+                      console.log(response);
+                      // Remove the cart item from the HTML on success
+                      const cartItem = button.closest('.item-container');
+                      cartItem.remove();
+                  },
+                  error: function (xhr, status, error) {
+                      console.error('Error deleting cart item:', error);
+                  }
+              });
+          });
       });
-      return total;
-    }
-  
-    // Get the cart items from localStorage
-    let cart = localStorage.getItem('cart');
-    if (!cart) {
-      cart = [];
-    } else {
-      cart = JSON.parse(cart);
-    }
-  
-    // Get elements from the order summary
-    const priceElement = document.querySelector('.price span:last-child');
-    const discountElement = document.querySelector('.discount span:last-child');
-    const couponElement = document.querySelector('.coupon span:last-child');
-    const totalElement = document.querySelector('.total span:last-child');
-    const deliveryElement = document.querySelector('.delivery span:last-child');
-  
-    // Calculate total price of items in cart
-    const totalPrice = calculateTotal(cart);  
-    console.log(totalPrice);
-  
-    // Set the price element
-    priceElement.textContent = `${totalPrice.toFixed(2)}DT`;
-  
-    // For demonstration purposes, let's assume a discount and shipping
-    const shipping = 'Free';
-    const coupon = 0.00;
-    const discount = totalPrice * 0.1; // 10% discount
 
-    // Set the discount, shipping, and coupon elements
-    discountElement.textContent = `${discount.toFixed(2)}DT`;
-    couponElement.textContent = `${coupon.toFixed(2)}DT`;
-  
-    // Calculate the total
-    const total = totalPrice - discount + coupon;
-    totalElement.textContent = `${total.toFixed(2)}DT`;
-  
-    // Set the estimated delivery date (you can update this as needed)
-    const today = new Date();
+      // Event listener for checkout button
+      const checkoutButton = document.querySelector('.checkoutbtn');
+      checkoutButton.addEventListener('click', function(event) {
+          event.preventDefault();
+          //save price and shipping method to cart
 
-    // Add three days to today's date
-    const deliveryDate = new Date(today);
-    deliveryDate.setDate(deliveryDate.getDate() + 3);
-    const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    });
+          $.ajax({
+              type: 'POST',
+              url: '/final-cart-checkout/',
+              data: {cartId: {{cart.id}}},
+              beforeSend: function (xhr, settings) {
+                  xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+              },
+              success: function (response) {
+                  console.log(response)
+              },
+              error: function (xhr, status, error) {
+                  console.error('Error deleting cart item:', error);
+              }
+          });
 
-    if (cart.length === 0) {
-      // Cart is empty, set delivery date as '∞'
-      deliveryElement.textContent = '∞';
-    } else {
-      // Cart has items, set the formatted delivery date
-      deliveryElement.textContent = formattedDeliveryDate;
-    }
-  });
-  document.addEventListener('DOMContentLoaded', function() {
-    const checkoutBtn = document.querySelector('.goCheckout');
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    if (cart.length === 0) {
-      checkoutBtn.style.cursor = 'not-allowed';
-      checkoutBtn.addEventListener('click', function(event) {
-        event.preventDefault();
+          window.location.href = `/checkout`;
       });
-    } else {
-      checkoutBtn.addEventListener('click', function(event) {
-        // Redirect to checkout page
-        window.location.href = '/checkout';
-      });
-    }
+  
+  
+      // Function to get cookie value
+      function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
   });
-</script>  
+  </script>
+
+
+
 {% endblock scripts %}

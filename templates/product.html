@@ -295,6 +295,11 @@
             const size = selectedSize ? selectedSize.getAttribute('data-id') : '';
             console.log(size)
 
+            if (!color || !size) {
+              console.log('Select a logo or size');
+              return; // Don't send the AJAX request if either color or size is not selected
+            }
+
             $.ajax({
               type: 'POST',
               url: '/add-to-cart/',

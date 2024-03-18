@@ -5,9 +5,8 @@ from Products.models import Product
 # Create your models here.
 class Cart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Product, through='CartItem')
     created_at = models.DateTimeField(null=True, blank=True)
-
+    price = models.FloatField(blank=True, null=True)
     def calculate_total_price(self):
         total_price = 0
         for cart_item in self.cart_items.all():

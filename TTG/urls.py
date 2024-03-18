@@ -94,5 +94,8 @@ urlpatterns = [
     path('private-chat/', views.privateChatView, name="private_chat"),
     
     path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
+    path('delete-cart-item/', views.delete_cart_item, name='delete_cart_item'),
+    path('create-order/', views.createOrderView, name='create_order'),
+    path('final-cart-checkout/', views.finalCartCheckoutView, name='final-cart-checkout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -398,16 +398,103 @@ def personalInfoView(request, *args, **kwargs):
     return render(request, 'personalInfo.html', {})
 
 def checkoutView(request, *args, **kwargs):
-
-    return render(request, 'checkout.html', {})
+    cart = Cart.objects.get(user=request.user.customuser)
+    return render(request, 'checkout.html', {"cart": cart})
 
 def orderCompleteView(request, *args, **kwargs):
 
     return render(request, 'orderComplete.html', {})
 
 def cartView(request, *args, **kwargs):
+    cart=Cart.objects.get(user=request.user.customuser)
 
-    return render(request, 'cart.html', {})
+    return render(request, 'cart.html', {"cart": cart})
+
+def delete_cart_item(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('itemId')
+        try:
+            # Retrieve the cart item
+            cart_item = CartItem.objects.get(pk=item_id)
+            # Delete the cart item
+            cart_item.delete()
+
+            user_cart = None
+            try:
+                user_cart = Cart.objects.filter(user=CustomUser.objects.get(user=request.user))[0]
+            except:
+                print ("Cart does not exist")
+            if user_cart:
+                # Access the items related to the cart using the related name 'cart_items'
+                items = user_cart.cart_items.all()
+                total_price = user_cart.calculate_total_price()
+                ultimate_total = total_price
+                total_items = user_cart.cart_items.count()
+                print(total_price)
+                print("items exists")
+            else:
+                print("items doesn't exist")
+                items = []
+
+            return JsonResponse({'success': True, 'message': 'Item deleted successfully', "total_price": total_price, "ultimate_total":ultimate_total, "total_items": total_items})
+        except CartItem.DoesNotExist:
+            return JsonResponse({'error': 'Cart item not found'})
+    else:
+        return JsonResponse({'error': 'bad request'})
+  
+def createOrderView(request):
+    if request.method == 'POST':
+        data = request.POST
+
+        payment_method = data.get('payment_method')
+        address_id = data.get('address_id')
+        cart_id = data.get('cartId')
+        cart = Cart.objects.get(id=cart_id)
+
+        # Get the address associated with the order
+        address = Address.objects.get(id=address_id)
+        # Create the order with payment method, shipping method, and address
+        order = Order.objects.create(
+            user=request.user.customuser,  # Assuming the user is authenticated
+            shippingMethod=cart.shippingMethod,
+            payment_method=payment_method,
+            address=address,
+            price=cart.price,
+        )
+
+        # Move items from cart to order
+        for item in cart.cart_items.all():
+            order_item = OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                types=item.types
+            )
+        url = ""
+        # Clear the cart after order creation
+        if payment_method == "credit-card":
+            payment = initiate_payment(request, orderId = order.id, amount = order.price)
+            print(payment)
+            url = payment["payUrl"]
+        else: url = "/profile/orders"
+
+        cart.cart_items.all().delete()
+        cart.price=0
+        
+
+        return JsonResponse({'success': True, 'order_id': order.id, "url": url})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})
+    
+
+def finalCartCheckoutView(request):
+    cartId = request.POST.get('cartId')
+
+    cart = Cart.objects.get(id=cartId)
+    cart.price = cart.calculate_total_price()
+    cart.save()
+    return JsonResponse({'success': True})
+
 
 def notificationView(request, *args, **kwargs):
 
