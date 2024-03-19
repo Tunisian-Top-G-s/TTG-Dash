@@ -16,11 +16,11 @@ class Size(models.Model):
 
 class Product(models.Model):
     CATEGORIES = (
-        ('tshirt', 'T-Shirt'),
+        ('hoodie', 'Hoodie'),
         ('cap', 'Cap'),
         ('cup', 'Cup')
     )
-    category = models.CharField(max_length=20, choices=CATEGORIES, default='tshirt')
+    category = models.CharField(max_length=20, choices=CATEGORIES, default='hoodie')
     title = models.CharField(max_length=255, blank=False)
     offer = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(blank=True)
