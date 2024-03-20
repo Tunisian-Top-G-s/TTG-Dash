@@ -4,8 +4,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from datetime import timedelta
 from Carts.models import Cart, CartItem
+from Orders.models import Order, OrderItem
 from PrivateSessions.forms import PrivateSessionForm, PrivateSessionRequestForm
 from Products.models import Product
+from django.urls import reverse
+import requests
 from Users.forms import TransactionForm
 from Users.models import Transaction
 from .forms import LogInForm, SignUpForm
@@ -398,8 +401,15 @@ def personalInfoView(request, *args, **kwargs):
     return render(request, 'personalInfo.html', {})
 
 def checkoutView(request, *args, **kwargs):
-    cart = Cart.objects.get(user=request.user.customuser)
-    return render(request, 'checkout.html', {"cart": cart})
+    # Get or create the user's cart
+    cart, created = Cart.objects.get_or_create(user=CustomUser.objects.get(user=request.user))
+    # Check if the cart is empty
+    if cart.cart_items.exists():
+        print(cart)
+        return render(request, 'checkout.html', {"cartID": cart.id, "cart": cart})
+    else:
+        # If the cart is empty, redirect the user to some page indicating that the cart is empty
+         return redirect(reverse('shop'))
 
 def orderCompleteView(request, *args, **kwargs):
 
@@ -407,7 +417,7 @@ def orderCompleteView(request, *args, **kwargs):
 
 def cartView(request, *args, **kwargs):
     cart=Cart.objects.get(user=request.user.customuser)
-
+    cart.price = cart.calculate_total_price()
     return render(request, 'cart.html', {"cart": cart})
 
 def delete_cart_item(request):
@@ -442,24 +452,36 @@ def delete_cart_item(request):
     else:
         return JsonResponse({'error': 'bad request'})
   
+
 def createOrderView(request):
     if request.method == 'POST':
-        data = request.POST
+        # Retrieve data from request.POST
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip_code')
+        payment_method = request.POST.get('payment_method')
+        print("payment_method", payment_method, "credit-card")
+        
+        cart_id = request.POST.get('cartId')
 
-        payment_method = data.get('payment_method')
-        address_id = data.get('address_id')
-        cart_id = data.get('cartId')
+        # Retrieve the cart
         cart = Cart.objects.get(id=cart_id)
 
-        # Get the address associated with the order
-        address = Address.objects.get(id=address_id)
-        # Create the order with payment method, shipping method, and address
+        # Create the order
         order = Order.objects.create(
             user=request.user.customuser,  # Assuming the user is authenticated
-            shippingMethod=cart.shippingMethod,
-            payment_method=payment_method,
+            first_name=first_name,
+            last_name=last_name,
             address=address,
-            price=cart.price,
+            city=city,
+            state=state,
+            zip_code=zip_code,
+            shipping_method=1,  # You may adjust this as needed
+            payment_method=1,
+            price=cart.price,  # Ensure you have the correct price for the order
         )
 
         # Move items from cart to order
@@ -468,30 +490,133 @@ def createOrderView(request):
                 order=order,
                 product=item.product,
                 quantity=item.quantity,
-                types=item.types
+                color=item.color,
+                size=item.size,
             )
-        url = ""
-        # Clear the cart after order creation
-        if payment_method == "credit-card":
-            payment = initiate_payment(request, orderId = order.id, amount = order.price)
-            print(payment)
-            url = payment["payUrl"]
-        else: url = "/profile/orders"
 
+        # Clear the cart after order creation
         cart.cart_items.all().delete()
-        cart.price=0
-        
+        cart.price = 0
+        cart.save()
+        print(payment_method, "credit-card")
+        # Redirect to payment page or confirmation page based on payment method
+        if payment_method == "credit-card":
+            print("eeeeeeeeeeeeeeeeeeeeeee")
+            payment = initiate_payment(request, orderId=order.id, amount=order.price)
+            url = payment["payUrl"]
+        else:
+            url = "/shop"  # Redirect to shop or confirmation page if payment method is not credit card
 
         return JsonResponse({'success': True, 'order_id': order.id, "url": url})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
+
     
+
+def initiate_payment(request, orderId, amount):
+    # Make sure to replace these values with your actual credentials and data
+    api_key = '665ddd89ecb4e3b38d776b78a:5usETKkdz0MZwYpgWLMIQXg2gtyNgGp'
+    konnect_wallet_id = '65ddd89ecb4e3b38d776b78e'
+
+    url = "https://api.preprod.konnect.network/api/v2/payments/init-payment"
+    headers = {
+        "x-api-key": '65f0e6d5f85f11d7b8c06004:x3QEEv76q8kvnSxAXTqjMljIeYLz',
+        "Content-Type": "application/json"
+    }
+    print(amount*100)
+    print(amount*1000)
+    payload = {
+      "receiverWalletId": '65f0e6d5f85f11d7b8c06008',
+      "token": "TND",
+      "amount": amount * 1000,
+      "type": "immediate",
+      "description": "payment description",
+      "acceptedPaymentMethods": [
+        "bank_card",
+      ],
+      "lifespan": 10,
+      "checkoutForm": True,
+      "addPaymentFeesToAmount": True,
+      "firstName": request.user.first_name,
+      "lastName": request.user.last_name,
+      "phoneNumber": request.user.customuser.tel,
+      "email": request.user.customuser.email,
+      "orderId": orderId,
+      "webhook": "http://127.0.0.1:8000/webhook",
+      "silentWebhook": True,
+      "successUrl": "http://127.0.0.1:8000/payment-done",
+      "failUrl": "http://127.0.0.1:8000/payment-error",
+      "theme": "dark"
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        error_message = "Failed to initiate payment"
+        if response.status_code == 401:
+            error_message = "Unauthorized: API key is invalid or missing"
+        elif response.status_code == 403:
+            error_message = "Forbidden: You do not have permission to access this resource"
+        elif response.status_code == 404:
+            error_message = "Not Found: The requested resource was not found"
+        elif response.status_code == 422:
+            error_message = "Unprocessable Entity: The request was well-formed but failed validation"
+        
+        return JsonResponse({"error": error_message}, status=response.status_code)
+
+def webhook(request):
+    payment_ref = request.GET.get("payment_ref")
+    if payment_ref:
+        # Query Konnect API to get payment details
+        payment_status = get_payment_status(payment_ref)
+        print(payment_status)
+        # Process payment status and update database or trigger actions
+        # Example: Update database with payment status
+        # payment.update(status=payment_status)
+        return JsonResponse({"message": "Webhook received", "payment status": payment_status})
+    else:
+        return JsonResponse({"error": "Payment reference ID not provided"})
+
+def get_payment_status(payment_ref):
+    # Make a request to Konnect API to get payment details
+    # Replace 'YOUR_KONNECT_API_KEY' with your actual API key
+    api_key = '665ddd89ecb4e3b38d776b78a:5usETKkdz0MZwYpgWLMIQXg2gtyNgGp'
+    url = f"https://api.preprod.konnect.network/api/v2/payments/{payment_ref}"
+    headers = {"x-api-key": api_key}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        payment_data = response.json()
+        payment_status = payment_data.get("payment", {}).get("status")
+        return payment_status
+    else:
+        error_message = "Failed to get payment status"
+        if response.status_code == 401:
+            error_message = "Unauthorized: API key is invalid or missing"
+        elif response.status_code == 403:
+            error_message = "Forbidden: You do not have permission to access this resource"
+        elif response.status_code == 404:
+            error_message = "Not Found: The requested resource was not found"
+        elif response.status_code == 422:
+            error_message = "Unprocessable Entity: The request was well-formed but failed validation"
+        elif response.status_code == 502:
+            error_message = "Bad Gateway: The server was acting as a gateway or proxy and received an invalid response from the upstream server"
+        
+        return error_message
+
+
 
 def finalCartCheckoutView(request):
     cartId = request.POST.get('cartId')
+    price = request.POST.get('price')
+    shippingMethod = request.POST.get('shippingMethod')
+    shippingCost = request.POST.get('shippingCost')
 
     cart = Cart.objects.get(id=cartId)
-    cart.price = cart.calculate_total_price()
+    cart.price = price
+    cart.shippingMethod = shippingMethod
+    cart.shippingCost = shippingCost
     cart.save()
     return JsonResponse({'success': True})
 
