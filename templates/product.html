@@ -175,7 +175,7 @@
 
         <div class="flex flex-wrap items-content">
           {% for relatedProduct in product.relatedProducts.all %}
-            <div class="item-card">
+            <a href="/product/{{relatedProduct.id}}" class="item-card">
               <button class="card-icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@
                   <span class="h1-text">{{relatedProduct.price}}DT</span>
                 </div>
               </div>
-            </div>
+            </a>
           {% endfor %}
         </div>
       </section>
