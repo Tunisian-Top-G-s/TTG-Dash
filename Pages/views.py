@@ -544,7 +544,7 @@ def initiate_payment(request, orderId, amount):
       "orderId": orderId,
       "webhook": "http://127.0.0.1:8000/webhook",
       "silentWebhook": True,
-      "successUrl": "http://127.0.0.1:8000/payment-done",
+      "successUrl": "http://127.0.0.1:8000/order_complete",
       "failUrl": "http://127.0.0.1:8000/payment-error",
       "theme": "dark"
     }
