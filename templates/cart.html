@@ -26,13 +26,13 @@
                     {% for item in cart.cart_items.all %}
                         <div class="item-container">
                             <div class="item-description">
-                                <img src="../static/assets/white-shirt.png" alt="product-img" />
+                                <img src="{{item.product.image.url}}" alt="product-img" />
                                 <div class="item-recap">
                                     <span class="h1-text">{{item.product.title}}</span>
                                     <span class="item-size">size: <span class="p-text">{{item.size}}</span></span>
                                     <span class="item-color">color: <span class="p-text">{{item.color}}</span></span>
                                     <div class="item-price">
-                                        <span class="h1-text">{{item.product.price}}DT</span>
+                                        <span class="h1-text">{{item.product.price}} DT</span>
                                     </div>
                                 </div>
                             </div>
@@ -52,16 +52,16 @@
                     <span class="h1-text">Order Summary</span>
                     <div class="price">
                         <span class="p-text">Price</span>
-                        <span class="p-text subTotal">${{cart.calculate_total_price}}</span>
+                        <span class="p-text subTotal">TND {{cart.calculate_total_price}}</span>
                     </div>
                     <div class="discount">
                         <span class="p-text">Discount</span>
                         <span class="p-text">$0</span>
                     </div>
-                    <div class="shipping">
+                    {% comment %} <div class="shipping">
                         <span class="p-text">Shipping</span>
                         <span class="p-text greener shippingtotal">Free</span>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="coupon">
                         <span class="p-text">Coupon Applied</span>
                         <span class="p-text">$0.00</span>
@@ -71,13 +71,14 @@
                 <div class="order-total">
                     <div class="total">
                         <span class="p-text">Total</span>
-                        <span class="p-text TTotal">${{cart.calculate_total_price}}</span>
+                        <span class="p-text TTotal">TND {{cart.calculate_total_price}}</span>
                     </div>
-                    <div class="delivery">
+                    {% comment %} <div class="delivery">
                         <span class="p-text">Estimated Delivery by</span>
                         <span class="p-text">∞</span>
-                    </div>
+                    </div> {% endcomment %}
                     <input placeholder="Coupon Code" />
+                    <button>check cupon</button>
                     <a class="btn goCheckout checkoutbtn">Proceed to Checkout</a>
                 </div>
             </div>
@@ -119,8 +120,7 @@
                   success: function (response) {
                       console.log(response);
                       // Remove the cart item from the HTML on success
-                      const cartItem = button.closest('.item-container');
-                      cartItem.remove();
+                      window.location.reload()
                   },
                   error: function (xhr, status, error) {
                       console.error('Error deleting cart item:', error);
@@ -133,12 +133,13 @@
       const checkoutButton = document.querySelector('.checkoutbtn');
       checkoutButton.addEventListener('click', function(event) {
           event.preventDefault();
+          console.log("Checkout button")
           //save price and shipping method to cart
-
+            console.log("{{cart.price}}")
           $.ajax({
               type: 'POST',
               url: '/final-cart-checkout/',
-              data: {cartId: {{cart.id}}},
+              data: {cartId: {{cart.id}}, price: {{cart.price}} + 7, shippingMethod: 1, shippingCost: 7},
               beforeSend: function (xhr, settings) {
                   xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
               },
