@@ -554,10 +554,10 @@
     function closeReplyMessage() {
         var replyingToDiv = document.querySelector(".chat-footer-box .replying-to");
         replyingToDiv.style.display = "none";
+        currentReplyMessage = null;
     }
 
-    const replyReactContainer = createReplyReactContainer(message, messageId); // Pass messageId here
-    messageDiv.appendChild(replyReactContainer);
+
     // --------------------------------------------------
     function createAndAppendMessage(message, imageData = null) {
         const messageId = `message-${messageIdCounter++}`; // Generate a unique message ID
@@ -610,7 +610,7 @@
         }
     
         // Append the reply-react container
-        const replyReactContainer = createReplyReactContainer(messageId);
+        const replyReactContainer = createReplyReactContainer(messageId, message);
         messageDiv.appendChild(replyReactContainer);
     
         chatBox.appendChild(messageDiv);
@@ -629,21 +629,46 @@
     }
 
     // Function to create a container for reactions
-    function createReplyReactContainer(messageId) {
+    function createReplyReactContainer(messageId, message) {
         const container = document.createElement('div');
         container.classList.add('reply-react');
+
+        // Reply button
+        const replyButton = document.createElement('button');
+        replyButton.classList.add('reply');
+        replyButton.innerHTML = ReplySvg;
+        replyButton.addEventListener('click', () => {
+            replyToMessage(message, messageId);
+        });
         
+        // React button
+        const reactButton = document.createElement('div');
+        reactButton.classList.add('react');
+        reactButton.innerHTML = SmileSvg;
+        reactButton.addEventListener('click', () => {
+            const reactionsList = container.querySelector('.reactions-list');
+            reactionsList.classList.toggle('show');
+        });
+        
+        container.appendChild(replyButton);
+        container.appendChild(reactButton);
+
+        const reactionsListDiv = document.createElement('div');
+        reactionsListDiv.classList.add('reactions-list');
+
         // List of reactions
         const reactionsList = ['😂', '😍', '👍', '👎', '😢', '😡'];
+    
         reactionsList.forEach(emoji => {
             const reactSpan = document.createElement("span");
             reactSpan.innerText = emoji;
             reactSpan.addEventListener('click', () => {
                 addReact(emoji, messageId);
             });
-            container.appendChild(reactSpan);
+            reactionsListDiv.appendChild(reactSpan);
+            container.appendChild(reactionsListDiv);
         });
-
+        
         return container;
     }
 
@@ -713,8 +738,8 @@
             reader.readAsDataURL(event.target.files[0]);
         }
    // Updated replyToMessage function to set currentReplyMessage
-        function replyToMessage(messageContent) {
-            console.log("Setting up reply to message:", messageContent);
+        function replyToMessage(messageContent, messageId) {
+            console.log("Setting up reply to message:", messageId);
             currentReplyMessage = messageContent; // Store the message being replied to
 
             // Update UI to reflect replying status if necessary
@@ -732,7 +757,7 @@
                     <span>${currentReplyMessage}</span>
                 </div>
                 <button class="close" onclick="closeReplyMessage()">
-                    <i data-lucide="x-circle"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>`;
             }
             document.getElementById("userInput").focus();
@@ -808,7 +833,6 @@
                     preview.remove();
                 }
                 // Scroll to the bottom of the chat box
-                chatBox.scrollTop = chatBox.scrollHeight;
             }
         }
         
@@ -818,7 +842,6 @@
         document.getElementById("userInput").value = "";
         document.getElementById("imageUpload").value = "";
         // Reset the height of the textarea
-        document.getElementById("userInput").style.height = "100px"; // Adjust "100px" to your default height
     
         // Remove the image preview if it exists
         const preview = document.querySelector(".preview");
@@ -889,14 +912,6 @@
         fetchEmojis(); // Fetch emojis when the picker is toggled
         console.log("Toggling emoji picker");
     }
-
-
-    function prepareReply(message) {
-        // Implementation of preparing a reply to a message
-        console.log("Preparing reply to:", message);
-        // Set the message as currentReplyMessage or implement your reply preparation logic
-        currentReplyMessage = message;
-    } 
     
 
 
@@ -963,112 +978,6 @@
         });
         
     }
-    // --------------Change Status----------------
-    document.addEventListener("DOMContentLoaded", function() {
-        const changeStatusButtons = document.querySelectorAll('.change-status .status');
-        const userProfile = document.querySelector('.user-profile');
-        const changeStatusSection = document.querySelector('.change-status');
-        const toggleButtonIcon = document.querySelector('.change-status-btn svg');
-    
-        // Toggle change-status section visibility when button is clicked
-        document.querySelector('.change-status-btn').addEventListener('click', function() {
-            changeStatusSection.classList.toggle('hidden');
-            if (changeStatusSection.classList.contains('hidden')) {
-                toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-            } else {
-                toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-            }
-        });
-    
-        // Add click event listener to each change status button
-        changeStatusButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const status = button.classList[1]; // Get the second class which represents the status
-                updateStatus(status);
-                changeStatusSection.classList.add('hidden'); // Hide change-status section after selecting a status
-                if (changeStatusSection.classList.contains('hidden')) {
-                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                } else {
-                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                }
-            });
-        });
-    
-        // Function to update user status
-        function updateStatus(status) {
-            const userStatus = userProfile.querySelector('.user-status-text');
-            const userStatusIcon = userProfile.querySelector('.user-status');
-            const statusText = userProfile.querySelector('.status-text');
-            const statusIcons = userProfile.querySelectorAll('.status');
-            
-            // Remove 'active' class from all status icons
-            statusIcons.forEach(icon => icon.classList.remove('active'));
-    
-            // Update user status and status text
-            userStatus.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
-            statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
-    
-            // Set background color based on status
-            if (status === 'online') {
-                userStatusIcon.style.backgroundColor = '#4CAF50'; // Green for Online
-            } else if (status === 'away') {
-                userStatusIcon.style.backgroundColor = '#FFC107'; // Yellow for Away
-            } else if (status === 'busy') {
-                userStatusIcon.style.backgroundColor = '#FF5722'; // Orange for Busy
-            }
-    
-            // Add 'active' class to the clicked status icon
-            userProfile.querySelector(`.status-${status}`).classList.add('active');
-        }
-    });
-    // --------------Change Status 2-----------------------
-    document.addEventListener("DOMContentLoaded", function() {
-        const changeStatusButtons = document.querySelectorAll('.change-status .status');
-    
-        // Add click event listener to each change status button
-        changeStatusButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const status = button.classList[1]; // Get the second class which represents the status
-                updateStatus(status);
-            });
-        });
-    
-        // Function to update user status
-        function updateStatus(status) {
-            const userStatusText = document.querySelector('.user-status-text');
-            const userStatus = document.querySelector('.user-status');
-            
-            // Update user status and status text
-            userStatusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
-    
-            // Remove all existing status classes
-            userStatus.classList.remove('online', 'away', 'busy');
-    
-            // Add the appropriate status class
-            userStatus.classList.add(status);
-    
-            // Update background color based on status
-            if (status === 'online') {
-                userStatus.style.backgroundColor = '#2ECC71'; // Green for Online
-            } else if (status === 'away') {
-                userStatus.style.backgroundColor = '#FFC107'; // Yellow for Away
-            } else if (status === 'busy') {
-                userStatus.style.backgroundColor = '#FF5722'; // Orange for Busy
-            }
-        }
-    });
-        // --------------------------------------------------
-    // --------------Change Status 3----------------------
-    document.addEventListener("DOMContentLoaded", function() {
-        const changeStatusButtons = document.querySelectorAll('.change-status-btn');
-        const changeStatusSection = document.querySelector('.change-status');
-    
-        // Add click event listener to the toggle button
-        changeStatusButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                changeStatusSection.classList.toggle('visible');
-            });
-        });
-    });
+
 </script>
 {% endblock scripts %}
