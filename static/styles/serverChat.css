@@ -177,7 +177,6 @@ button{
     background-color: #2ECC71;
     transition: background-color 0.5s ease;
     border: 3px solid #1c153e;
-    border: 0.5px solid #ffffff4e;
 }
 .user-container{
     display: flex;

@@ -108,14 +108,16 @@
     color: gray;
   }
   @media screen and (max-width: 1440px) {
+
     .settings-container {
       height: 100%;
-      width: 80%;
+      width: 100%;
     }
   
     .settings {
       max-width: 100%;
       height: fit-content;
+      padding: 0px 100px;
     }
   
     .setting {
@@ -124,20 +126,32 @@
     }
   }
   @media screen and (max-width: 1024px) {
+    main{
+      height: 100%;
+      min-height: 100vh;
+      max-height: 100%;
+    }
     .setting {
-      width: 40%;
+      width: 48%;
       min-width: unset;
       max-width: unset;
       /* margin-bottom: 40px; */
     }
   }
   @media screen and (max-width: 768px) {
+    main{
+      height: 100%;
+      min-height: 100vh;
+      max-height: 100%;
+    }
     .settings{
       width: 100%;
       justify-content: center;
+      padding: 0;
     }
     .settings-container {
       height: 90%;
+      margin: 0 auto;
     }
   
     .setting {

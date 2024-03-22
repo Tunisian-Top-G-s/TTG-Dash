@@ -169,28 +169,25 @@ main {
 
 /* media queries */
 
-/* extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+
+
+
+/* large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) and (max-width: 1440px) {
   main {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .personal-information-section {
-    width: 300px;
+    width: 850px;
     padding: 2rem;
   }
 
-  .personal-information-section > .h1-text {
-    font-size: 30px;
-    font-weight: 700;
-  }
-
   .card-item {
-    width: 250px;
+    width: 400px;
   }
 }
-
 /* small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) and (max-width: 768px) {
   main {
@@ -199,6 +196,7 @@ main {
   }
 
   .personal-information-section {
+    flex-direction: column;
     width: 620px;
     padding: 2rem;
   }
@@ -207,21 +205,39 @@ main {
     font-size: 30px;
     font-weight: 700;
   }
+  .flex-col{
+    width: 100%;
+  }
+  .card-item{
+    width: 100%;
+  }
 }
-
-/* large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) and (max-width: 1440px) {
+/* extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
   main {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
   }
 
   .personal-information-section {
-    width: 800px;
+    flex-direction: column;
+    width: 100%;
     padding: 2rem;
   }
 
-  .card-item {
-    width: 400px;
+  .personal-information-section > .h1-text {
+    font-size: 30px;
+    font-weight: 700;
+  }
+  .flex-col{
+    width: 100%;
+  }
+  .card-item{
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    padding: 10px 22px;
+    gap: 10px;
   }
 }
