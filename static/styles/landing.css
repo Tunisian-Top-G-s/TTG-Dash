@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 15px;
+  padding: 30px 10px;
 }
 .navbar {
   display: none;
@@ -393,10 +393,11 @@ a {
 .details-access p:nth-child(2) {
   color: #fff;
   font-feature-settings: "clig" off, "liga" off;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   text-transform: capitalize;
   text-align: start;
+  width: 90%;
 }
 
 .details-features {
@@ -471,8 +472,8 @@ a {
   position: absolute;
   top: 20%;
   right: 17%;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 240px;
+  max-height: 271px;
 }
 .knowleadge-content .yellow-spans {
   color: #ffc233;
@@ -1103,7 +1104,7 @@ a {
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 .footer hr {
   border-color: #494949;
@@ -1837,4 +1838,7 @@ a {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+}
+.goBack:hover{
+  color: #7d3cfd;
 }

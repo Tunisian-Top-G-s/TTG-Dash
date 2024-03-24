@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const feedbackImg = document.createElement("div");
     feedbackImg.className = "feedback-img";
     feedbackImg.style.opacity = "0";
-    feedbackImg.innerHTML = `<img src="${feedback.imagePath}" alt="Feedback ${feedback.id}" width="722" height="484">`;
+    feedbackImg.innerHTML = `<img src="${feedback.imagePath}" alt="Feedback ${feedback.id}" width="622" height="484">`;
 
     Object.assign(feedbackImg.style, initialPositions[index]); // Set initial positions
 
@@ -452,6 +452,7 @@ const reverseImages = [
   "../static/assets/gain10.png",
   "../static/assets/gain11.png",
   "../static/assets/gain12.png",
+  "../static/assets/gain13.png",
   "../static/assets/gain13.png",
 ];
 
