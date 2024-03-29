@@ -1,9 +1,11 @@
+#Users/models.py
+
 from django.contrib.auth.models import User
 from django.db import models
 from Ranks.models import Rank
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from Courses.models import Course, CourseProgression
+from Courses.models import Course, CourseProgression, Video
 from django.utils import timezone
 
 class Badge(models.Model):
@@ -28,7 +30,7 @@ class CustomUser(models.Model):
     bio = models.TextField(max_length=150)
     enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
     last_added_points_time = models.DateTimeField(blank=True, null=True)
-
+    finished_videos = models.ManyToManyField(Video)
     # Make email, first name, and last name required
     email = models.EmailField(unique=True, blank=False, null=False)
     first_name = models.CharField(max_length=30, blank=False, null=True)

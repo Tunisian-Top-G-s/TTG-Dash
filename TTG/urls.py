@@ -24,6 +24,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("chat/", include("Chat.urls")),
     path('shop/', views.shopView, name="shop"),
     path('product/<int:product_id>/', views.ProductView, name="product"),
     path('home/', views.homeView, name="home"),
@@ -75,7 +76,7 @@ urlpatterns = [
     path('private-session/', views.privateSessionView, name="private_session"),
     path('private-session-done/', views.privateSessionScheduleDoneView, name="private_session_done"),
 
-    path('schedulePrivateSession/', views.schedulePrivateSessionView, name="schedule_private_session"),
+    path('schedulePrivateSession/', views.privateSessionSubmitView, name="schedule_private_session"),
 
 
     path('settings/', views.settingsView, name="settings"),
@@ -97,5 +98,8 @@ urlpatterns = [
     path('delete-cart-item/', views.delete_cart_item, name='delete_cart_item'),
     path('create-order/', views.createOrderView, name='create_order'),
     path('final-cart-checkout/', views.finalCartCheckoutView, name='final-cart-checkout'),
+
+
+    path('add_video_to_finished/<int:video_id>', views.add_video_to_finished, name='add-video-to-finished'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

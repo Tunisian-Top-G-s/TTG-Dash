@@ -5,7 +5,7 @@ from django.utils import timezone
 from datetime import timedelta
 from Carts.models import Cart, CartItem
 from Orders.models import Order, OrderItem
-from PrivateSessions.forms import PrivateSessionForm, PrivateSessionRequestForm
+from PrivateSessions.forms import PrivateSessionForm
 from Products.models import Product
 from django.urls import reverse
 import requests
@@ -347,7 +347,7 @@ def addTransaction(request):
         
 
 
-def privateSessionView(request, *args, **kwargs):
+""" def privateSessionView(request, *args, **kwargs):
     form = PrivateSessionRequestForm()
 
     # Accessing the choices from the form field
@@ -358,10 +358,6 @@ def privateSessionView(request, *args, **kwargs):
 
     # Exclude the first element in the list
     professor_choices_list = professor_choices_list[1:]
-
-    # Now you can manipulate the choices
-
-    print(professor_choices_list)
 
     # Accessing the choices for duration_hours
     session_time_choices = form.fields['duration_hours'].choices
@@ -375,10 +371,40 @@ def privateSessionView(request, *args, **kwargs):
     # Now you can manipulate the choices
     separated_duration_choices = [session_time_choices_list[i:i+2] for i in range(0, len(session_time_choices_list), 2)]
 
-    print(separated_duration_choices)
-
     return render(request, 'privateSession.html', {'form': form, "professor_choices_list": professor_choices_list, "separated_duration_choices": separated_duration_choices})
 
+def schedulePrivateSessionView(request):
+    if request.method == 'POST':
+        form = PrivateSessionRequestForm(request.POST)
+        print("testing form validation", request.POST)
+        if form.is_valid():
+            form.save()
+            print("wooooooooooooooooooo")
+            # Return a JSON response indicating success
+            return JsonResponse({'success': True})
+        else:
+            # Return a JSON response with form errors
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        # Handle GET requests, assuming there's some logic for GET requests
+        # You can return an HttpResponse or render a template here
+        return HttpResponse("GET request handled") """
+
+def privateSessionView(request, *args, **kwargs):
+    if request.method == 'POST':
+        return privateSessionSubmitView(request)
+    else:
+        form = PrivateSessionForm()
+        return render(request, 'privateSession.html', {'form': form})
+
+def privateSessionSubmitView(request):
+    form = PrivateSessionForm(request.POST)
+    if form.is_valid():
+        form.save()
+        # Redirect to a success page or do something else
+        return JsonResponse({"success": True, "message": "form submitted successfully"})
+    else:
+        return JsonResponse({"success": False, "errors": form.errors})
 
 def privateSessionScheduleDoneView(request, *args, **kwargs):
 
@@ -633,22 +659,7 @@ def privateChatView(request, *args, **kwargs):
 
     return render(request, 'privateChat.html', {})
 
-def schedulePrivateSessionView(request):
-    if request.method == 'POST':
-        form = PrivateSessionRequestForm(request.POST)
-        print("testing form validation", request.POST)
-        if form.is_valid():
-            form.save()
-            print("wooooooooooooooooooo")
-            # Return a JSON response indicating success
-            return JsonResponse({'success': True})
-        else:
-            # Return a JSON response with form errors
-            return JsonResponse({'success': False, 'errors': form.errors})
-    else:
-        # Handle GET requests, assuming there's some logic for GET requests
-        # You can return an HttpResponse or render a template here
-        return HttpResponse("GET request handled")
+
     
 
 def getVideoView(request, *args, **kwargs):
@@ -678,8 +689,9 @@ def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
     print(videoId) # Debugging purpose
     video = Video.objects.get(id=videoId)
-    video.finished = True
-    video.save()
+    user = request.user.customuser
+    user.finished_videos.add(video)
+    user.save()
     return JsonResponse({'success': True, 'message':"video finished successfully"})
 
 
@@ -738,3 +750,16 @@ def add_to_cart(request):
     else:
         # Return a JSON response indicating failure for non-POST requests
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
+    
+def add_video_to_finished(request, video_id):
+    if request.method == 'POST':
+        user = request.user.customuser
+        video = get_object_or_404(Video, id=video_id)
+        
+        # Add the video to the finished videos of the user
+        user.finished_videos.add(video)
+        user.save()
+        
+        return JsonResponse({'message': f'Video "{video.title}" added to finished videos for user {user.user.username}'})
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)

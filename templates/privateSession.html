@@ -23,34 +23,113 @@
             <div class="schedule-body">
                 <div class="schedule-body-left">
                     <span>Schedule Private Session  with Professor : </span>
-                    <form id="sessionForm" method="get">
+                    {% comment %} <form method="post" action="{% url "schedule_private_session" %}">
+                        {% csrf_token %}
+                        <label for="id_status">Status:</label>
+                        <select name="status" id="id_status">
+                            {% for value, label in form.fields.status.choices %}
+                                <option value="{{ value }}" {% if value == form.instance.status %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select><br>
+                    
+                        <label for="id_student">Student:</label><br>
+                        {% for student_id, student_username in form.fields.student.choices %}
+                            <input type="checkbox" name="student" id="student_{{ student_id }}" value="{{ student_id }}" {% if student_id in form.instance.student %}checked{% endif %}>
+                            <label for="student_{{ student_id }}">{{ student_username }}</label><br>
+                        {% endfor %}
+                    
+                        <label for="id_professor">Professor:</label><br>
+                        {% for professor in form.fields.professor.queryset %}
+                            <input type="checkbox" name="professor" id="professor_{{ professor.pk }}" value="{{ professor.pk }}" {% if professor.pk in form.instance.professor.all %}checked{% endif %}>
+                            <label for="professor_{{ professor.pk }}">{{ professor }}</label><br>
+                        {% endfor %}
+                    
+                        <label for="id_cours">Course:</label><br>
+                        {% for course in form.fields.cours.queryset %}
+                            <input type="checkbox" name="cours" id="course_{{ course.pk }}" value="{{ course.pk }}" {% if course.pk in form.instance.cours.all %}checked{% endif %}>
+                            <label for="course_{{ course.pk }}">{{ course }}</label><br>
+                        {% endfor %}
+                    
+                        <label for="id_schedule">Schedule:</label>
+                        <input type="datetime-local" name="schedule" id="id_schedule" value="{{ form.instance.schedule }}"><br>
+                    
+                        <label for="id_duration">Duration:</label><br>
+                        {% for value, label in form.fields.duration.choices %}
+                            <input type="radio" name="duration" id="duration_{{ value }}" value="{{ value }}" {% if value == form.instance.duration %}checked{% endif %}>
+                            <label for="duration_{{ value }}">{{ label }}</label><br>
+                        {% endfor %}
+                    
+                        <label for="id_first_name">First Name:</label>
+                        <input type="text" name="first_name" id="id_first_name" value="{{ form.instance.first_name }}"><br>
+                    
+                        <label for="id_last_name">Last Name:</label>
+                        <input type="text" name="last_name" id="id_last_name" value="{{ form.instance.last_name }}"><br>
+                    
+                        <label for="id_email">Email:</label>
+                        <input type="email" name="email" id="id_email" value="{{ form.instance.email }}"><br>
+                    
+                        <label for="id_phone_number">Phone Number:</label>
+                        <input type="text" name="phone_number" id="id_phone_number" value="{{ form.instance.phone_number }}"><br>
+                    
+                        <label for="id_session_mode">Session Mode:</label>
+                        {% for value, label in form.fields.session_mode.choices %}
+                            <input type="radio" name="session_mode" id="session_mode_{{ value }}" value="{{ value }}" {% if value == form.instance.session_mode %}checked{% endif %}>
+                            <label for="session_mode_{{ value }}">{{ label }}</label><br>
+                        {% endfor %}
+                    
+                        <button type="submit">Submit</button>
+                    </form> {% endcomment %}
+                    <form id="sessionForm" class='sessionForm' method="post" action="{% url "schedule_private_session" %}">
+                        {% csrf_token %}
                         <div class="inputs">
                             <div>
                                 <div class="input-container">
                                     <label for="name">First Name</label>
-                                    {{form.first_name}}
+                                    <input type="text" name="first_name" id="id_first_name" value="{{ form.instance.first_name }}"><br>
                                 </div>
                                 <div class="input-container">
                                     <label for="name">Email</label>
-                                    {{form.email}}
+                                    <input type="email" name="email" id="id_email" value="{{ form.instance.email }}"><br>
                                 </div>
                             </div>
                             <div>
                                 <div class="input-container">
                                     <label for="name">Last Name</label>
-                                    {{form.last_name}}
+                                    <input type="text" name="last_name" id="id_last_name" value="{{ form.instance.last_name }}"><br>
                                 </div>
                                 <div class="input-container">
                                     <label for="name">Phone Number</label>
-                                    {{form.phone}}
+                                    <input type="text" name="phone_number" id="id_phone_number" value="{{ form.instance.phone_number }}"><br>
                                 </div>
                             </div>
                         </div>
-
+                        <style>
+                            
+                        </style>
+                        <label for="id_cours">Course:</label><br>
+                        {% for course in form.fields.cours.queryset %}
+                            <input type="checkbox" name="cours" id="course_{{ course.pk }}" value="{{ course.pk }}" {% if course.pk in form.instance.cours.all %}checked{% endif %}>
+                            <label for="course_{{ course.pk }}">{{ course }}</label><br>
+                        {% endfor %}
                         <div class="TimeSelection">
                             <span>Select Time</span>
                             <div class="TimesAvailable">
-                              {% for row in separated_duration_choices %}
+                                {% for value, label in form.fields.duration.choices %}
+                                    {% if forloop.counter0|divisibleby:2 %}
+                                        <div class="duration-pair">
+                                    {% endif %}
+                                        
+                                        <label class="checkbox-wrapper">
+                                            <input type="radio" name="duration" id="duration_{{ value }}" value="{{ value }}" {% if value == form.instance.duration %}checked{% endif %}>
+                                            <span class="checkbox-tile">
+                                                <label for="duration_{{ value }}">{{ label }}</label><br>
+                                            </span>
+                                        </label>
+                                    {% if forloop.counter|divisibleby:2 or forloop.last %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                              {% comment %} {% for row in separated_duration_choices %}
                                 <div>
                                   {% for value, text in row %}
                                     <div class="checkbox">
@@ -63,7 +142,7 @@
                                     </div>
                                   {% endfor %}
                                 </div>
-                              {% endfor %}
+                              {% endfor %} {% endcomment %}
                           </div>
                         </div>
                         </div>
@@ -77,16 +156,20 @@
                             <div id="tab-1" class="tab-content current">
                                 <span>select the private session mode :</span>
                                 <div class="checkbox-group">
-                                    {% for choice_value, choice_label in form.session_mode.field.choices %}
-                                    <div class="checkbox">
-                                        <label class="checkbox-wrapper">
-                                            <input type="radio" name="session_mode" value="{{ choice_value }}" class="checkbox-input"/>
-                                            <span class="checkbox-tile">
-                                                <span class="checkbox-label">{{ choice_label }}</span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                {% endfor %}
+                                    {% for value, label in form.fields.session_mode.choices %}
+                                        <input type="radio" name="session_mode" id="session_mode_{{ value }}" value="{{ value }}" {% if value == form.instance.session_mode %}checked{% endif %}>
+                                        <label for="session_mode_{{ value }}" class='checkbox-label'>{{ label }}</label><br>
+                                    {% endfor %}
+                                    {% comment %} {% for choice_value, choice_label in form.session_mode.field.choices %}
+                                        <div class="checkbox">
+                                            <label class="checkbox-wrapper">
+                                                <input type="radio" name="session_mode" value="{{ choice_value }}" class="checkbox-input"/>
+                                                <span class="checkbox-tile">
+                                                    <span class="checkbox-label">{{ choice_label }}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    {% endfor %} {% endcomment %}
                                 
                                 </div>
                                 <button type="button" class="next-tab-btn float-right">Confirm</button>
@@ -94,8 +177,22 @@
                             <div id="tab-2" class="tab-content">
                                 <span>select your professor :</span>
                                 <div class="checkbox-group">
-                                
-                                    {% for prof_id, prof_name in professor_choices_list %}
+                                    {% for professor in form.fields.professor.queryset %}
+                                        <div class="checkbox slide-in-left">
+                                            <label class="checkbox-wrapper" for="professor_{{ professor.pk }}">
+                                                <input class="checkbox-input" type="checkbox" name="professor" id="professor_{{ professor.pk }}" value="{{ professor.pk }}" {% if professor.pk in form.instance.professor.all %}checked{% endif %}>
+                                                <span class="checkbox-tile">
+                                                    <span class="checkbox-label">
+                                                        <div class="professor">
+                                                            <img src="{% static "assets/Professor1.svg" %}" alt="Professor Img" />
+                                                            <span>{{ professor }}</span>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                    {% comment %} {% for prof_id, prof_name in professor_choices_list %}
                                         <div class="checkbox slide-in-left">
                                             <label class="checkbox-wrapper">
                                                 <input type="radio" name="selected_professor" value="{{ prof_id }}" class="checkbox-input"/>
@@ -109,7 +206,7 @@
                                                 </span>
                                             </label>
                                         </div>
-                                    {% endfor %}
+                                    {% endfor %} {% endcomment %}
                                 </div>
                                 <div class="button-group">
                                     <button class="back-tab-btn">
@@ -117,15 +214,20 @@
                                         Previous
                                     </button>
                                     <button type="button" class="next-tab-btn">Continue</button>
+                                    
                                 </div>
                             </div>
                             <div id="tab-3" class="tab-content">
                                 <span>Choose your perfect day :</span>
                                 <div class="calendar-container">
-                                    <div class="calendar"></div>
-                                    <form id="selectedDateForm" style="display: none;">
+                                    
+                                    <label for="id_schedule">Schedule:</label>
+                                    <input type="datetime-local" name="schedule" id="id_schedule" value="{{ form.instance.schedule }}"><br>
+                                    
+                                    {% comment %} <div class="calendar"></div> {% endcomment %}
+                                    {% comment %} <form id="selectedDateForm" style="display: none;">
                                         <input type="hidden" id="selectedDateInput" name="selected_date">
-                                    </form>
+                                    </form> {% endcomment %}
                                 </div>
                                 <div class="button-group">
                                     <button class="back-tab-btn">
@@ -133,10 +235,37 @@
                                         Previous
                                     </button>
                                     <button type="submit" class="next-tab-btn submit">Continue</button>
+                                    <button type="submit" class="DoneSubmit">submit</button>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var professorCheckboxes = document.querySelectorAll('input[name="professor"]');
+                            var coursCheckboxes = document.querySelectorAll('input[name="cours"]');
+                        
+                            for (var i = 0; i < professorCheckboxes.length; i++) {
+                                professorCheckboxes[i].addEventListener('click', function() {
+                                    uncheckOtherCheckboxes(professorCheckboxes, this);
+                                });
+                            }
+                        
+                            for (var i = 0; i < coursCheckboxes.length; i++) {
+                                coursCheckboxes[i].addEventListener('click', function() {
+                                    uncheckOtherCheckboxes(coursCheckboxes, this);
+                                });
+                            }
+                        
+                            function uncheckOtherCheckboxes(checkboxes, clickedCheckbox) {
+                                for (var i = 0; i < checkboxes.length; i++) {
+                                    if (checkboxes[i] !== clickedCheckbox) {
+                                        checkboxes[i].checked = false;
+                                    }
+                                }
+                            }
+                        });
+                        </script>
             </div>
         </div>
     </div>

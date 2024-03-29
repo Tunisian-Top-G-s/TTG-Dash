@@ -20,6 +20,9 @@ class Course(models.Model):
         self.members_count = self.enrolled_users.count()
         self.save()
 
+    def __str__(self):
+        return self.title
+
 class Level(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='levels')
     image = models.ImageField(upload_to="levels_images", blank=True, null=True)

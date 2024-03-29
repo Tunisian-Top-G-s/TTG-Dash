@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'Courses',
     'Carts',
     'Orders',
+    'Chat',
+    'daphne',
     'livereload',
 
     'django.contrib.admin',
@@ -279,7 +281,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TTG.wsgi.application'
+# Daphne
+ASGI_APPLICATION = "TTG.asgi.application"
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

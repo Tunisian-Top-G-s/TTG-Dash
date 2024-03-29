@@ -49,8 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
 
-form = document.querySelector("#sessionForm")
+form = document.querySelector(".sessionForm")
 submitButton = document.querySelector(".next-tab-btn.submit")
+submitButton = document.querySelector(".DoneSubmit")
 
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
