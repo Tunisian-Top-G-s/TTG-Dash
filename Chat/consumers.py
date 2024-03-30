@@ -1,8 +1,8 @@
-# chat/consumers.py
+# Chat/consumers.py
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import User
-from .models import Message
+from .models import Message, Room
 from asgiref.sync import sync_to_async
 
 from Users.models import CustomUser
@@ -72,7 +72,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def save_message(self, customuser, message):
         if customuser:
-            await sync_to_async(Message.objects.create)(user=customuser, room_name=self.room_name, content=message)
+            room = await self.get_room(self.room_name)
+            await sync_to_async(Message.objects.create)(user=customuser, room=room, content=message)
+    
+    async def get_room(self, room_name):
+        try:
+            room = await sync_to_async(Room.objects.get)(name=room_name)
+            return room
+        except Room.DoesNotExist:
+            print("Room does not exist for the given room_name:", room_name)
+            return None
+        except Exception as e:
+            print("An error occurred while fetching Room:", str(e))
+            return None
 
     async def send_error_message(self, error_message):
         await self.send(text_data=json.dumps({"error": error_message}))

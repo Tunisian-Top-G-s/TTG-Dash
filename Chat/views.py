@@ -3,7 +3,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
-from .models import Message
+from .models import Message, Room
 from Users.models import CustomUser
 from django.core.serializers.json import DjangoJSONEncoder
 import json
@@ -15,10 +15,11 @@ def send_message(request):
         content = request.POST.get("content")
 
         user = get_object_or_404(CustomUser, id=customuser_id)
+        room = get_object_or_404(Room, name=room_name)
         
-        if user and room_name and content:
+        if user and room and content:
             # Create and save the message
-            message = Message(user=user, room_name=room_name, content=content)
+            message = Message(user=user, room=room, content=content)
             message.save()
             return HttpResponse("Message sent successfully!")
         else:
@@ -34,7 +35,8 @@ def index(request):
 @login_required
 def room(request, room_name):
     customuser_id = request.user.customuser.id
-    messages = Message.objects.filter(room_name=room_name).order_by('timestamp').values('user__first_name', 'content')
+    room = get_object_or_404(Room, name=room_name)
+    messages = Message.objects.filter(room=room).order_by('timestamp').values('user__first_name', 'content')
     messages_list = list(messages)
     
     # Convert QuerySet to list of dictionaries
