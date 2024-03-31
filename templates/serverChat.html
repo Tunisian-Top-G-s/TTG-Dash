@@ -977,7 +977,7 @@
         rooms.classList.toggle('show');
         // IF CLOSE BUTTON IS CLICKED CLOSE ROOMS
         close.addEventListener('click', function() {
-            rooms.classList.remove('show');
+            rooms.classList.remove('show');s
         });
         
     }
@@ -986,9 +986,107 @@
     channelLinks.forEach(link => {
         link.onclick = function(e) {
             const roomName = link.getAttribute('data-room');
-            window.location.pathname = '/chat/' + roomName + '/';
+            // window.location.pathname = '/chat/' + roomName + '/';
         };
     });
 
+    let chatRooms = {
+        students: [
+            {
+                id: 1,
+                userName: 'Walid 1',
+                message: "If you have any questions don't hesitate to reach out to a @deleted-role. They can be reached at any time, Fusce porta elementum ligula hendrerit auctor. Suspendisse est ex, egestas in pulvinar ut, facilisis quis velit. Vestibulum ullamcorper libero nulla, et posuere odio eleifend eu. Ut feugiat lorem ac purus venenatis elementum. Mauris vestibulum nibh ac turpis luctus venenatis non ut elit. Nulla venenatis, nulla quis ornare mollis, erat ipsum ullamcorper ligula, sit amet blandit ipsum nisi elementum turpis. In vel blandit ipsum.x",
+                profilePicture: "assets/userpic1.svg", // {% static "assets/userpic.svg" %}Assuming assets are stored in an 'assets' directory
+                messageDate: "Today",
+                messageTime: "2:30 PM"
+            },
+            {
+                id: 2,
+                userName: 'Moetaz Labranzi 2',
+                message: "ya dark wallahi nched manikek oou ya fares stana nahsrek fi benzert wallah fi geltet el bhayriya manched el dahdouha ou nedarcheh aleha ke dhorjiha ya faroussa mta zebi ou dark zab zab zab!",
+                profilePicture: "assets/userpic2.svg",
+                messageDate: "Today",
+                messageTime: "3:45 PM"
+            }
+        ],
+        crypto_wins: [
+            {
+                id: 1,
+                userName: 'Crypto Fan',
+                message: "Crypto is booming!",
+                profilePicture: "assets/userpic3.svg",
+                messageDate: "Yesterday",
+                messageTime: "4:20 PM"
+            }
+        ],
+        // Add other rooms with similar structure
+    };
+    
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Assuming your chat message container has the ID 'chatBox'
+        const chatBox = document.getElementById('chatBox');
+        const STATIC_URL = '/static/';
+        // Function to update chat messages based on the selected room
+        function updateChatMessages(roomName) {
+            const messages = chatRooms[roomName];
+            const chatBox = document.getElementById('chatBox'); // Make sure you have a container with this ID
+            chatBox.innerHTML = ''; // Clear current chat messages {% static "assets/userpic.svg" %}
+        
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message');
+                messageElement.innerHTML = `
+                    <div class="message-header">
+                        <div class="user-pic">
+                            <img src="${STATIC_URL + msg.profilePicture}" alt="user-pic"> 
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        <div class="user-info">
+                            <span class="user-name">${msg.userName}</span>
+                            <span class="message-date">${msg.messageDate}</span>
+                            <span class="message-time">${msg.messageTime}</span>
+                        </div>
+                        <div class="message-text">${msg.message}</div>
+                        <div class="reactions-box">
+                            <div class="react">
+                                <div class="emoji"><!-- SVG or Emoji --></div>
+                                <div class="count">5</div> <!-- Example static reaction count -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reply-react">
+                        <button class="reply" onclick="sendReplyMessage()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+                        </button>
+                        <div class="react">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                        </div>
+                    </div>
+                `;
+                chatBox.appendChild(messageElement);
+            });
+        }
+        
+        
+    
+        // Attach click event listeners to channel links
+        document.querySelectorAll('.channel-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default link action
+                const roomName = this.getAttribute('data-room');
+                updateChatMessages(roomName);
+            });
+        });
+    });
+    
+    
+
+
 </script>
+<script type="text/javascript">
+    var STATIC_URL = "{% static '' %}";
+</script>
+
 {% endblock scripts %}
