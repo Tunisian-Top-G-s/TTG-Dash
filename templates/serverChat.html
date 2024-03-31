@@ -55,14 +55,14 @@
                         </button>
                     </div>
                     <ul class="channels-list">
-                        <li class="channel-link">
+                        <li class="channel-link" data-room="students">
                             <i data-lucide="hash"></i> 💭・𝗦𝘁𝘂𝗱𝗲𝗻𝘁-𝗖𝗵𝗮𝘁
 
                         </li>
-                        <li class="channel-link">
+                        <li class="channel-link" data-room="crypto_wins">
                             <i data-lucide="hash"></i> 🏆・𝗖𝗿𝘆𝗽𝘁𝗼-𝘄𝗶𝗻𝘀
                         </li>
-                        <li class="channel-link">
+                        <li class="channel-link" data-room="students_anouncements">
                             <i data-lucide="hash"></i> 📢・𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀-𝗔𝗻𝗻𝗼𝘂𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀
                         </li>
                     </ul>
@@ -80,9 +80,12 @@
                         </button>
                     </div>
                     <ul class="channels-list">
-                        <li class="channel-link active"><i data-lucide="hash"></i> 🌌・Forex Signals</li>
-                        <li class="channel-link"><i data-lucide="hash"></i> 🌌・Crypto Signals</li>
-                        <li class="channel-link"><i data-lucide="hash"></i> 📕・Get your Badges</li>
+                        <li class="channel-link active" data-room="forex_signals">
+                            <i data-lucide="hash"></i> 🌌・Forex Signals</li>
+                        <li class="channel-link" data-room="crypto_signals">
+                            <i data-lucide="hash"></i> 🌌・Crypto Signals</li>
+                        <li class="channel-link" data-room="badges">
+                            <i data-lucide="hash"></i> 📕・Get your Badges</li>
                     </ul>
                 </div>
             </div>
@@ -978,6 +981,14 @@
         });
         
     }
+
+    channelLinks = document.querySelectorAll(".channel-link")
+    channelLinks.forEach(link => {
+        link.onclick = function(e) {
+            const roomName = link.getAttribute('data-room');
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    });
 
 </script>
 {% endblock scripts %}
