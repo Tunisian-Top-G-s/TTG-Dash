@@ -21,7 +21,7 @@
 }
 
 .dashboard-top-left {
-    width: 69%;
+    width: 100%;
 }
 
 .dashboard-top-right {
@@ -32,10 +32,9 @@
 }
 
 .dashboard-bottom-left {
-    width: 69%;
+    width: 100%;
     display: flex;
     flex-direction: row;
- 
     gap: 19px;
 }
 
@@ -69,7 +68,7 @@ canvas {
 
 .top-left-dash {
     height: 100%;
-    width: 950px;
+    width: 1150px;
     border-radius: 10px;
     border: 0.5px solid var(--color-gray-10, #ffffff86);
     background: rgb(50 7 150 / 26%) 50% / cover no-repeat;
@@ -100,13 +99,13 @@ canvas {
 .title-balance {
     color: var(--color-gray-10, #FFF);
     font-style: normal;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
     
 }
 
 .amount-balance {
-    font-size: 22px;
+    font-size: 23px;
     font-style: normal;
     font-weight: 600;
     background: linear-gradient(75deg, rgb(230, 207, 255) -7.15%, rgb(126, 35, 244) 112.05%) text;
@@ -172,7 +171,7 @@ canvas {
 
 .amount-balance-profits {
     color: rgb(5, 205, 153);
-    font-size: 22px;
+    font-size: 23px;
     font-style: normal;
     font-weight: 600;
 
@@ -293,6 +292,7 @@ canvas {
     box-shadow: rgb(106, 74, 143) 0px 20px 100px 0px;
     backdrop-filter: blur(6px);
     max-width: max-content;
+    border: 1px solid #ffffff ;
 }
 
 .name-user {
@@ -362,7 +362,7 @@ canvas {
 }
 
 .show-profile-button {
-    color: var(--sd, #000);
+    color: var(--sd, #ffffff);
     font-style: normal;
     font-weight: 500;
     display: flex;
@@ -371,8 +371,8 @@ canvas {
     font-size: 14px;
     gap: 10px;
     border-radius: 900px;
-    border: 1px solid var(--color-gray-10, #FFF);
-    background: var(--color-gray-10, #FFF);
+    border: 1px solid var(--color-gray-10, #ffffff51);
+    background: linear-gradient(100deg, rgb(38, 15, 184) -36.4%, rgb(142 0 149) 131.27%), rgb(110, 48, 245);
 }
 .contact-pictures{
     width: 114px; 
@@ -380,7 +380,7 @@ canvas {
 }
 .last-transaction-container {
     height: 100%;
-    width: 500px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     z-index: -1;
@@ -405,8 +405,8 @@ canvas {
     /* letter-spacing: -0.4px;*/
 }
 .top-trensac > .transc > img{
-    -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-    animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    /* -webkit-animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-top 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both; */
     width: 272px;
 }
 
@@ -694,7 +694,7 @@ canvas {
     width: 10px;
 }
 .ranking-container {
-    width: 435px;
+    width: 535px;
     height: 356px;
     border-radius: 10px;
     border: 0.5px solid var(--color-gray-10, #ffffff86);
@@ -1080,6 +1080,11 @@ input.radio{
     padding-right: 1rem;
     height: 25px;
 }
+.groupbagde{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .file-upload {   display: flex;
     text-align: center;
     font-size: 12px;
@@ -1144,30 +1149,86 @@ input.radio{
         .top-trensac{
             flex-direction: column;
         }
+        .rank-decoration{
+            width: 80px;
+            height: 65px;
+            position: absolute;
+            top: 55%;
+            left: 5%;
+        }
+        .user-picture{
+            width: 90px;
+            height: 90px;
+            display: none;
+        }
         .description-top-transaction{
-            padding: 0 1px;
+            padding: 0 41px;
+            font-size: 13px;
+            width: 100%;
+        }
+        .icons-up-green .icons-up-red{
+            font-size: 12px;
+        }
+        .icons-spans-balance-profits .icons-spans-balance-losses{
+            display: flex;
+            height: 22px;
+            padding: 0px 5px;
+            gap: 10px;
+
+        }
+        .name-user{
+            font-size: 23px;
+            font-style: normal;
+            font-weight: 600;
+            background: linear-gradient(75deg, rgb(230, 207, 255) -7.15%, rgb(126, 35, 244) 112.05%) text;
+        }
+        .groupbagde{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
         .middle-mfm{
             flex-direction: column;
         }
         .top-balance{
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: unset;
+            gap: 0px;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 0;
+        }
+        .title-balance{
+            font-size: 12px;
+        }
+        .amount-balance-profits{
+            font-size: 16px;
+        }
+        .amount-balance-losses{
+            
+            font-size: 16px; 
+        }
+        .amount-balance{
+            font-size: 21px;
         }
         .container-div-balance{
-            padding: 0 1rem;
+            
         }
         .charts{
             height: 50%;
+        }
+        .opened .modal-dialog{
+            z-index: 100;
+        }
+        .modal-dialog{
+            z-index: 100;
         }
         .check-transaction{
             flex-direction: column-reverse;
             gap: 0px;
         }
-        .main{
-            padding: 2rem 0;
+        .main {
+            padding: 10px 0;
         }
         .dashboard-top{
             width: -webkit-fill-available;
@@ -1175,15 +1236,31 @@ input.radio{
         }
         .top-left-dash{
             width: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
         }
         .add-transaction{
             width: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .modale:before{
+
         }
         .member-of-month{
             width: -webkit-fill-available;
+            z-index: -1;
         }
         .top-trensac > .transc > img{
             width: auto;
+            display: none;
         }
         .dashboard-bottom{
             width: -webkit-fill-available;
@@ -1208,8 +1285,9 @@ input.radio{
             padding: 15px 10px 0px 10px;
             height: auto;
         }
-        .dashboard-bottom-left{
+        .dashboard-bottom-left {
             width: 100%;
+            /* height: 356px; */
         }
         .right-middle-mfm{
             width: -webkit-fill-available;
@@ -1270,9 +1348,23 @@ input.radio{
     }
     .top-left-dash{
         width: -webkit-fill-available;
+        padding: 15px 10px;
     }
     .member-of-month{
         width: -webkit-fill-available;
+
+    }
+    .description-top-transaction{
+        font-size: 18px;
+        text-align: center;
+        padding: 15px
+    }
+    .text-check{
+        font-size: 16px;
+
+    }
+    .add-transaction-button{
+        font-size: 13px;
 
     }
     .ranking-container{
@@ -1306,14 +1398,13 @@ input.radio{
 
     .top-balance {
         display: flex;
-        flex-direction: column;
         gap: 10px;
-        padding-left: 3rem;
         width: -webkit-fill-available;
     }
 
     .last-transaction-container, .ranking-container {
         width: -webkit-fill-available;
+        padding: 15px;
     }
 
     .support-container {
@@ -1385,9 +1476,10 @@ input.radio{
 
     .user-picture, .rank-decoration {
         width: 80px;
-        height: 80px;
-        left: 0%;
-        top: 50%;
+        height: 65px;
+        position: absolute;
+        top: 55%;
+        left: 5%;
     }
     .top-trensac > .transc > img{
         width: 100px;
@@ -1397,5 +1489,31 @@ input.radio{
     }
     .member-of-month{
         width: auto;
+        gap: 15px;
+    }
+    .name-user{
+        font-size: 30px;
+    }
+    .prgh-tn{
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+    }
+    .add-transaction-button, .show-profile-button {
+        width: auto;
+        padding: 4px 15px;
+    }
+    .transactions-history {
+        overflow-y: scroll;
+        display: flex;
+        gap: 15px;
+        max-height: 295px;
+        flex-direction: row-reverse;
+    }
+    .history-user-transc{
+        padding: 5px 10px;    
+    }
+    .history-user-transc:hover{
+        background-color: #333333;
     }
 }
