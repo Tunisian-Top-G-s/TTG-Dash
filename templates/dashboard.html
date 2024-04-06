@@ -175,7 +175,7 @@
                             </div>
                         </div>
                             <div>
-                                <span class="prgh-tn">have earned the badge <span class="topG-text">TOP G</span> for being the best student of the month . </span>
+                                <span class="prgh-tn">Have earned the badge <span class="topG-text">TOP G</span> for being the best Trader of the month . </span>
                             </div>
                         </div>
                     </div>
@@ -320,8 +320,8 @@
                             // Draw the shadow under each point
                             ctx.fillStyle = '#056d93'; // Shadow color
                             ctx.shadowColor = '#056d93'; // Same color as the line
-                            ctx.shadowBlur = 0;
-                            ctx.shadowOffsetX = 1;
+                            ctx.shadowBlur = 10;
+                            ctx.shadowOffsetX = 0;
                             ctx.shadowOffsetY = 0;
                             ctx.beginPath();
                             ctx.arc(element.x, element.y, element.radius, 0, Math.PI * 2);
@@ -334,6 +334,8 @@
         
         // Register the plugin
         Chart.register(shadowPlugin);
+
+        
         
         // Chart initialization
         var ctx = document.getElementById('myChart').getContext('2d');
@@ -344,14 +346,15 @@
                 datasets: [{
                     label: 'Total Balance',
                     data: [9455, 2328, 6639, 5419, 3645, 2098, 8505, 4709, 8181, 9762, 3647, 7475, 5673, 2859, 7447, 2229, 1910, 8149, 7383, 3944, 8297, 5862, 7674, 5735, 7148, 2606, 1839, 3828, 3345, 3607, 7443, 10000],
-                    borderColor: '#056d93',
-                    borderWidth: 1.5,
-                    lineTension: 0.3,
+                    borderColor: '#a45cf6',
+                    borderWidth: 3.5,
+                    lineTension: 0.5,
                     fill: true,
                     backgroundColor: 'rgba(164, 92, 246, 0.09)', // Gradient fill under the line
-                    pointRadius: 3,
-                    pointBackgroundColor: '#ffffff03',
-                    pointBorderColor: '#fefefe'
+                    pointRadius: 0.5,
+                    pointBackgroundColor: '#079c4b',
+                    pointBorderColor: 'white',
+                    
                 }]
             },
             options: {
@@ -359,7 +362,9 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
+                        display: false,
                         labels: {
+                            
                             color: 'white',
                             font: {
                                 family: 'Poppins' // Poppins font for legend labels
@@ -368,6 +373,17 @@
                     },
                     tooltip: {
                         callbacks: {
+                            title: function(tooltipItems) {
+                                // Assuming you want to map specific days to months for demonstration
+                                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                                // Use the first tooltip item to determine the label
+                                let day = tooltipItems[0].label;
+                                // Example mapping: every month is 30 days for simplicity, adjust according to your data
+                                let monthIndex = Math.floor(day / 30); // This will work for a simplified case
+                                // Return the month name; adjust logic as needed for accurate mapping
+                                return monthNames[monthIndex];
+                            },
+                            
                             label: function(context) {
                                 var label = context.dataset.label || '';
                                 if (label) {
@@ -378,6 +394,7 @@
                                 }
                                 return label;
                             }
+                        
                         },
                         enabled: true,
                         mode: 'index',
@@ -408,7 +425,7 @@
                             borderColor: 'rgba(255, 255, 255, 1)'
                         },
                         ticks: {
-                            color: '#8A8A8A',
+                            color: '#f5f5f521',
                             font: {
                                 family: 'Poppins' // Poppins font for x-axis labels
                             }
