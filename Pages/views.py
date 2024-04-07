@@ -2,8 +2,11 @@ import json
 from django.shortcuts import get_object_or_404, redirect, render
 
 from django.utils import timezone
+from django.contrib.auth.models import User
+
 from datetime import timedelta
 from Carts.models import Cart, CartItem
+from Chat.models import Room, Message
 from Orders.models import Order, OrderItem
 from PrivateSessions.forms import PrivateSessionForm
 from Products.models import Product
@@ -651,9 +654,23 @@ def notificationView(request, *args, **kwargs):
 
     return render(request, 'settingsNotification.html', {})
 
-def serverChatView(request, *args, **kwargs):
+from django.core.serializers.json import DjangoJSONEncoder
 
-    return render(request, 'serverChat.html', {})
+
+def serverChatView(request, room_name, *args, **kwargs):
+    customuser_id = request.user.customuser.id
+    room = get_object_or_404(Room, name=room_name)
+    messages = Message.objects.filter(room=room).order_by('timestamp').values('user__user__username', 'content', 'user__pfp', 'timestamp')
+    messages_list = list(messages)
+    
+    # Convert QuerySet to list of dictionaries
+    messages_list = [dict(message) for message in messages_list]
+
+    # Serialize the messages list to JSON
+    messages_json = json.dumps(messages_list, cls=DjangoJSONEncoder)
+
+    print(messages_json)  # Add this line for debugging
+    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json})
 
 def privateChatView(request, *args, **kwargs):
 
@@ -763,3 +780,10 @@ def add_video_to_finished(request, video_id):
         return JsonResponse({'message': f'Video "{video.title}" added to finished videos for user {user.user.username}'})
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+
+def profileView(request, username, *args, **kwargs):
+    profile_user = get_object_or_404(User, username=username)
+    custom_profile_user = CustomUser.objects.get(user=profile_user)
+    return render(request, 'profile.html', {"custom_profile_user": custom_profile_user})

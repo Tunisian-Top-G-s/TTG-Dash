@@ -91,7 +91,7 @@ urlpatterns = [
     path('cart/', views.cartView, name="cart"),
 
 
-    path('server-chat/', views.serverChatView, name="server_chat"),
+    path('server-chat/<str:room_name>/', views.serverChatView, name="server_chat"),
     path('private-chat/', views.privateChatView, name="private_chat"),
     
     path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
@@ -101,5 +101,8 @@ urlpatterns = [
 
 
     path('add_video_to_finished/<int:video_id>', views.add_video_to_finished, name='add-video-to-finished'),
+
+
+    path('profile/<str:username>', views.profileView, name='profileView'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

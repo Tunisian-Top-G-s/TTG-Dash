@@ -12,6 +12,8 @@
 
 {% block main %}
 {% include "components/navbar.html" %}
+{{ room_name|json_script:"room-name" }}
+{{ user_id|json_script:"user-id" }}
     <div class="chat-wrapper">
 
         <div class="mobile-toggles-btn">
@@ -235,7 +237,7 @@
                     <!-- Existing elements -->
                    
                     <i data-lucide="circle-plus" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;" ></i>
-                    <textarea  type="text" id="userInput" placeholder="Type your message here..."></textarea>
+                    <textarea class="chat-message-input" type="text" id="userInput" placeholder="Type your message here..."></textarea>
                     
                     <!-- Hidden file input for images -->
                     <input type="file" id="imageUpload" accept="image/*" style="display:none;" onchange="previewImage(event)">
@@ -245,7 +247,7 @@
                         <button class="emoji-button" onclick="toggleEmojiPicker()">
                             <i data-lucide="laugh"></i>
                         </button>
-                        <button class="send-message" onclick="send()">
+                        <button class="chat-message-submit" class="send-message" onclick="send()">
                             <i data-lucide="send-horizontal"></i>
                         </button>
                     </div>
@@ -474,8 +476,7 @@
     // --------------------------------------------------
     let messageIdCounter = 0; // Global counter for message IDs
     const messageReactions = {}; // Object to track reactions for each message
-    function send() {
-        var message = document.getElementById("userInput").value.trim();
+    function send(message) {
         const imageInput = document.getElementById("imageUpload");
         const imageFile = imageInput.files[0];
     
@@ -1028,8 +1029,7 @@
         const chatBox = document.getElementById('chatBox');
         const STATIC_URL = '/static/';
         // Function to update chat messages based on the selected room
-        function updateChatMessages(roomName) {
-            const messages = chatRooms[roomName];
+        function updateChatMessages(messages) {
             const chatBox = document.getElementById('chatBox'); // Make sure you have a container with this ID
             chatBox.innerHTML = ''; // Clear current chat messages {% static "assets/userpic.svg" %}
         
@@ -1082,6 +1082,120 @@
     });
     
     
+
+// Parse the JSON string back into a JavaScript object
+const messages = JSON.parse('{{ messages_json|escapejs }}');
+const roomName = JSON.parse(document.getElementById('room-name').textContent);
+const customuser_id = {{ customuser_id }}
+const chatSocket = new WebSocket(
+    'ws://'
+    + window.location.host
+    + '/ws/chat/'
+    + roomName
+    + '/'
+);
+// Function to display old messagesmedia
+function displayOldMessages(messages) {
+    const chatLog = document.querySelector('#chatBox');
+    chatLog.value = ''; // Clear existing messages
+    if (Array.isArray(messages) && messages.length > 0) {
+        messages.forEach(message => {
+            console.log(message)
+            console.log(`/media/${message.user__pfp}`)
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message');
+            messageElement.innerHTML = `
+            <div class="message-header">
+                <div class="user-pic">
+                    <img src="/media/${message.user__pfp}" alt="user-pic"> 
+                </div>
+            </div>
+            <div class="message-content">
+                <div class="user-info">
+                    <span class="user-name">${message.user__user__username}</span>
+                    <span class="message-date">${message.timestamp}</span>
+                    <span class="message-time">${message.timestamp}</span>
+                </div>
+                <div class="message-text">${message.content}</div>
+                <div class="reactions-box">
+                    <div class="react">
+                        <div class="emoji"><!-- SVG or Emoji --></div>
+                        <div class="count">5</div> <!-- Example static reaction count -->
+                    </div>
+                </div>
+            </div>
+            <div class="reply-react">
+                <button class="reply" onclick="sendReplyMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+                </button>
+                <div class="react">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                </div>
+            </div>
+        `;
+            chatLog.appendChild(messageElement);
+        });
+    } else {
+        console.log('No old messages for this room.');
+    }
+}
+// Display old messages when the page loads
+displayOldMessages(messages);
+chatSocket.onmessage = function(e) {
+    const message = JSON.parse(e.data);
+    console.log(JSON.parse(message.instance)[0].fields);
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('chat-message');
+    messageElement.innerHTML = `
+    <div class="message-header">
+        <div class="user-pic">
+            <img src="${message.pfp}" alt="user-pic"> 
+        </div>
+    </div>
+    <div class="message-content">
+        <div class="user-info">
+            <span class="user-name">${message.username}</span>
+            <span class="message-date">${JSON.parse(message.instance)[0].fields.timestamp}</span>
+            <span class="message-time">${JSON.parse(message.instance)[0].fields.timestamp}</span>
+        </div>
+        <div class="message-text">${message.message}</div>
+        <div class="reactions-box">
+            <div class="react">
+                <div class="emoji"><!-- SVG or Emoji --></div>
+                <div class="count">5</div> <!-- Example static reaction count -->
+            </div>
+        </div>
+    </div>
+    <div class="reply-react">
+        <button class="reply" onclick="sendReplyMessage()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+        </button>
+        <div class="react">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+        </div>
+    </div>
+`;
+    const chatLog = document.querySelector('#chatBox')
+    chatLog.appendChild(messageElement);
+};
+chatSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+document.querySelector('.chat-message-input').focus();
+document.querySelector('.chat-message-input').onkeyup = function(e) {
+    if (e.key === 'Enter') {  // enter, return
+        document.querySelector('.chat-message-submit').click();
+    }
+};
+document.querySelector('.chat-message-submit').onclick = function(e) {
+    const messageInputDom = document.querySelector('.chat-message-input');
+    const message = messageInputDom.value;
+    chatSocket.send(JSON.stringify({
+        'message': message,
+        'customuser_id': customuser_id // Send user_id along with the message
+    }));
+    messageInputDom.value = '';
+};
 
 
 </script>

@@ -3,6 +3,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import User
 from .models import Message, Room
+from django.core.serializers import serialize  # Import Django's default serializer
+
 from asgiref.sync import sync_to_async
 
 from Users.models import CustomUser
@@ -26,7 +28,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             text_data_json = json.loads(text_data)
             message = text_data_json["message"]
             customuser_id = text_data_json["customuser_id"]
-            print(customuser_id, message, "message hhhhhhhhhhhhhhhhhhhhhhhh")
+            print(customuser_id, message)
             # Validate incoming data
             if not message or not customuser_id:
                 print("error")
@@ -35,11 +37,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Get the CustomUser instance
             customuser = await self.get_user(customuser_id)
             # Save message to database
-            await self.save_message(customuser, message)
-
+            message_instance = await self.save_message(customuser, message)
+            serialized_message = serialize('json', [message_instance])  # Serialize the message instance
+            print(serialized_message)
             # Send message to room group
             await self.channel_layer.group_send(
-                self.room_group_name, {"type": "chat.message", "message": message, "username": customuser.first_name}
+                self.room_group_name, {"type": "chat.message", "message": message, "username": customuser.first_name, "instance": serialized_message}
             )
         except json.JSONDecodeError:
             # Handle JSON decode error
@@ -54,10 +57,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def chat_message(self, event):
         message = event["message"]
-        username = event["username"]
-
-        # Send message to WebSocket
-        await self.send(text_data=json.dumps({"message": message, "username": username}))
+        serialized_message = event["instance"]  # Get the serialized message
+        print(eval(event["instance"])[0]["fields"]["user"], "|||||||||||||||||||||||||||||||||||||||||||||||")
+        user_id = eval(event["instance"])[0]["fields"]["user"]  # Get the user ID from the event
+        
+        try:
+            # Retrieve user's information from the database using the user ID
+            customuser = await self.get_user(user_id)
+            username = customuser.first_name  # Get the username
+            user_pfp = customuser.pfp.url  # Get the user's profile picture URL
+            
+            # Send message, username, serialized message, and user pfp to WebSocket
+            await self.send(text_data=json.dumps({
+                "message": message,
+                "username": username,
+                "instance": serialized_message,
+                "pfp": user_pfp  # Include user pfp in the data
+            }))
+        except Exception as e:
+            # Handle any errors that occur during user retrieval
+            print("An error occurred while fetching user information:", str(e))
 
     async def get_user(self, customuser_id):
         try:
@@ -73,7 +92,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def save_message(self, customuser, message):
         if customuser:
             room = await self.get_room(self.room_name)
-            await sync_to_async(Message.objects.create)(user=customuser, room=room, content=message)
+            saved_message = await sync_to_async(Message.objects.create)(user=customuser, room=room, content=message)
+            return saved_message
     
     async def get_room(self, room_name):
         try:

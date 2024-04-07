@@ -15,60 +15,53 @@
     
 
     <script>
-        // Parse the JSON string back into a JavaScript object
-        const messages = JSON.parse('{{ messages_json|escapejs }}');
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const customuser_id = {{ customuser_id }}
-
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
-
-        // Function to display old messages
-        function displayOldMessages(messages) {
-            const chatLog = document.querySelector('#chat-log');
-            chatLog.value = ''; // Clear existing messages
-            if (Array.isArray(messages) && messages.length > 0) {
-                messages.forEach(message => {
-                    chatLog.value += (message.user__first_name + ': ' + message.content + '\n'); // Access keys user__first_name and content
-                });
-            } else {
-                console.log('No old messages for this room.');
-            }
+    // Parse the JSON string back into a JavaScript object
+    const messages = JSON.parse('{{ messages_json|escapejs }}');
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const customuser_id = {{ customuser_id }}
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
+    // Function to display old messages
+    function displayOldMessages(messages) {
+        const chatLog = document.querySelector('#chat-log');
+        chatLog.value = ''; // Clear existing messages
+        if (Array.isArray(messages) && messages.length > 0) {
+            messages.forEach(message => {
+                chatLog.value += (message.user__first_name + ': ' + message.content + '\n'); // Access keys user__first_name and content
+            });
+        } else {
+            console.log('No old messages for this room.');
         }
-
-        // Display old messages when the page loads
-        displayOldMessages(messages);
-
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.username + ': ' + data.message + '\n');
-        };
-
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.key === 'Enter') {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message,
-                'customuser_id': customuser_id // Send user_id along with the message
-            }));
-            messageInputDom.value = '';
-        };
+    }
+    // Display old messages when the page loads
+    displayOldMessages(messages);
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        document.querySelector('#chat-log').value += (data.username + ': ' + data.message + '\n');
+    };
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'customuser_id': customuser_id // Send user_id along with the message
+        }));
+        messageInputDom.value = '';
+    };
     </script>
 </body>
 </html>
