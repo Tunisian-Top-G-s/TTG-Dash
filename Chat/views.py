@@ -4,8 +4,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from .models import Message, Room
+from django.contrib.auth.models import User
+
+
 from Users.models import CustomUser
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.cache import cache  # Import Django's cache module
 import json
 
 def send_message(request):
@@ -29,7 +33,9 @@ def send_message(request):
 
 
 def index(request):
-    return render(request, "chat/index.html")
+    # Example: Retrieve online users
+    online_users = get_online_users()  # You need to implement this function
+    return render(request, "chat/index.html", {"online_users": online_users})
 
 
 @login_required
@@ -47,3 +53,13 @@ def room(request, room_name):
 
     print(messages_json)  # Add this line for debugging
     return render(request, "chat/room.html", {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json})
+
+
+def get_online_users():
+    # Example function to retrieve online users
+    online_users = []
+    user_ids = User.objects.values_list('id', flat=True)  # Get a list of all user IDs
+    for user_id in user_ids:
+        if cache.get(f'user_{user_id}_online'):
+            online_users.append(user_id)
+    return online_users

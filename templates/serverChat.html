@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="chat-box" id="chatBox">
-                <div class="chat-message">
+{% comment %}                 <div class="chat-message">
                     <div class="message-header">
                         <div class="user-pic">
                             <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
@@ -223,7 +223,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
             <div class="chat-footer-box">
                 <div class="replying-to" style="display: none;">
@@ -267,7 +267,7 @@
                     <i data-lucide="users"></i>
                     MEMBERS
                 </div>
-                <span class="Members-counter">1,300 online members</span>
+                <span class="Members-counter">{{online_members.count}} online members</span>
             </div>
             <div class="chat-members-body">
                 <div class="SearchMember-input">
@@ -282,34 +282,15 @@
                         <span>Member - <span class="counter">1</span></span>
                     </div>
                     <ul class="users-list">
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
+                            {% for online_member in online_members %}
+                                <li class="user">
+                                    <div class="user-pic">
+                                        <img src="{{online_member.pfp.url}}" alt="user-pic">
+                                        <span class="user-status"></span>
+                                    </div>                                
+                                    <span class="user-name">{{online_member.user.username}}</span>
+                                </li>
+                            {% endfor %}
                     </ul>
                     <div class="members-titel">
                         <img src="{% static "assets/caht.png" %}" alt="Members Badge">
@@ -1144,7 +1125,7 @@ function displayOldMessages(messages) {
 displayOldMessages(messages);
 chatSocket.onmessage = function(e) {
     const message = JSON.parse(e.data);
-    console.log(JSON.parse(message.instance)[0].fields);
+    console.log(message);
     const messageElement = document.createElement('div');
     messageElement.classList.add('chat-message');
     messageElement.innerHTML = `

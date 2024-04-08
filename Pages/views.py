@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from Chat.views import get_online_users
 from datetime import timedelta
 from Carts.models import Cart, CartItem
 from Chat.models import Room, Message
@@ -668,9 +668,10 @@ def serverChatView(request, room_name, *args, **kwargs):
 
     # Serialize the messages list to JSON
     messages_json = json.dumps(messages_list, cls=DjangoJSONEncoder)
-
+    online_user_ids = get_online_users()
+    online_users = CustomUser.objects.filter(user_id__in=online_user_ids)
     print(messages_json)  # Add this line for debugging
-    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json})
+    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users})
 
 def privateChatView(request, *args, **kwargs):
 
