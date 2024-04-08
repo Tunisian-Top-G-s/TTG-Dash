@@ -987,7 +987,7 @@
     channelLinks.forEach(link => {
         link.onclick = function(e) {
             const roomName = link.getAttribute('data-room');
-            // window.location.pathname = '/chat/' + roomName + '/';
+            window.location.pathname = '/chat/' + roomName + '/';
         };
     });
 
@@ -1076,7 +1076,8 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault(); // Prevent default link action
                 const roomName = this.getAttribute('data-room');
-                updateChatMessages(roomName);
+                window.location.pathname = '/server-chat/' + roomName + '/';
+                //updateChatMessages(roomName);
             });
         });
     });
