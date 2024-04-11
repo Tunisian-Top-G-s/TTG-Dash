@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from Chat.views import get_online_users
 from datetime import timedelta
 from Carts.models import Cart, CartItem
-from Chat.models import Room, Message
+from Chat.models import Room, Message, Section
 from Orders.models import Order, OrderItem
 from PrivateSessions.forms import PrivateSessionForm
 from Products.models import Product
@@ -671,10 +671,10 @@ def serverChatView(request, room_name, *args, **kwargs):
     online_user_ids = get_online_users()
     online_users = CustomUser.objects.filter(user_id__in=online_user_ids)
     all_badges = Badge.objects.filter(customusers__in=online_users).order_by('-index')
-
+    sections = Section.objects.all().order_by('-index')
 
     print(messages_json)  # Add this line for debugging
-    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "all_badges": all_badges})
+    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "all_badges": all_badges, "sections": sections})
 
 def privateChatView(request, *args, **kwargs):
 

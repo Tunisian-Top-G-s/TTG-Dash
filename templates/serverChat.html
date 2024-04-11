@@ -44,32 +44,40 @@
                 </a>
             </div>
             <div class="text-channels">
-                <div class="text-group">
-                    <div class="text-channels-header">
-                        <div>
-                            <button class="toggle-button">
-                                <i data-lucide="chevron-up" class="arrow"></i>
+                {% for section in sections %}
+                
+                    <div class="text-group">
+                        <div class="text-channels-header">
+                            <div>
+                                <button class="toggle-button">
+                                    <i data-lucide="chevron-up" class="arrow"></i>
+                                </button>
+                                👔・{{section.name}} 𝗦𝗘𝗖𝗧𝗜𝗢𝗡
+                            </div>
+                            <button class="add-channel">
+                                <i data-lucide="plus"></i>
                             </button>
-                            👔・𝗦𝗧𝗨𝗗𝗘𝗡𝗧 𝗦𝗘𝗖𝗧𝗜𝗢𝗡
                         </div>
-                        <button class="add-channel">
-                            <i data-lucide="plus"></i>
-                        </button>
-                    </div>
-                    <ul class="channels-list">
-                        <li class="channel-link" data-room="students">
-                            <i data-lucide="hash"></i> 💭・𝗦𝘁𝘂𝗱𝗲𝗻𝘁-𝗖𝗵𝗮𝘁
+                        <ul class="channels-list">
+                            {% for room in section.rooms.all %}
+                                <li class="channel-link" data-room="{{room.name}}">
+                                    <i data-lucide="hash"></i> 💭・{{room.name}}
+                                </li>
+                            {% endfor %}
+{% comment %}                             <li class="channel-link" data-room="students">
+                                <i data-lucide="hash"></i> 💭・𝗦𝘁𝘂𝗱𝗲𝗻𝘁-𝗖𝗵𝗮𝘁
 
-                        </li>
-                        <li class="channel-link" data-room="crypto_wins">
-                            <i data-lucide="hash"></i> 🏆・𝗖𝗿𝘆𝗽𝘁𝗼-𝘄𝗶𝗻𝘀
-                        </li>
-                        <li class="channel-link" data-room="students_anouncements">
-                            <i data-lucide="hash"></i> 📢・𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀-𝗔𝗻𝗻𝗼𝘂𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀
-                        </li>
-                    </ul>
-                </div>
-                <div class="text-group">
+                            </li>
+                            <li class="channel-link" data-room="crypto_wins">
+                                <i data-lucide="hash"></i> 🏆・𝗖𝗿𝘆𝗽𝘁𝗼-𝘄𝗶𝗻𝘀
+                            </li>
+                            <li class="channel-link" data-room="students_anouncements">
+                                <i data-lucide="hash"></i> 📢・𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀-𝗔𝗻𝗻𝗼𝘂𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀
+                            </li> {% endcomment %}
+                        </ul>
+                    </div>
+                {% endfor %}
+                {% comment %} <div class="text-group">
                     <div class="text-channels-header">
                         <div>
                             <button class="toggle-button">
@@ -89,7 +97,7 @@
                         <li class="channel-link" data-room="badges">
                             <i data-lucide="hash"></i> 📕・Get your Badges</li>
                     </ul>
-                </div>
+                </div> {% endcomment %}
             </div>
             <div class="rooms-footer">
                 <div class="change-status hidden">

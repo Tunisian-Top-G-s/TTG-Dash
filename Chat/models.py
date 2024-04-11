@@ -6,8 +6,17 @@ from Users.models import CustomUser
 
 # Create your models here.
 
-class Room(models.Model):
+class Section(models.Model):
+    index = models.IntegerField(default=0)
     name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+class Room(models.Model):
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='rooms', null=True, blank=False)
+    name = models.CharField(max_length=255)
+
     def __str__(self):
         return self.name
 
