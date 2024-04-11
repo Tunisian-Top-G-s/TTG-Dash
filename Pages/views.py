@@ -13,7 +13,7 @@ from Products.models import Product
 from django.urls import reverse
 import requests
 from Users.forms import TransactionForm
-from Users.models import Transaction
+from Users.models import Badge, Transaction
 from .forms import LogInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from Courses.models import Course, CourseProgression, Level, LevelProgression, Module, Video
@@ -670,8 +670,11 @@ def serverChatView(request, room_name, *args, **kwargs):
     messages_json = json.dumps(messages_list, cls=DjangoJSONEncoder)
     online_user_ids = get_online_users()
     online_users = CustomUser.objects.filter(user_id__in=online_user_ids)
+    all_badges = Badge.objects.filter(customusers__in=online_users).order_by('-index')
+
+
     print(messages_json)  # Add this line for debugging
-    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users})
+    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "all_badges": all_badges})
 
 def privateChatView(request, *args, **kwargs):
 

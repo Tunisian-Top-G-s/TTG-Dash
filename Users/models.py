@@ -9,6 +9,7 @@ from Courses.models import Course, CourseProgression, Video
 from django.utils import timezone
 
 class Badge(models.Model):
+    index = models.IntegerField(default=0)
     title = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="Badge_img")
 
@@ -26,7 +27,7 @@ class CustomUser(models.Model):
     address = models.CharField(max_length=255, blank=True)
     pfp = models.ImageField(upload_to='user_images', default='default_user_image.png')
     rank = models.ManyToManyField(Rank)
-    badges = models.ManyToManyField(Badge)
+    badges = models.ManyToManyField(Badge, related_name='customusers')
     bio = models.TextField(max_length=150)
     enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
     last_added_points_time = models.DateTimeField(blank=True, null=True)

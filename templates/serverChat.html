@@ -277,56 +277,25 @@
                     </button>
                 </div>
                 <div class="memebers-list">
-                    <div class="members-titel">
-                        <img src="{% static "assets/caht.png" %}" alt="Members Badge">
-                        <span>Member - <span class="counter">1</span></span>
-                    </div>
-                    <ul class="users-list">
-                            {% for online_member in online_members %}
-                                <li class="user">
-                                    <div class="user-pic">
-                                        <img src="{{online_member.pfp.url}}" alt="user-pic">
-                                        <span class="user-status"></span>
-                                    </div>                                
-                                    <span class="user-name">{{online_member.user.username}}</span>
-                                </li>
-                            {% endfor %}
-                    </ul>
-                    <div class="members-titel">
-                        <img src="{% static "assets/caht.png" %}" alt="Members Badge">
-                        <span>Member - <span class="counter">1</span></span>
-                    </div>
-                    <ul class="users-list">
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                            <li class="user">
-                                <div class="user-pic">
-                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-                                    <span class="user-status"></span>
-                                </div>                                
-                                <span class="user-name">John Doe</span>
-                            </li>
-                    </ul>
-                    <div class="members-titel">
+                    {% for badge in all_badges %}
+                        <div class="members-titel">
+                            <img src="{{badge.icon.url}}" alt="Members Badge">
+                            <span>Members - <span class="counter">{{badge.customusers.count}}</span></span>
+                        </div>
+                        <ul class="users-list">
+                                {% for online_member in badge.customusers.all %}
+                                    <li class="user">
+                                        <div class="user-pic">
+                                            <img src="{{online_member.pfp.url}}" alt="user-pic">
+                                            <span class="user-status"></span>
+                                        </div>                                
+                                        <span class="user-name">{{online_member.user.username}}</span>
+                                    </li>
+                                {% endfor %}
+                        </ul>
+                    {% endfor %}
+
+{% comment %}                     <div class="members-titel">
                         <img src="{% static "assets/caht.png" %}" alt="Members Badge">
                         <span>Member - <span class="counter">1</span></span>
                     </div>
@@ -394,6 +363,40 @@
                                 <span class="user-name">John Doe</span>
                             </li>
                     </ul>
+                    <div class="members-titel">
+                        <img src="{% static "assets/caht.png" %}" alt="Members Badge">
+                        <span>Member - <span class="counter">1</span></span>
+                    </div>
+                    <ul class="users-list">
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                            <li class="user">
+                                <div class="user-pic">
+                                    <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
+                                    <span class="user-status"></span>
+                                </div>                                
+                                <span class="user-name">John Doe</span>
+                            </li>
+                    </ul> {% endcomment %}
                 </div>
             </div>
         </div>
