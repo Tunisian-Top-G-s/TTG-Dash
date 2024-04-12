@@ -423,7 +423,9 @@ input[type="radio"]:checked {
 
 /* large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) and (max-width: 1440px) {
-
+  .selected-item-photos{
+    margin: 0 auto;
+  }
 }
 
 @media screen and (min-width: 1441px) {

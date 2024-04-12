@@ -103,7 +103,7 @@ main > .cart-wrapper {
 
 .item-container {
   display: flex;
-  width: 613px;
+  width: 100%;
   /* height: 209px; */
   border-radius: 8px;
   background: rgba(173, 171, 171, 0.05);
@@ -344,7 +344,8 @@ span.p-text {
     flex-direction: column;
     height: auto;
     justify-content: center;
-  }
+    gap: 0;
+}
   .order{
     width: auto;
   }
@@ -361,4 +362,15 @@ span.p-text {
   .delete-icon{
     flex-direction: row-reverse;
   }
+  .items-list {
+    height: 83vh;
+    width: 100%;
+    overflow-y: scroll;
+    padding: 20px;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
 }

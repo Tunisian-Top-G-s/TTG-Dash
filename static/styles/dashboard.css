@@ -1181,6 +1181,45 @@ input.radio{
             max-height: 400px;
              /* Adjust for large screens */
         }
+        .dashboard-top{
+            width: 100%;
+        }
+        .dashboard-top-left{
+            width: 70%;
+        }
+        .top-left-dash{
+            width: 100%;
+        }
+        .dashboard-top-right{
+            width: 30%;
+        }
+        .member-of-month,.add-transaction{
+            width: 100%;
+        }
+        .dashboard-bottom{
+            width: 100%;
+        }
+        .dashboard-bottom-left{
+            width: 70%;
+        }
+        .dashboard-bottom-right{
+            width: 30%;
+        }
+        .last-transaction-container{
+            width: 100%;
+        }
+        .ranking-container{
+            width: 100%;
+        }
+        .tracker-container{
+            width: 100%;
+        }
+        .support-container{
+            width: 100%;
+        }
+        .dashboard-container{
+            padding: 20px;
+        }
     }
 
     @media screen and (max-width: 1024px) {
@@ -1306,6 +1345,7 @@ input.radio{
         }
         .last-transaction-container{
             width: 100%;
+            height: 356px;
         }
         .ranking-container{
             width: 100%;
@@ -1438,6 +1478,8 @@ input.radio{
         display: flex;
         gap: 10px;
         width: -webkit-fill-available;
+        align-items: start;
+        flex-direction: column;
     }
 
     .last-transaction-container, .ranking-container {

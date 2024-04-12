@@ -266,49 +266,6 @@
   color: yellow;
 }
 
-@media screen and (max-width: 768px) {
-  .omor {
-    padding: 2rem !important;
-  }
-
-  .deal-content .p-text {
-    width: 90%;
-    font-size: 15px;
-  }
-
-  .deal-text {
-    padding-left: 1.2rem;
-    gap: 20px;
-  }
-
-  .items-content {
-    margin-top: 1rem;
-    justify-content: space-evenly;
-  }
-
-  .deal-img {
-    display: none;
-  }
-
-  .deal-title {
-    font-size: 32.5px;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .deal-img {
-    display: none;
-  }
-
-  .deal-text {
-    gap: 20px;
-  }
-
-  .omor {
-    padding: 1rem 5rem;
-  }
-}
-
 @media screen and (max-width: 1440px) {
   .main {
     overflow-x: hidden;
@@ -335,6 +292,70 @@
 
   .item-price > .h1-text {
     font-size: 24px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .deal-img {
+    display: none;
+  }
+
+  .deal-text {
+    gap: 20px;
+  }
+
+  .omor {
+    padding: 1rem 5rem;
+  }
+  .items-content{
+    gap: 1rem;
+  }
+  .item-card {
+    width: 300px;
+    height: 100%;
+  }
+  .card-footer {
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-direction: column;
+  }
+  .card-body {
+    height: 60%;
+  }
+  .items-content {
+    margin-top: 1rem;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .omor {
+    padding: 2rem !important;
+  }
+
+  .deal-content .p-text {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  .deal-text {
+    padding-left: 1.2rem;
+    gap: 20px;
+  }
+
+  .items-content {
+    margin-top: 1rem;
+    justify-content: space-evenly;
+  }
+
+  .deal-img {
+    display: none;
+  }
+
+  .deal-title {
+    font-size: 32.5px;
   }
 }
 .flex-center:hover{
