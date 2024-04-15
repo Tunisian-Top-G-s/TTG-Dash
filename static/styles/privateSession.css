@@ -112,7 +112,7 @@
 
 .checkbox-tile {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   min-height: 50px;
@@ -126,6 +126,9 @@
   width: 100%;
   -webkit-animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 	        animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+.checkbox-tile > input[type="radio"]{
+  visibility: hidden;
 }
 /*
 .checkbox-tile:before {
@@ -177,6 +180,7 @@
   font-weight: 400;
   line-height: normal;
   text-transform: capitalize;
+  width: -webkit-fill-available;
 }
 .schedule-body{
   display: flex;
@@ -364,10 +368,12 @@ ul.tabs li.current{
     flex-direction: row;
     gap: 20px;
     align-items: center;
+    justify-content: center;
 }
 .checkbox-label > .professor > img{
   width: 45px;
   height: 45px;
+  padding: 4px;
 }
 .float-right{
   float: right;
@@ -877,4 +883,72 @@ ul.tabs li.current{
 .calendar-day.selected {
   background-color: #6e30f5;
   color: white;
+}
+.checkbox-container{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+span.id_cours{
+  color: #FFF;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+
+}
+
+/* Background color when checked */
+.checkbox-tile.checked {
+	border-color: var(--PRIVILY-C);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	color: var(--PRIVILY-C);
+}
+.calendar-container{
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+.calendar-container > label{
+  font-size: large;
+    color: white;
+}
+.calendar-container > input{
+  font-size: medium;
+}
+.checkbox-tile-session{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: 8px;
+  border: 0.5px solid #ffffff85;
+  box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(250px);
+  transition: 0.15s ease;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  -webkit-animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+.checkbox-tile-session > input[type="radio"]{
+  visibility: hidden;
+}
+
+.checkbox-tile-session:hover {
+  border-color: var(--PRIMARY-C);
+}
+.checkbox-tile-session.checked {
+	border-color: var(--PRIVILY-C);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	color: var(--PRIVILY-C);
 }

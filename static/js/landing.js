@@ -289,25 +289,6 @@ function setCourseDetails(type) {
   goBackButton.addEventListener("click", function () {
     // Reset course details
     coursesContainer.innerHTML = `      <div class="courses-container">
-    <div class="cr-container" onclick="setCourseDetails('dev')">
-      <div class="cr-content">
-        <span class="h2-text">The Development Journey</span>
-        <div class="cr-learn-more">
-          <span class="p-text">
-            Learn More &nbsp;
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="move-right" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg>
-          </span>
-        </div>
-      </div>
-      <div class="cr-images">
-        <img
-          src="/static/assets/dev-img.png"
-          alt="devimg"
-          width="480"
-          height="269"
-        />
-      </div>
-    </div>
     <div class="cr-container" onclick="setCourseDetails('trade')">
       <div class="cr-content">
         <span class="h2-text">Money Making From Trading</span>
@@ -327,6 +308,25 @@ function setCourseDetails(type) {
         />
       </div>
     </div>
+    <div class="cr-container not-allowed">
+    <div class="cr-content">
+      <span class="h2-text">The Development Journey</span>
+      <div class="cr-learn-more">
+        <span class="p-text">
+          Learn More &nbsp;
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="move-right" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"></path><path d="M2 12H22"></path></svg>
+        </span>
+      </div>
+    </div>
+    <div class="cr-images">
+      <img
+        src="/static/assets/dev-img.png"
+        alt="devimg"
+        width="480"
+        height="269"
+      />
+    </div>
+  </div>
   </div>`;
     // Or you can set it to some default content
     // coursesContainer.innerHTML = "<div>Default content</div>";

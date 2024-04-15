@@ -263,7 +263,16 @@
   box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
   transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
 }
-
+.not-allowed{
+  cursor: not-allowed !important;
+    filter: brightness(0.5);
+}
+.not-allowed:hover{
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(73, 73, 73, 0.12);
+  box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+}
 .cr-container .h2-text {
   color: #fff;
   font-feature-settings: "clig" off, "liga" off;
@@ -1841,4 +1850,80 @@ a {
 }
 .goBack:hover{
   color: #7d3cfd;
+}
+section.support-container {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(73, 73, 73, 0.12);
+  box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  margin: 1rem 4rem;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+}
+.support-container > .title{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+.support-container > .title > .h1-text{
+  font-size: large;
+  font-weight: 700;
+  color: #8b8b8b;
+}
+.support-container > .title > .h2-text{
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
+}
+.support-container > .title > .p-text{
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+  -webkit-text-fill-color: lightgray;
+}
+.support-boxes{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+.support-boxes > .support-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(73, 73, 73, 0.12);
+  box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  gap: 1rem;
+}
+.support-boxes > .support-box > .icon{
+  font-size: 1rem;
+  color: white;
+}
+.support-boxes > .support-box > .content{
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  gap: 5px;
+  text-align: start;
+}
+.support-boxes > .support-box .h2-text{
+  font-size: large;
+  font-weight: 700;
+  color: white;
+}
+.support-boxes > .support-box .p-text{
+  font-size: 14px;
+  font-weight: 400;
+  color: lightgray;
+}
+.support-boxes > .support-box > .icon > svg{
+  width: 40px;
+  height: 40px;
+}
+.support-boxes > .support-box:hover{
+  background: linear-gradient(300deg, #7c11f72b 0%, rgba(65, 196, 195, 0) 100%);
 }
