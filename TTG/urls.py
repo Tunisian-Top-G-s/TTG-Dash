@@ -103,6 +103,8 @@ urlpatterns = [
     path('add_video_to_finished/<int:video_id>', views.add_video_to_finished, name='add-video-to-finished'),
 
 
-    path('profile/<str:username>', views.profileView, name='profileView'),
+    path('profile/<str:username>', views.profileView, name='profile'),
+
+    path('submit-feedback/', views.submitFeedbackView, name='submit_feedback'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

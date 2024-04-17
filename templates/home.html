@@ -96,19 +96,20 @@
                   </div>
                   
               {% endfor %}
+              {% if featured_course %}
               <div class="course-progress coursediv ">
-                <img  class="picture-course" src="{{course.img.url}}" alt="Course Image" />
+                <img  class="picture-course" src="{{featured_course.img.url}}" alt="Course Image" />
                 <div class="course-content">
                     <div class="course-title">
-                        <span>New Course</span>
-                      
+                        <span>{{featured_course.title}}</span>
                     </div>
-                    <span class="description-course-home">Course description here</span>
+                    <span class="description-course-home">{{featured_course.description}}</span>
                     <a class="button-30" href="#">
                       <span>Enroll Now</span> <img src="{% static "assets/icon.png" %}" alt="icon" />
                     </a>
                 </div>
-            </div>
+              </div>
+              {% endif %}
           </div>
 
           
@@ -118,9 +119,9 @@
                        <div class="store-containers">
                     <div class="product-layout">
                         <div class="products-container">
-                          <img src="{% static "assets/hoodie.png" %}" alt="hoodie-img" />
+                          <img src="{{featured_product.image.url}}" alt="hoodie-img" />
                           <div class="product-description">
-                            <span class="h1-text">Tunisian Top G’S hoodie</span>
+                            <span class="h1-text">{{featured_product.title}}</span>
                             <div class="top-merch-rating-flex">
                             <span class="p-text">4.5/5</span>
                             <div class="rating-merch">
@@ -171,15 +172,14 @@
                                 <path d="M5.74875 6.52533L5.28492 7.4113L5.29277 7.41532L5.74875 6.52533ZM4.04875 5.63533L4.51256 4.7494L4.04875 4.50658L3.58494 4.7494L4.04875 5.63533ZM2.34875 6.52533L1.88494 5.6394L1.88333 5.64024L2.34875 6.52533ZM1.86542 6.172L2.85 6.34691L2.85 6.34688L1.86542 6.172ZM2.19875 4.29533L3.18334 4.47021L3.27616 3.9476L2.89533 3.57785L2.19875 4.29533ZM0.825416 2.962L0.118979 3.66991L0.128835 3.67948L0.825416 2.962ZM0.742082 2.62867L-0.208638 2.31862L-0.211547 2.32754L-0.214288 2.33651L0.742082 2.62867ZM1.01208 2.402L1.1528 3.39205L1.15618 3.39156L1.01208 2.402ZM2.91208 2.12533L3.05618 3.1149L3.5784 3.03885L3.81033 2.56482L2.91208 2.12533ZM3.74875 0.415332L4.647 0.854828L4.64875 0.851221L3.74875 0.415332ZM4.34875 0.415332L3.44871 0.851241L3.45292 0.859743L4.34875 0.415332ZM5.19541 2.122L4.29959 2.56641L4.53256 3.03602L5.05132 3.11156L5.19541 2.122ZM7.09541 2.39867L6.95132 3.38824L6.95469 3.38871L7.09541 2.39867ZM7.36541 2.62533L8.32178 2.33317L8.31904 2.3242L8.31613 2.31528L7.36541 2.62533ZM7.28208 2.95867L7.97873 3.67621L7.98845 3.66651L7.28208 2.95867ZM5.90875 4.292L5.21217 3.57452L4.83133 3.94426L4.92416 4.46688L5.90875 4.292ZM6.24208 6.16867L5.25742 6.34356L5.25973 6.35573L6.24208 6.16867ZM6.10875 6.502L6.68266 7.32098L6.6911 7.31494L6.10875 6.502ZM5.89806 5.56201C6.00468 5.56158 6.10984 5.58673 6.20472 5.63534L5.29277 7.41532C5.48254 7.51255 5.69287 7.56285 5.9061 7.56199L5.89806 5.56201ZM6.21256 5.6394L4.51256 4.7494L3.58494 6.52127L5.28493 7.41127L6.21256 5.6394ZM3.58494 4.7494L1.88494 5.6394L2.81256 7.41127L4.51256 6.52127L3.58494 4.7494ZM1.88333 5.64024C1.99373 5.58219 2.11821 5.55627 2.24262 5.56544L2.0956 7.56003C2.34441 7.57837 2.59336 7.52653 2.81416 7.41042L1.88333 5.64024ZM2.24262 5.56544C2.36701 5.57461 2.48635 5.61849 2.58705 5.69211L1.40673 7.30669C1.60813 7.45392 1.8468 7.54169 2.0956 7.56003L2.24262 5.56544ZM2.58705 5.69211C2.68775 5.76573 2.76578 5.86612 2.81226 5.98187L0.956316 6.72717C1.04928 6.95867 1.20533 7.15945 1.40673 7.30669L2.58705 5.69211ZM2.81226 5.98187C2.85874 6.09762 2.87182 6.22409 2.85 6.34691L0.88083 5.99709C0.837195 6.24272 0.863349 6.49567 0.956316 6.72717L2.81226 5.98187ZM2.85 6.34688L3.18334 4.47021L1.21416 4.12045L0.880826 5.99712L2.85 6.34688ZM2.89533 3.57785L1.522 2.24452L0.128835 3.67948L1.50217 5.01281L2.89533 3.57785ZM1.53179 2.25416C1.61748 2.33967 1.67827 2.44691 1.70763 2.56436L-0.232651 3.04943C-0.173926 3.28433 -0.0523436 3.49881 0.119045 3.66984L1.53179 2.25416ZM1.70763 2.56436C1.737 2.68181 1.73382 2.80504 1.69845 2.92082L-0.214288 2.33651C-0.285028 2.56807 -0.291376 2.81453 -0.232651 3.04943L1.70763 2.56436ZM1.6928 2.93871C1.65416 3.0572 1.58309 3.16248 1.48764 3.24261L0.201695 1.71083C0.0107957 1.87109 -0.131359 2.08165 -0.208638 2.31862L1.6928 2.93871ZM1.48764 3.24261C1.39218 3.32274 1.27618 3.37451 1.1528 3.39205L0.871362 1.41195C0.624596 1.44702 0.392597 1.55056 0.201695 1.71083L1.48764 3.24261ZM1.15618 3.39156L3.05618 3.1149L2.76799 1.13577L0.867988 1.41244L1.15618 3.39156ZM3.81033 2.56482L4.64699 0.854824L2.8505 -0.0241609L2.01384 1.68584L3.81033 2.56482ZM4.64875 0.851221C4.59416 0.963934 4.50892 1.05899 4.40281 1.12551L3.34063 -0.569127C3.1284 -0.436101 2.95793 -0.245985 2.84875 -0.0205581L4.64875 0.851221ZM4.40281 1.12551C4.29669 1.19202 4.17399 1.22729 4.04875 1.22729V-0.772705C3.79827 -0.772705 3.55286 -0.702152 3.34063 -0.569127L4.40281 1.12551ZM4.04875 1.22729C3.92351 1.22729 3.8008 1.19202 3.69469 1.12551L4.75687 -0.569127C4.54463 -0.702151 4.29922 -0.772705 4.04875 -0.772705V1.22729ZM3.69469 1.12551C3.58857 1.05899 3.50334 0.963934 3.44875 0.851221L5.24875 -0.0205581C5.13957 -0.245985 4.9691 -0.436101 4.75687 -0.569127L3.69469 1.12551ZM3.45292 0.859743L4.29959 2.56641L6.09124 1.67759L5.24457 -0.0290802L3.45292 0.859743ZM5.05132 3.11156L6.95132 3.38823L7.23951 1.4091L5.33951 1.13243L5.05132 3.11156ZM6.95469 3.38871C6.83131 3.37118 6.71531 3.31941 6.61986 3.23928L7.9058 1.70749C7.7149 1.54723 7.4829 1.44369 7.23613 1.40862L6.95469 3.38871ZM6.61986 3.23928C6.52441 3.15915 6.45333 3.05387 6.41469 2.93538L8.31613 2.31528C8.23885 2.07831 8.0967 1.86775 7.9058 1.70749L6.61986 3.23928ZM6.40904 2.91749C6.37367 2.80171 6.3705 2.67848 6.39986 2.56103L8.34015 3.0461C8.39887 2.8112 8.39252 2.56474 8.32178 2.33317L6.40904 2.91749ZM6.39986 2.56103C6.42922 2.44358 6.49001 2.33634 6.57571 2.25082L7.98845 3.66651C8.15984 3.49547 8.28142 3.281 8.34015 3.0461L6.39986 2.56103ZM6.5855 2.24119L5.21217 3.57452L6.60533 5.00948L7.97866 3.67614L6.5855 2.24119ZM4.92416 4.46688L5.25749 6.34355L7.22667 5.99378L6.89334 4.11712L4.92416 4.46688ZM5.25973 6.35573C5.23593 6.23075 5.24839 6.10156 5.29565 5.98343L7.1526 6.72621C7.24711 6.48994 7.27203 6.23157 7.22443 5.98161L5.25973 6.35573ZM5.29565 5.98343C5.3429 5.8653 5.42297 5.76315 5.5264 5.68906L6.6911 7.31494C6.89796 7.16675 7.0581 6.96247 7.1526 6.72621L5.29565 5.98343ZM5.53486 5.68306C5.65559 5.59846 5.80095 5.55627 5.94819 5.56306L5.85596 7.56094C6.15047 7.57453 6.44118 7.49013 6.68263 7.32094L5.53486 5.68306Z" fill="#51ff70" mask="url(#path-1-inside-1_5675_24900)"/>
                               </svg>
                             </div>
-{% comment %}                             <div class="count-reviews">
+                            <div class="count-reviews">
                               <span>(1000+ reviews)</span>
-                            </div> {% endcomment %}
+                            </div>
                           </div>
-                          
-                            <span class="old-price">120 DT</span>
-                            <span class="price">92 DT</span>
+                            <span class="old-price">{{featured_product.oldPrice}} DT</span>
+                            <span class="price">{{featured_product.price}} DT</span>
                             <!-- <a href="#">ADD TO CART</a> -->
-                            <a class="button-30" onclick="addToCart()">ADD TO CART</a>
+                            <a class="button-30">ADD TO CART</a>
                           </div>
                         </div>
                       </div>
@@ -191,12 +191,14 @@
                           <span>What are you feeling regarding our new website?</span>
                           <div class="told-content">
                               <div class="rating">
-                                  <!-- Added classes for styling and data-action for identifying clicks -->
-                                  <a class="rating-icon" data-action="rate" data-rating="angry"><i data-lucide="angry"></i></a>
-                                  <a class="rating-icon" data-action="rate" data-rating="meh"><i data-lucide="meh"></i></a>
-                                  <a class="rating-icon" data-action="rate" data-rating="frown"><i data-lucide="frown"></i></a>
-                                  <a class="rating-icon" data-action="rate" data-rating="smile"><i data-lucide="smile"></i></a>
-                                  <a class="rating-icon" data-action="rate" data-rating="laugh"><i data-lucide="laugh"></i></a>
+                                {% for option in feedback_options %}
+                                <li>
+                                  <label>
+                                    <input type="radio" class="feedback-option" name="feedback" value="{{ option.0 }}">
+                                    {{ option.1 }}
+                                  </label>
+                                </li>
+                              {% endfor %}
                               </div>
                               <div class="classifications">
                                   <span>Bad</span>
@@ -424,16 +426,57 @@ document.querySelectorAll('.rating a').forEach(icon => {
 
 // The submit button listener remains the same
 
+    // Get all the radio buttons with the class "feedback-option"
+    const radioButtons = document.querySelectorAll('.feedback-option');
+    let selectedValue = ""
+    // Add event listener to each radio button
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', () => {
+            // Check if radio button is checked
+            if (radioButton.checked) {
+                // Get the value of the checked radio button
+                selectedValue = radioButton.value;
+                console.log('Selected value:', selectedValue);
+            }
+        });
+    });
+
 document.getElementById('submit-btn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevents navigating to a new page if href="#".
-    // Ensure you target the correct element for your thank you message
-    document.querySelector('.told-wrapper').innerHTML = 
-    `<div class="thank-you-message">
-      <span>Thank you for your reviews! ; ) </span>
-      <span>You've earned 20 Points </span>
-     </div>`;
-    // Trigger animation after setting innerHTML
-    document.querySelector('.thank-you-message').classList.add('slide-in');
+
+    console.log(selectedValue)
+    if (selectedValue) {
+      $.ajax({
+    
+        type: 'POST',
+        url: "/submit-feedback/",
+        data: {
+          feedback: selectedValue,
+        },  
+    
+        /* csrf */
+        beforeSend: function(xhr, settings) {
+          xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },  
+    
+        success: function(response) {
+          console.log(response);
+          // Ensure you target the correct element for your thank you message
+          document.querySelector('.told-wrapper').innerHTML = 
+          `<div class="thank-you-message">
+            <span>Thank you for your reviews! ; ) </span>
+            <span>You've earned 20 Points </span>
+           </div>`;
+          // Trigger animation after setting innerHTML
+          document.querySelector('.thank-you-message').classList.add('slide-in');
+        },
+    
+        error: function(error) {
+          console.log("AJAX Error:", error);
+        }
+      }); 
+    }
+
 });
 
 </script>
@@ -601,16 +644,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Array of music tracks URLs
     const tracks = [
-    {
-      src: "http://127.0.0.1:8000/static/assets/sample-9s.mp3",
-      name: "Sample Track 1",
-      description: "This is a sample track description 1"
-    },
-    {
-      src: "https://file-examples.com/storage/fe0e2ce82f660c1579f31b4/2017/11/file_example_MP3_700KB.mp3",
-      name: "Sample Track 2",
-      description: "This is a sample track description 2"
-    }
+      {% for podcast in podcasts %}
+        {
+          src: "{{ podcast.mp3.url }}",
+          name: "{{ podcast.name }}",
+          description: "{{ podcast.description }}",
+          image: "{{ podcast.image.url }}"
+        },
+      {% endfor %}
   ];
   let currentTrackIndex = 0;
   let isPlaying = false;
@@ -627,18 +668,17 @@ document.addEventListener("DOMContentLoaded", function() {
     updateTrackInfo(tracks[index].name, tracks[index].description);
   }
   
-  function togglePlay() {
-    if (isPlaying) {
-      audio.pause();
-      isPlaying = false;
-    } else {
-      audio.play().catch(error => {
-        console.error("Playback failed:", error);
-      });
-      isPlaying = true;
-    }
-    updateUI();
+function togglePlay() {
+  if (isPlaying) {
+    audio.pause();
+  } else {
+    audio.play().catch(error => {
+      console.error("Playback failed:", error);
+    });
   }
+  isPlaying = !isPlaying; // Toggle isPlaying status
+  updateUI();
+}
   
   function nextTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % tracks.length;

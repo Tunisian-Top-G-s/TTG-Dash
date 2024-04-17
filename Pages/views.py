@@ -8,6 +8,7 @@ from datetime import timedelta
 from Carts.models import Cart, CartItem
 from Chat.models import Room, Message, Section
 from Orders.models import Order, OrderItem
+from Pages.models import Home
 from PrivateSessions.forms import PrivateSessionForm
 from Products.models import Product
 from django.urls import reverse
@@ -26,11 +27,16 @@ from Users.models import CustomUser
 from django.shortcuts import render
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from Pages.models import Feedback, Podcast
 
 def homeView(request, *args, **kwargs):
-    courses = Course.objects.all()
+    courses = request.user.customuser.enrolled_courses.all()
+    featured_product = Home.objects.all().first().featured_product
+    featured_course = Home.objects.all().first().featured_course
+    podcasts = Podcast.objects.all()
     next_points_goal = 500
-    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal})
+    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts})
+
 
 def shopView(request, *args, **kwargs):
     products = Product.objects.all()
@@ -791,3 +797,27 @@ def profileView(request, username, *args, **kwargs):
     profile_user = get_object_or_404(User, username=username)
     custom_profile_user = CustomUser.objects.get(user=profile_user)
     return render(request, 'profile.html', {"custom_profile_user": custom_profile_user})
+
+def submitFeedbackView(request, *args, **kwargs):
+    if request.method == 'POST':
+        feedback_value = int(request.POST.get('feedback', -1))  # Get feedback value as an integer
+
+        if feedback_value != -1:  # Check if feedback is provided
+            # Check if the user has already submitted feedback
+            existing_feedback = Feedback.objects.filter(user=request.user.customuser).exists()
+            if not existing_feedback:
+                # If user hasn't submitted feedback, create a new Feedback instance
+                Feedback.objects.create(feedback_choice=feedback_value, user=request.user.customuser)
+
+                # Update user's points and last_added_points_time
+                user = request.user.customuser
+                user.points += 20
+                user.save()
+
+                return JsonResponse({'success': True, 'message': "Feedback submitted and points added"})
+            else:
+                return JsonResponse({'success': False, 'message': "You have already submitted feedback"})
+        else:
+            return JsonResponse({'success': False, 'message': "Feedback value not provided"})
+    else:
+        return JsonResponse({'success': False, 'message': "Invalid request method"})
