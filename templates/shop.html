@@ -132,13 +132,8 @@
   document.addEventListener('DOMContentLoaded', function() {
     // Example array of image URLs
     const images = [
-     '{% static "assets/backgroundtraderTTG.webp" %}', // Add your image paths here
-      '{% static "assets/ttgtraderTunisian.webp" %}', // Existing image
-      '{% static "assets/Tunisianttgbackgroundtrader.webp" %}',
-      
+     {% for deal in deals %}"{{deal.banner.url}}",{% endfor %}
 
-      
-      // Add as many images as you like
     ];
   
     // Reference to the swiper-wrapper element

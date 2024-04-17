@@ -13,11 +13,21 @@ class Dashboard(models.Model):
     objectif = models.IntegerField(default=0)
 
     def calculate_profits(self):
-        return Transaction.objects.filter(type='profit', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+        total_profit = Transaction.objects.filter(type='profit', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+        return total_profit
+
+    def calculate_profits_percentage(self):
+        total_profit = self.calculate_profits()
+        return (total_profit * self.objectif) / 100
 
     def calculate_losses(self):
-        return Transaction.objects.filter(type='loss', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+        total_loss = Transaction.objects.filter(type='loss', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+        return total_loss
 
+    def calculate_losses_percentage(self):
+        total_loss = self.calculate_losses()
+        return (total_loss * self.objectif) / 100
+        
     def total_balance(self):
         profits = self.calculate_profits()
         losses = self.calculate_losses()

@@ -10,7 +10,7 @@ from Chat.models import Room, Message, Section
 from Orders.models import Order, OrderItem
 from Pages.models import Home
 from PrivateSessions.forms import PrivateSessionForm
-from Products.models import Product
+from Products.models import Product, Deal
 from django.urls import reverse
 import requests
 from Users.forms import TransactionForm
@@ -40,7 +40,8 @@ def homeView(request, *args, **kwargs):
 
 def shopView(request, *args, **kwargs):
     products = Product.objects.all()
-    return render(request, 'shop.html', {"products": products})
+    deals = Deal.objects.all()
+    return render(request, 'shop.html', {"products": products, "deals": deals})
 
 def coursesView(request, *args, **kwargs):
     courses = Course.objects.all()
@@ -107,8 +108,10 @@ def registerf(request, *args, **kwargs):
         return redirect('register')
 
 def loginView(request, *args, **kwargs):
-    LoginForm = LogInForm()
+    if request.user.is_authenticated:
+        return redirect('home')  # Redirect to the home page if the user is already authenticated
 
+    LoginForm = LogInForm()
     return render(request, 'login.html', {"LoginForm": LoginForm})
 
 def loginf(request, *args, **kwargs):
@@ -165,7 +168,7 @@ def verificationView(request, *args, **kwargs):
 def dashboardView(request, *args, **kwargs):
     dashboard = Dashboard.objects.get(id=1)
     transactionForm = TransactionForm
-    transactions = Transaction.objects.all().order_by('-date')  # Assuming 'date' is the field you want to order by
+    transactions = Transaction.objects.all().order_by('-date')[:5]  # Assuming 'date' is the field you want to order by
     reversed_transactions = reversed(transactions)
 
     top_users = CustomUser.objects.all()
@@ -183,6 +186,8 @@ def getDashboard(request, *args, **kwargs):
             'profits': dashboard.calculate_profits(),
             'losses': dashboard.calculate_losses(),
             'balance': dashboard.total_balance(),
+            'profits_percentage': dashboard.calculate_profits_percentage(),
+            'losses_percentage': dashboard.calculate_losses_percentage(),
         }
 
         # Return the dictionary as JSON response
@@ -192,7 +197,7 @@ def getDashboard(request, *args, **kwargs):
 
 def getTransactions(request, *args, **kwargs):
     if request.method == "GET":
-        transactions = Transaction.objects.all()
+        transactions = Transaction.objects.all().order_by('-date')[:5]
     
         # Prepare transaction data
         transactions_data = []

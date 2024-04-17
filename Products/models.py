@@ -42,3 +42,7 @@ class SubImage(models.Model):
 
     def __str__(self):
         return f"Sub Image of {self.product.title}"
+    
+class Deal(models.Model):
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='deal')
+    banner = models.ImageField(upload_to="deals")

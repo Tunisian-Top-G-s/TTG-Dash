@@ -43,7 +43,7 @@
                                         d="M5.40914 5.90914L4.04543 7.27284C3.54333 7.77495 2.72926 7.77495 2.22716 7.27284C1.72505 6.77074 1.72505 5.95667 2.22716 5.45457L3.59086 4.09086L0 0.5H9V9.5L5.40914 5.90914Z"
                                         fill="#05CD99" />
                                 </svg>
-                                <span class="icons-up-green">12,5%</span>
+                                <span class="icons-up-green">{{dashboard.calculate_profits_percentage}}%</span>
                             </div>
                         </div>
                         <span class="amount-balance-profits profits" data-balance="{{dashboard.calculate_profits}}">
@@ -61,7 +61,7 @@
                                         d="M5.40914 4.09086L4.04543 2.72716C3.54333 2.22505 2.72926 2.22505 2.22716 2.72716C1.72505 3.22926 1.72505 4.04333 2.22716 4.54543L3.59086 5.90914L0 9.5H9V0.5L5.40914 4.09086Z"
                                         fill="#D83D6C" />
                                 </svg>
-                                <span class="icons-up-red">12,5%</span>
+                                <span class="icons-up-red">{{dashboard.calculate_losses_percentage}}%</span>
                             </div>
                         </div>
                         <span class="amount-balance-losses losses" data-balance="{{dashboard.calculate_losses}}">
@@ -490,6 +490,8 @@
                         var newObjectif = response["dashboard"].objectif;
                         var newProfits = response["dashboard"].profits;
                         var newLosses = response["dashboard"].losses;
+                        var newProfitsPercentage = response["dashboard"].profits_percentage;
+                        var newLossesPercentage = response["dashboard"].losses_percentage;
         
                         updateChart(newBalance);
                         newDayUpdateChart(newBalance)
@@ -499,11 +501,15 @@
                         var objectifElement = document.querySelector('.objectif');
                         var profitsElement = document.querySelector('.profits');
                         var lossesElement = document.querySelector('.losses');
+                        var profitsPercentageElement = document.querySelector('.icons-up-green');
+                        var lossesPercentageElement = document.querySelector('.icons-up-red');
         
                         balanceElement.textContent = '$' + newBalance;
                         objectifElement.textContent = '$' + newObjectif;
                         profitsElement.textContent = '+$' + newProfits;
                         lossesElement.textContent = '-$' + newLosses;
+                        profitsPercentageElement.textContent = '%' + newProfitsPercentage;
+                        lossesPercentageElement.textContent = '-%' + newLosses;
                     }
                 },
                 error: function(error) {
