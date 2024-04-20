@@ -11,7 +11,7 @@
             </div>
                 <div class="menu">
                     <div class="fkkk">
-                        <a href="{% url "home" %}" id="Home">
+                        <a href="{% url "home" %}" id="home">
                             <div class="nav-slipe">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 
@@ -32,14 +32,14 @@
                                 <span class="van-text">Academy</span>
                             </div>
                         </a>
-                        <a href="{% url "server_chat" room_name="badges"%}"  id="chat">
+                        <a href="{% url "server_chat" room_name="badges"%}"  id="serverChat">
                             <div class="nav-slipe">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
 
                                 <span class="van-text">Chat</span>
                             </div>
                         </a>
-                        <a href="{% url "private_session" %}" id="schedules">
+                        <a href="{% url "private_session" %}" id="private-session">
                             <div class="nav-slipe">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check-2"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="m16 20 2 2 4-4"/></svg>
                                 
@@ -226,7 +226,7 @@
                             <i data-lucide="home" color="white"></i>
                             Home</a>
                     </li>
-                    <li><a class="menu-item" href="{% url "dashboard" %}">
+                    <li><a class="menu-item"  href="{% url "dashboard" %}">
                             <i data-lucide="layout-dashboard" color="white"></i>
                             Dashboard</a></li>
                     <li><a class="menu-item" href="{% url "courses" %}">

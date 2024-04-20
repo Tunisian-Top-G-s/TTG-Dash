@@ -198,18 +198,6 @@
                 <div class="line-seperation"></div>
                 <div class="transactions-history">
 
-
-
-
-
-                
-
-
-
-
-
-
-
                 </div>
             </div>
 
@@ -600,11 +588,12 @@
                     if (response.success) {
                         transactionHistoryElement.innerHTML = '';
                     
-                        response.transactions.forEach(function(transaction) {
+                        for (let i = 0; i < Math.min(4, response.transactions.length); i++) {
+                            let transaction = response.transactions[i];
                             // Assign class based on transaction type
                             var amountClass = transaction.type === 'profit' ? 'profit-background' : 'loss-background';
                             var auntClass = transaction.type === 'profit' ? 'transaction-info-text' : 'transaction-info-text-loss';
-                            
+                        
                             // Build HTML for badges
                             var badgesHTML = '';
                             transaction.badges.forEach(function(badge) {
@@ -640,7 +629,7 @@
                                 </div>
                             `;
                             transactionHistoryElement.insertAdjacentHTML('beforeend', transactionHTML);
-                        });
+                        }
                     }
                 },
                 error: function(error) {
@@ -669,6 +658,12 @@
                     if (response.success) {
                         console.log(response);
                         // Optionally, you can redirect or show a success message here
+                                                // remove opened class from div with modale 
+                                                $('.modale').removeClass('opened');
+                                                // Update the dashboard with the new transaction data
+                                                updateDashboard();
+                                                updateTransactions();
+                                                
                     }
                 },
                 error: function(error) {

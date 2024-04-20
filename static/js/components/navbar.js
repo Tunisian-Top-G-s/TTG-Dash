@@ -68,7 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function highlightCurrentPage() {
     var currentPage = getCurrentPage();
-    var currentLink = document.querySelector(`a[id="${currentPage}"] .nav-slipe`);
+    var currentLink = document.querySelector(`a[id="${currentPage}"] > .nav-slipe`);
+    if (!currentLink) {
+        currentLink = document.querySelector(`a[id="home"] .nav-slipe`);
+        currentLink.classList.add('active-nav');
+    }
     if (currentLink) {
         currentLink.classList.add('active-nav');
     }
@@ -77,5 +81,6 @@ function highlightCurrentPage() {
 function getCurrentPage() {
     var pathArray = window.location.pathname.split('/');
     var currentPage = pathArray.pop() || pathArray.pop(); // Handles trailing slash
+    if (pathArray == 'server-chat/badges/') return 'serverChat';
     return currentPage;
 }
