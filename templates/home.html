@@ -406,22 +406,20 @@
 <script src="{% static "js/home.js" %}"></script>
 <script>
 // Event listener for the rating icons
-document.querySelectorAll('.rating a').forEach(icon => {
-    icon.addEventListener('click', event => {
-        event.preventDefault(); // Prevent default action if any
-        // Reset all icons to original state
-        document.querySelectorAll('.rating a svg').forEach(svgIcon => {
-            svgIcon.style.background = ""; // Clear any set background
-            svgIcon.style.fill = ""; // Assuming SVG, we use fill for color
-        });
-        
-        // Change the clicked icon's appearance
-        const svgElement = icon.querySelector('svg');
-        if (svgElement) { // Ensure the SVG element exists
-            svgElement.style.background = "#FEFEFE"; // White background
-            svgElement.style.fill = "#9747ff"; // Black icon, using fill for SVG
-        }
+document.querySelectorAll('.rating li').forEach(icon => {
+  icon.addEventListener('click', event => {
+    // Reset all icons to original state
+    document.querySelectorAll('.rating label').forEach(svgIcon => {
+      svgIcon.style.background = ""; // Clear any set background
+      svgIcon.style.fill = ""; // Assuming SVG, we use fill for color
     });
+    
+    // Change the clicked icon's appearance
+    const svgElement = icon.querySelector('label');
+    if (svgElement) { // Ensure the SVG element exists
+      svgElement.style.background = "rgb(200 124 255 / 40%)"; // White background
+    }
+  });
 });
 
 // The submit button listener remains the same

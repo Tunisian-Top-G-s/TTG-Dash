@@ -976,14 +976,18 @@
   background: #fefefe;
   color: #000000;
 }
-.told-content > .rating > a:active > svg {
+.told-content > .rating label {
   border-radius: 12px;
   background: #fefefe;
   color: #000000;
   padding: 9px;
-  gap: 10px;
-  width: 35px;
-  height: 40px;
+  background: rgba(73, 73, 73, 0.12);
+}
+.told-content > .rating li{
+  cursor: pointer;
+}
+.told-content > .rating label input {
+  display: none;
 }
 .told-content > .classifications {
   display: flex;

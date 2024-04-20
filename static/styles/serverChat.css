@@ -476,6 +476,7 @@ button{
     background-color: #8066a029;
     border-radius: 8px;
     padding: 10px;
+    height: fit-content;
 }
 .message-content > span{
     color: #DCDEE1;
