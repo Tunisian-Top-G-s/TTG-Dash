@@ -480,7 +480,12 @@
                         var newLosses = response["dashboard"].losses;
                         var newProfitsPercentage = response["dashboard"].profits_percentage;
                         var newLossesPercentage = response["dashboard"].losses_percentage;
-        
+                        var btc = response["dashboard"].btc;
+                        var eth = response["dashboard"].eth;
+                        var ltc = response["dashboard"].ltc;
+                        
+                        console.log(btc, eth, ltc)
+
                         updateChart(newBalance);
                         newDayUpdateChart(newBalance)
                         

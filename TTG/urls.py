@@ -107,4 +107,8 @@ urlpatterns = [
 
     path('submit-feedback/', views.submitFeedbackView, name='submit_feedback'),
 
+    path('getbtc/', views.get_btc_price, name='btc'),
+    path('geteth/', views.get_eth_price, name='eth'),
+    path('getltc/', views.get_ltc_price, name='ltc'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
