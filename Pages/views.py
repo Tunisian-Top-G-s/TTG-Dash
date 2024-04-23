@@ -2,8 +2,12 @@ import json
 from django.shortcuts import get_object_or_404, redirect, render
 
 
+import logging
 
-
+# Disable logging for requests module
+logging.getLogger("urllib3").setLevel(logging.CRITICAL)
+logging.getLogger('http.server').setLevel(logging.CRITICAL)
+logging.basicConfig(level=logging.WARNING)
 
 
 import pandas as pd
@@ -12,7 +16,8 @@ import time as t
 import plotly.graph_objects as go
 from plotly.offline import plot
 from pycoingecko import CoinGeckoAPI
-
+import json
+import sys
 
 
 
@@ -22,7 +27,7 @@ from pycoingecko import CoinGeckoAPI
 from django.utils import timezone
 from django.contrib.auth.models import User
 from Chat.views import get_online_users
-from datetime import timedelta
+from datetime import time, timedelta
 from Carts.models import Cart, CartItem
 from Chat.models import Room, Message, Section
 from Orders.models import Order, OrderItem
@@ -133,26 +138,20 @@ def loginView(request, *args, **kwargs):
     return render(request, 'login.html', {"LoginForm": LoginForm})
 
 def loginf(request, *args, **kwargs):
-    print("1")
     if request.method == 'POST':
-        print("2")
         form = LogInForm(data=request.POST)
         if form.is_valid():
-            print("3")
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user:
-                print("4")
                 messages.success(request, 'Logged In succesfully')
                 login(request, user)
 
                 return  JsonResponse({'success': True, 'error': "User logged in"})
             else:
-                print("5")
                 return  JsonResponse({'success': False, 'error': "User not found"})
         else:
-            print("6")
             errors = form.errors.as_json()
             return JsonResponse({'success': False, 'error': errors})
 
@@ -193,7 +192,6 @@ def dashboardView(request, *args, **kwargs):
     top_users = sorted(top_users, key=lambda user: user.calculate_balance(), reverse=True)[:5]
 
     top_user = sorted(top_users, key=lambda user: user.calculate_balance(), reverse=True)[:1][0]
-    print(top_user)
     return render(request, 'dashboard.html', {"dashboard": dashboard, "top_user_pfp": top_user.pfp, "transactions": reversed_transactions, "top_users": top_users, "top_user": top_user, "transactionForm": transactionForm})
 
 def getDashboard(request, *args, **kwargs):
@@ -201,7 +199,7 @@ def getDashboard(request, *args, **kwargs):
         dashboard = Dashboard.objects.get(id=1)
         dashboard_data = {
             'objectif': dashboard.objectif,
-            'profits': dashboard.calculate_profits(),
+            'profits': dashboard.get_profits_today(),
             'losses': dashboard.calculate_losses(),
             'balance': dashboard.total_balance(),
             'profits_percentage': dashboard.calculate_profits_percentage(),
@@ -411,10 +409,8 @@ def addTransaction(request):
 def schedulePrivateSessionView(request):
     if request.method == 'POST':
         form = PrivateSessionRequestForm(request.POST)
-        print("testing form validation", request.POST)
         if form.is_valid():
             form.save()
-            print("wooooooooooooooooooo")
             # Return a JSON response indicating success
             return JsonResponse({'success': True})
         else:
@@ -466,7 +462,6 @@ def checkoutView(request, *args, **kwargs):
     cart, created = Cart.objects.get_or_create(user=CustomUser.objects.get(user=request.user))
     # Check if the cart is empty
     if cart.cart_items.exists():
-        print(cart)
         return render(request, 'checkout.html', {"cartID": cart.id, "cart": cart})
     else:
         # If the cart is empty, redirect the user to some page indicating that the cart is empty
@@ -501,10 +496,7 @@ def delete_cart_item(request):
                 total_price = user_cart.calculate_total_price()
                 ultimate_total = total_price
                 total_items = user_cart.cart_items.count()
-                print(total_price)
-                print("items exists")
             else:
-                print("items doesn't exist")
                 items = []
 
             return JsonResponse({'success': True, 'message': 'Item deleted successfully', "total_price": total_price, "ultimate_total":ultimate_total, "total_items": total_items})
@@ -524,7 +516,6 @@ def createOrderView(request):
         state = request.POST.get('state')
         zip_code = request.POST.get('zip_code')
         payment_method = request.POST.get('payment_method')
-        print("payment_method", payment_method, "credit-card")
         
         cart_id = request.POST.get('cartId')
 
@@ -559,10 +550,8 @@ def createOrderView(request):
         cart.cart_items.all().delete()
         cart.price = 0
         cart.save()
-        print(payment_method, "credit-card")
         # Redirect to payment page or confirmation page based on payment method
         if payment_method == "credit-card":
-            print("eeeeeeeeeeeeeeeeeeeeeee")
             payment = initiate_payment(request, orderId=order.id, amount=order.price)
             url = payment["payUrl"]
         else:
@@ -584,8 +573,6 @@ def initiate_payment(request, orderId, amount):
         "x-api-key": '65f0e6d5f85f11d7b8c06004:x3QEEv76q8kvnSxAXTqjMljIeYLz',
         "Content-Type": "application/json"
     }
-    print(amount*100)
-    print(amount*1000)
     payload = {
       "receiverWalletId": '65f0e6d5f85f11d7b8c06008',
       "token": "TND",
@@ -632,7 +619,6 @@ def webhook(request):
     if payment_ref:
         # Query Konnect API to get payment details
         payment_status = get_payment_status(payment_ref)
-        print(payment_status)
         # Process payment status and update database or trigger actions
         # Example: Update database with payment status
         # payment.update(status=payment_status)
@@ -705,7 +691,6 @@ def serverChatView(request, room_name, *args, **kwargs):
     all_badges = Badge.objects.filter(customusers__in=online_users).order_by('-index')
     sections = Section.objects.all().order_by('-index')
 
-    print(messages_json)  # Add this line for debugging
     return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "all_badges": all_badges, "sections": sections})
 
 def privateChatView(request, *args, **kwargs):
@@ -718,7 +703,6 @@ def privateChatView(request, *args, **kwargs):
 def getVideoView(request, *args, **kwargs):
     if request.method == 'POST':
         videoId = request.POST.get("videoId")
-        print(videoId) # Debugging purpose
         try:
             video = Video.objects.get(id=videoId)
             serialized_video = {
@@ -740,7 +724,6 @@ def getVideoView(request, *args, **kwargs):
     
 def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
-    print(videoId) # Debugging purpose
     video = Video.objects.get(id=videoId)
     user = request.user.customuser
     user.finished_videos.add(video)
@@ -766,7 +749,6 @@ def add_to_cart(request):
         product_id = request.POST.get('product_id')
         color = request.POST.get('color')
         size = request.POST.get('size')
-        print('aaaaaaa',request.user)
         if product_id:
             # Get the product object
             product = get_object_or_404(Product, id=product_id)
@@ -854,13 +836,94 @@ import json
 
 # -*- coding: utf-8 -*-
 
-import requests
-import json
-import time
+
 from random import randint
-import pandas as pd
-import sys
+
 from datetime import datetime, timedelta
+
+import requests
+
+
+
+class LiveCryptoData(object):
+    """
+    This class provides methods for obtaining live Cryptocurrency price data,
+    including the Bid/Ask spread from the COinBase Pro API.
+
+    :param: ticker: information for which the user would like to return. (str)
+    :returns: response_data: a Pandas DataFrame which contains the requested cryptocurrency data. (pd.DataFrame)
+    """
+    def __init__(self,
+                 ticker,
+                 verbose=True):
+
+        if verbose:
+            pass
+        if not isinstance(ticker, str):
+            raise TypeError("The 'ticker' argument must be a string object.")
+        if not isinstance(verbose, (bool, type(None))):
+            raise TypeError("The 'verbose' argument must be a boolean or None type.")
+
+        self.verbose = verbose
+        self.ticker = ticker
+
+    def _ticker_checker(self):
+        """This helper function checks if the ticker is available on the CoinBase Pro API."""
+        if self.verbose:
+            pass
+        tkr_response = requests.get("https://api.pro.coinbase.com/products")
+        if tkr_response.status_code in [200, 201, 202, 203, 204]:
+            if self.verbose:
+                pass
+            response_data = pd.json_normalize(json.loads(tkr_response.text))
+            ticker_list = response_data["id"].tolist()
+
+        elif tkr_response.status_code in [400, 401, 404]:
+            if self.verbose:
+                pass
+            sys.exit()
+        elif tkr_response.status_code in [403, 500, 501]:
+            if self.verbose:
+                pass
+            sys.exit()
+        else:
+            if self.verbose:
+                pass
+            sys.exit()
+
+        if self.ticker in ticker_list:
+            if self.verbose:
+                pass
+        else:
+            raise ValueError("""Ticker: '{}' not available through CoinBase Pro API. Please use the Cryptocurrencies 
+            class to identify the correct ticker.""".format(self.ticker))
+
+    def return_data(self):
+        """This function returns the desired output."""
+        if self.verbose:
+            pass
+        self._ticker_checker()
+        response = requests.get("https://api.pro.coinbase.com/products/{}/ticker".format(self.ticker))
+
+        if response.status_code in [200, 201, 202, 203, 204]:
+            if self.verbose:
+                pass
+            response_data = pd.json_normalize(json.loads(response.text))
+            response_data["time"] = pd.to_datetime(response_data["time"])
+            response_data.set_index("time", drop=True, inplace=True)
+            return response_data
+        elif response.status_code in [400, 401, 404]:
+            if self.verbose:
+                pass
+            sys.exit()
+        elif response.status_code in [403, 500, 501]:
+            if self.verbose:
+                pass
+            sys.exit()
+        else:
+            if self.verbose:
+                pass
+            sys.exit()
 
 
 class HistoricalData(object):
@@ -876,7 +939,6 @@ class HistoricalData(object):
     :param: granularity: the price data frequency in seconds, one of: 60, 300, 900, 3600, 21600, 86400. (int)
     :param: start_date: a date string in the format YYYY-MM-DD-HH-MM. (str)
     :param: end_date: a date string in the format YYYY-MM-DD-HH-MM,  Default=Now. (str)
-    :param: verbose: printing during extraction, Default=True. (bool)
     :returns: data: a Pandas DataFrame which contains requested cryptocurrency data. (pd.DataFrame)
     """
     def __init__(self,
@@ -887,7 +949,7 @@ class HistoricalData(object):
                  verbose=True):
 
         if verbose:
-            print("Checking input parameters are in the correct format.")
+            pass
         if not all(isinstance(v, str) for v in [ticker, start_date]):
             raise TypeError("The 'ticker' and 'start_date' arguments must be strings or None types.")
         if not isinstance(end_date, (str, type(None))):
@@ -918,31 +980,31 @@ class HistoricalData(object):
     def _ticker_checker(self):
         """This helper function checks if the ticker is available on the CoinBase Pro API."""
         if self.verbose:
-            print("Checking if user supplied is available on the CoinBase Pro API.")
+            pass
 
         tkr_response = requests.get("https://api.pro.coinbase.com/products")
         if tkr_response.status_code in [200, 201, 202, 203, 204]:
             if self.verbose:
-                print('Connected to the CoinBase Pro API.')
+                pass
             response_data = pd.json_normalize(json.loads(tkr_response.text))
             ticker_list = response_data["id"].tolist()
 
         elif tkr_response.status_code in [400, 401, 404]:
             if self.verbose:
-                print("Status Code: {}, malformed request to the CoinBase Pro API.".format(tkr_response.status_code))
+                pass
             sys.exit()
         elif tkr_response.status_code in [403, 500, 501]:
             if self.verbose:
-                print("Status Code: {}, could not connect to the CoinBase Pro API.".format(tkr_response.status_code))
+                pass
             sys.exit()
         else:
             if self.verbose:
-                print("Status Code: {}, error in connecting to the CoinBase Pro API.".format(tkr_response.status_code))
+                pass
             sys.exit()
 
         if self.ticker in ticker_list:
             if self.verbose:
-                print("Ticker '{}' found at the CoinBase Pro API, continuing to extraction.".format(self.ticker))
+                pass
         else:
             raise ValueError("""Ticker: '{}' not available through CoinBase Pro API. Please use the Cryptocurrencies 
             class to identify the correct ticker.""".format(self.ticker))
@@ -961,7 +1023,7 @@ class HistoricalData(object):
     def retrieve_data(self):
         """This function returns the data."""
         if self.verbose:
-            print("Formatting Dates.")
+            pass
 
         self._ticker_checker()
         self.start_date_string = self._date_cleaner(self.start_date)
@@ -979,7 +1041,7 @@ class HistoricalData(object):
                     self.granularity))
             if response.status_code in [200, 201, 202, 203, 204]:
                 if self.verbose:
-                    print('Retrieved Data from Coinbase Pro API.')
+                    pass
                 data = pd.DataFrame(json.loads(response.text))
                 data.columns = ["time", "low", "high", "open", "close", "volume"]
                 data["time"] = pd.to_datetime(data["time"], unit='s')
@@ -988,19 +1050,19 @@ class HistoricalData(object):
                 data.sort_index(ascending=True, inplace=True)
                 data.drop_duplicates(subset=None, keep='first', inplace=True)
                 if self.verbose:
-                    print('Returning data.')
+                    pass
                 return data
             elif response.status_code in [400, 401, 404]:
                 if self.verbose:
-                    print("Status Code: {}, malformed request to the CoinBase Pro API.".format(response.status_code))
+                    pass
                 sys.exit()
             elif response.status_code in [403, 500, 501]:
                 if self.verbose:
-                    print("Status Code: {}, could not connect to the CoinBase Pro API.".format(response.status_code))
+                    pass
                 sys.exit()
             else:
                 if self.verbose:
-                    print("Status Code: {}, error in connecting to the CoinBase Pro API.".format(response.status_code))
+                    pass
                 sys.exit()
         else:
             # The api limit:
@@ -1012,8 +1074,6 @@ class HistoricalData(object):
                 provisional_end = start + timedelta(0, (i + 1) * (self.granularity * max_per_mssg))
                 provisional_end = self._date_cleaner(provisional_end)
             
-                print("Provisional Start: {}".format(provisional_start))
-                print("Provisional End: {}".format(provisional_end))
                 response = requests.get(
                     "https://api.pro.coinbase.com/products/{0}/candles?start={1}&end={2}&granularity={3}".format(
                         self.ticker,
@@ -1023,8 +1083,7 @@ class HistoricalData(object):
             
                 if response.status_code in [200, 201, 202, 203, 204]:
                     if self.verbose:
-                        print('Data for chunk {} of {} extracted'.format(i+1,
-                                                                         (int(request_volume / max_per_mssg) + 1)))
+                        pass
                     dataset = pd.DataFrame(json.loads(response.text))
                     if not dataset.empty:
                         if data.empty:
@@ -1033,25 +1092,18 @@ class HistoricalData(object):
                             data = pd.concat([data, dataset], ignore_index=True)
                         time.sleep(randint(0, 2))
                     else:
-                        print("""CoinBase Pro API did not have available data for '{}' beginning at {}.  
-                        Trying a later date:'{}'""".format(self.ticker,
-                                                           self.start_date,
-                                                           provisional_start))
                         time.sleep(randint(0, 2))
                 elif response.status_code in [400, 401, 404]:
                     if self.verbose:
-                        print(
-                            "Status Code: {}, malformed request to the CoinBase Pro API.".format(response.status_code))
+                        pass
                     sys.exit()
                 elif response.status_code in [403, 500, 501]:
                     if self.verbose:
-                        print(
-                            "Status Code: {}, could not connect to the CoinBase Pro API.".format(response.status_code))
+                        pass
                     sys.exit()
                 else:
                     if self.verbose:
-                        print("Status Code: {}, error in connecting to the CoinBase Pro API.".format(
-                            response.status_code))
+                        pass
                     sys.exit()
             data.columns = ["time", "low", "high", "open", "close", "volume"]
             data["time"] = pd.to_datetime(data["time"], unit='s')
@@ -1060,8 +1112,6 @@ class HistoricalData(object):
             data.sort_index(ascending=True, inplace=True)
             data.drop_duplicates(subset=None, keep='first', inplace=True)
             return data
-
-from Historic_Crypto import LiveCryptoData
 
 
 def get_btc_price():
@@ -1098,16 +1148,11 @@ def calculate_daily_change_percentage(ticker):
 
     historical_data = HistoricalData(ticker, granularity=86400, start_date=yesterday, end_date=today).retrieve_data()
     # Check if historical data retrieval is successful
-    print("Historical Data:")
-    print(historical_data)
 
     # Convert previous day's closing price to numeric
     previous_day_price = pd.to_numeric(historical_data.iloc[-1]['open'])
-    print("Previous Day's Price:", previous_day_price)
-    print("Current Price:", current_price)
 
     # Step 3: Calculate the daily change percentage
-    print("price difference: ", current_price - previous_day_price)
     daily_change_percentage = ((current_price - previous_day_price) / previous_day_price) * 100
 
     return daily_change_percentage
