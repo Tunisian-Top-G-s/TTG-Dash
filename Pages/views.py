@@ -1111,3 +1111,7 @@ def calculate_daily_change_percentage(ticker):
     daily_change_percentage = ((current_price - previous_day_price) / previous_day_price) * 100
 
     return daily_change_percentage
+
+
+def buyCourseView(request, *args, **kwargs):
+    return render(request, 'buy-course.html', {})

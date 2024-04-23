@@ -231,13 +231,13 @@
                     </div>
                     <div class="tracker-title-wrapper">
                         <span class="crypto-tracking-name">BTC</span>
-                        <span class="percentage-down-up">-1.31%</span>
+                        <span class="percentage-down-up btc">-1.31%</span>
                     </div>
                     <div class="tracker-chart">
                         <img src="{% static 'assets/chart-orange.svg' %}" alt="">
                     </div>
                     <div class="price-coin">
-                        <span>$ 47,000</span>
+                        <span class="price-v btc">$ 47,000</span>
                     </div>
 
                 </div>
@@ -246,14 +246,14 @@
                           <img src="{% static 'assets/xrp.svg' %}" alt="">
                       </div>
                       <div class="tracker-title-wrapper">
-                          <span class="crypto-tracking-name">XRP</span>
-                          <span class="percentage-down-up">-1.31%</span>
+                          <span class="crypto-tracking-name">ETH</span>
+                          <span class="percentage-down-up eth">-1.31%</span>
                       </div>
                       <div class="tracker-chart">
                           <img src="{% static 'assets/xrp-icon.svg' %}" alt="">
                       </div>
                       <div class="price-coin">
-                          <span>$ 47,000</span>
+                          <span class="price-v eth">$ 47,000</span>
                       </div>
   
                   </div>
@@ -263,13 +263,13 @@
                       </div>
                       <div class="tracker-title-wrapper">
                           <span class="crypto-tracking-name">LTC</span>
-                          <span class="percentage-down-up">-1.31%</span>
+                          <span class="percentage-down-up ltc">-1.31%</span>
                       </div>
                       <div class="tracker-chart">
                           <img src="{% static 'assets/chart-gris.svg' %}" alt="">
                       </div>
                       <div class="price-coin" >
-                          <span class="price-v" > $ 47,000</span>
+                          <span class="price-v ltc" > $ 47,000</span>
                       </div>
   
                   </div>
@@ -496,6 +496,12 @@
                         var lossesElement = document.querySelector('.losses');
                         var profitsPercentageElement = document.querySelector('.icons-up-green');
                         var lossesPercentageElement = document.querySelector('.icons-up-red');
+                        var lossesPercentageBtcElement = document.querySelector('.percentage-down-up.btc');
+                        var lossesPercentageEthElement = document.querySelector('.percentage-down-up.eth');
+                        var lossesPercentageLtcElement = document.querySelector('.percentage-down-up.ltc');
+                        var lossesBtcElement = document.querySelector('.price-v.btc');
+                        var lossesEthElement = document.querySelector('.price-v.eth');
+                        var lossesLtcElement = document.querySelector('.price-v.ltc');
         
                         balanceElement.textContent = '$' + newBalance;
                         objectifElement.textContent = '$' + newObjectif;
@@ -503,6 +509,12 @@
                         lossesElement.textContent = '-$' + newLosses;
                         profitsPercentageElement.textContent = '%' + newProfitsPercentage;
                         lossesPercentageElement.textContent = '-%' + newLosses;
+                        lossesPercentageBtcElement.textContent = '%' + btc[1].toFixed(2);
+                        lossesPercentageEthElement.textContent = '%' + eth[1].toFixed(2);
+                        lossesPercentageLtcElement.textContent = '%' + ltc[1].toFixed(2);
+                        lossesBtcElement.textContent = '$' + btc[0];
+                        lossesEthElement.textContent = '$' + eth[0];
+                        lossesLtcElement.textContent = '$' + ltc[0];
                     }
                 },
                 error: function(error) {
