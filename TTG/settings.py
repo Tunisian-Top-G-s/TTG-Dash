@@ -29,22 +29,28 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
+import logging
 
+# Disable logging for HTTP requests
+logging.getLogger('daphne.server').setLevel(logging.WARNING)
+
+# Configure logging for your Django application
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'WARNING',  # Adjust the level as needed
             'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
-        '': {
+        'django': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'WARNING',  # Adjust the level as needed
             'propagate': True,
         },
+        # Add loggers for your app or other components as needed
     },
 }
 

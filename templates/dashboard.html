@@ -764,23 +764,9 @@ updateTransactions();
                 }
             };
         
-            rollBalance();
+            //rollBalance();
         });
-        document.addEventListener('DOMContentLoaded', () => {
-            const balanceElement = document.querySelector('.amount-balance-profits');
-            let currentBalance = parseInt(balanceElement.getAttribute('data-balance'), 10);
-            const endBalance = currentBalance + 100; // Change 100 to whatever increment you want
-        
-            const rollBalance = () => {
-                if (currentBalance < endBalance) {
-                    currentBalance++;
-                    balanceElement.textContent = '+$' + currentBalance;
-                    requestAnimationFrame(rollBalance);
-                }
-            };
-        
-            rollBalance();
-        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const balanceElement = document.querySelector('.amount-balance-losses');
             let currentBalance = parseInt(balanceElement.getAttribute('data-balance'), 10);
@@ -794,7 +780,7 @@ updateTransactions();
                 }
             };
         
-            rollBalance();
+            //rollBalance();
         });
         
     </script>

@@ -2,7 +2,8 @@ from django.db import models
 from Users.models import CustomUser, Transaction
 from Products.models import Product
 from Courses.models import Course
-from django.utils.timezone import now
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 
 class Home(models.Model):
@@ -11,6 +12,41 @@ class Home(models.Model):
 
 class Dashboard(models.Model):
     objectif = models.IntegerField(default=0)
+
+
+    def get_profits_today(self):
+        """
+        Calculate the profits made today.
+        """
+        # Assuming today's date
+        today = timezone.now().date()
+
+        # Calculate the start and end of today
+        start_of_day = datetime.combine(today, datetime.min.time())
+        print(start_of_day)
+        end_of_day = datetime.combine(today, datetime.max.time())
+        print(end_of_day)
+
+        # Filter transactions for profits with a date within today
+        #profits_today = Transaction.objects.filter(type='profit', status=True, date__range=(start_of_day, end_of_day))
+        profits_today = Transaction.objects.filter(type='profit', date__range=(start_of_day, end_of_day))
+
+        # Calculate the total profits of today
+        total_profits_today = profits_today.aggregate(models.Sum('amount'))['amount__sum'] or 0
+
+        print(total_profits_today)
+
+        return total_profits_today
+
+
+
+
+
+
+
+
+
+
 
     def calculate_profits(self):
         total_profit = Transaction.objects.filter(type='profit', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
