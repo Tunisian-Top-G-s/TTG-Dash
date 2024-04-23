@@ -104,7 +104,12 @@ class Transaction(models.Model):
     amount = models.FloatField()
     img = models.ImageField(upload_to='user_transactions', blank=False, null=True)
     status = models.BooleanField(default=False, null=False, blank=False)
-    date = models.DateTimeField(auto_now_add=True)  # Automatically set the date when created
+    date = models.DateTimeField(null=True, blank=True)  # Date field is editable
+    
+    def save(self, *args, **kwargs):
+        if not self.date:
+            self.date = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.user)

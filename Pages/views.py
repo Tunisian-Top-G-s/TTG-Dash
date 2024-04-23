@@ -199,8 +199,8 @@ def getDashboard(request, *args, **kwargs):
         dashboard = Dashboard.objects.get(id=1)
         dashboard_data = {
             'objectif': dashboard.objectif,
-            'profits': dashboard.get_profits_today(),
-            'losses': dashboard.calculate_losses(),
+            'profits': dashboard.get_changes_today(),
+            'losses': dashboard.get_losses_today(),
             'balance': dashboard.total_balance(),
             'profits_percentage': dashboard.calculate_profits_percentage(),
             'losses_percentage': dashboard.calculate_losses_percentage(),

@@ -14,7 +14,7 @@ class Dashboard(models.Model):
     objectif = models.IntegerField(default=0)
 
 
-    def get_profits_today(self):
+    def get_changes_today(self):
         """
         Calculate the profits made today.
         """
@@ -30,17 +30,16 @@ class Dashboard(models.Model):
         # Filter transactions for profits with a date within today
         #profits_today = Transaction.objects.filter(type='profit', status=True, date__range=(start_of_day, end_of_day))
         profits_today = Transaction.objects.filter(type='profit', date__range=(start_of_day, end_of_day))
-
+        losses_today = Transaction.objects.filter(type='loss', date__range=(start_of_day, end_of_day))
+    
         # Calculate the total profits of today
         total_profits_today = profits_today.aggregate(models.Sum('amount'))['amount__sum'] or 0
+        total_losses_today = losses_today.aggregate(models.Sum('amount'))['amount__sum'] or 0
+        
+        total_change = total_profits_today - total_losses_today
+        print(total_change)
 
-        print(total_profits_today)
-
-        return total_profits_today
-
-
-
-
+        return total_change
 
 
 
