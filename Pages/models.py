@@ -2,6 +2,7 @@ from django.db import models
 from Users.models import CustomUser, Transaction
 from Products.models import Product
 from Courses.models import Course
+
 from django.utils import timezone
 from datetime import datetime, timedelta
 
@@ -13,7 +14,6 @@ class Home(models.Model):
 class Dashboard(models.Model):
     objectif = models.IntegerField(default=0)
 
-
     def get_changes_today(self):
         """
         Calculate the profits made today.
@@ -23,51 +23,68 @@ class Dashboard(models.Model):
 
         # Calculate the start and end of today
         start_of_day = datetime.combine(today, datetime.min.time())
-        print(start_of_day)
         end_of_day = datetime.combine(today, datetime.max.time())
-        print(end_of_day)
 
-        # Filter transactions for profits with a date within today
-        #profits_today = Transaction.objects.filter(type='profit', status=True, date__range=(start_of_day, end_of_day))
+        # Filter transactions for profits and losses with a date within today
         profits_today = Transaction.objects.filter(type='profit', date__range=(start_of_day, end_of_day))
         losses_today = Transaction.objects.filter(type='loss', date__range=(start_of_day, end_of_day))
     
-        # Calculate the total profits of today
+        # Calculate the total profits and losses of today
         total_profits_today = profits_today.aggregate(models.Sum('amount'))['amount__sum'] or 0
         total_losses_today = losses_today.aggregate(models.Sum('amount'))['amount__sum'] or 0
         
         total_change = total_profits_today - total_losses_today
-        print(total_change)
 
         return total_change
 
-
-
-
-
-
-
-    def calculate_profits(self):
-        total_profit = Transaction.objects.filter(type='profit', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
-        return total_profit
-
-    def calculate_profits_percentage(self):
-        total_profit = self.calculate_profits()
-        return (total_profit * self.objectif) / 100
-
-    def calculate_losses(self):
-        total_loss = Transaction.objects.filter(type='loss', status=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
-        return total_loss
-
-    def calculate_losses_percentage(self):
-        total_loss = self.calculate_losses()
-        return (total_loss * self.objectif) / 100
+    def calculate_total_balance(self):
+        """
+        Calculate the total balance (sum of all profits and losses).
+        """
+        # Filter all profits and losses
+        profits = Transaction.objects.filter(type='profit')
+        losses = Transaction.objects.filter(type='loss')
         
-    def total_balance(self):
-        profits = self.calculate_profits()
-        losses = self.calculate_losses()
-        return profits - losses
-    
+        # Calculate the total profits and losses
+        total_profits = profits.aggregate(models.Sum('amount'))['amount__sum'] or 0
+        total_losses = losses.aggregate(models.Sum('amount'))['amount__sum'] or 0
+        
+        total_balance = total_profits - total_losses
+
+        return total_balance
+
+    def calculate_change_percentage(self):
+        """
+        Calculate the change percentage compared to the previous day's balance.
+        """
+        # Get today's date and yesterday's date
+        today = timezone.now().date()
+        yesterday = today - timedelta(days=1)
+
+        # Get the balances for today and yesterday
+        today_balance = self.calculate_total_balance()
+        
+        # Query for yesterday's balance
+        yesterday_balance = Transaction.objects.filter(date__date=yesterday).aggregate(
+            total_balance=models.Sum(models.Case(
+                models.When(type='profit', then=models.F('amount')),
+                models.When(type='loss', then=models.F('amount') * -1),
+                default=models.Value(0),
+                output_field=models.FloatField()
+            ))
+        )['total_balance'] or 0
+
+        # Calculate the percentage change
+        if yesterday_balance != 0:
+            change_percentage = ((today_balance - yesterday_balance) / yesterday_balance) * 100
+        else:
+            change_percentage = 0
+        
+        change_percentage = round(change_percentage, 2)
+
+        return change_percentage
+
+
 class Feedback(models.Model):
     FEEDBACKS = (
         (0, "😤"),
