@@ -1,13 +1,14 @@
-# Chat/consumers.py
+# Import necessary modules
 import json
+import base64
+import os
+from django.core.files.base import ContentFile
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.contrib.auth.models import User
 from .models import Message, Room
 from django.core.serializers import serialize  # Import Django's default serializer
 from django.core.cache import cache  # Import Django's cache module
-
 from asgiref.sync import sync_to_async
-
 from Users.models import CustomUser
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -35,6 +36,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             text_data_json = json.loads(text_data)
             message = text_data_json["message"]
+            file_data = text_data_json.get("file_data")  # Extract file data if available
 
             # Validate incoming data
             if not message:
@@ -42,11 +44,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             # Save message to database
             message_instance = await self.save_message(message)
+
+            # If file data is present, save the file
+            if file_data:
+                await self.save_file(message_instance, file_data)
+
             serialized_message = serialize('json', [message_instance])  # Serialize the message instance
 
             # Send message to room group
             await self.channel_layer.group_send(
-                self.room_group_name, {"type": "chat.message", "message": message, "username": self.scope['user'].username, "instance": serialized_message}
+                self.room_group_name, {
+                    "type": "chat.message",
+                    "message": message,
+                    "username": self.scope['user'].username,
+                    "instance": serialized_message,
+                }
             )
         except json.JSONDecodeError:
             # Handle JSON decode error
@@ -63,13 +75,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event["message"]
         serialized_message = event["instance"]  # Get the serialized message
         username = event["username"]  # Get the username
-    
+
         try:
             # Fetch user profile picture (pfp)
             user_id = json.loads(event["instance"])[0]["fields"]["user"]
             print(user_id)
             pfp_url = await self.get_user_pfp(user_id)
-    
+
             # Send message, username, profile picture, and serialized message to WebSocket
             await self.send(text_data=json.dumps({
                 "message": message,
@@ -80,7 +92,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             # Handle any errors
             print("An error occurred:", str(e))
-    
+
     async def get_user_pfp(self, user_id):
         try:
             custom_user = await sync_to_async(CustomUser.objects.get)(id=user_id)
@@ -131,3 +143,24 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def set_user_offline(self):
         # Set user as offline
         cache.delete(f'user_{self.customuser_id}_online')
+
+    async def save_file(self, message_instance, file_data):
+        try:
+            # Decode base64 encoded file data
+            file_content = base64.b64decode(file_data["content"])
+
+            # Get the file name and extension
+            file_name = file_data["filename"]
+            # Save the file to a temporary location
+            file_path = os.path.join("/tmp", file_name)
+
+            with open(file_path, "wb") as file:
+                file.write(file_content)
+
+            # Now save the file to the message instance
+            message_instance.file.save(file_name, ContentFile(file_content))
+
+            # Optionally, you can delete the temporary file
+            os.remove(file_path)
+        except Exception as e:
+            print("An error occurred while saving file:", str(e))

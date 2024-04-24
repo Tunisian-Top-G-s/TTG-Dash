@@ -40,7 +40,7 @@ from Users.forms import TransactionForm
 from Users.models import Badge, Transaction
 from .forms import LogInForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
-from Courses.models import Course, CourseProgression, Level, LevelProgression, Module, Video
+from Courses.models import Course, CourseProgression, Level, LevelProgression, Module, UserCourseProgress, Video
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
@@ -80,6 +80,8 @@ def levelsView(request, *args, **kwargs):
 
 def videoCourseView(request, level_id):
     level = Level.objects.get(id=level_id)
+    course = Course.objects.get(id=level.course.id)
+    user_progress, created = UserCourseProgress.objects.get_or_create(user=request.user.customuser, course=course)
     first_module = level.modules.first()  # Get the first module in the level
     if first_module:
         first_video = first_module.videos.first()  # Get the first video in the first module
@@ -726,8 +728,11 @@ def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
     video = Video.objects.get(id=videoId)
     user = request.user.customuser
-    user.finished_videos.add(video)
-    user.save()
+    course=Course.objects.get(id=video.module.level.course.id)
+    user_progress, created = UserCourseProgress.objects.get_or_create(user=request.user.customuser, course=course)
+    user_progress.completed_videos.add(video)
+    video.module.update_completion_status(request.user.customuser)
+    
     return JsonResponse({'success': True, 'message':"video finished successfully"})
 
 
