@@ -74,7 +74,7 @@ class Exam(models.Model):
     quizzes = models.ManyToManyField(Quiz)
 
 class UserCourseProgress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     completed_levels = models.ManyToManyField(Level, blank=True, related_name='completed_levels')
     completed_modules = models.ManyToManyField(Module, blank=True, related_name='completed_modules')
