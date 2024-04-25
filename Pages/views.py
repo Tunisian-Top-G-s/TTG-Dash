@@ -688,12 +688,38 @@ def serverChatView(request, room_name, *args, **kwargs):
 
     # Serialize the messages list to JSON
     messages_json = json.dumps(messages_list, cls=DjangoJSONEncoder)
+    
     online_user_ids = get_online_users()
     online_users = CustomUser.objects.filter(user_id__in=online_user_ids)
+    
+    # Get offline users
+    all_users = CustomUser.objects.all()
+    offline_users = all_users.exclude(user_id__in=online_user_ids)
+    
     all_badges = Badge.objects.filter(customusers__in=online_users).order_by('-index')
     sections = Section.objects.all().order_by('-index')
 
-    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "all_badges": all_badges, "sections": sections})
+    return render(request, 'serverChat.html', {"room_name": room_name, "customuser_id": customuser_id, "messages_json": messages_json, "online_members": online_users, "offline_members": offline_users, "all_badges": all_badges, "sections": sections})
+
+def search_members(request):
+    if request.method == 'POST':
+        query = request.POST.get('q')
+        
+        # Perform the search for members
+        matched_users = CustomUser.objects.filter(user__username__icontains=query)
+        
+        # Get online user IDs
+        online_user_ids = get_online_users()
+        
+        # Separate online and offline users
+        online_users = matched_users.filter(user_id__in=online_user_ids)
+        offline_users = matched_users.exclude(user_id__in=online_user_ids)
+        
+        # Serialize the online and offline users to JSON
+        online_users_list = [{'id': user.id, 'username': user.user.username, 'pfp': user.pfp.url} for user in online_users]
+        offline_users_list = [{'id': user.id, 'username': user.user.username, 'pfp': user.pfp.url} for user in offline_users]
+        
+        return JsonResponse({"success": True, 'online_members': online_users_list, 'offline_members': offline_users_list}) 
 
 def privateChatView(request, *args, **kwargs):
 

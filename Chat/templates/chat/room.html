@@ -1,5 +1,4 @@
 <!-- chat/templates/chat/room.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,16 +8,16 @@
 <body>
     <textarea id="chat-log" cols="100" rows="20"></textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-file-input" type="file">
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
     {{ user_id|json_script:"user-id" }}
     
-
     <script>
     // Parse the JSON string back into a JavaScript object
     const messages = JSON.parse('{{ messages_json|escapejs }}');
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
-    const customuser_id = {{ customuser_id }}
+    const customuserId = {{ customuser_id }}
     const chatSocket = new WebSocket(
         'ws://'
         + window.location.host
@@ -26,6 +25,7 @@
         + roomName
         + '/'
     );
+
     // Function to display old messages
     function displayOldMessages(messages) {
         const chatLog = document.querySelector('#chat-log');
@@ -38,29 +38,68 @@
             console.log('No old messages for this room.');
         }
     }
+
     // Display old messages when the page loads
     displayOldMessages(messages);
+
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
         document.querySelector('#chat-log').value += (data.username + ': ' + data.message + '\n');
     };
+
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
+
     document.querySelector('#chat-message-input').focus();
+
     document.querySelector('#chat-message-input').onkeyup = function(e) {
         if (e.key === 'Enter') {  // enter, return
             document.querySelector('#chat-message-submit').click();
         }
     };
+    
     document.querySelector('#chat-message-submit').onclick = function(e) {
         const messageInputDom = document.querySelector('#chat-message-input');
         const message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'message': message,
-            'customuser_id': customuser_id // Send user_id along with the message
-        }));
-        messageInputDom.value = '';
+        const fileInputDom = document.querySelector('#chat-file-input');
+        const file = fileInputDom.files[0];  // Get the file object
+
+        if (message || file) {
+            // Prepare file data if available
+            let fileData = null;
+            if (file) {
+                const fileReader = new FileReader();
+                fileReader.onload = function(event) {
+                    fileData = {
+                        filename: file.name,
+                        content: event.target.result.split(',')[1]  // Extract base64 content
+                    };
+
+                    // Send message and file data
+                    chatSocket.send(JSON.stringify({
+                        'message': message,
+                        'customuser_id': customuserId,
+                        'file_data': fileData
+                    }));
+                };
+                // Read the file as base64 data
+                fileReader.readAsDataURL(file);
+            } else {
+                // Send only message if no file attached
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                    'customuser_id': customuserId
+                }));
+            }
+
+            // Clear input fields
+            messageInputDom.value = '';
+            fileInputDom.value = '';
+        } else {
+            // Do nothing if both message and file are empty
+            console.log('Message and file are empty. Nothing to send.');
+        }
     };
     </script>
 </body>
