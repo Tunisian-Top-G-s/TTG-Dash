@@ -136,19 +136,19 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     // Example array of image URLs
-    const images = [
-     {% for deal in deals %}"{{deal.banner.url}}",{% endfor %}
+    const imagesNAlt = [
+     {% for deal in deals %}["{{deal.banner.url}}", "{{deal.product.id}}"], {% endfor %}
 
     ];
-  
+    console.log(imagesNAlt)
     // Reference to the swiper-wrapper element
     const swiperWrapper = document.querySelector('.swiper-wrapper');
   
     // Dynamically create and append swiper-slide elements for each image
-    images.forEach((imageUrl) => {
+    imagesNAlt.forEach((imageUrl) => {
       const slide = document.createElement('div');
       slide.className = 'swiper-slide unselectable';
-      slide.innerHTML = `<a class="gallery-shop" href="#"><img src="${imageUrl}" alt=""></a>`;
+      slide.innerHTML = `<a class="gallery-shop" href="/product/${imageUrl[1]}"><img src="${imageUrl[0]}" alt="${imageUrl[0]}"></a>`;
       swiperWrapper.appendChild(slide);
     });
   
