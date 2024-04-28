@@ -58,6 +58,8 @@ def homeView(request, *args, **kwargs):
     featured_course = Home.objects.all().first().featured_course
     podcasts = Podcast.objects.all()
     next_points_goal = 500
+    print(course_progress(request))
+    print(level_progress(request))
     return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts})
 
 
@@ -310,43 +312,25 @@ def landingView (request, *args, **kwargs):
 
 
 def course_progress(request, *args, **kwargs):
-    if request.method == 'POST':
-        user = request.user.customuser
-        # Assuming you have the user instance
+    user = request.user.customuser
 
-        # Assuming you have the level instance, or you can pass the level_id through the URL
-        level_id = 1
-        level = Level.objects.get(id=level_id)
+    course_id = 1
+    course = Course.objects.get(id=course_id)
 
-        course_id = request.POST.get('course_id')
-        course = Course.objects.get(id=course_id)
+    print("ya walid", course.calculate_progress_percentage(user=user))
 
-        # Get or create the LevelProgression instance for the user and level
-        course_progression, created = CourseProgression.objects.get_or_create(user=user, course=course)
-        level_progression, created = LevelProgression.objects.get_or_create(user=user, level=level)
-
-
-        total_progress = course_progression.calculate_progression()
-        return JsonResponse({"success": True, "course_progression": course_progression.calculate_progression()})
-    else:
-        return JsonResponse({"success": False})
+    return JsonResponse({"success": True, "course_progression": course.calculate_progress_percentage(user=user)})
 
 
 def level_progress(request, *args, **kwargs):
-    if request.method == 'POST':
-        user = request.user.customuser
-        # Assuming you have the user instance
+    user = request.user.customuser
 
-        # Assuming you have the level instance, or you can pass the level_id through the URL
-        level_id = request.POST.get('level_id')
-        level = Level.objects.get(id=level_id)
+    level_id = 1
+    level = Level.objects.get(id=level_id)
 
-        # Get or create the LevelProgression instance for the user and level
-        level_progression, created = LevelProgression.objects.get_or_create(user=user, level=level)
+    print("ya walid", level.calculate_progress_percentage(user=user))
 
-        return JsonResponse({"success": True, "level_progression": level_progression.progress})
-    else:
-        return JsonResponse({"success": False})
+    return JsonResponse({"success": True, "level_progression": level.calculate_progress_percentage(user=user)})
 
 def addPoints(request, *args, **kwargs):
     if request.method == 'POST':
@@ -753,7 +737,6 @@ def getVideoView(request, *args, **kwargs):
 def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
     video = Video.objects.get(id=videoId)
-    user = request.user.customuser
     course=Course.objects.get(id=video.module.level.course.id)
     user_progress, created = UserCourseProgress.objects.get_or_create(user=request.user.customuser, course=course)
     user_progress.completed_videos.add(video)

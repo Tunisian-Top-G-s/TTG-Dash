@@ -15,6 +15,15 @@ class Course(models.Model):
         self.members_count = self.enrolled_users.count()
         self.save()
 
+    def calculate_progress_percentage(self, user):
+        total_levels = self.levels.count()
+        if total_levels == 0:
+            return 0
+
+        user_progress = UserCourseProgress.objects.get(user=user, course=self)
+        completed_levels = user_progress.completed_levels.count()
+        return (completed_levels / total_levels) * 100
+
     def __str__(self):
         return self.title
 
@@ -38,6 +47,15 @@ class Level(models.Model):
             user_progress.completed_levels.add(self)
             self.course.update_completion_status(user)
 
+    def calculate_progress_percentage(self, user):
+        total_modules = self.modules.count()
+        if total_modules == 0:
+            return 0
+
+        user_progress = UserCourseProgress.objects.get(user=user, course=self.course)
+        completed_modules = user_progress.completed_modules.filter(level=self).count()
+        return (completed_modules / total_modules) * 100
+
 class Module(models.Model):
     level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=255)
@@ -49,6 +67,15 @@ class Module(models.Model):
         if all(video in user_progress.completed_videos.all() for video in self.videos.all()):
             user_progress.completed_modules.add(self)
             self.level.update_completion_status(user)
+
+    def calculate_progress_percentage(self, user):
+        total_videos = self.videos.count()
+        if total_videos == 0:
+            return 0
+
+        user_progress = UserCourseProgress.objects.get(user=user, course=self.level.course)
+        completed_videos = user_progress.completed_videos.filter(module=self).count()
+        return (completed_videos / total_videos) * 100
 
 class Video(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='videos')
@@ -67,6 +94,7 @@ class Quiz(models.Model):
     video = models.OneToOneField(Video, on_delete=models.CASCADE, related_name='quiz')
     question = models.TextField()
     options = models.JSONField()
+    answer = models.IntegerField(blank=True, null=True)
 
 class Exam(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -85,7 +113,9 @@ class UserCourseProgress(models.Model):
         if all(level in user_progress.completed_levels.all() for level in self.course.levels.all()):
             user_progress.completed = True
             user_progress.save()
-            
+
+
+
 class LevelProgression(models.Model):
     user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE, blank=True, related_name='level_progressions')
     level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True, related_name='progressions')

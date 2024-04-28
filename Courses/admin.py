@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Level, Module, Video, Quiz
+from .models import Course, Level, Module, Video, Quiz, UserCourseProgress
 
 class QuizInline(admin.StackedInline):
     model = Quiz
@@ -37,4 +37,8 @@ class VideoAdmin(admin.ModelAdmin):
 
 @admin.register(Quiz)
 class QuizAdmin(admin.ModelAdmin):
+    pass  # No need for inlines for Quiz admin
+
+@admin.register(UserCourseProgress)
+class UserCourseProgressAdmin(admin.ModelAdmin):
     pass  # No need for inlines for Quiz admin

@@ -67,7 +67,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('', views.landingView, name="landing"),
 
-    path('course_progress/', views.course_progress, name="course_progress"),
+    path('course-progress/', views.course_progress, name="course-progress"),
     path('level_progress/', views.level_progress, name="level_progress"),
 
     path('add_points/', views.addPoints, name="add_points"),
