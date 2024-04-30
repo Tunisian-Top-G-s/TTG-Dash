@@ -319,12 +319,11 @@
                   <span class="name-rank">LVL. 3</span>
               </div>
               <div class="ranks">
-                  <img class="badges-g" src="{% static "assets/badges/Trusted_Seller.svg" %}" alt="">
-                  <img class="badges-g"  src="{% static "assets/badges/Staff.Svg" %}" alt="">
-                  <img class="badges-g"  src="{% static "assets/badges/Verified_User.svg" %}" alt="">
-
+                  {% for badge in request.user.customuser.badges.all %}
+                    <img class="badges-g"  src="{{badge.icon.url}}" alt="">
+                  {% endfor %}
               </div>
-              
+
 
           </div>
 
@@ -342,7 +341,52 @@
 
       </div>
 
+      <script>
+        
+        points_counter = document.querySelector(".points-counter")
+        $.ajax({
+    
+          type: 'POST',
+          url: "/course-progress/",
+
+          /* csrf */
+          beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+          },  
       
+          success: function(response) {
+              if (response.success) {
+                  console.log(response);
+                  points_counter.innerText = response.course_progression
+              } else {
+                  console.log(response);
+              }
+          },
+      
+          error: function(error) {
+              console.log("AJAX Error:", error);
+              // Display error in the error div
+              const errorMessageDiv = document.getElementById("errorMessage");
+              errorMessageDiv.textContent = "An error occurred while processing your request.";
+          }
+        });
+
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+        }
+
+      </script>
 
   </div>
 
@@ -380,9 +424,9 @@
         </div>
         <img src="{% static "assets/Chart-Up-1.svg" %}" alt="Bitcoin Chart">
         <div class="coin-price">
-          <span>$17.873.02</span>
+          <span class="btc-price">$17.873.02</span>
           <div class="percentage">
-            <span>+1,2%</span>
+            <span class="btc-percentage">+1,2%</span>
             <i data-lucide="move-up-right"></i>
           </div>
         </div>
@@ -397,14 +441,17 @@
         </div>
         <img src="{% static "assets/Chart-down-1.svg" %}" alt="Ethereum Chart">
         <div class="coin-price">
-          <span>$17.873.02</span>
+          <span class="eth-price">$17.873.02</span>
           <div class="percentage-down">
-            <span>+1,2%</span>
+            <span class="eth-percentage">+1,2%</span>
             <i data-lucide="move-down-right"></i>
           </div>
         </div>
       </div>
     </div>
+
+
+    
     <div class="bottom-left-middle">
       <div class="player-container"> 
         <div id="player02" class="player horizontal">
@@ -474,7 +521,7 @@
           </div>
           <div class="cours-progress">
             <div class="progress-bar">
-                <div class="progress-bar-inner" style="width: 0%;"></div>
+                <div class="progress-bar-inner"></div>
             </div>
             <div class="progress-percent">
                 0%
@@ -487,6 +534,54 @@
             <button class="course-button"><span>Continue</span></button>
           </div>
         </div>
+        <script>
+        
+          courseProgressionCounter = document.querySelector(".progress-percent")
+          courseProgressionSlider = document.querySelector(".progress-bar-inner")
+          $.ajax({
+      
+            type: 'POST',
+            url: "/course-progress/",
+  
+            /* csrf */
+            beforeSend: function(xhr, settings) {
+              xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+            },  
+        
+            success: function(response) {
+                if (response.success) {
+                    console.log(response);
+                    courseProgressionCounter.innerText = response.course_progression + "%"
+                    courseProgressionSlider.style.width = response.course_progression
+                } else {
+                    console.log(response);
+                }
+            },
+        
+            error: function(error) {
+                console.log("AJAX Error:", error);
+                // Display error in the error div
+                const errorMessageDiv = document.getElementById("errorMessage");
+                errorMessageDiv.textContent = "An error occurred while processing your request.";
+            }
+          });
+  
+          function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+          }
+  
+        </script>
       </div>
   </div>
 
@@ -502,9 +597,9 @@
         </div>
         <img src="{% static "assets/Chart-Up-1.svg" %}" alt="Bitcoin Chart">
         <div class="coin-price">
-          <span>$17.873.02</span>
+          <span class="btc-price">$17.873.02</span>
           <div class="percentage">
-            <span>+1,2%</span>
+            <span class="btc-percentage">+1,2%</span>
             <i data-lucide="move-up-right"></i>
           </div>
         </div>
@@ -519,14 +614,78 @@
         </div>
         <img src="{% static "assets/Chart-down-1.svg" %}" alt="Ethereum Chart">
         <div class="coin-price">
-          <span>$17.873.02</span>
+          <span class="eth-price">$17.873.02</span>
           <div class="percentage-down">
-            <span>+1,2%</span>
+            <span class="eth-percentage">+1,2%</span>
             <i data-lucide="move-down-right"></i>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      function updateDashboard() {
+        console.log("Updating Dashboard...");
+        $.ajax({
+            type: 'GET',
+            url:'/getDashboard/',
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+            },  
+            success: function(response) {
+                if (response.success) {
+                    var btc = response["dashboard"].btc;
+                    var eth = response["dashboard"].eth;
+                    var ltc = response["dashboard"].ltc;
+
+                    console.log(btc, eth, ltc)
+
+
+                
+                    var lossesPercentageBtcElement = document.querySelectorAll('.btc-percentage');
+                    var lossesPercentageEthElement = document.querySelectorAll('.eth-percentage');
+                    
+                    var lossesBtcElement = document.querySelectorAll('.btc-price');
+                    var lossesEthElement = document.querySelectorAll('.eth-price');
+                
+                    lossesPercentageBtcElement.forEach(function(element) {
+                      element.textContent = '%' + btc[1].toFixed(2);
+                    });
+                    lossesPercentageEthElement.forEach(function(element) {
+                      element.textContent = '%' + eth[1].toFixed(2);
+                    });
+
+                    lossesBtcElement.forEach(function(element) {
+                      element.textContent = '$' + btc[0];
+                    });
+                    lossesEthElement.forEach(function(element) {
+                      element.textContent = '$' + eth[0];
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error updating dashboard:', error);
+            }
+        });
+    }
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    updateDashboard()
+  </script>
+
+
     <div class="bottom-right-middle">
       <div class="discord-server">
         <div class="discord-image">
@@ -578,7 +737,8 @@
 
   <div class="middle-bottom">
     <div class="youtube-player">
-      <iframe src="https://www.youtube.com/embed/TkjEPnBedWQ?si=YiW5sWdbnocS8Uan" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>    </div>
+      <iframe src="https://www.youtube.com/embed/lWmOED0eSfI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
   </div>
 
   <div class="right-bottom">
@@ -977,9 +1137,9 @@ function togglePlay() {
     const professorWrapper = document.getElementById("prof-list");
     const scrollStep = 185; // Adjust as needed
 
-    document.getElementById("scroll-left").addEventListener("click", function() {
+    {% comment %} document.getElementById("scroll-left").addEventListener("click", function() {
       professorWrapper.scrollLeft -= scrollStep;
-    });
+    }); {% endcomment %}
 
     document.getElementById("scroll-right").addEventListener("click", function() {
       professorWrapper.scrollLeft += scrollStep;
