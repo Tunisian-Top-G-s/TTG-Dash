@@ -36,6 +36,16 @@
             >
           </div>
         </div>
+        <div class="setting">
+          <img src="{% static "assets/info-icon.png" %}" alt="info-icon" />
+          <div class="setting-body" onclick="redirectToUrl('{% url 'settings_notification' %}')">
+            <span class="h1-text">Notifications</span>
+            <span class="p-text"
+              >Choose notification preferences and how you want to be
+              contacted</span
+            >
+          </div>
+        </div>
         <div class="setting disabled">
           <i data-lucide="toggle-right"></i>
           <div class="setting-body">
@@ -45,21 +55,11 @@
             >
           </div>
         </div>
-        <div class="setting">
+        <div class="setting disabled">
           <i data-lucide="banknote"></i>
-          <div class="setting-body" onclick="redirectToUrl('{% url 'payment' %}')" >
+          <div class="setting-body" {% comment %} onclick="redirectToUrl('{% url 'payment' %}')" {% endcomment %} >
             <span class="h1-text">Payments & Payouts</span>
             <span class="p-text">Review payments, payouts, coupons</span>
-          </div>
-        </div>
-        <div class="setting">
-          <img src="{% static "assets/info-icon.png" %}" alt="info-icon" />
-          <div class="setting-body" onclick="redirectToUrl('{% url 'settings_notification' %}')">
-            <span class="h1-text">Notifications</span>
-            <span class="p-text"
-              >Choose notification preferences and how you want to be
-              contacted</span
-            >
           </div>
         </div>
       </div>

@@ -313,12 +313,12 @@
 
     sessionInputs.forEach(input => {
         input.addEventListener('change', function() {
-            const checkboxTileSession = this.closest('.checkbox-tile-session');
-
             // Remove 'checked' class from all checkboxes
             document.querySelectorAll('.checkbox-tile-session').forEach(item => {
                 item.classList.remove('checked');
             });
+            const checkboxTileSession = this.closest('.checkbox-tile-session');
+
 
             // Add 'checked' class to the clicked checkbox's label
             if (checkboxTileSession) {

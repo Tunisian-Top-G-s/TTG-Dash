@@ -24,43 +24,37 @@
             <div class="flex card-item">
               <div class="flex flex-col info-section">
                 <span class="p-text">Username</span>
-                <span class="p-text secondary-text">Flen el fouleni</span>
+                <span class="p-text secondary-text">{{user.username}} </span>
               </div>
 
-              <button class="change-btn">Change</button>
+              <button class="change-btn openmodale-username">Change</button>
             </div>
 
             <div class="flex card-item">
               <div class="flex flex-col info-section">
                 <span class="p-text">E-mail</span>
-                <span class="p-text secondary-text">email@email.com</span>
+                <span class="p-text secondary-text">{{user.customuser.email}}</span>
               </div>
 
-              <button class="change-btn">Change</button>
+              <button class="change-btn openmodale-email">Change</button>
             </div>
 
             <div class="flex card-item">
               <div class="flex flex-col info-section">
                 <span class="p-text">Number</span>
-                <span class="p-text secondary-text">+1 415 8394 0340</span>
+                <span class="p-text secondary-text">{{user.customuser.tel}}</span>
               </div>
 
-              <button class="change-btn">Change</button>
+              <button class="change-btn openmodale-number">Change</button>
             </div>
 
             <div class="flex card-item">
               <div class="flex flex-col info-section">
                 <span class="p-text">Bio</span>
-                <span class="p-text secondary-text"
-                  >Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. </span
-                >
+                <span class="p-text secondary-text">{{user.customuser.bio}}</span>
               </div>
 
-              <button class="change-btn">Change</button>
+              <button class="change-btn openmodale-bio">Change</button>
             </div>
 
           </div>
@@ -68,11 +62,11 @@
         </div>
         <div class="flex flex-col flex-center personal-info">
           <div class="profile-pic">
-            <img src="{% static "assets/avatar.png" %}" />
+            <img src="{{user.customuser.pfp.url}}" />
           </div>
 
           <div class="profile-name">
-            <span class="h1-text">Adam Azzouz</span>
+            <span class="h1-text">{{user.customuser.first_name}} {{user.customuser.last_name}}</span>
           </div>
 
           <div class="flex flex-center profile-icons">
@@ -88,12 +82,12 @@
             <div class="flex flex-center flex-col stat-item">
               <span class="p-text">Enrolled Courses</span>
 
-              <span class="h1-text">3</span>
+              <span class="h1-text"></span>
             </div>
             <div class="flex flex-center flex-col stat-item">
               <span class="p-text">Points</span>
 
-              <span class="h1-text">643</span>
+              <span class="h1-text">{{user.customuser.points}}</span>
             </div>
             <div class="flex flex-center flex-col stat-item">
               <span class="p-text">Active since</span>
@@ -104,23 +98,125 @@
 
           <div class="flex flex-col profile-bio">
             <span class="h1-text">Bio</span>
-            <span class="p-text"
-              >Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's
-              standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type
-              specimen book. It has survived not only five centuries, but also
-              the leap into electronic typesetting, remaining essentially
-              unchanged. It was popularised in the 1960s with the release of
-              Letraset sheets containing Lorem Ipsum passages, and more
-              recently with desktop publishing software like Aldus PageMaker
-              including versions of Lorem Ipsum.</span
-            >
+            <span class="p-text">{{user.customuser.bio}}</span>
           </div>
         </div>
       </section>
     </main>
+                        <!--Username Modal -->
+                        <div class="modale modale-username" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                              <div class="modal-header">
+                                  <span>Change Your Username</span>
+                                  <span></span>
+                              </div>
+                              <div class="modal-body">
+                                <form action="" method="post">
+                                  {% csrf_token %}
+                                  <label for="username">New Username</label>
+                                  <input type="text" name="username" placeholder="New Username" required>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="submit-btn">Change</button>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Username /Modal -->
+
+                      <!--Email Modal -->
+                        <div class="modale modale-email" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                              <div class="modal-header">
+                                  <span>Change Your Email</span>
+                                  <span></span>
+                              </div>
+                              <div class="modal-body">
+                                <form action="" method="post">
+                                  {% csrf_token %}
+                                  <label for="email">New Email</label>
+                                  <input type="text" name="email" placeholder="New Email" required>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="submit-btn">Change</button>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Email /Modal -->
+                      <!--Number Modal -->
+                      <div class="modale modale-number" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                            <div class="modal-header">
+                                <span>Change Your Number</span>
+                                <span></span>
+                            </div>
+                            <div class="modal-body">
+                              <form action="" method="post">
+                                {% csrf_token %}
+                                <label for="number">New Number</label>
+                                <input type="text" name="number" placeholder="New Number" required>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="submit-btn">Change</button>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Email /Modal -->
+                      <!--Bio Modal -->
+                      <div class="modale modale-bio" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+                            <div class="modal-header">
+                                <span>Change Your Bio</span>
+                                <span></span>
+                            </div>
+                            <div class="modal-body">
+                              <form action="" method="post">
+                                {% csrf_token %}
+                                <label for="bio">New Bio</label>
+                                <input type="textarea" name="bio" placeholder="New Bio" required>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="submit-btn">Change</button>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bio /Modal -->
+
+
+
+
+
+
+
+
 <script>
+  $('.openmodale-username').click(function (e) {
+    e.preventDefault();
+    $('.modale-username').addClass('opened');
+});
+$('.openmodale-email').click(function (e) {
+  e.preventDefault();
+  $('.modale-email').addClass('opened');
+});
+$('.openmodale-number').click(function (e) {
+  e.preventDefault();
+  $('.modale-number').addClass('opened');
+});
+$('.openmodale-bio').click(function (e) {
+  e.preventDefault();
+  $('.modale-bio').addClass('opened');
+});
+$('.closemodale').click(function (e) {
+    e.preventDefault();
+    $('.modale').removeClass('opened');
+});
 function goBack() {
   window.history.back();
   return false; // Prevent default link behavior

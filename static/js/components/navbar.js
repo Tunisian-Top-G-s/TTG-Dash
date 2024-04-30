@@ -73,14 +73,37 @@ function highlightCurrentPage() {
         currentLink = document.querySelector(`a[id="home"] .nav-slipe`);
         currentLink.classList.add('active-nav');
     }
+    if(currentPage === 'video-course') currentLink = document.querySelector(`a[id="courses"] .nav-slipe`);
+    if(currentPage === 'levels') currentLink = document.querySelector(`a[id="courses"] .nav-slipe`);
     if (currentLink) {
         currentLink.classList.add('active-nav');
     }
+
 }
 
 function getCurrentPage() {
     var pathArray = window.location.pathname.split('/');
     var currentPage = pathArray.pop() || pathArray.pop(); // Handles trailing slash
-    if (pathArray == 'server-chat/badges/') return 'serverChat';
-    return currentPage;
+    
+    // Check if the URL contains '/levels' or '/video-course'
+    if (window.location.pathname.includes('/levels')) return 'courses';
+    if (window.location.pathname.includes('/video-course')) return 'courses';
+    if (window.location.pathname.includes('/private-session')) return 'private-session';
+    if (window.location.pathname.includes('/shop')) return 'shop';
+    if (window.location.pathname.includes('/product')) return 'shop';
+    if (window.location.pathname.includes('/cart')) return 'shop';
+    if (window.location.pathname.includes('/checkout')) return 'shop';
+    if (window.location.pathname.includes('/courses')) return 'courses';
+    if (window.location.pathname.includes('/dashboard')) return 'dashboard';
+
+
+
+
+
+    
+    // Check if the URL ends with 'server-chat/badges/' or 'server-chat/'
+    if (pathArray[1] === 'server-chat') return 'serverChat';
+
+
+    return pathArray;
 }
