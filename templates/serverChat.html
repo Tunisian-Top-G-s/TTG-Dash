@@ -242,13 +242,15 @@
                     </button>
                 </div>
                 <div class="chat-input">
-                    <!-- Existing elements -->
-                    <!-- Add a button/icon to trigger file upload -->
-                    <i data-lucide="circle-plus" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;"></i>
+
+                    <button class="file-icon-button" onclick="document.getElementById('chat-file-input').click();">
+                        <i data-lucide="paperclip"></i>
+                    </button>
+                    <input id="chat-file-input" type="file" style="display: none;" onchange="handleFileUpload();">
+
                     <!-- Textarea for typing messages -->
-                    <textarea class="chat-message-input" type="text" id="userInput" placeholder="Type your message here..."></textarea>
+                      <textarea class="chat-message-input" id="userInput" placeholder="Type your message here..." ></textarea>
                     <!-- Hidden file input for images -->
-                    <input id="chat-file-input" type="file">
                     <!-- Buttons group for emoji and send -->
                     <div class="buttons-group">
                         <!-- Button for emoji picker -->
@@ -494,25 +496,12 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
         
         // Parse the JSON string back into a JavaScript object
         const messages = JSON.parse('{{ messages_json|escapejs }}');
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const customuser_id = {{ customuser_id }}
+        const customuser_id = {{ customuser_id }};
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -626,53 +615,122 @@
             const fileInputDom = document.querySelector('#chat-file-input');
             const file = fileInputDom.files[0];  // Get the file object
     
-    
-            if (message || file) {
-                // Prepare file data if available
-                let fileData = null;
+            fileInputDom.addEventListener('change', function() {
+                const file = this.files[0];
                 if (file) {
                     const fileReader = new FileReader();
                     fileReader.onload = function(event) {
-                        fileData = {
+                        const fileData = {
                             filename: file.name,
                             content: event.target.result.split(',')[1]  // Extract base64 content
                         };
-    
+            
                         // Send message and file data
                         chatSocket.send(JSON.stringify({
-                            'message': message,
+                            'message': messageInputDom.value,
                             'customuser_id': customuser_id,
                             'file_data': fileData
                         }));
                     };
-                    // Read the file as base64 data
                     fileReader.readAsDataURL(file);
-                } else {
-                    // Send only message if no file attached
-                    chatSocket.send(JSON.stringify({
-                        'message': message,
-                        'customuser_id': customuser_id
-                    }));
                 }
-    
-            messageInputDom.value = '';
-        };
-    
-    
+                // Clear the input after file processing
+                messageInputDom.value = '';
+            });
     
     
     
     
+            document.addEventListener("DOMContentLoaded", function() {
+                const sendMessage = () => {
+                    const messageInputDom = document.querySelector('.chat-message-input');
+                    const message = messageInputDom.value.trim(); // Get message text and trim any whitespace
+                    if (message) { // Check if message is not empty
+                        chatSocket.send(JSON.stringify({'message': message})); // Send message over WebSocket
+                        messageInputDom.value = ''; // Clear input after sending
+                    }
+                };
+            
+                // Send button click handler
+                document.querySelector('.chat-message-submit').addEventListener('click', sendMessage);
+            
+                // Enter key press handler within the input area
+                document.querySelector('.chat-message-input').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) { // Check if Enter key is pressed without the Shift key
+                        e.preventDefault(); // Prevent default action (new line)
+                        sendMessage();
+                    }
+                });
+            });
+            
+    
+
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+            document.querySelector('.chat-message-submit').addEventListener('click', sendMessage);
+            document.querySelector('.chat-message-input').addEventListener('keypress', handleKeyPress);
+            
+            function handleKeyPress(event) {
+                if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault(); // Prevent the default action to avoid a new line in textarea
+                    sendMessage();
+                }
+            }
+            
+            function sendMessage() {
+                const messageInputDom = document.querySelector('.chat-message-input');
+                const message = messageInputDom.value.trim();
+                if (message) {
+                    chatSocket.send(JSON.stringify({ 'message': message }));
+                    messageInputDom.value = ''; // Clear input after sending
+                }
+            }
+            
+            function handleFileUpload() {
+                const fileInputDom = document.querySelector('#chat-file-input');
+                const file = fileInputDom.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const fileData = e.target.result.split(',')[1]; // Base64 encoded string
+                        chatSocket.send(JSON.stringify({ 'message': file.name, 'file_data': fileData }));
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
         //let messageIdCounter = 0; // Global counter for message IDs
         //const messageReactions = {}; // Object to track reactions for each message
