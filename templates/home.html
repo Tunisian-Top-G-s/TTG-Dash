@@ -311,7 +311,7 @@
       <div class="container-user">
           
           <img class="user-f" src="{{user.customuser.pfp.url}}" alt="Profilepicture">
-          <span class="Welcome-user">Welcome back, {{user.username}}</span>
+          <span class="Welcome-user">Welcome back , {{user.username}}</span>
           
           <div class="Levels-rank">
               <div class="levels">
@@ -455,7 +455,7 @@
     <div class="bottom-left-middle">
       <div class="player-container"> 
         <div id="player02" class="player horizontal">
-          <img src="{% static "assets/8094464.webp" %}" alt="Logo Music Image">
+          <img src="{% static "assets/c71a3733e3b0a1d3d3a5de1edd21a0f9.png" %}" alt="Logo Music Image">
         
           <div class="wrapper">
           
@@ -589,34 +589,35 @@
     <div class="top-right-middle">
       <div class="crypto-coin">
         <div class="coin-info">
-          <img src="{% static "assets/btc.png" %}" alt="Bitcoin">
+          <img src="{% static 'assets/solana.svg' %}" alt="Solana" style="width: 36px; height: 36px;">
+
           <div class="coin-name">
-            <span>Bitcoin</span>
-            <span>BTC</span>
+            <span>Solana</span>
+            <span>Sol</span>
           </div>
         </div>
         <img src="{% static "assets/Chart-Up-1.svg" %}" alt="Bitcoin Chart">
         <div class="coin-price">
-          <span class="btc-price">$17.873.02</span>
+          <span class="sol-price">$17.873.02</span>
           <div class="percentage">
-            <span class="btc-percentage">+1,2%</span>
+            <span class="sol-percentage">+1,2%</span>
             <i data-lucide="move-up-right"></i>
           </div>
         </div>
       </div>
       <div class="crypto-coin">
         <div class="coin-info">
-          <img src="{% static "assets/ETH.svg" %}" alt="Ethereum">
+          <img src="{% static "assets/avax.svg" %}" alt="Ethereum">
           <div class="coin-name">
-            <span>Ethereum</span>
-            <span>ETH</span>
+            <span>Avalanche</span>
+            <span>Avax</span>
           </div>
         </div>
         <img src="{% static "assets/Chart-down-1.svg" %}" alt="Ethereum Chart">
         <div class="coin-price">
-          <span class="eth-price">$17.873.02</span>
+          <span class="avax-price">$17.873.02</span>
           <div class="percentage-down">
-            <span class="eth-percentage">+1,2%</span>
+            <span class="avax-percentage">+1,2%</span>
             <i data-lucide="move-down-right"></i>
           </div>
         </div>
@@ -643,6 +644,7 @@
 
                 
                     var lossesPercentageBtcElement = document.querySelectorAll('.btc-percentage');
+                    var lossesPercentageEthElement = document.querySelectorAll('.eth-percentage');
                     var lossesPercentageEthElement = document.querySelectorAll('.eth-percentage');
                     
                     var lossesBtcElement = document.querySelectorAll('.btc-price');
@@ -737,7 +739,7 @@
 
   <div class="middle-bottom">
     <div class="youtube-player">
-      <iframe src="https://www.youtube.com/embed/lWmOED0eSfI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe  src="https://www.youtube.com/embed/Bx1QWdsLNQk?si=w0T-xSDOdLHX7fNR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -754,13 +756,13 @@
             <img src="{% static "assets/whatsapp.svg" %}" alt="whatsapp Support">
             WhatsApp
           </a>
-          <a href="" class="support-button">
+          <a href="https://www.instagram.com/tunisian_topgs/" class="support-button">
             <img src="{% static "assets/instagram.svg" %}" alt="Instagram Support">
             Instagram  
           </a>
           <a href="" class="support-button">
             <img src="{% static "assets/help-center.svg" %}" alt="Help Center Support">
-            Help Center
+            Call Us
           </a>
         </div>
       </div>
@@ -774,9 +776,11 @@
 <!--  Pop Up's -->
 <!--   =========================================================-->
     <div id="popupMessage" class="popup-message">
+      <div class="flex-pops">
       <img id="popupImage" src="" alt="">
       <span id="popupSpan" class="span-popup"></span>
       <button id="popUpCloseButton" class="pop-up-close-button">Close</button>
+        
     </div>
 <!--   =========================================================-->
 
@@ -957,120 +961,152 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Call the function to fetch course progress when the document is ready
     $(document).ready(function() {
-      fetchCourseProgress()
-    // Get the "Claim Now" button element
-    var claimButton = document.querySelector('#claimPoints');
-    // Reference to elements
-    var popupMessage = document.getElementById('popupMessage');
-    var popupImage = document.getElementById('popupImage');
-    var popupSpan = document.getElementById('popupSpan');
+      fetchCourseProgress();  // Ensure this function is defined and working properly
     
-    // Add a click event listener to the "Claim Now" button
-    claimButton.addEventListener('click', function(event) {
-        // Prevent the default action of the link (e.g., following the href)
-        event.preventDefault();
-
+      var claimButton = document.querySelector('#claimPoints');
+      if (!claimButton) {
+        console.error('Claim button not found.');
+        return;
+      }
+    
+      var popupMessage = document.getElementById('popupMessage');
+      var popupImage = document.getElementById('popupImage');
+      var popupSpan = document.getElementById('popupSpan');
+    
+      if (!popupMessage || !popupImage || !popupSpan) {
+        console.error('One or more popup elements are not found.');
+        return;
+      }
+    
+      claimButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Stop the form from submitting normally
+        console.log('Claim button clicked.');
+    
         $.ajax({
-            type: 'POST',
-            url: '/add_points/',
-            data: {},
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-            },
-            success: function(response) {
-                console.log(response);
-                if (response.success) {
-                    var buttonSpan = claimButton.querySelector('span');
-                    popupMessage.classList.add('success');
-                    popupImage.src = "{% static 'assets/points-icon.svg' %}"; // Adjust the path as necessary
-                    popupSpan.textContent = "You claimed 1000 points, get back the next day";
-
-                    // Show the popup message
-                    popupMessage.classList.add('popup-show');
-
-                    // Update button text with animation
-                    buttonSpan.classList.add('fade-out');
-                    buttonSpan.addEventListener('animationend', function handler() {
-                        buttonSpan.removeEventListener('animationend', handler);
-                        buttonSpan.textContent = 'Claimed';
-                        buttonSpan.classList.remove('fade-out');
-                        buttonSpan.classList.add('fade-in');
-                    });
-                } else {
-                    // Handle failed case
-                    popupMessage.classList.remove('success'); // Ensure class is correctly managed
-                    popupImage.src = "{% static 'assets/failed.png' %}"; // Adjust the path as necessary
-                    popupSpan.textContent = "You already claimed your daily points! Try again tomorrow.";
-                    popupMessage.classList.add('popup-show');
-                }
-            },
-            error: function(error) {
-                console.log(error);
-                // Consider showing an error message to the user
-            }
+          type: 'POST',
+          url: '/add_points/',
+          data: {},
+          beforeSend: function(xhr, settings) {
+              xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken")); // Ensure CSRF token is correctly set
+          },
+          success: function(response) {
+              console.log('Response received:', response);
+              if (response.success) {
+                  claimButton.textContent = 'Claimed';
+                  claimButton.disabled = true;
+                  popupMessage.classList.add('success');
+                  popupImage.src = "{% static 'assets/points-icon.svg' %}";
+                  popupSpan.textContent = "You claimed 1000 points, get back the next day.";
+                  popupMessage.style.display = 'block';
+              } else {
+                  popupMessage.classList.remove('success');
+                  popupImage.src = "{% static 'assets/x-circle.svg' %}";
+                  popupSpan.textContent = "You already claimed your daily points! Try again tomorrow.";
+                  popupMessage.style.display = 'block';
+              }
+          },
+          error: function(xhr, status, error) {
+              console.error('AJAX error:', status, error);
+              popupSpan.textContent = "An error occurred while processing your request.";
+              popupImage.src = "{% static 'assets/error-icon.svg' %}";
+              popupMessage.style.display = 'block';
+          }
         });
-
-        // Close button functionality
-        document.getElementById('popUpCloseButton').addEventListener('click', function() {
-            popupMessage.classList.remove('popup-show');
-        });
-    });
-});
+      });
     
-    // Function to get the value of a specific cookie
+      document.getElementById('popUpCloseButton').addEventListener('click', function() {
+        popupMessage.style.display = 'none';
+      });
+    });
+    
     function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
     }
+    
 
     // Array of music tracks URLs
-    const tracks = [
-      {% for podcast in podcasts %}
-        {
-          src: "{{ podcast.mp3.url }}",
-          name: "{{ podcast.name }}",
-          description: "{{ podcast.description }}",
-          image: "{{ podcast.image.url }}"
-        },
-      {% endfor %}
-  ];
-  let currentTrackIndex = 0;
-  let isPlaying = false;
-  const audio = new Audio();
-  
-  function loadTrack(index) {
-    audio.src = tracks[index].src;
-    audio.load();
-    audio.play().catch(error => {
-      console.error("Playback failed:", error);
-    });
-    isPlaying = true;
-    updateUI();
-    updateTrackInfo(tracks[index].name, tracks[index].description);
-  }
-  
-function togglePlay() {
-  if (isPlaying) {
-    audio.pause();
-  } else {
-    audio.play().catch(error => {
-      console.error("Playback failed:", error);
-    });
-  }
-  isPlaying = !isPlaying; // Toggle isPlaying status
-  updateUI();
+  // Array of music tracks URLs
+  const tracks = [
+  {% for podcast in podcasts %}
+  {
+      src: "{{ podcast.mp3.url }}",
+      name: "{{ podcast.name }}",
+      description: "{{ podcast.description }}",
+      image: "{{ podcast.image.url }}"
+  },
+  {% endfor %}
+];
+let currentTrackIndex = 0;
+let isPlaying = false;
+const audio = new Audio();
+
+// Load a track by index and prepare it for playing
+function loadTrack(index) {
+  audio.src = tracks[index].src;
+  audio.load(); // Preload the audio
+  updateTrackInfo(tracks[index].name, tracks[index].description);
+  // Do not auto-play. Set up UI for play state.
+  updateUI(false); 
 }
-  
+
+// Toggle play/pause state, this function should be called in response to a user interaction
+function togglePlay() {
+  if (audio.src) { // Check if the source is set
+      if (isPlaying) {
+          audio.pause();
+      } else {
+          audio.play().catch(error => {
+              console.error("Playback failed:", error);
+          });
+      }
+      isPlaying = !isPlaying;
+      updateUI(isPlaying);
+  } else {
+      // If no source set, load the first track and play
+      loadTrack(currentTrackIndex);
+      audio.play().catch(error => {
+          console.error("Playback failed:", error);
+      });
+      isPlaying = true;
+      updateUI(true);
+  }
+}
+
+// Update the UI based on playing state
+function updateUI(playing) {
+  const playButton = document.querySelector('.play-pause-button'); // Ensure you have this element
+  if (playButton) {
+      playButton.textContent = playing ? 'Pause' : 'Play';
+  }
+}
+
+// Update track information displayed on the UI
+function updateTrackInfo(name, description) {
+  const trackNameElement = document.querySelector('.track-name'); // Ensure you have this element
+  const trackDescriptionElement = document.querySelector('.track-description'); // Ensure you have this element
+  if (trackNameElement) trackNameElement.textContent = name;
+  if (trackDescriptionElement) trackDescriptionElement.textContent = description;
+}
+
+// Event listeners for play/pause button
+const playPauseButton = document.querySelector('.play-pause-button'); // Ensure you have a button with this class
+if (playPauseButton) {
+  playPauseButton.addEventListener('click', togglePlay);
+}
+
+// Initially load the first track without playing
+loadTrack(currentTrackIndex);
   function nextTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
     loadTrack(currentTrackIndex);
@@ -1133,17 +1169,46 @@ function togglePlay() {
   });
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  {% comment %} document.addEventListener("DOMContentLoaded", function() {
     const professorWrapper = document.getElementById("prof-list");
     const scrollStep = 185; // Adjust as needed
 
-    {% comment %} document.getElementById("scroll-left").addEventListener("click", function() {
+     document.getElementById("scroll-left").addEventListener("click", function() {
       professorWrapper.scrollLeft -= scrollStep;
-    }); {% endcomment %}
+    }); 
 
     document.getElementById("scroll-right").addEventListener("click", function() {
       professorWrapper.scrollLeft += scrollStep;
     });
-  });
+  }); {% endcomment %}
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const professorWrapper = document.getElementById("prof-list");
+    const scrollStep = 185; // Adjust as needed
+
+    const scrollLeftButton = document.getElementById("scroll-left");
+    const scrollRightButton = document.getElementById("scroll-right");
+
+    if (professorWrapper) {
+        if (scrollLeftButton) {
+            scrollLeftButton.addEventListener("click", function() {
+                professorWrapper.scrollLeft -= scrollStep;
+            });
+        } else {
+            console.log('Scroll-left button not found.');
+        }
+
+        if (scrollRightButton) {
+            scrollRightButton.addEventListener("click", function() {
+                professorWrapper.scrollLeft += scrollStep;
+            });
+        } else {
+            console.log('Scroll-right button not found.');
+        }
+    } else {
+        console.log('Professor wrapper not found.');
+    }
+});
+
 </script>
 {% endblock scripts %}
