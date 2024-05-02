@@ -108,10 +108,12 @@
                         </style>
                         <span class="id_cours">Course:</>
                         {% for course in form.fields.cours.queryset %}
+                       
                         <div class="checkbox-container">
                             <input type="checkbox" name="cours" id="course_{{ course.pk }}" value="{{ course.pk }}" {% if course.pk in form.instance.cours.all %}checked{% endif %}>
                             <label for="course_{{ course.pk }}">{{ course }}</label>
                         </div>
+
                         {% endfor %}
                         <div class="TimeSelection">
                             <span>Select Time</span>

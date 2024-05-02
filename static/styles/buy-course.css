@@ -380,7 +380,14 @@ body {
 .payment-method .payment > label{
   margin-right: auto;
 }
-
+@media screen and (max-width: 1024px) {
+  .course-container {
+    width: 60%;
+  }
+  .items-container{
+    padding: 2rem 1rem;
+  }
+}
 @media only screen and (max-width: 768px) {
   main {
     flex-direction: column;
@@ -415,6 +422,16 @@ body {
   }
   .payment-method .payment{
     width: 100%;
+  }
+  .container{
+    flex-direction: column;
+    align-items: center;
+  }
+  .course-container{
+    width: 90%;
+  }
+  .order{
+    width: 90%;
   }
 }
 

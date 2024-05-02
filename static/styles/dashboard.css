@@ -1334,6 +1334,7 @@ input.radio{
         .member-of-month{
             width: -webkit-fill-available;
             z-index: -1;
+            gap: 0rem;
         }
         .top-trensac > .transc > img{
             width: auto;
@@ -1497,7 +1498,7 @@ input.radio{
         border-radius: 10px;
         text-align: center;
         position: fixed;
-        left: 73% !important;
+        left: 10% !important;
         top: -100%;
      
         z-index: 11;
@@ -1534,7 +1535,7 @@ input.radio{
         justify-content: end;
     }
     .history-user-transc{
-        flex-direction: column;
+        flex-direction: row;
     }
 }
 @media screen and (max-width: 768px) {
@@ -1555,11 +1556,9 @@ input.radio{
     }
 
     .user-picture, .rank-decoration {
-        width: 80px;
-        height: 65px;
-        position: absolute;
         top: 55%;
         left: 5%;
+        display: block;
     }
     .top-trensac > .transc > img{
         width: 100px;
@@ -1589,6 +1588,7 @@ input.radio{
         gap: 15px;
         max-height: 400px;
         flex-direction: row-reverse;
+        flex-direction: column;
     }
     .history-user-transc{
         padding: 5px 10px;    

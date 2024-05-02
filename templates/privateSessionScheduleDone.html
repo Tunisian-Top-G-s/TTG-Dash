@@ -23,7 +23,8 @@
           <span>Thank you for expressing interest in a private session</span>
           <span>We're excited to connect with you! Expect a follow-up from us in 3 to 5 business days. Thanks for reaching out!</span>
 
-          <a class="next-tab-btn" href="{% url "private_session" %}" >Go Back</a>
+          <a class="next-tab-btn" href="{% url "private_session" %}">Go Back</a>
+
         </div>
       </div>
     </div>
@@ -34,5 +35,20 @@
 {% block footer %}{% endblock footer %}
 
 {% block scripts %}
+
 <script src="{% static "js/privateSessionScheduleDone.js" %}"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var goBackBtn = document.querySelector('.next-tab-btn');
+  
+      goBackBtn.addEventListener('click', function(event) {
+          if (window.history.length > 1) {
+              event.preventDefault();
+              window.history.back();
+          } // Otherwise, let the default "href" action proceed
+      });
+  });
+  
+  </script>
 {% endblock scripts %}

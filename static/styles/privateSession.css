@@ -181,11 +181,12 @@
   line-height: normal;
   text-transform: capitalize;
   width: -webkit-fill-available;
+  cursor: pointer;
 }
 .schedule-body{
   display: flex;
   flex-direction: row;
-  padding: 35px 30px;
+  padding: 15px 20px;
   gap: 40px;
   -webkit-animation: bounce-in-top 1.1s both;
   animation: bounce-in-top 1.1s both;
@@ -228,7 +229,7 @@
   font-weight: 300;
   line-height: normal;
 }
- form input{
+form input {
   display: flex;
   color: #fff;
   font-size: 15px;
@@ -237,12 +238,52 @@
   align-items: center;
   gap: 16px;
   align-self: stretch;
-  border-radius: 4px;
-  background: transparent;
+  background: none;  /* Changed from 'transparent' to 'none' */
   border: 1px solid #A2A3B1;
   padding-left: 12px;
   border-radius: 10px;
 }
+/* Hide the default checkbox */
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom checkbox styling */
+.checkbox-container input[type="checkbox"] + label:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px; /* Space between the box and the label */
+  border: 1px solid #A2A3B1; /* Light grey border */
+  border-radius: 4px; /* Slightly rounded corners for the custom checkbox */
+  background-color: #fff; /* White background */
+  vertical-align: middle;
+  cursor: pointer;
+  text-align: center;
+  line-height: 20px; /* Center the check mark vertically */
+  font-size: 14px;
+}
+
+/* Style when checkbox is checked */
+.checkbox-container input[type="checkbox"]:checked + label:before {
+  background-color: #b319ff5e; /* Green background for checked state */
+  border-color: #b319ff5e; /* Green border for checked state */
+  content: '\2713'; /* Unicode check mark */
+  color: white; /* Color of the check mark */
+}
+
+/* Label styling */
+.checkbox-container label {
+  cursor: pointer; /* Makes the whole label clickable */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Optional: hover effect for label */
+.checkbox-container label:hover {
+  color: #919090; /* Darken label text on hover */
+}
+
  form .input-container{
   display: flex;
   flex-direction: column;
@@ -286,7 +327,7 @@ ul.tabs li{
 }
 
 ul.tabs li.current{
-	background: rgba(24, 144, 255, 1);
+  background: rgb(135 35 224);
   border-radius: 50px;
 	color: #222;
 }
@@ -297,7 +338,11 @@ ul.tabs li.current{
 }
 
 .tab-content.current{
-	display: inherit;
+  display: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 .schedule-body-right{
   width: 100%;
@@ -345,6 +390,7 @@ ul.tabs li.current{
   align-items: center;
   border: none;
   text-decoration: none;
+  cursor: pointer;
 }
 .back-tab-btn{
   border-radius: 6px;
@@ -362,6 +408,7 @@ ul.tabs li.current{
   align-items: center;
   border: 1px solid var(--PRIMARY-C);
   gap: 10px;
+  cursor: pointer;
 }
 .checkbox-label > .professor{
     display: flex;
@@ -858,6 +905,33 @@ ul.tabs li.current{
             animation-timing-function: ease-out;
   }
 }
+/* Styling for the entire calendar container */
+
+
+/* Label styling */
+.calendar-container label {
+  display: block;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Input field styling */
+.calendar-container input[type="datetime-local"] {
+  width: 100%; /* Full width to fill the container */
+  padding: 10px; /* Padding inside the input for text spacing */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px; /* Rounded corners on the input field */
+  box-sizing: border-box; /* Ensures padding does not add to the width */
+  font-size: 14px; /* Font size that matches other form elements */
+}
+
+/* Focus state for input to highlight when active */
+.calendar-container input[type="datetime-local"]:focus {
+  border-color: #0056b3; /* Blue border for focus state */
+  outline: none; /* Removes default focus outline */
+  box-shadow: 0 0 5px rgba(0,86,179,0.25); /* Subtle blue glow */
+}
 
 .calendar {
   display: grid;
@@ -908,6 +982,7 @@ span.id_cours{
 	border-color: var(--PRIVILY-C);
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	color: var(--PRIVILY-C);
+  cursor: pointer;
 }
 .calendar-container{
   display: flex;
@@ -951,4 +1026,5 @@ span.id_cours{
 	border-color: var(--PRIVILY-C);
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	color: var(--PRIVILY-C);
+  cursor: pointer;
 }
