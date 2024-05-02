@@ -33,39 +33,31 @@
         <section class="deals-section">
           <div class="top-wrapper-shop">
             <span class="h1-text">Deals</span>
-            <div class="">
-              <a href="/whishlist" class="cart-shopping">
-                <i data-lucide="heart"></i>
-              </a>
-              <a href="/cart" class="cart-shopping">
-                <div class="counter-items-cart">1</div>
-                <i data-lucide="shopping-cart"></i>
-              </a>
+      
+          </div>
+          <div class="mainhero">
+            <div class="herodiv">
+                <div class="hero__slider swiper mySwiper">
+                    <div class="swiper-wrapper">                 
+                        <div class="swiper-slide unselectable">
+                          <a class="gallery-shop" href="#">
+                            <img src="{% static "assets/backgroundtrader2.webp" %}" alt="">
+                          </a>
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="autoplay-progress">
+                        <svg viewBox="0 0 48 48">
+                            <circle cx="24" cy="24" r="20"></circle>
+                        </svg>
+                        <span></span>
+                    </div>
+                </div>
             </div>
           </div>
   
-        <div class="mainhero">
-          <div class="herodiv">
-              <div class="hero__slider swiper mySwiper">
-                  <div class="swiper-wrapper">
-                      
-                      <div class="swiper-slide unselectable">
-                        <a class="gallery-shop" href="#"><img src="{% static "assets/backgroundtrader2.webp" %}" alt=""></a>
-                      </div>
-
-                  </div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-pagination"></div>
-                  <div class="autoplay-progress">
-                      <svg viewBox="0 0 48 48">
-                          <circle cx="24" cy="24" r="20"></circle>
-                      </svg>
-                      <span></span>
-                  </div>
-              </div>
-          </div>
-        </div>
           </div>
         </section>
   
@@ -76,11 +68,13 @@
           <div class="flex flex-wrap items-content">
             {% for product in products %}
               <a href="{% url "product" product.id%}" class="item-card">
-                <button class="card-icon">
+                <button class="card-icon" data-item-id="item1">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart">
-                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
                   </svg>
-                </button>
+              </button>
+              <!-- Repeat for each item with a unique data-item-id -->
+              
               
                 <div class="flex flex-center card-banner">
                   <span class="p-text">Promo</span>
@@ -103,11 +97,72 @@
               </a>
             {% endfor %}
           </div>
+          <div class="right-container-shop">
+          <button class="shop-more" disabled>Shop more <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
         </section>
+ 
+        
   
+        <div class="shipping-container">
+          
+          <div class="middle-shipment">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            <div class="descr-deals">
+            <span class="text-ship">FREE DELIVERY</span>
+            <span class="text-u-ship"> Free home delivery across Tunisia </span>
+
+            </div>
+            </div>
+          <div class="middle-shipment">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+            <div class="descr-deals">
+            <span class="text-ship">GUARANTEED QUALITY</span>
+            <span class="text-u-ship">High-quality products </span>
+
+          </div>
+          </div>
+          <div class="middle-shipment">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-headset"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>
+            <div class="descr-deals">
+            <span class="text-ship"> CUSTOMER SERVICE </span>
+            <span class="text-u-ship"> Available 24/7 by phone </span>
+          </div>
+          </div>
+          
+        </div>
+        <div>
+        </div>
+        <div class="right-absolute">
+      
+          <a href="/cart" class="cart-shopping-right">
+          <div class="counter-items-cart">1</div>
+          <i data-lucide="shopping-cart"></i>
+        </a>
+
+        <a href="/whishlist" class="cart-shopping">
+          <div class="counter-items-wishlist">0</div>
+          <i data-lucide="heart"></i>
+      </a>
+
+      </div>
+
+      <div class="newsletter-container">
+
+        <span class="t-news">GET NOTIFIED</span>
+        <span class="title-news">BE THE FIRST TO KNOW ABOUT</span>
+
+        <div class="subscription-news">
+          <input class="inputs-sub" type="email" name="email" required="" placeholder="Your email address">
+          <div class="h-captcha" data-sitekey="your_site_key"></div>
+          <button class="subscribe">SUBSCRIBE</button>
+      </div>
+        <span class="l-news">By signing up you agree to your Terms & Conditions</span>
+      
+
+      </div>
         <!-- pagination section -->
       </main>
-
 
 {% endblock main %}
 
@@ -115,24 +170,48 @@
 
 {% block scripts %}
 
-    
+<script src="https://hcaptcha.com/1/api.js" async defer></script>
+  
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
     const likeButtons = document.querySelectorAll('.card-icon');
+    const wishlistCounter = document.querySelector('.counter-items-wishlist');
+
+    // Initialize wishlist counter from local storage
+    wishlistCounter.textContent = localStorage.getItem('wishlistCount') || 0;
+
     likeButtons.forEach(button => {
-      button.addEventListener('click', function(event) {
-        event.preventDefault();
-        const svg = this.querySelector('svg');
-        // Toggle SVG fill color between red and none (or its initial state)
-        if (svg.style.fill === '') {
-          svg.style.fill = '#E2264D';
-        } else {
-          svg.style.fill = '';
+        const itemId = button.getAttribute('data-item-id');
+        const likedItems = JSON.parse(localStorage.getItem('likedItems') || '{}');
+
+        // Set initial like state based on local storage
+        if (likedItems[itemId]) {
+            button.querySelector('svg').style.fill = '#E2264D';
         }
-      });
+
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const svg = this.querySelector('svg');
+            if (svg.style.fill === '') {
+                svg.style.fill = '#E2264D'; // Liked state
+                likedItems[itemId] = true;
+                wishlistCounter.textContent = parseInt(wishlistCounter.textContent) + 1;
+            } else {
+                svg.style.fill = ''; // Unliked state
+                delete likedItems[itemId];
+                wishlistCounter.textContent = Math.max(0, parseInt(wishlistCounter.textContent) - 1);
+            }
+
+            // Save the updated states to local storage
+            localStorage.setItem('likedItems', JSON.stringify(likedItems));
+            localStorage.setItem('wishlistCount', wishlistCounter.textContent);
+        });
     });
-  });
+});
+
+
+
 
   document.addEventListener('DOMContentLoaded', function() {
     // Example array of image URLs
@@ -194,3 +273,30 @@
   }
 </script>
 {% endblock scripts %}
+
+
+<!-- import requests
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/submit-form', methods=['POST'])
+def submit_form():
+    captcha_response = request.form.get('h-captcha-response')
+    secret_key = 'your_secret_key'
+    verify_url = 'https://hcaptcha.com/siteverify'
+    payload = {
+        'response': captcha_response,
+        'secret': secret_key
+    }
+    response = requests.post(verify_url, data=payload)
+    result = response.json()
+
+    if result.get('success'):
+        # Process the form submission
+        return 'Form submitted successfully!'
+    else:
+        return 'Captcha verification failed, please try again.'
+
+if __name__ == '__main__':
+    app.run(debug=True) -->

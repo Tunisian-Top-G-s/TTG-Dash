@@ -11,6 +11,7 @@
 {% block main %}
     {% include "components/navbar.html" %}
     <div class="cart-wrapper">
+        
         <div class="shopping-cart">
             <div class="h1-text">Shopping Cart</div>
             <div class="items-container">
@@ -25,6 +26,19 @@
                 <div class="items-list" id="items-list">
                     {% for item in cart.cart_items.all %}
                         <div class="item-container">
+                            <button class="delete-icon" data-item-id="{{ item.id }}">
+                                Delete
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </button>
+                            <div class="input-group quantity-selector quantity-selector-sm">
+                                <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="inputQuantitySelectorSm" data-bs-step="down">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-minus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+                                </button>
+                                <input type="number" id="inputQuantitySelectorSm" class="form-control" aria-live="polite" data-bs-step="counter" name="quantity" title="quantity" value="0" min="0" max="10" step="1" data-bs-round="0" aria-label="Quantity selector">
+                                <button type="button" class="btn btn-icon btn-secondary btn-sm" aria-describedby="inputQuantitySelectorSm" data-bs-step="up">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                                </button>
+                              </div>
                             <div class="item-description">
                                 <img src="{{item.product.image.url}}" alt="product-img" />
                                 <div class="item-recap">
@@ -33,19 +47,17 @@
                                     <span class="item-color">color: <span class="p-text">{{item.color}}</span></span>
                                     <div class="item-price">
                                         <span class="h1-text">{{item.product.price}} DT</span>
+                                     
                                     </div>
                                 </div>
                             </div>
-                            <button class="delete-icon" data-item-id="{{ item.id }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
-                                </svg>
-                            </button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
+        
+        <div class="all-oreder-paynments">
         <div class="order">
             <div class="order-container">
                 <div class="order-details">
@@ -79,11 +91,47 @@
                     </div> {% endcomment %}
                     <input placeholder="Coupon Code" />
                     <button class='cupon'>Get Coupon Code</button>
-                    <a class="btn goCheckout checkoutbtn">Proceed to Checkout</a>
+                    <a class="btn goCheckout checkoutbtn">
+                        <span id="buttonText">Proceed to Checkout</span>
+                        <span id="loadingIcon" style="display: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-ccw spinner"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></span> <!-- Simple emoji spinner, replace with your preferred icon -->
+                    </a>
+                    
                 </div>
             </div>
         </div>
+        <div class="payment-accept-container">
+                <span class="text-accept">We accept the following payment methods: </span>
+                <div class="payments-methods">
+                    <img class="flex-item" src="{% static "assets/payments/Visa.webp" %}" alt="cart empty" />
+                    <img class="flex-item" src="{% static "assets/payments/mastercard.svg" %}" alt="cart empty" />
+                    <img class="flex-item" src="{% static "assets/payments/apple-pay.svg" %}" alt="cart empty" />
+                    <!-- <img class="flex-item" src="{% static "assets/payments/D17.png" %}" alt="cart empty" /> -->
+                    <img class="flex-item" src="{% static "assets/payments/usdt.png" %}" alt="cart empty" />
+                    <img class="flex-item" src="{% static "assets/payments/venmo.svg" %}" alt="cart empty" />
+                    <img class="flex-item" src="{% static "assets/payments/paypal.svg" %}" alt="cart empty" />
+                    <img class="flex-item" src="{% static "assets/payments/zelle.svg" %}" alt="cart empty" />
+                    <!-- <img class="flex-item" src="{% static "assets/payments/cashapp.png" %}" alt="cart empty" /> -->
+                    <img class="flex-item" src="{% static "assets/payments/Googlepay.svg" %}" alt="cart empty" />
+                    
+                </div>
+        </div>
     </div>
+
+    </div>
+
+    <!--   ========================================================= -->
+<!--  Pop Up's Deleted item -->
+<!--   =========================================================-->
+<div id="popupMessage" class="popup-message">
+    <div class="flex-pops">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+        <span id="popupSpan" class="span-popup">Item has been deleted.</span>
+        <button id="popUpCloseButton" class="pop-up-close-button">Close</button>
+    </div>
+</div>
+<!--   =========================================================-->
+
 {% endblock main %}
 
 {% block scripts %}
@@ -106,53 +154,72 @@
 
       // Add event listeners to all delete buttons
       deleteButtons.forEach(button => {
-          button.addEventListener('click', function () {
-              const itemId = button.dataset.itemId; // Access dataset attribute of the button
-  
-              // Send a POST request to delete the cart item
-              $.ajax({
-                  type: 'POST',
-                  url: '/delete-cart-item/',
-                  data: { itemId: itemId }, // Pass the item ID in the request data
-                  beforeSend: function (xhr, settings) {
-                      xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-                  },
-                  success: function (response) {
-                      console.log(response);
-                      // Remove the cart item from the HTML on success
-                      window.location.reload()
-                  },
-                  error: function (xhr, status, error) {
-                      console.error('Error deleting cart item:', error);
-                  }
-              });
-          });
-      });
+        button.addEventListener('click', function () {
+            const itemId = button.dataset.itemId;
+            $.ajax({
+                type: 'POST',
+                url: '/delete-cart-item/',
+                data: { itemId: itemId },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+                },
+                success: function (response) {
+                    console.log(response);
+                    document.getElementById('popupMessage').style.display = 'flex';
+                    setTimeout(function() {
+                        document.getElementById('popupMessage').style.display = 'none'; // Automatically close popup before reloading
+                        window.location.reload();
+                    }, 3000); // Delay in milliseconds
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error deleting cart item:', error);
+                }
+            });
+        });
+    });
 
       // Event listener for checkout button
-      const checkoutButton = document.querySelector('.checkoutbtn');
-      checkoutButton.addEventListener('click', function(event) {
-          event.preventDefault();
-          console.log("Checkout button")
-          //save price and shipping method to cart
-            console.log("{{cart.price}}")
-          $.ajax({
-              type: 'POST',
-              url: '/final-cart-checkout/',
-              data: {cartId: {{cart.id}}, price: {{cart.price}} + 7, shippingMethod: 1, shippingCost: 7},
-              beforeSend: function (xhr, settings) {
-                  xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-              },
-              success: function (response) {
-                  console.log(response)
-              },
-              error: function (xhr, status, error) {
-                  console.error('Error deleting cart item:', error);
-              }
-          });
+       const checkoutButton = document.querySelector('.checkoutbtn');
+    const buttonText = document.getElementById('buttonText');
+    const loadingIcon = document.getElementById('loadingIcon');
 
-          window.location.href = `/checkout`;
-      });
+    checkoutButton.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Change button text and show loading icon
+        buttonText.textContent = 'Processing...';
+        loadingIcon.style.display = 'inline-block';
+
+        // Set timeout to simulate 0.8 seconds of processing time
+        setTimeout(function() {
+            // Here you can place your AJAX call or other logic
+            // For demonstration, we'll just redirect
+            loadingIcon.style.display = 'none'; // Hide loading icon
+            buttonText.textContent = 'Proceed to Checkout'; // Reset button text if needed
+
+            console.log("Processing complete, redirecting or performing next steps.");
+            window.location.href = '/checkout'; // Redirect or perform other actions
+
+            // If using AJAX, put your AJAX call inside this timeout function
+             $.ajax({
+                type: 'POST',
+                url: '/final-cart-checkout/',
+                data: { cartId: {{cart.id}}, price: {{cart.price}} + 7, shippingMethod: 1, shippingCost: 7 },
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+                },
+                success: function(response) {
+                    console.log("Checkout successful:", response);
+                    window.location.href = `/checkout`;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error during checkout:', error);
+                    buttonText.textContent = 'Proceed to Checkout'; // Revert button text
+                    loadingIcon.style.display = 'none'; // Hide loading icon
+                }
+            }); 
+        }, 1500); // 800 milliseconds equals 0.8 seconds
+    });
   
   
       // Function to get cookie value
@@ -170,6 +237,28 @@
           }
           return cookieValue;
       }
+     
+      
+
+      const decrementButton = document.querySelector('button[data-bs-step="down"]');
+      const incrementButton = document.querySelector('button[data-bs-step="up"]');
+      const input = document.getElementById('inputQuantitySelectorSm');
+  
+      decrementButton.addEventListener('click', function() {
+          // Decrement the value
+          let currentValue = parseInt(input.value);
+          if (currentValue > parseInt(input.min)) { // Check if greater than min
+              input.value = currentValue - 1;
+          }
+      });
+  
+      incrementButton.addEventListener('click', function() {
+          // Increment the value
+          let currentValue = parseInt(input.value);
+          if (currentValue < parseInt(input.max)) { // Check if less than max
+              input.value = currentValue + 1;
+          }
+      });
   });
   </script>
 
