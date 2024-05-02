@@ -20,7 +20,7 @@ class Course(models.Model):
         self.save()
 
     def calculate_progress_percentage(self, user):
-        total_levels = self.levels.count()
+        total_levels = self.admin_levels.count()
         if total_levels == 0:
             return 0
 
