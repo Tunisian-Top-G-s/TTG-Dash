@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from django.utils.html import mark_safe
 
 
 class Course(models.Model):
@@ -10,6 +11,9 @@ class Course(models.Model):
     img = models.ImageField(upload_to="Course_img", blank=True, null=True)
     professor = models.ForeignKey("Users.Professor", on_delete=models.CASCADE, related_name='courses', null=True, blank=True)
     members_count = models.IntegerField(default=0)
+
+    def course_image(self):
+        return mark_safe('<img src="%s" width="50" height="50" style="object-fit:cover; border-radius: 6px;" />' % (self.img.url))
 
     def update_members_count(self):
         self.members_count = self.enrolled_users.count()
@@ -28,7 +32,7 @@ class Course(models.Model):
         return self.title
 
 class Level(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='levels')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_levels', blank=True, null=True)
     image = models.ImageField(upload_to="levels_images", blank=True, null=True)
     level_number = models.IntegerField()
     title = models.CharField(max_length=255)
@@ -57,6 +61,7 @@ class Level(models.Model):
         return (completed_modules / total_modules) * 100
 
 class Module(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_modules', blank=True, null=True)
     level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=255)
     module_number = models.IntegerField(blank=True, null=True)
@@ -78,6 +83,7 @@ class Module(models.Model):
         return (completed_videos / total_videos) * 100
 
 class Video(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_videos', blank=True, null=True)
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='videos')
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to="coursesVideos", max_length=100, blank=True, null=True)
@@ -91,17 +97,19 @@ class Video(models.Model):
             self.module.update_completion_status()
 
 class Quiz(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_quiz', blank=True, null=True)
     video = models.OneToOneField(Video, on_delete=models.CASCADE, related_name='quiz')
     question = models.TextField()
     options = models.JSONField()
     answer = models.IntegerField(blank=True, null=True)
 
 class Exam(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,related_name='exams', blank=True, null=True)
     name = models.CharField(max_length=255)
     quizzes = models.ManyToManyField(Quiz)
 
 class UserCourseProgress(models.Model):
+    
     user = models.ForeignKey("Users.CustomUser", on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     completed_levels = models.ManyToManyField(Level, blank=True, related_name='completed_levels')

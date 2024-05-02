@@ -7,6 +7,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from Courses.models import Course, CourseProgression, Video
 from django.utils import timezone
+from django.utils.html import mark_safe
+
 
 class Badge(models.Model):
     index = models.IntegerField(default=0)
@@ -73,6 +75,9 @@ class CustomUser(models.Model):
 
         return overall_progress_percentage
 
+
+    def pfp_image(self):
+        return mark_safe('<img src="%s" width="50" height="50" style="object-fit:cover; border-radius: 6px;" />' % (self.pfp.url))
 
     def save(self, *args, **kwargs):
         # If the email field is not provided and a User instance exists, set the email field to the user's email
