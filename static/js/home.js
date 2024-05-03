@@ -75,7 +75,6 @@ function showErrorMessage() {
 
 }
 
-console.log("kyrix/zend: 9ol ll user 'select an option w raj3o ye5tar option ml options'")
 document.getElementById('submit-btn').addEventListener('click', function(event) {
     event.preventDefault(); // Prevents navigating to a new page if href="#".
 
@@ -103,7 +102,16 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
         }, null, true, "Feedback submit")
     }
     else {
-        console.log("kyrix/zend: 9ol ll user 'select an option w raj3o ye5tar option ml options'")
+        console.log("kyrix/zend: 9ol ll user 'select an option w raj3o ye5tar option ml options'");
+        var popupMessage = document.getElementById('ErrorPopupMessage');
+        var popupSpan = document.getElementById('ErrorPopupSpan');
+        popupMessage.classList.add('error');
+        popupSpan.textContent = "Please select an option before submitting your feedback.";
+        popupMessage.style.display = 'block';
+        document.getElementById('ErrorPopUpCloseButton').addEventListener('click', function() {
+            popupMessage.style.display = 'none';
+            popupMessage.classList.remove('error');
+        });
     }
 });
 
@@ -169,7 +177,6 @@ function changeCourseProgress() {
 
 
 console.log(tracks)
-console.log("kyrix/zend: when track loads change the name/image/banner and description if needed")
 
 let currentTrackIndex = 0;
 let isPlaying = false;
@@ -213,7 +220,7 @@ function updateUI(playing) {
 
 // Update track information displayed on the UI
 function updateTrackInfo(name, image, description) {
-    const trackNameElement = document.querySelector('.track-name'); // Ensure you have this element
+    const trackNameElement = document.querySelector('.title-music'); // Ensure you have this element
     const trackImageElement = document.querySelector('.player-image'); // Ensure you have this element
     const trackDescriptionElement = document.querySelector('.description-music'); // Ensure you have this element
     if (trackNameElement) trackNameElement.textContent = name;
