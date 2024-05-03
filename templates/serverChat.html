@@ -15,6 +15,7 @@
 {{ room_name|json_script:"room-name" }}
 {{ user_id|json_script:"user-id" }}
     <div class="chat-wrapper">
+            <!-- _____________________________________________________ -->
 
         <div class="mobile-toggles-btn">
             <button class="toggle-chat-room-mobile" onclick="toggleRoomsMobile()">
@@ -24,6 +25,7 @@
                 <i data-lucide="users"></i>
             </button>
         </div>
+            <!-- _____________________________________________________ -->
 
         <div class="chat-rooms">
             <div class="chat-rooms-header">
@@ -43,6 +45,8 @@
                     </span>
                 </a>
             </div>
+            <!-- _____________________________________________________ -->
+
             <div class="text-channels">
                 {% for section in sections %}
                 
@@ -52,7 +56,7 @@
                                 <button class="toggle-button">
                                     <i data-lucide="chevron-up" class="arrow"></i>
                                 </button>
-                                👔・{{section.name}} 𝗦𝗘𝗖𝗧𝗜𝗢𝗡
+                                🏅・{{section.name}} 𝗦𝗘𝗖𝗧𝗜𝗢𝗡
                             </div>
                             <button class="add-channel">
                                 <i data-lucide="plus"></i>
@@ -61,22 +65,27 @@
                         <ul class="channels-list">
                             {% for room in section.rooms.all %}
                                 <li class="channel-link" data-room="{{room.name}}">
-                                    <i data-lucide="hash"></i> 💭・{{room.name}}
+                                    <i data-lucide="hash"></i> 🌠・{{room.name}}
                                 </li>
                             {% endfor %}
-{% comment %}                             <li class="channel-link" data-room="students">
-                                <i data-lucide="hash"></i> 💭・𝗦𝘁𝘂𝗱𝗲𝗻𝘁-𝗖𝗵𝗮𝘁
+            <!-- _____________________________________________________ -->
 
-                            </li>
-                            <li class="channel-link" data-room="crypto_wins">
-                                <i data-lucide="hash"></i> 🏆・𝗖𝗿𝘆𝗽𝘁𝗼-𝘄𝗶𝗻𝘀
-                            </li>
-                            <li class="channel-link" data-room="students_anouncements">
-                                <i data-lucide="hash"></i> 📢・𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀-𝗔𝗻𝗻𝗼𝘂𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀
-                            </li> {% endcomment %}
+                            {% comment %}                        
+                        <li class="channel-link" data-room="students">
+                                                    <i data-lucide="hash"></i> 💭・𝗦𝘁𝘂𝗱𝗲𝗻𝘁-𝗖𝗵𝗮𝘁
+
+                                                </li>
+                                                <li class="channel-link" data-room="crypto_wins">
+                                                    <i data-lucide="hash"></i> 🏆・𝗖𝗿𝘆𝗽𝘁𝗼-𝘄𝗶𝗻𝘀
+                                                </li>
+                                                <li class="channel-link" data-room="students_anouncements">
+                                                    <i data-lucide="hash"></i> 📢・𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀-𝗔𝗻𝗻𝗼𝘂𝗻𝗰𝗲𝗺𝗲𝗻𝘁𝘀
+                                                </li> {% endcomment %}
                         </ul>
                     </div>
                 {% endfor %}
+            <!-- _____________________________________________________ -->
+
                 {% comment %} <div class="text-group">
                     <div class="text-channels-header">
                         <div>
@@ -99,6 +108,7 @@
                     </ul>
                 </div> {% endcomment %}
             </div>
+            <!-- _____________________________________________________ -->
             <div class="rooms-footer">
                 <div class="change-status hidden">
                     <div class="status online">
@@ -130,24 +140,39 @@
                     </button>
                 </div>
             </div>
-
+            <!-- _____________________________________________________ -->
 
         </div>
+            <!-- _____________________________________________________ -->
+
         <div class="chat-container">
+           
+            <!-- _____________________________________________________ -->
             <div class="chat-header">
                 <div class="chat-title">
                     <span class="chat-title-channel-group">
                         <i data-lucide="hash"></i>
-                        Text Channel
+                         Text Channel
                     </span>
                     <span class="chat-title-room">
                         <i data-lucide="chevron-right"></i>
                         General
                     </span>
                 </div>
+                <div class="SearchMember-input">
+                    <input type="text" id="userInput-search" placeholder="Search">
+                    <button class="send-message">
+                        <i data-lucide="send"></i>
+                    </button>
+                </div>
             </div>
+            <!-- _____________________________________________________ -->
+            <!-- _____________________________________________________ -->
+            <!-- _____________________________________________________ -->
+
             <div class="chat-box" id="chatBox">
-{% comment %}                 <div class="chat-message">
+              {% comment %}          
+                 <div class="chat-message">
                     <div class="message-header">
                         <div class="user-pic">
                             <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
@@ -231,8 +256,15 @@
                             </div>
                         </div>
                     </div>
-                </div> {% endcomment %}
+                </div> 
+                
+                {% endcomment %}
+            <!-- _____________________________________________________ -->
+
             </div>
+            <!-- _____________________________________________________ -->
+            <!-- _____________________________________________________ -->
+
             <div class="chat-footer-box">
                 <div class="replying-to" style="display: none;">
                     <span>Replying to:</span>
@@ -241,33 +273,58 @@
                         <i data-lucide="x-circle"></i>
                     </button>
                 </div>
-                <div class="chat-input">
-                    <!-- Existing elements -->
-                    <!-- Add a button/icon to trigger file upload -->
-                    <i data-lucide="circle-plus" onclick="document.getElementById('imageUpload').click();" style="cursor:pointer;"></i>
-                    <!-- Textarea for typing messages -->
-                    <textarea class="chat-message-input" type="text" id="userInput" placeholder="Type your message here..."></textarea>
-                    <!-- Hidden file input for images -->
-                    <input id="chat-file-input" type="file">
-                    <!-- Buttons group for emoji and send -->
+
+            <!-- _____________________________________________________ -->
+
+                <div class="chat-input">        
+                        <!-- _____________________________________________________ -->
+                        
+                        
+                        <!-- Hidden file input -->
+                        
+                     <!-- Hidden file input -->
+                        <input id="chat-file-input" type="file" style="display: none;">
+
+                        <!-- Visible pseudo-button that triggers the file input -->
+                        <label for="chat-file-input" style="cursor: pointer;" class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </label>
+
+                        <div id="file-preview-container" style="display:none;">
+                            <img id="file-preview" src="" alt="Preview" style="max-width: 200px;">
+                        </div>
+                        
+                        <!-- _____________________________________________________ -->            
+                        <!-- Textarea for typing messages -->
+                        <textarea class="chat-message-input" type="text" id="userInput" placeholder="Message # 💭・Badges Room "></textarea>
+                        <!-- _____________________________________________________ -->
+
                     <div class="buttons-group">
                         <!-- Button for emoji picker -->
                         <button class="emoji-button" onclick="toggleEmojiPicker()">
-                            <i data-lucide="laugh"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7142857142857142" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
                         </button>
                         <!-- Button to submit message -->
                         <button class="chat-message-submit" class="send-message">
-                            <i data-lucide="send-horizontal"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7142857142857142" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                         </button>
                     </div>
+                    <!-- _____________________________________________________ -->
                     <!-- Emoji picker -->
+                    <!-- _____________________________________________________ -->  
+
                     <div class="emoji-picker" id="emojiPicker"></div>
+
                 </div>
-                
+                <!-- _____________________________________________________ -->      
             </div>
-            
-            
         </div>
+
+        <!-- _____________________________________________________ -->
         <div class="chat-members">
             <div class="chat-members-header">
                 <i data-lucide="x" class="close-toggle"></i>
@@ -278,13 +335,10 @@
                 <span class="Members-counter">{{online_members.count}} online members</span>
             </div>
             <div class="chat-members-body">
-                <div class="SearchMember-input">
-                    <input type="text" id="userInput" placeholder="Type your message here...">
-                    <button class="send-message">
-                        <i data-lucide="send"></i>
-                    </button>
-                </div>
+               
                 <div class="memebers-list">
+            <!-- _____________________________________________________ -->
+
                     {% for badge in all_badges %}
                         <div class="members-titel">
                             <img src="{{badge.icon.url}}" alt="Members Badge">
@@ -312,968 +366,366 @@
                                 {% endfor %}
                         </ul>
                     {% endfor %}
+            <!-- _____________________________________________________ -->
 
                 </div>
             </div>
         </div>
+            <!-- _____________________________________________________ -->
 
     </div>
 
-
-
     {% endblock main %}
-
-
-
-
+    
     {% block footer %}{% endblock footer %}
 
-{% block scripts %}
+    {% block scripts %}
 
 
-<script src="{% static 'js/serverChat.js' %}"></script>
+    <!-- <script src="{% static 'js/serverChat.js' %}"></script> -->
 
-<script>
-        // --------------Change Status----------------
-        document.addEventListener("DOMContentLoaded", function() {
-            const changeStatusButtons = document.querySelectorAll('.change-status .status');
-            const userProfile = document.querySelector('.user-profile');
-            const changeStatusSection = document.querySelector('.change-status');
-            const toggleButtonIcon = document.querySelector('.change-status-btn svg');
-        
-            // Toggle change-status section visibility when button is clicked
-            document.querySelector('.change-status-btn').addEventListener('click', function() {
-                changeStatusSection.classList.toggle('hidden');
-                if (changeStatusSection.classList.contains('hidden')) {
-                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                } else {
-                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                }
-            });
-        
-            // Add click event listener to each change status button
-            changeStatusButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const status = button.classList[1]; // Get the second class which represents the status
-                    updateStatus(status);
-                    changeStatusSection.classList.add('hidden'); // Hide change-status section after selecting a status
-                    if (changeStatusSection.classList.contains('hidden')) {
-                        toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                    } else {
-                        toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                    }
-                });
-            });
-        
-            // Function to update user status
-            function updateStatus(status) {
-                const userStatus = userProfile.querySelector('.user-status-text');
-                const userStatusIcon = userProfile.querySelector('.user-status');
-                const statusText = userProfile.querySelector('.status-text');
-                const statusIcons = userProfile.querySelectorAll('.status');
-                
-                // Remove 'active' class from all status icons
-                statusIcons.forEach(icon => icon.classList.remove('active'));
-        
-                // Update user status and status text
-                userStatus.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
-                statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1);
-        
-                // Set background color based on status
-                if (status === 'online') {
-                    userStatusIcon.style.backgroundColor = '#4CAF50'; // Green for Online
-                } else if (status === 'away') {
-                    userStatusIcon.style.backgroundColor = '#FFC107'; // Yellow for Away
-                } else if (status === 'busy') {
-                    userStatusIcon.style.backgroundColor = '#FF5722'; // Orange for Busy
-                }
-        
-                // Add 'active' class to the clicked status icon
-                userProfile.querySelector(`.status-${status}`).classList.add('active');
-            }
-        });
-        // --------------Change Status 2-----------------------
-        document.addEventListener("DOMContentLoaded", function() {
-            const changeStatusButtons = document.querySelectorAll('.change-status .status');
-        
-            // Add click event listener to each change status button
-            changeStatusButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const status = button.classList[1]; // Get the second class which represents the status
-                    updateStatus(status);
-                });
-            });
-        
-            // Function to update user status
-            function updateStatus(status) {
-                const userStatusText = document.querySelector('.user-status-text');
-                const userStatus = document.querySelector('.user-status');
-                
-                // Update user status and status text
-                userStatusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
-        
-                // Remove all existing status classes
-                userStatus.classList.remove('online', 'away', 'busy');
-        
-                // Add the appropriate status class
-                userStatus.classList.add(status);
-        
-                // Update background color based on status
-                if (status === 'online') {
-                    userStatus.style.backgroundColor = '#2ECC71'; // Green for Online
-                } else if (status === 'away') {
-                    userStatus.style.backgroundColor = '#FFC107'; // Yellow for Away
-                } else if (status === 'busy') {
-                    userStatus.style.backgroundColor = '#FF5722'; // Orange for Busy
-                }
-            }
-        });
-            // --------------------------------------------------
-        // --------------Change Status 3----------------------
-        document.addEventListener("DOMContentLoaded", function() {
-            const changeStatusButtons = document.querySelectorAll('.change-status-btn');
-            const changeStatusSection = document.querySelector('.change-status');
-        
-            // Add click event listener to the toggle button
-            changeStatusButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    changeStatusSection.classList.toggle('visible');
-                });
-            });
-        });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        // SVGS
-        //const SmileSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="smile" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg>`;
-        //const ReplySvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="reply" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"></polyline><path d="M20 18v-2a4 4 0 0 0-4-4H4"></path></svg>`;
-        //let currentReplyMessage = null;
-        document.addEventListener("DOMContentLoaded", function() {
-            // Select all toggle buttons
-            const toggleButtons = document.querySelectorAll('.toggle-button');
-        
-            // Add click event listener to each toggle button
-            toggleButtons.forEach(function(toggleButton) {
-                toggleButton.addEventListener('click', function() {
-                    const parentGroup = toggleButton.closest('.text-group');
-                    const channelsList = parentGroup.querySelector('.channels-list');
-                    const toggleButtonIcon = toggleButton.querySelector('svg');
-        
-                    // Toggle channels visibility
-                    channelsList.classList.toggle('hidden');
-                    if (channelsList.classList.contains('hidden')) {
-                        toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                    } else {
-                        toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                    }
-                });
-            });
-
-            document.querySelectorAll('.channel-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default link action
-                    const roomName = this.getAttribute('data-room');
-                    window.location.pathname = '/server-chat/' + roomName + '/';
-                    //updateChatMessages(roomName);
-                });
-            });
-        });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-        // Parse the JSON string back into a JavaScript object
-        const messages = JSON.parse('{{ messages_json|escapejs }}');
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const customuser_id = {{ customuser_id }}
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
-    
-        // Function to display old messagesmedia
-        function displayOldMessages(messages) {
-            const chatLog = document.querySelector('#chatBox');
-            chatLog.value = ''; // Clear existing messages
-            if (Array.isArray(messages) && messages.length > 0) {
-                messages.forEach(message => {
-                    console.log(message)
-                    console.log(`/media/${message.user__pfp}`)
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('chat-message');
-                    messageElement.innerHTML = `
-                    <div class="message-header">
-                        <div class="user-pic">
-                            <img src="/media/${message.user__pfp}" alt="user-pic"> 
-                        </div>
-                    </div>
-                    <div class="message-content">
-                        <div class="user-info">
-                            <span class="user-name">${message.user__user__username}</span>
-                            <span class="message-date">${message.timestamp}</span>
-                            <span class="message-time">${message.timestamp}</span>
-                        </div>
-                        <div class="message-text">${message.content}</div>
-                        <div class="reactions-box">
-                            <div class="react">
-                                <div class="emoji"><!-- SVG or Emoji --></div>
-                                <div class="count">5</div> <!-- Example static reaction count -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reply-react">
-                        <button class="reply" onclick="sendReplyMessage()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
-                        </button>
-                        <div class="react">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-                        </div>
-                    </div>
-                `;
-                    chatLog.appendChild(messageElement);
-                });
-            } else {
-                console.log('No old messages for this room.');
-            }
-        }
-    
-        // Display old messages when the page loads
-        displayOldMessages(messages);
-    
-        chatSocket.onmessage = function(e) {
-            const message = JSON.parse(e.data);
-            console.log(message);
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message');
-            messageElement.innerHTML = `
-                <div class="message-header">
-                    <div class="user-pic">
-                        <img src="${message.pfp}" alt="user-pic"> 
-                    </div>
-                </div>
-                <div class="message-content">
-                    <div class="user-info">
-                        <span class="user-name">${message.username}</span>
-                        <span class="message-date">${JSON.parse(message.instance)[0].fields.timestamp}</span>
-                        <span class="message-time">${JSON.parse(message.instance)[0].fields.timestamp}</span>
-                    </div>
-                    <div class="message-text">${message.message}</div>
-                    <div class="reactions-box">
-                        <div class="react">
-                            <div class="emoji"><!-- SVG or Emoji --></div>
-                            <div class="count">5</div> <!-- Example static reaction count -->
-                        </div>
-                    </div>
-                </div>
-                <div class="reply-react">
-                    <button class="reply" onclick="sendReplyMessage()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
-                    </button>
-                    <div class="react">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-                    </div>
-                </div>
-            `;
-            const chatLog = document.querySelector('#chatBox')
-            chatLog.appendChild(messageElement);
-        };
-    
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-    
-        document.querySelector('.chat-message-input').focus();
-    
-        document.querySelector('.chat-message-input').onkeyup = function(e) {
-            if (e.key === 'Enter') {  // enter, return
-                document.querySelector('.chat-message-submit').click();
-            }
-        };
-    
-        document.querySelector('.chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('.chat-message-input');
-            const message = messageInputDom.value;
-            const fileInputDom = document.querySelector('#chat-file-input');
-            const file = fileInputDom.files[0];  // Get the file object
-    
-    
-            if (message || file) {
-                // Prepare file data if available
-                let fileData = null;
-                if (file) {
-                    const fileReader = new FileReader();
-                    fileReader.onload = function(event) {
-                        fileData = {
-                            filename: file.name,
-                            content: event.target.result.split(',')[1]  // Extract base64 content
-                        };
-    
-                        // Send message and file data
-                        chatSocket.send(JSON.stringify({
-                            'message': message,
-                            'customuser_id': customuser_id,
-                            'file_data': fileData
-                        }));
-                    };
-                    // Read the file as base64 data
-                    fileReader.readAsDataURL(file);
-                } else {
-                    // Send only message if no file attached
-                    chatSocket.send(JSON.stringify({
-                        'message': message,
-                        'customuser_id': customuser_id
-                    }));
-                }
-    
-            messageInputDom.value = '';
-        };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        //let messageIdCounter = 0; // Global counter for message IDs
-        //const messageReactions = {}; // Object to track reactions for each message
-        //function send(message) {
-        //    const imageInput = document.getElementById("imageUpload");
-        //    const imageFile = imageInput.files[0];
-        //
-        //    if (imageFile || message) {
-        //        // Handle sending of the message and/or image
-        //        if (imageFile) {
-        //            const reader = new FileReader();
-        //            reader.onload = function(e) {
-        //                // If there's an image, send it with or without text
-        //                createAndAppendMessage(message, e.target.result);
-        //                // Reset the input fields
-        //                resetInputsAndPreview();
-        //            };
-        //            reader.readAsDataURL(imageFile);
-        //        } else {
-        //            // If there's no image but there is text, just send the text
-        //            createAndAppendMessage(message);
-        //            // Reset the input fields
-        //            resetInputsAndPreview();
-        //        }
-        //    } else {
-        //        console.error("No message or image to send");
-        //    }
-        //}
-        
-        //function resetInputsAndPreview() {
-        //    // Reset the text input and image input
-        //    document.getElementById("userInput").value = "";
-        //    document.getElementById("imageUpload").value = "";
-        //    // Remove the image preview if it exists
-        //    const preview = document.querySelector(".preview");
-        //    if (preview) {
-        //        preview.remove();
-        //    }
-        //}
-        
-        //document.getElementById("userInput").addEventListener("keydown", function(event) {
-        //    if (event.key === "Enter" && !event.shiftKey) {
-        //        event.preventDefault(); // Prevent the default action to stop form submission or newline
-        //        send(); // Call your send function
-        //    }
-        //    // No need for an else case to specifically handle Shift+Enter, as the textarea naturally supports it
-        //});
-        
-        
-        //const userInput = document.getElementById("userInput");
-        //userInput.addEventListener("input", function() {
-        //    // Reset the height to a default minimum height or to 'auto' to properly reduce its size if necessary
-        //    this.style.height = 'auto';
-        //    // Set the height to scrollHeight to accommodate all content
-        //    //this.style.height = (this.scrollHeight) + 'px';
-        //});
-    
-        
-        // --------------------------------------------------
-        // Function to send a regular message
-        //function sendMessage(message) {
-        //    // Assuming you have a way to get the image data (e.g., from a preview element)
-        //    var imageData = document.querySelector(".preview") ? document.querySelector(".preview").src : null;
-        //
-        //    // Create a new message element that can handle both text and image
-        //    var newMessage = createMessageElementWithImage("You", message, imageData); // You need to implement this function
-        //
-        //    // Append the new message to the chat box
-        //    var chatBox = document.querySelector(".chat-box");
-        //    chatBox.appendChild(newMessage);
-        //
-        //    // Clear the input field and remove the image preview after sending
-        //    document.getElementById("userInput").value = "";
-        //    var imagePreview = document.querySelector(".preview");
-        //    if (imagePreview) {
-        //        imagePreview.parentNode.removeChild(imagePreview);
-        //    }
-        //}
-    
-    
-        // Function to close the "Replying to" section
-        //function closeReplyMessage() {
-        //    var replyingToDiv = document.querySelector(".chat-footer-box .replying-to");
-        //    replyingToDiv.style.display = "none";
-        //    currentReplyMessage = null;
-        //}
-    
-    
-        // --------------------------------------------------
-        //function createAndAppendMessage(message, imageData = null) {
-        //    const messageId = `message-${messageIdCounter++}`; // Generate a unique message ID
-        //    messageReactions[messageId] = {};
-        //    const chatBox = document.querySelector('.chat-box');
-        //    const messageDiv = document.createElement('div');
-        //    messageDiv.classList.add('chat-message', 'fade-in');
-        //    messageDiv.setAttribute('data-message-id', messageId);
-        //
-        //    // Format message to replace newline characters with HTML line breaks
-        //    const formattedMessage = message.replace(/\n/g, '<br>');
-        //
-        //    // Check and process any URLs in the formatted message
-        //    const processedMessage = processMessageForVideoLinks(formattedMessage);    
-        //
-        //    const userProfilePic = document.querySelector('.user-profile .user-pic img').src;
-        //    const userName = document.querySelector('.user-profile .user-name').textContent;
-        //
-        //    // Construct the message structure, excluding the image part for now
-        //    let messageContentHTML = `
-        //        <div class="message-header">
-        //            <div class="user-pic"><img src="${userProfilePic}" alt="user-pic"></div>
-        //        </div>
-        //        <div class="message-content">
-        //            <div class="user-info">
-        //                <span class="user-name">${userName}</span>
-        //                <span class="message-date">Today</span>
-        //                <span class="message-time">${new Date().toLocaleTimeString()}</span>
-        //            </div>
-        //            <div class="message-text">${processedMessage}</div>
-        //        </div>
-        //    `;
-        //
-        //    messageDiv.innerHTML = messageContentHTML;
-        //    const messageContent = messageDiv.querySelector('.message-content');
-        //    messageDiv.setAttribute('data-message-id', messageId);
-        //
-        //    // Append the image if present
-        //    if (imageData) {
-        //        const imageContainer = document.createElement('div');
-        //        imageContainer.classList.add('message-image');
-        //        const messageImage = document.createElement('img');
-        //        messageImage.src = imageData;
-        //        messageImage.classList.add("chat-message-image");
-        //        messageImage.style.cursor = 'pointer';
-        //        messageImage.onclick = () => showImageInModal(imageData);
-        //        imageContainer.appendChild(messageImage);
-        //        messageContent.appendChild(imageContainer);
-        //    }
-        //
-        //    // Append the reply-react container
-        //    const replyReactContainer = createReplyReactContainer(messageId, message);
-        //    messageDiv.appendChild(replyReactContainer);
-        //
-        //    chatBox.appendChild(messageDiv);
-        //    chatBox.scrollTop = chatBox.scrollHeight;
-        //}
-        
-        // Function to handle reaction addition
-        //function addReact(emoji, messageId) {
-        //    if (!messageReactions[messageId][emoji]) {
-        //        messageReactions[messageId][emoji] = 1;
-        //    } else {
-        //        messageReactions[messageId][emoji]++;
-        //    }
-        //    
-        //    console.log(`Message ${messageId} reactions:`, messageReactions[messageId]);
-        //}
-    
-        // Function to create a container for reactions
-        //function createReplyReactContainer(messageId, message) {
-        //    const container = document.createElement('div');
-        //    container.classList.add('reply-react');
-        //
-        //    // Reply button
-        //    const replyButton = document.createElement('button');
-        //    replyButton.classList.add('reply');
-        //    replyButton.innerHTML = ReplySvg;
-        //    replyButton.addEventListener('click', () => {
-        //        replyToMessage(message, messageId);
-        //    });
-        //    
-        //    // React button
-        //    const reactButton = document.createElement('div');
-        //    reactButton.classList.add('react');
-        //    reactButton.innerHTML = SmileSvg;
-        //    reactButton.addEventListener('click', () => {
-        //        const reactionsList = container.querySelector('.reactions-list');
-        //        reactionsList.classList.toggle('show');
-        //    });
-        //    
-        //    container.appendChild(replyButton);
-        //    container.appendChild(reactButton);
-        //
-        //    const reactionsListDiv = document.createElement('div');
-        //    reactionsListDiv.classList.add('reactions-list');
-        //
-        //    // List of reactions
-        //    const reactionsList = ['😂', '😍', '👍', '👎', '😢', '😡'];
-        //
-        //    reactionsList.forEach(emoji => {
-        //        const reactSpan = document.createElement("span");
-        //        reactSpan.innerText = emoji;
-        //        reactSpan.addEventListener('click', () => {
-        //            addReact(emoji, messageId);
-        //        });
-        //        reactionsListDiv.appendChild(reactSpan);
-        //        container.appendChild(reactionsListDiv);
-        //    });
-        //    
-        //    return container;
-        //}
-    
-        //function showImageInModal(imageSrc) {
-        //    let modal = document.getElementById('image-modal');
-        //    if (!modal) {
-        //        modal = document.createElement('div');
-        //        modal.id = 'image-modal';
-        //        modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; background-color:  rgb(0 0 0 / 78%); z-index: 10000; cursor: pointer;';
-        //        modal.addEventListener('click', () => {
-        //            modal.style.display = 'none';
-        //        });
-        //        document.body.appendChild(modal);
-        //    }
-        //
-        //    modal.innerHTML = `<img src="${imageSrc}" style="
-        //    max-width: 50%;
-        //    max-height: 50%;
-        //    border-radius: 10px;
-        //    -webkit-box-shadow: 3px 2px 30px -6px rgb(175 174 174 / 28%);
-        //    -moz-box-shadow: 3px 2px 30px -6px rgba(0,0,0,0.75);
-        //    box-shadow: 3px 2px 30px -6px rgb(142 133 133 / 39%);">`;
-        //    modal.style.display = 'flex';
-        //}
-    
-        //function processMessageForVideoLinks(message) {
-        //    const urlRegex = /(\bhttps?:\/\/\S+)/gi;
-        //    return message.replace(urlRegex, function(url) {
-        //        // Simple check for YouTube URLs
-        //        if (url.includes("youtube.com/watch?v=") || url.includes("youtu.be/")) {
-        //            const videoId = extractYoutubeVideoID(url);
-        //            if (videoId) {
-        //                return `<iframe style='border-radius:10px;' width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
-        //            }
-        //        }
-        //        return `<a href="${url}" target="_blank">${url}</a>`;
-        //    });
-        //}
-        
-        //function extractYoutubeVideoID(url) {
-        //    let id = '';
-        //    url = url.replace(/(>|<)/gi, '').split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-        //    if (url[2] !== undefined) {
-        //        id = url[2].split(/[^0-9a-z_\-]/i);
-        //        id = id[0];
-        //    } else {
-        //        id = url;
-        //    }
-        //    return id;
-        //}
-    
-        
-        // --------------------------------------------------
-        //    function previewImage(event) {
-        //        const reader = new FileReader();
-        //        reader.onload = function(e) {
-        //            const previewContainer = document.querySelector(".chat-input");
-        //            let previewImage = previewContainer.querySelector(".preview");
-        //            if (!previewImage) {
-        //                previewImage = document.createElement("img");
-        //                previewImage.classList.add("preview");
-        //                previewContainer.insertBefore(previewImage, previewContainer.firstChild);
-        //            }
-        //            previewImage.src = e.target.result;
-        //            previewImage.style.maxWidth = "100px";
-        //        };
-        //        reader.readAsDataURL(event.target.files[0]);
-        //    }
-       // Updated replyToMessage function to set currentReplyMessage
-        //function replyToMessage(messageContent, messageId) {
-        //    console.log("Setting up reply to message:", messageId);
-        //    currentReplyMessage = messageContent; // Store the message being replied to//
-        //    // Update UI to reflect replying status if necessary
-        //    // This is just an example, adjust according to your actual UI elements
-        //    const replyingToIndicator = document.querySelector(".replying-to");
-        //    if (replyingToIndicator) {
-        //        replyingToIndicator.style.display = "flex";
-        //        replyingToIndicator.innerHTML = `
-        //        <span>Replying to:</span>
-        //        <div class="message-replied">
-        //            <div class="user-pic">
-        //                <img src="../static/assets/userpic.svg" alt="user-pic">
-        //            </div>
-        //            <div class="user-tag">@Figgy</div>
-        //            <span>${currentReplyMessage}</span>
-        //        </div>
-        //        <button class="close" onclick="closeReplyMessage()">
-        //            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        //        </button>`;
-        //    }
-        //    document.getElementById("userInput").focus();
-        //}
-    
-        // --------------------------------------------------
-        // Adjusted sendReplyMessage function
-        //function sendReplyMessage(replyMessage) {
-        //    // Make sure there's a message to reply to
-        //    if (!currentReplyMessage || !replyMessage) {
-        //        console.error("No message selected for reply or reply message is empty.");
-        //        return;
-        //    }
-        //
-        //    console.log(`Replying with: ${replyMessage} to message: ${currentReplyMessage}`);
-        //
-        //    // Create a new reply message element
-        //    const newReplyMessage = document.createElement("div");
-        //    newReplyMessage.classList.add("reply-message");
-        //
-        //    // Message replied section
-        //    const messageReplied = document.createElement("div");
-        //    messageReplied.classList.add("message-replied");
-        //    messageReplied.innerHTML = `
-        //        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="16" viewBox="0 0 46 16" fill="none">
-        //            <path d="M1 15V15C1 7.26801 7.26801 1 15 1H45" stroke="#ADABAB" stroke-width="2" stroke-linecap="round" />
-        //        </svg>
-        //        <div class="user-pic">
-        //            <img src="{% static "assets/userpic.svg" %}" alt="user-pic">
-        //        </div>
-        //        <div class="user-tag">@Figgy</div>
-        //        <span>${currentReplyMessage}</span>
-        //    `;
-        //
-        //    // Append the messageReplied to the newReplyMessage
-        //    newReplyMessage.appendChild(messageReplied);
-        //
-        //    // Check if there's an image uploaded
-        //    const imageInput = document.getElementById("imageUpload");
-        //    const imageFile = imageInput.files[0];
-        //
-        //    if (imageFile) {
-        //        const reader = new FileReader();
-        //        reader.onload = function (e) {
-        //            const imageData = e.target.result;
-        //            // Create and append the reply message with image
-        //            const replyMessageElement = createAndAppendMessage(replyMessage, imageData);
-        //            newReplyMessage.appendChild(replyMessageElement);
-        //            finishReply();
-        //        };
-        //        reader.readAsDataURL(imageFile);
-        //    } else {
-        //        // Create and append the reply message without image
-        //        const replyMessageElement = createAndAppendMessage(replyMessage, null);
-        //        newReplyMessage.appendChild(replyMessageElement);
-        //        finishReply();
-        //    }
-        //
-        //    function finishReply() {
-        //        // Get the chat box and append the new reply message
-        //        const chatBox = document.querySelector(".chat-box");
-        //        chatBox.appendChild(newReplyMessage);
-        //
-        //        // Reset currentReplyMessage after sending the reply
-        //        closeReplyMessage();
-        //        currentReplyMessage = null;
-        //
-        //        // Optionally reset the input field
-        //        document.getElementById("userInput").value = "";
-        //        imageInput.value = "";
-        //        const preview = document.querySelector(".preview");
-        //        if (preview) {
-        //            preview.remove();
-        //        }
-        //        // Scroll to the bottom of the chat box
-        //    }
-        //}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
             
-        // --------------Preview Image before post---------------------
-        //function resetInputsAndPreview() {
-        //    // Reset the text input and image input
-        //    document.getElementById("userInput").value = "";
-        //    document.getElementById("imageUpload").value = "";
-        //    // Reset the height of the textarea
-        //
-        //    // Remove the image preview if it exists
-        //    const preview = document.querySelector(".preview");
-        //    if (preview) {
-        //        preview.remove();
-        //    }
-        //}
-    
-        // --------------------------------------------------
-        // Function to create a message element
-        //function createMessageElementWithImage(userName, message, imageData) {
-        //    var newMessage = document.createElement("div");
-        //    newMessage.classList.add("chat-message");
-        //    
-        //    // Message header similar to the createMessageElement function
-        //    var messageHeader = document.createElement("div");
-        //    messageHeader.classList.add("message-header");
-        //    var userPic = document.createElement("div");
-        //    userPic.classList.add("user-pic");
-        //    userPic.innerHTML = '<img src="{% static "assets/userpic.svg" %}" alt="user-pic">';
-        //    messageHeader.appendChild(userPic);
-        //    
-        //    // Message content
-        //    var messageContent = document.createElement("div");
-        //    messageContent.classList.add("message-content");
-        //    var userInfo = document.createElement("div");
-        //    userInfo.classList.add("user-info");
-        //    userInfo.innerHTML = `<span class="user-name">${userName}</span>`;
-        //    var messageDate = document.createElement("span");
-        //    messageDate.classList.add("message-date");
-        //    messageDate.innerText = "Today";
-        //    var messageTime = document.createElement("span");
-        //    messageTime.classList.add("message-time");
-        //    var currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        //    messageTime.innerText = currentTime;
-        //    userInfo.appendChild(messageDate);
-        //    userInfo.appendChild(messageTime);
-        //    messageContent.appendChild(userInfo);
-        //    
-        //    // Message text
-        //    var messageText = document.createElement("div");
-        //    messageText.classList.add("message-text");
-        //    messageText.innerText = message;
-        //    messageContent.appendChild(messageText);
-        //    
-        //    // If imageData is provided, create and append an image element
-        //    if (imageData) {
-        //        var messageImage = document.createElement("img");
-        //        messageImage.src = imageData;
-        //        messageImage.style.maxWidth = "200px"; // Set a max width for the image
-        //        messageContent.appendChild(messageImage);
-        //    }
-        //    
-        //    // Append the message header and content to the new message element
-        //    newMessage.appendChild(messageHeader);
-        //    newMessage.appendChild(messageContent);
-        //    
-        //    // You can reuse the reply and react section from your existing createMessageElement function here
-        //    var replyReactSection = createReplyReactSection();
-        //    newMessage.appendChild(replyReactSection);
-        //    
-        //    return newMessage;
-        //}
-        // Function to toggle the emoji picker
-        //function toggleEmojiPicker() {
-        //    var emojiPicker = document.getElementById("emojiPicker");
-        //    emojiPicker.classList.toggle("show");
-        //    fetchEmojis(); // Fetch emojis when the picker is toggled
-        //    console.log("Toggling emoji picker");
-        //}
-        
-    
-    
-        // --------------------------------------------------
-        // Function to fetch emojis from the API
-        //function fetchEmojis() {
-        //    var emojiPicker = document.getElementById("emojiPicker");
-        //    emojiPicker.innerHTML = ""; // Clear previous results
-        //
-        //    fetch("https://emoji-api.com/emojis?access_key=36648086e6b1d3c021726d4a3399bafaa5c2eaa3")
-        //        .then(response => response.json())
-        //        .then(data => {
-        //            // Loop through the emoji data and create buttons for each emoji
-        //            data.forEach(emoji => {
-        //                var emojiButton = document.createElement("button");
-        //                emojiButton.innerHTML = emoji.character;
-        //                emojiButton.classList.add("emoji");
-        //                emojiButton.addEventListener("click", function() {
-        //                    insertEmoji(emoji.character);
-        //                });
-        //                emojiPicker.appendChild(emojiButton);
-        //            });
-        //        })
-        //        .catch(error => console.error('Error fetching emojis:', error));
-        //}
-        // --------------------------------------------------
-        // Function to insert the selected emoji into the input field
-        //function insertEmoji(emoji) {
-        //    var userInput = document.getElementById("userInput");
-        //    var cursorPosition = userInput.selectionStart;
-        //    var textBefore = userInput.value.substring(0, cursorPosition);
-        //    var textAfter = userInput.value.substring(cursorPosition);
-        //    userInput.value = textBefore + emoji + textAfter;
-        //
-        //    // Move the cursor position after the inserted emoji
-        //    userInput.selectionStart = cursorPosition + emoji.length;
-        //    userInput.selectionEnd = cursorPosition + emoji.length;
-        //
-        //    // Hide the emoji picker after inserting
-        //    var emojiPicker = document.getElementById("emojiPicker");
-        //    emojiPicker.classList.remove("show");
-        //}
-        // --------------------------------------------------
-        //function toggleRoomsMobile() {
-        //    var rooms = document.querySelector('.chat-rooms');
-        //    var close = document.querySelector('.close-rooms');
-        //    rooms.classList.toggle('show');
-        //    //give body style overlay Y none 
-        //
-        //    // IF CLOSE BUTTON IS CLICKED CLOSE ROOMS
-        //    close.addEventListener('click', function() {
-        //        rooms.classList.remove('show');
-        //
-        //    });
-        //}
-        // --------------------------------------------------
-        //function toggleMembersMobile() {
-        //    var rooms = document.querySelector('.chat-members');
-        //    var close = document.querySelector('.close-toggle');
-        //    rooms.classList.toggle('show');
-        //    // IF CLOSE BUTTON IS CLICKED CLOSE ROOMS
-        //    close.addEventListener('click', function() {
-        //        rooms.classList.remove('show');s
-        //    });
-        //    
-        //}
-    
-        //channelLinks = document.querySelectorAll(".channel-link")
-        //channelLinks.forEach(link => {
-        //    link.onclick = function(e) {
-        //        const roomName = link.getAttribute('data-room');
-        //        window.location.pathname = '/chat/' + roomName + '/';
-        //    };
-        //});
-    
-        //let chatRooms = {
-        //    students: [
-        //        {
-        //            id: 1,
-        //            userName: 'Walid 1',
-        //            message: "If you have any questions don't hesitate to reach out to a @deleted-role. They can be reached at any time, Fusce porta elementum ligula hendrerit auctor. Suspendisse est ex, egestas in pulvinar ut, facilisis quis velit. Vestibulum ullamcorper libero nulla, et posuere odio eleifend eu. Ut feugiat lorem ac purus venenatis elementum. Mauris vestibulum nibh ac turpis luctus venenatis non ut elit. Nulla venenatis, nulla quis ornare mollis, erat ipsum ullamcorper ligula, sit amet blandit ipsum nisi elementum turpis. In vel blandit ipsum.x",
-        //            profilePicture: "assets/userpic1.svg", // {% static "assets/userpic.svg" %}Assuming assets are stored in an 'assets' directory
-        //            messageDate: "Today",
-        //            messageTime: "2:30 PM"
-        //        },
-        //        {
-        //            id: 2,
-        //            userName: 'Moetaz Labranzi 2',
-        //            message: "ya dark wallahi nched manikek oou ya fares stana nahsrek fi benzert wallah fi geltet el bhayriya manched el dahdouha ou nedarcheh aleha ke dhorjiha ya faroussa mta zebi ou dark zab zab zab!",
-        //            profilePicture: "assets/userpic2.svg",
-        //            messageDate: "Today",
-        //            messageTime: "3:45 PM"
-        //        }
-        //    ],
-        //    crypto_wins: [
-        //        {
-        //            id: 1,
-        //            userName: 'Crypto Fan',
-        //            message: "Crypto is booming!",
-        //            profilePicture: "assets/userpic3.svg",
-        //            messageDate: "Yesterday",
-        //            messageTime: "4:20 PM"
-        //        }
-        //    ],
-        //    // Add other rooms with similar structure
-        //};
-        
-    
-        document.addEventListener('DOMContentLoaded', function() {
-            // Assuming your chat message container has the ID 'chatBox'
-            //const chatBox = document.getElementById('chatBox');
-            //const STATIC_URL = '/static/';
-            // Function to update chat messages based on the selected room
-            //function updateChatMessages(messages) {
-            //    const chatBox = document.getElementById('chatBox'); // Make sure you have a container with this ID
-            //    chatBox.innerHTML = ''; // Clear current chat messages {% static "assets/userpic.svg" %}
-            //
-            //    messages.forEach(msg => {
-            //        const messageElement = document.createElement('div');
-            //        messageElement.classList.add('chat-message');
-            //        messageElement.innerHTML = `
-            //            <div class="message-header">
-            //                <div class="user-pic">
-            //                    <img src="${STATIC_URL + msg.profilePicture}" alt="user-pic"> 
-            //                </div>
-            //            </div>
-            //            <div class="message-content">
-            //                <div class="user-info">
-            //                    <span class="user-name">${msg.userName}</span>
-            //                    <span class="message-date">${msg.messageDate}</span>
-            //                    <span class="message-time">${msg.messageTime}</span>
-            //                </div>
-            //                <div class="message-text">${msg.message}</div>
-            //                <div class="reactions-box">
-            //                    <div class="react">
-            //                        <div class="emoji"><!-- SVG or Emoji --></div>
-            //                        <div class="count">5</div> <!-- Example static reaction count -->
-            //                    </div>
-            //                </div>
-            //            </div>
-            //            <div class="reply-react">
-            //                <button class="reply" onclick="sendReplyMessage()">
-            //                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
-            //                </button>
-            //                <div class="react">
-            //                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-            //                </div>
-            //            </div>
-            //        `;
-            //        chatBox.appendChild(messageElement);
-            //    });
-            //}
-        
-            // Attach click event listeners to channel links
 
-        });}
-    
-</script>
 
-<script type="text/javascript">
-    var STATIC_URL = "{% static '' %}";
-</script>
+                        const changeStatusButtons = document.querySelectorAll('.change-status .status');
+                        const userProfile = document.querySelector('.user-profile');
+                        const changeStatusSection = document.querySelector('.change-status');
+                        const toggleButtonIcon = document.querySelector('.change-status-btn svg');
+
+
+                        // Toggle change-status section visibility when button is clicked
+                        document.querySelector('.change-status-btn').addEventListener('click', function() {
+                            changeStatusSection.classList.toggle('hidden');
+                            if (changeStatusSection.classList.contains('hidden')) {
+                                toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+                            } else {
+                                toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+                            }
+                        });
+
+                        // Add click event listener to each change status button
+                        changeStatusButtons.forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                const status = button.classList[1]; // Get the second class which represents the status
+                                updateStatus(status);
+                                changeStatusSection.classList.add('hidden'); // Hide change-status section after selecting a status
+                                if (changeStatusSection.classList.contains('hidden')) {
+                                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+                                } else {
+                                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+                                }
+                            });
+                        });
+
+
+                        function updateStatus(status) {
+                            const userStatus = userProfile.querySelector('.user-status-text');
+                            const userStatusIcon = userProfile.querySelector('.user-status');
+                            const statusText = userProfile.querySelector('.status-text');
+                            const statusIcons = userProfile.querySelectorAll('.status');
+                            
+                            // Remove 'active' class from all status icons
+                            statusIcons.forEach(icon => icon.classList.remove('active'));
+                    
+                            // Update user status and status text
+                            userStatus.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+                            <!-- statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); -->
+                    
+                            // Set background color based on status
+                            if (status === 'online') {
+                                userStatusIcon.style.backgroundColor = '#4CAF50'; // Green for Online
+                            } else if (status === 'away') {
+                                userStatusIcon.style.backgroundColor = '#FFC107'; // Yellow for Away
+                            } else if (status === 'busy') {
+                                userStatusIcon.style.backgroundColor = '#FF5722'; // Orange for Busy
+                            }
+                    
+                            // Add 'active' class to the clicked status icon
+                            userProfile.querySelector(`.status-${status}`).classList.add('active');
+                        }
+                        });
+
+                        const changeStatusButtons = document.querySelectorAll('.change-status .status');
+                                
+                        // Add click event listener to each change status button
+                        changeStatusButtons.forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                const status = button.classList[1]; // Get the second class which represents the status
+                                updateStatus(status);
+                            });
+
+                        function updateStatus(status) {
+                            const userStatusText = document.querySelector('.user-status-text');
+                            const userStatus = document.querySelector('.user-status');
+                            
+                            // Update user status and status text
+                            userStatusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+                    
+                            // Remove all existing status classes
+                            userStatus.classList.remove('online', 'away', 'busy');
+                    
+                            // Add the appropriate status class
+                            userStatus.classList.add(status);
+                    
+                            // Update background color based on status
+                            if (status === 'online') {
+                                userStatus.style.backgroundColor = '#2ECC71'; // Green for Online
+                            } else if (status === 'away') {
+                                userStatus.style.backgroundColor = '#FFC107'; // Yellow for Away
+                            } else if (status === 'busy') {
+                                userStatus.style.backgroundColor = '#FF5722'; // Orange for Busy
+                            }
+                        }
+
+                        const changeStatusButtons = document.querySelectorAll('.change-status-btn');
+                        const changeStatusSection = document.querySelector('.change-status');
+                    
+                        // Add click event listener to the toggle button
+                        changeStatusButtons.forEach(function(button) {
+                            button.addEventListener('click', function() {
+                                changeStatusSection.classList.toggle('visible');
+                            });
+                        });
+
+
+                        // ----------------------------------------------
+                        // Select all toggle buttons from room list
+                        // ----------------------------------------------
+
+
+                        // Select all toggle buttons from room list
+                       
+                            // Select all toggle buttons
+                            const toggleButtons = document.querySelectorAll('.toggle-button');
+                            const roomName = JSON.parse(document.getElementById('room-name').textContent);
+                        
+                            // Add click event listener to each toggle button
+                            toggleButtons.forEach(function(toggleButton) {
+                                toggleButton.addEventListener('click', function() {
+                                    const parentGroup = toggleButton.closest('.text-group');
+                                    const channelsList = parentGroup.querySelector('.channels-list');
+                                    const toggleButtonIcon = toggleButton.querySelector('svg');
+                        
+                                    // Toggle channels visibility
+                                    channelsList.classList.toggle('hidden');
+                                    if (channelsList.classList.contains('hidden')) {
+                                        toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
+                                    } else {
+                                        toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
+                                    }
+                                });
+                            });
+        
+                            document.querySelectorAll('.channel-link').forEach(link => {
+                                link.addEventListener('click', function(e) {
+                                    e.preventDefault(); // Prevent default link action
+                                    const roomName = this.getAttribute('data-room');
+                                    window.location.pathname = '/server-chat/' + roomName + '/';
+                                    //updateChatMessages(roomName);
+                                });
+                            });
+                       
+                
+
+                     
+
+
+                        //const customuser_id = {{ customuser_id }};
+                        const messages = JSON.parse('{{ messages_json|escapejs }}');
+                        //const roomName = JSON.parse(document.getElementById('room-name').textContent);
+                        const chatSocket = new WebSocket(
+                            'ws://'
+                            + window.location.host
+                            + '/ws/chat/'
+                            + roomName
+                            + '/'
+                        );
+                        
+                        // ----------------------------------------------
+                        // displayOldMessages()
+                        // ----------------------------------------------
+                        
+                        
+                        function displayOldMessages(messages) {
+                            const chatLog = document.querySelector('#chatBox');
+                            chatLog.innerHTML = ''; // Clear existing messages
+                        
+                            if (Array.isArray(messages) && messages.length > 0) {
+                                messages.forEach(message => {
+                                    let fileContent = '';
+                                    // Checking if there's a file attribute and it's not empty
+                                    if (message.file) {
+                                        //console.log("Image data received:", message.file); // Log the data for debugging
+                                        fileContent = `<img src="/media/${message.file}" alt="Uploaded image" style="max-width: 200px;">`;
+                                    } else {
+                                       // console.log("No image data received.");
+                                    }
+                        
+                                    const messageElement = document.createElement('div');
+                                    messageElement.classList.add('chat-message');     
+                                    messageElement.innerHTML = `
+                                        <div class="message-header">
+                                            <div class="user-pic">
+                                                <img src="/media/${message.user__pfp}" alt="user-pic"> 
+                                            </div>
+                                        </div>
+                                        <div class="message-content">
+                                            <div class="user-info">
+                                                <span class="user-name">${message.user__user__username}</span>
+                                                <span class="message-date">${message.timestamp}</span>
+                                            </div>
+                                            <div class="message-text">${message.content}</div>
+                                            <div class="image-user-upload">
+                                            ${fileContent} <!-- Image displayed here if available -->
+                                            </div>
+                                            <div class="reactions-box">
+                                                <div class="react">
+                                                    <div class="emoji"><!-- SVG or Emoji --></div>
+                                                    <div class="count">5</div> <!-- Static reaction count -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="reply-react">
+                                            <button class="reply" onclick="sendReplyMessage()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply">
+                                                    <polyline points="9 17 4 12 9 7"/>
+                                                    <path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    `;
+                                    chatLog.appendChild(messageElement);
+                                    chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
+                                });
+                            } else {
+                              //console.log('No old messages for this room.');
+                              // console.log('Messages:', messages);
+                              
+                            }
+                        }
+                        
+                        displayOldMessages(messages);
+
+
+
+
+                        // ----------------------------------------------
+                        // sendMesaage()
+                        // ----------------------------------------------
+
+                  
+                        // Assuming chatSocket is already defined and connected elsewhere in your script
+                        document.querySelector('.chat-message-submit').addEventListener('click', function() {
+                            const messageInput = document.querySelector('.chat-message-input');
+                            const fileInput = document.querySelector('#chat-file-input');
+
+                            const message = messageInput.value.trim();  // Get message text
+                            if (!message && !fileInput.files.length) {
+                                return;  // Don't send empty messages or no file
+                            }
+
+                            const file = fileInput.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function(evt) {
+                                    sendToServer({
+                                        message: message,
+                                        file: evt.target.result,  // Base64 encoded file
+                                        filename: file.name
+                                    });
+                                    messageInput.value = '';  // Clear input after sending
+                                    fileInput.value = '';  // Clear file input
+                                };
+                                reader.readAsDataURL(file);
+                            } else {
+                                sendToServer({ message: message });
+                               messageInput.value = '';  // Clear input after sending
+                                console.log('Message sent walid:', message);
+                            }
+                        });
+
+                        function sendToServer(data) {
+                            chatSocket.send(JSON.stringify(data));
+                            
+                        }
+
+                        document.querySelector('#chat-file-input').addEventListener('change', function() {
+                            const filePreview = document.querySelector('#file-preview');
+                            const fileContainer = document.querySelector('#file-preview-container');
+                            if (this.files.length > 0) {
+                                const reader = new FileReader();
+                                reader.onload = function(evt) {
+                                    filePreview.src = evt.target.result;
+                                    fileContainer.style.display = 'block';  // Show preview
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                            } else {
+                                fileContainer.style.display = 'none';  // Hide preview if no file
+                            }
+                        });
+                        
+
+                        // ----------------------------------------------
+                        // displayMessage()
+                        // ----------------------------------------------
+
+
+                        chatSocket.onmessage = function(e) {
+                            const data = JSON.parse(e.data);
+                            displayMessage(data);
+                        };
+
+                        function displayMessage(data) {
+                            const chatLog = document.querySelector('#chatBox');
+                            const messageElement = document.createElement('div');
+                            messageElement.classList.add('chat-message');
+                        
+                            // Extract message from data
+                            const message = data.message;  // Make sure this matches how the message is sent from the server
+                            const username = data.username;  // Access username directly from data
+                            const pfp = data.pfp;  // Access profile picture path directly from data
+                            const file = data.file;  // This might need similar adjustment if file info is also top-level
+                            const timestamp = new Date().toLocaleTimeString();  // Just for demonstration if not provided in the message
+                            const fileContent = file ? `<img src="/media/${file}" alt="Uploaded image" style="max-width: 200px;">` : '';
+                        
+                            messageElement.innerHTML = `
+                                <div class="message-header">
+                                    <div class="user-pic">
+                                        <img src="${pfp}" alt="user-pic">
+                                    </div>
+                                </div>
+                                <div class="message-content">
+                                    <div class="user-info">
+                                        <span class="user-name">${username}</span>
+                                        <span class="message-date">${timestamp}</span>
+                                    </div>
+                                    <div class="message-text">${message}</div>  <!-- Now message is defined -->
+                                    <!-- ${fileContent} Display file content if available -->
+                                </div>
+                            `;
+                        
+                            // Append the rest of the message content
+                            chatLog.appendChild(messageElement);
+                            chatLog.scrollTop = chatLog.scrollHeight;  // Ensure the latest message is visible
+                        }
+                        
+
+
+
+                        
+                        
+                        
+                        
+
+
+        });
+        
+    </script>
+
+    <script type="text/javascript">
+        var STATIC_URL = "{% static '' %}";
+    </script>
 
 {% endblock scripts %}
