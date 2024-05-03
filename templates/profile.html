@@ -3,7 +3,7 @@
 
 {% block head %}
 
-{% block title %}<title>profile - Tunisian Top Gs</title>{% endblock title %}
+{% block title %}<title>Profile | Tunisian Top Gs</title>{% endblock title %}
 <link rel="stylesheet" href="{% static "styles\profile.css" %}">
 
 {% endblock head %}
@@ -14,20 +14,21 @@
       <div class="top">
         <div class="UserProfileContainer">
           <div class="UserC">
-          <div class="UserPic">
-            <img src="{% static "assets/UserPic.svg" %}" alt="UserPic" />
+          <div class="UserPic slide-in-left">
+            <img src="{{user.customuser.pfp.url}}" alt="UserPic" />
           </div>
           <div class="UserInformation">
             <div>
               <div class="UserBadgesAndName">
                 <span class="h1-text">{{custom_profile_user.user.username}}</span>
                 <div class="UserBadges">
-                  <img src="{% static "assets/Active_Member.svg" %}" alt="Badge">
-                  <img src="{% static "assets/Staff 1.svg" %}" alt="Badge">
-                  <img src="{% static "assets/Member 1.svg" %}" alt="Badge">
+                  {% for badge in request.user.customuser.badges.all %}
+                    <img class="badges-g"  src="{{badge.icon.url}}" alt="">
+                  {% endfor %}
+
                 </div>
               </div>
-              <button class="EditProfileButton">
+              <button class="EditProfileButton"  onclick="redirectToUrl('{% url 'personal_info' %}')">
                 <i data-lucide="pencil"></i>
                 Edit Profile
               </button>
@@ -37,21 +38,8 @@
                 {{custom_profile_user.user.email}}
               </span>
             </div>
-            <div class="level-bar">
-              <div class="inner-bar" style="width: 70%;">
-                  <div class="current-level">
-                      2
-                  </div>
-                  <div class="level-bar-text">
-                      <img src="{% static "assets/levelStar.svg" %}" alt="Level Bar">
-                      <span>5200 
-                          <span>/10000</span>
-                      </span>
-                  </div>
-              </div>
-              <div class="next-level">
-                  3
-              </div>
+            <div class="progress-bar">
+              <div class="progress-bar-inner" style="width: 0%;"></div>
             </div>
             <span>You’ve learned <span style="color:#FBC550">70%</span>  of your goal ! Keep it up and improve your progress.</span>
           </div>
@@ -230,7 +218,7 @@
       <div class="bottom">
         <div class="latest-course">
           <div class="header">
-            <span class="h1-text">Last Course</span>
+            <span class="h1-text">Last Courses</span>
             <div class="header-arrows">
               <img src="{% static "assets/plus-icon.png" %}" alt="plus-icon" />
             </div>
@@ -557,5 +545,11 @@
 {% block footer %}{% endblock footer %}
 
 {% block scripts %}
+<script>
+  // JavaScript function to handle redirection
+  function redirectToUrl(url) {
+    window.location.href = url;
+  }
+  </script>
 {% endblock scripts %}
 
