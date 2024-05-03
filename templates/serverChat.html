@@ -393,45 +393,31 @@
                         const userProfile = document.querySelector('.user-profile');
                         const changeStatusSection = document.querySelector('.change-status');
                         const toggleButtonIcon = document.querySelector('.change-status-btn svg');
-
-
+                    
                         // Toggle change-status section visibility when button is clicked
                         document.querySelector('.change-status-btn').addEventListener('click', function() {
                             changeStatusSection.classList.toggle('hidden');
-                            if (changeStatusSection.classList.contains('hidden')) {
-                                toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                            } else {
-                                toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                            }
+                            toggleButtonIcon.innerHTML = changeStatusSection.classList.contains('hidden') ?
+                                `<path d="m6 9 6 6 6-6"></path>` :
+                                `<path d="m6 15 6-6 6 6"></path>`;
                         });
-
+                    
                         // Add click event listener to each change status button
                         changeStatusButtons.forEach(function(button) {
                             button.addEventListener('click', function() {
                                 const status = button.classList[1]; // Get the second class which represents the status
                                 updateStatus(status);
                                 changeStatusSection.classList.add('hidden'); // Hide change-status section after selecting a status
-                                if (changeStatusSection.classList.contains('hidden')) {
-                                    toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
-                                } else {
-                                    toggleButtonIcon.innerHTML = `<path d="m6 15 6-6 6 6"></path>`;
-                                }
+                                toggleButtonIcon.innerHTML = `<path d="m6 9 6 6 6-6"></path>`;
                             });
                         });
-
-
+                    
                         function updateStatus(status) {
                             const userStatus = userProfile.querySelector('.user-status-text');
                             const userStatusIcon = userProfile.querySelector('.user-status');
-                            const statusText = userProfile.querySelector('.status-text');
-                            const statusIcons = userProfile.querySelectorAll('.status');
-                            
-                            // Remove 'active' class from all status icons
-                            statusIcons.forEach(icon => icon.classList.remove('active'));
                     
                             // Update user status and status text
                             userStatus.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
-                            <!-- statusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); -->
                     
                             // Set background color based on status
                             if (status === 'online') {
@@ -441,63 +427,20 @@
                             } else if (status === 'busy') {
                                 userStatusIcon.style.backgroundColor = '#FF5722'; // Orange for Busy
                             }
-                    
-                            // Add 'active' class to the clicked status icon
-                            userProfile.querySelector(`.status-${status}`).classList.add('active');
                         }
-                        });
-
-                        const changeStatusButtons = document.querySelectorAll('.change-status .status');
-                                
-                        // Add click event listener to each change status button
-                        changeStatusButtons.forEach(function(button) {
-                            button.addEventListener('click', function() {
-                                const status = button.classList[1]; // Get the second class which represents the status
-                                updateStatus(status);
-                            });
-
-                        function updateStatus(status) {
-                            const userStatusText = document.querySelector('.user-status-text');
-                            const userStatus = document.querySelector('.user-status');
-                            
-                            // Update user status and status text
-                            userStatusText.textContent = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
                     
-                            // Remove all existing status classes
-                            userStatus.classList.remove('online', 'away', 'busy');
-                    
-                            // Add the appropriate status class
-                            userStatus.classList.add(status);
-                    
-                            // Update background color based on status
-                            if (status === 'online') {
-                                userStatus.style.backgroundColor = '#2ECC71'; // Green for Online
-                            } else if (status === 'away') {
-                                userStatus.style.backgroundColor = '#FFC107'; // Yellow for Away
-                            } else if (status === 'busy') {
-                                userStatus.style.backgroundColor = '#FF5722'; // Orange for Busy
-                            }
-                        }
-
-                        const changeStatusButtons = document.querySelectorAll('.change-status-btn');
-                        const changeStatusSection = document.querySelector('.change-status');
+                        const changeStatusToggleButton = document.querySelector('.change-status-btn');
                     
                         // Add click event listener to the toggle button
-                        changeStatusButtons.forEach(function(button) {
-                            button.addEventListener('click', function() {
-                                changeStatusSection.classList.toggle('visible');
-                            });
+                        changeStatusToggleButton.addEventListener('click', function() {
+                            changeStatusSection.classList.toggle('visible');
                         });
 
 
                         // ----------------------------------------------
                         // Select all toggle buttons from room list
                         // ----------------------------------------------
-
-
-                        // Select all toggle buttons from room list
-                       
-                            // Select all toggle buttons
+                                        
                             const toggleButtons = document.querySelectorAll('.toggle-button');
                             const roomName = JSON.parse(document.getElementById('room-name').textContent);
                         
@@ -518,6 +461,10 @@
                                 });
                             });
         
+                        // ----------------------------------------------
+                        // Select all channel links and add click event
+                        // ----------------------------------------------
+
                             document.querySelectorAll('.channel-link').forEach(link => {
                                 link.addEventListener('click', function(e) {
                                     e.preventDefault(); // Prevent default link action
@@ -528,13 +475,15 @@
                             });
                        
                 
+                        // ----------------------------------------------
+                        //Socket connection for chat messages 
+                        // ----------------------------------------------
 
-                     
-
-
+                        
                         //const customuser_id = {{ customuser_id }};
-                        const messages = JSON.parse('{{ messages_json|escapejs }}');
                         //const roomName = JSON.parse(document.getElementById('room-name').textContent);
+                        
+                        const messages = JSON.parse('{{ messages_json|escapejs }}');
                         const chatSocket = new WebSocket(
                             'ws://'
                             + window.location.host
@@ -543,15 +492,16 @@
                             + '/'
                         );
                         
-                        // ----------------------------------------------
-                        // displayOldMessages()
-                        // ----------------------------------------------
+
+                        // --------------------------------------------------
+                        // displayOldMessages function - Display old messages
+                        // --------------------------------------------------
                         
                         
                         function displayOldMessages(messages) {
                             const chatLog = document.querySelector('#chatBox');
                             chatLog.innerHTML = ''; // Clear existing messages
-                        
+                            const timestamp = new Date().toLocaleTimeString();
                             if (Array.isArray(messages) && messages.length > 0) {
                                 messages.forEach(message => {
                                     let fileContent = '';
@@ -608,25 +558,72 @@
                         
                         displayOldMessages(messages);
 
+                        //----------------------------------------------
+                        // Function to handle displaying messages
+                        //----------------------------------------------
 
+
+                        function displayMessage(data, chatLogId = '#chatBox') {
+                            const chatLog = document.querySelector(chatLogId);
+                            const messageElement = document.createElement('div');
+                            messageElement.classList.add('chat-message');
+
+                            // Format timestamp and handle optional data like file
+                            const timestamp = new Date().toLocaleTimeString();
+                            const fileContent = data.file ? `<img src="${data.file}" alt="Uploaded image" style="max-width: 200px;">` : '';
+
+                            messageElement.innerHTML = `
+                            <div class="message-header">
+                                <div class="user-pic">
+                                    <img src="${data.pfp || '/default-user.png'}" alt="user-pic">
+                                </div>
+                            </div>
+                            <div class="message-content">
+                                <div class="user-info">
+                                    <span class="user-name">${data.username}</span>
+                                    <span class="message-date">${timestamp}</span>
+                                </div>
+                                <div class="message-text">${data.message}</div>
+                                ${fileContent}
+                            </div>
+                        `;;
+                            chatLog.appendChild(messageElement);
+                            chatLog.scrollTop = chatLog.scrollHeight;
+                        }
 
 
                         // ----------------------------------------------
-                        // sendMesaage()
+                        // Listener for file changes to preview the image
                         // ----------------------------------------------
+                        document.querySelector('#chat-file-input').addEventListener('change', function() {
+                            const filePreview = document.querySelector('#file-preview');
+                            const fileContainer = document.querySelector('#file-preview-container');
+                            if (this.files.length > 0) {
+                                const reader = new FileReader();
+                                reader.onload = function(evt) {
+                                    console.log("File ready for preview: ", evt.target.result.substring(0, 100)); // log part of the file data
+                                    filePreview.src = evt.target.result;
+                                    fileContainer.style.display = 'block';  // Show preview
+                                };
+                                reader.onerror = function(err) {
+                                    console.error("Error reading file: ", err);
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                            } else {
+                                fileContainer.style.display = 'none';  // Hide preview if no file
+                            }
+                        });
+                        
+                        //----------------------------------------------
+                        // Message sending logic, ensures text and file are handled  (Error)
+                        //----------------------------------------------
 
-                  
-                        // Assuming chatSocket is already defined and connected elsewhere in your script
                         document.querySelector('.chat-message-submit').addEventListener('click', function() {
                             const messageInput = document.querySelector('.chat-message-input');
                             const fileInput = document.querySelector('#chat-file-input');
-
-                            const message = messageInput.value.trim();  // Get message text
-                            if (!message && !fileInput.files.length) {
-                                return;  // Don't send empty messages or no file
-                            }
-
+                            const message = messageInput.value.trim();
                             const file = fileInput.files[0];
+
                             if (file) {
                                 const reader = new FileReader();
                                 reader.onload = function(evt) {
@@ -636,87 +633,58 @@
                                         filename: file.name
                                     });
                                     messageInput.value = '';  // Clear input after sending
-                                    fileInput.value = '';  // Clear file input
+                                    fileInput.value = '';     // Clear file input
                                 };
                                 reader.readAsDataURL(file);
-                            } else {
+                            } else if (message) {
                                 sendToServer({ message: message });
-                               messageInput.value = '';  // Clear input after sending
-                                console.log('Message sent walid:', message);
+                                messageInput.value = '';  // Clear input after sending
                             }
                         });
 
-                        function sendToServer(data) {
-                            chatSocket.send(JSON.stringify(data));
-                            
-                        }
+                        //----------------------------------------------
+                        // Function to send data to the WebSocket
+                        //----------------------------------------------
 
-                        document.querySelector('#chat-file-input').addEventListener('change', function() {
-                            const filePreview = document.querySelector('#file-preview');
-                            const fileContainer = document.querySelector('#file-preview-container');
-                            if (this.files.length > 0) {
-                                const reader = new FileReader();
-                                reader.onload = function(evt) {
-                                    filePreview.src = evt.target.result;
-                                    fileContainer.style.display = 'block';  // Show preview
-                                };
-                                reader.readAsDataURL(this.files[0]);
-                            } else {
-                                fileContainer.style.display = 'none';  // Hide preview if no file
+                        function sendToServer(data) {
+                            console.log("Attempting to send data to WebSocket: ", data);
+                            chatSocket.send(JSON.stringify(data));
+                        }
+                        
+                        //----------------------------------------------
+                        // On Enter key press, submit message
+                        //----------------------------------------------
+
+                        document.querySelector('.chat-message-input').addEventListener('keypress', function(e) {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                document.querySelector('.chat-message-submit').click();
                             }
                         });
                         
-
-                        // ----------------------------------------------
-                        // displayMessage()
-                        // ----------------------------------------------
-
-
+                        //----------------------------------------------
+                        //ChatSocket Event Listeners - onmessage, onerror, onopen, onclose
+                        //----------------------------------------------
+                        
                         chatSocket.onmessage = function(e) {
+                            console.log("Data received from WebSocket server: ", e.data);
                             const data = JSON.parse(e.data);
                             displayMessage(data);
                         };
-
-                        function displayMessage(data) {
-                            const chatLog = document.querySelector('#chatBox');
-                            const messageElement = document.createElement('div');
-                            messageElement.classList.add('chat-message');
                         
-                            // Extract message from data
-                            const message = data.message;  // Make sure this matches how the message is sent from the server
-                            const username = data.username;  // Access username directly from data
-                            const pfp = data.pfp;  // Access profile picture path directly from data
-                            const file = data.file;  // This might need similar adjustment if file info is also top-level
-                            const timestamp = new Date().toLocaleTimeString();  // Just for demonstration if not provided in the message
-                            const fileContent = file ? `<img src="/media/${file}" alt="Uploaded image" style="max-width: 200px;">` : '';
+                        chatSocket.onerror = function(event) {
+                            console.error("WebSocket error observed:", event);
+                        };
                         
-                            messageElement.innerHTML = `
-                                <div class="message-header">
-                                    <div class="user-pic">
-                                        <img src="${pfp}" alt="user-pic">
-                                    </div>
-                                </div>
-                                <div class="message-content">
-                                    <div class="user-info">
-                                        <span class="user-name">${username}</span>
-                                        <span class="message-date">${timestamp}</span>
-                                    </div>
-                                    <div class="message-text">${message}</div>  <!-- Now message is defined -->
-                                    <!-- ${fileContent} Display file content if available -->
-                                </div>
-                            `;
+                        chatSocket.onopen = function() {
+                            console.log("WebSocket connection established");
+                        };
                         
-                            // Append the rest of the message content
-                            chatLog.appendChild(messageElement);
-                            chatLog.scrollTop = chatLog.scrollHeight;  // Ensure the latest message is visible
-                        }
+                        chatSocket.onclose = function(event) {
+                            console.log("WebSocket connection closed", event);
+                        };
                         
-
-
-
-                        
-                        
-                        
+     
                         
 
 
