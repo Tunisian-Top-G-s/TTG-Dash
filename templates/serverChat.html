@@ -24,10 +24,17 @@
             <button class="toggle-chat-members-mobile" onclick="toggleMembersMobile()">
                 <i data-lucide="users"></i>
             </button>
+            
         </div>
             <!-- _____________________________________________________ -->
-
+           
+            
         <div class="chat-rooms">
+      
+            
+
+                <div class="toggle-left-bar">
+
             <div class="chat-rooms-header">
               
                 <a href="/courses" class="to-courses">
@@ -45,8 +52,7 @@
                     </span>
                 </a>
             </div>
-            <!-- _____________________________________________________ -->
-
+           
             <div class="text-channels">
                 {% for section in sections %}
                 
@@ -108,7 +114,7 @@
                     </ul>
                 </div> {% endcomment %}
             </div>
-            <!-- _____________________________________________________ -->
+           
             <div class="rooms-footer">
                 <div class="change-status hidden">
                     <div class="status online">
@@ -140,6 +146,7 @@
                     </button>
                 </div>
             </div>
+        </div>
             <!-- _____________________________________________________ -->
 
         </div>
@@ -150,21 +157,44 @@
             <!-- _____________________________________________________ -->
             <div class="chat-header">
                 <div class="chat-title">
+                    <button id="chatRoomsToggle" class="chat-toggle-btn">
+                        <svg id="icon-visible" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <svg id="icon-hidden" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off">
+                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                            <line x1="2" x2="22" y1="2" y2="22"/>
+                        </svg>
+                    </button>
                     <span class="chat-title-channel-group">
                         <i data-lucide="hash"></i>
                          Text Channel
                     </span>
-                    <span class="chat-title-room">
-                        <i data-lucide="chevron-right"></i>
-                        General
-                    </span>
+                    <span class="chat-title-room">🌠・{{room.name}}</span>
+
                 </div>
                 <div class="SearchMember-input">
                     <input type="text" id="userInput-search" placeholder="Search">
                     <button class="send-message">
                         <i data-lucide="send"></i>
                     </button>
+                    
                 </div>
+                <button id="toggleButton" data-visible="true">
+                    <svg id="icon-visible" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <svg id="icon-hidden" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off">
+                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                        <line x1="2" x2="22" y1="2" y2="22"/>
+                    </svg>
+                </button>
             </div>
             <!-- _____________________________________________________ -->
             <!-- _____________________________________________________ -->
@@ -294,20 +324,71 @@
                             </svg>
                         </label>
 
-                        <div id="file-preview-container" style="display:none;">
+                        <div id="file-preview-container" style="display:none;
+                            position: absolute;
+    top: 62vh;
+    left: 5vh;">
                             <img id="file-preview" src="" alt="Preview" style="max-width: 200px;">
                         </div>
                         
                         <!-- _____________________________________________________ -->            
                         <!-- Textarea for typing messages -->
-                        <textarea class="chat-message-input" type="text" id="userInput" placeholder="Message # 💭・Badges Room "></textarea>
+
+                        <!-- Old textarea -->
+                        <div class="selected-gifs-container" style="    
+                        height: 100px;
+                       
+                        white-space: nowrap;
+                        display: flex;
+                        justify-content: center;"></div>
+                        <textarea class="chat-message-input" id="userInput" placeholder="Message # 💭・Badges Room "></textarea>
+
+
+                        <!-- New contenteditable div -->
+                        <!-- <div class="chat-message-input" contenteditable="true" id="userInput" placeholder="Message # 💭・Badges Room " ></div> -->
+
                         <!-- _____________________________________________________ -->
 
                     <div class="buttons-group">
                         <!-- Button for emoji picker -->
-                        <button class="emoji-button" onclick="toggleEmojiPicker()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7142857142857142" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                        <div class="align-emojis">
+                        <button  class="emoji-button" onclick="toggleEmojiPicker()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7142857142857142" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" x2="9.01" y1="9" y2="9"/>
+                                <line x1="15" x2="15.01" y1="9" y2="9"/>
+                            </svg>
                         </button>
+                        <div id="emoji-picker" style="
+                        display:none; 
+                        position: absolute;
+                        bottom: 50px;
+                        left: -63vh;
+                        width: 72vh;
+                        justify-content: center;
+                        align-items: center;
+                        transition: all 0.5s ease-in-out 0s;
+                        animation: 0s linear 0.5s 1 normal forwards running appear;
+                        transform: translateY(-20px);
+                        -webkit-animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	                    animation: slide-in-blurred-top 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+                        "
+                        >
+
+                            
+                        </div>
+                    </div>
+                        <!-- Button to toggle the GIF picker -->
+                        <button id="toggleGifPicker" class="gif-picker-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-play"><path d="m11 16-5 5"/><path d="M11 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6.5"/><path d="M15.765 22a.5.5 0 0 1-.765-.424V13.38a.5.5 0 0 1 .765-.424l5.878 3.674a1 1 0 0 1 0 1.696z"/><circle cx="9" cy="9" r="2"/></svg>
+                        </button>
+
+                        <!-- Container for GIF picker -->
+                        <div id="gif-picker" class="gif-picker" style="display:none;">
+                           
+                        </div>
+
                         <!-- Button to submit message -->
                         <button class="chat-message-submit" class="send-message">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.7142857142857142" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
@@ -317,7 +398,6 @@
                     <!-- Emoji picker -->
                     <!-- _____________________________________________________ -->  
 
-                    <div class="emoji-picker" id="emojiPicker"></div>
 
                 </div>
                 <!-- _____________________________________________________ -->      
@@ -325,7 +405,13 @@
         </div>
 
         <!-- _____________________________________________________ -->
+        
+       
+       
         <div class="chat-members">
+            
+            <div class="toggle-member">
+
             <div class="chat-members-header">
                 <i data-lucide="x" class="close-toggle"></i>
                 <div>
@@ -334,10 +420,11 @@
                 </div>
                 <span class="Members-counter">{{online_members.count}} online members</span>
             </div>
-            <div class="chat-members-body">
-               
-                <div class="memebers-list">
             <!-- _____________________________________________________ -->
+            <div class="chat-members-body">
+                
+
+                <div class="memebers-list">
 
                     {% for badge in all_badges %}
                         <div class="members-titel">
@@ -359,6 +446,8 @@
                                         <li class="user">
                                             <div class="user-pic">
                                                 <img src="{{member.pfp.url}}" alt="user-pic">
+                                                <span class="user-status-offline"></span>
+                                                
                                             </div>                                
                                             <span class="user-name">{{member.user.username}}</span>
                                         </li>
@@ -366,11 +455,13 @@
                                 {% endfor %}
                         </ul>
                     {% endfor %}
-            <!-- _____________________________________________________ -->
-
+                    
                 </div>
             </div>
         </div>
+            <!-- _____________________________________________________ -->
+        </div>
+
             <!-- _____________________________________________________ -->
 
     </div>
@@ -387,8 +478,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
-
-
                         const changeStatusButtons = document.querySelectorAll('.change-status .status');
                         const userProfile = document.querySelector('.user-profile');
                         const changeStatusSection = document.querySelector('.change-status');
@@ -469,20 +558,39 @@
                                 link.addEventListener('click', function(e) {
                                     e.preventDefault(); // Prevent default link action
                                     const roomName = this.getAttribute('data-room');
+                                    const roomNameDisplay = document.querySelector('.chat-title-room');
                                     window.location.pathname = '/server-chat/' + roomName + '/';
+                                    //console.log('Room clicked:', roomName);
+                                    
                                     //updateChatMessages(roomName);
                                 });
                             });
                        
-                
+                            // const channelLinks = document.querySelectorAll('.channel-link');
+                        // console.log('Channel links found:', channelLinks.length); // Debugging output
+
+                        // channelLinks.forEach(link => {
+                        //     link.addEventListener('click', function(e) {
+                        //       //e.preventDefault(); // Stop the link from causing a page reload
+                        //         const roomName = this.getAttribute('data-room');
+                        //         console.log('Room clicked:', roomName); // This should show the room name in the console
+
+                        //         // Find the room name display element and update it
+                        //         const roomNameDisplay = document.querySelector('.chat-title-room');
+                        //         if (roomNameDisplay) {
+                        //             roomNameDisplay.textContent = `🌠・${roomName}`; // Update the display
+                        //         } else {
+                        //             console.log('Failed to find the room name display element.');
+                        //         }
+                        //     });
+                        // });
+                       
                         // ----------------------------------------------
                         //Socket connection for chat messages 
                         // ----------------------------------------------
 
-                        
                         //const customuser_id = {{ customuser_id }};
                         //const roomName = JSON.parse(document.getElementById('room-name').textContent);
-                        
                         const messages = JSON.parse('{{ messages_json|escapejs }}');
                         const chatSocket = new WebSocket(
                             'ws://'
@@ -496,12 +604,12 @@
                         // --------------------------------------------------
                         // displayOldMessages function - Display old messages
                         // --------------------------------------------------
-                        
-                        
                         function displayOldMessages(messages) {
                             const chatLog = document.querySelector('#chatBox');
                             chatLog.innerHTML = ''; // Clear existing messages
+                            
                             const timestamp = new Date().toLocaleTimeString();
+                            
                             if (Array.isArray(messages) && messages.length > 0) {
                                 messages.forEach(message => {
                                     let fileContent = '';
@@ -532,8 +640,10 @@
                                             </div>
                                             <div class="reactions-box">
                                                 <div class="react">
-                                                    <div class="emoji"><!-- SVG or Emoji --></div>
-                                                    <div class="count">5</div> <!-- Static reaction count -->
+                                                    <div class="emoji">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                                    </div>
+                                                    <div class="count">0</div> <!-- Static reaction count -->
                                                 </div>
                                             </div>
                                         </div>
@@ -562,136 +672,337 @@
                         // Function to handle displaying messages
                         //----------------------------------------------
 
-
-                        function displayMessage(data, chatLogId = '#chatBox') {
-                            const chatLog = document.querySelector(chatLogId);
+                        function displayMessage(data) {
+                            const chatLog = document.querySelector('#chatBox');
                             const messageElement = document.createElement('div');
                             messageElement.classList.add('chat-message');
-
-                            // Format timestamp and handle optional data like file
+                        
                             const timestamp = new Date().toLocaleTimeString();
-                            const fileContent = data.file ? `<img src="${data.file}" alt="Uploaded image" style="max-width: 200px;">` : '';
-
+                            let content = data.message || '';
+                        
+                            // Check and embed YouTube videos or make URLs clickable
+                            content = linkify(content);
+                        
+                            const fileContent = data.file ? `<img src="${data.file}" alt="Uploaded file" style="max-width: 200px;">` : '';
+                            const gifContent = data.gif ? `<img src="${data.gif}" alt="GIF" style="max-width: 200px;">` : '';
+                        
                             messageElement.innerHTML = `
-                            <div class="message-header">
-                                <div class="user-pic">
-                                    <img src="${data.pfp || '/default-user.png'}" alt="user-pic">
+                                <div class="message-header">
+                                    <div class="user-pic">
+                                        <img src="${data.pfp || '/default-user.png'}" alt="user-pic">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="message-content">
-                                <div class="user-info">
-                                    <span class="user-name">${data.username}</span>
-                                    <span class="message-date">${timestamp}</span>
+                                <div class="message-content">
+                                    <div class="user-info">
+                                        <span class="user-name">${data.username}</span>
+                                        <span class="message-date">${timestamp}</span>
+                                    </div>
+                                    <div class="message-text">${content}</div>
+                                    ${fileContent}
+                                    ${gifContent}
                                 </div>
-                                <div class="message-text">${data.message}</div>
-                                ${fileContent}
-                            </div>
-                        `;;
+                            `;
                             chatLog.appendChild(messageElement);
                             chatLog.scrollTop = chatLog.scrollHeight;
                         }
-
-
-                        // ----------------------------------------------
-                        // Listener for file changes to preview the image
-                        // ----------------------------------------------
-                        document.querySelector('#chat-file-input').addEventListener('change', function() {
-                            const filePreview = document.querySelector('#file-preview');
-                            const fileContainer = document.querySelector('#file-preview-container');
-                            if (this.files.length > 0) {
-                                const reader = new FileReader();
-                                reader.onload = function(evt) {
-                                    console.log("File ready for preview: ", evt.target.result.substring(0, 100)); // log part of the file data
-                                    filePreview.src = evt.target.result;
-                                    fileContainer.style.display = 'block';  // Show preview
-                                };
-                                reader.onerror = function(err) {
-                                    console.error("Error reading file: ", err);
-                                };
-                                reader.readAsDataURL(this.files[0]);
-                            } else {
-                                fileContainer.style.display = 'none';  // Hide preview if no file
-                            }
-                        });
                         
-                        //----------------------------------------------
-                        // Message sending logic, ensures text and file are handled  (Error)
-                        //----------------------------------------------
+                        
 
+                            //----------------------------------------------
+                            // Listener for changes to the file input
+                            //----------------------------------------------
+                            document.querySelector('#chat-file-input').addEventListener('change', function() {
+                                const filePreview = document.querySelector('#file-preview');
+                                const fileContainer = document.querySelector('#file-preview-container');
+                                if (this.files.length > 0) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(evt) {
+                                        filePreview.src = evt.target.result;
+                                        fileContainer.style.display = 'block';
+                                    };
+                                    reader.readAsDataURL(this.files[0]);
+                                } else {
+                                    fileContainer.style.display = 'none';
+                                }
+                            });
+                                
+                       
+
+                        //----------------------------------------------
+                        // Event listener for the send button
+                        //----------------------------------------------
                         document.querySelector('.chat-message-submit').addEventListener('click', function() {
                             const messageInput = document.querySelector('.chat-message-input');
                             const fileInput = document.querySelector('#chat-file-input');
+                            const gifs = document.querySelectorAll('.selected-gifs-container img');
                             const message = messageInput.value.trim();
                             const file = fileInput.files[0];
-
+                            const gifUrls = Array.from(gifs).map(img => img.src);
+                        
+                            console.log('Username:', username); // Ensure username is logged correctly
+                            if (!message && gifUrls.length === 0 && !file) {
+                                console.error('No message, GIF, or file selected.');
+                                return;
+                            }
+                        
                             if (file) {
                                 const reader = new FileReader();
                                 reader.onload = function(evt) {
+                                    console.log('File ready for sending:', evt.target.result);
                                     sendToServer({
+                                        username: username,
                                         message: message,
-                                        file: evt.target.result,  // Base64 encoded file
-                                        filename: file.name
+                                        file: evt.target.result,
+                                        filename: file.name,
+                                        gif: gifUrls.length > 0 ? gifUrls[0] : null
                                     });
-                                    messageInput.value = '';  // Clear input after sending
-                                    fileInput.value = '';     // Clear file input
+                                    clearInputs();
+                                };
+                                reader.onerror = function(error) {
+                                    console.error('Error reading file:', error);
                                 };
                                 reader.readAsDataURL(file);
-                            } else if (message) {
-                                sendToServer({ message: message });
-                                messageInput.value = '';  // Clear input after sending
+                            } else {
+                                sendToServer({
+                                    username: username,
+                                    message: message,
+                                    gif: gifUrls.length > 0 ? gifUrls[0] : null
+                                });
+                                clearInputs();
                             }
                         });
+                        
 
+                        //----------------------------------------------
+                        // Function to clear the chat message input and file input
+                        //----------------------------------------------
+                            function clearInputs() {
+                                document.querySelector('.chat-message-input').value = '';
+                                document.querySelector('#chat-file-input').value = '';
+                                document.querySelector('.selected-gifs-container').innerHTML = '';
+                            }
+                        
                         //----------------------------------------------
                         // Function to send data to the WebSocket
                         //----------------------------------------------
-
                         function sendToServer(data) {
                             console.log("Attempting to send data to WebSocket: ", data);
                             chatSocket.send(JSON.stringify(data));
                         }
-                        
+
                         //----------------------------------------------
                         // On Enter key press, submit message
                         //----------------------------------------------
-
                         document.querySelector('.chat-message-input').addEventListener('keypress', function(e) {
                             if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();
                                 document.querySelector('.chat-message-submit').click();
                             }
                         });
-                        
+
                         //----------------------------------------------
                         //ChatSocket Event Listeners - onmessage, onerror, onopen, onclose
                         //----------------------------------------------
-                        
-                        chatSocket.onmessage = function(e) {
-                            console.log("Data received from WebSocket server: ", e.data);
-                            const data = JSON.parse(e.data);
-                            displayMessage(data);
-                        };
-                        
-                        chatSocket.onerror = function(event) {
-                            console.error("WebSocket error observed:", event);
-                        };
-                        
-                        chatSocket.onopen = function() {
-                            console.log("WebSocket connection established");
-                        };
-                        
-                        chatSocket.onclose = function(event) {
-                            console.log("WebSocket connection closed", event);
-                        };
+                            chatSocket.onmessage = function(e) {
+                                const data = JSON.parse(e.data);
+                                displayMessage(data);
+                            };
+
+                            chatSocket.onerror = function(error) {
+                                console.error("WebSocket error:", error);
+                            };
+
+                            chatSocket.onopen = function() {
+                                console.log("Connected to WebSocket server.");
+                            };
+
+                            chatSocket.onclose = function(e) {
+                                console.log("WebSocket connection closed", e);
+                            };
                         
      
+                     
+                        //----------------------------------------------
+                        // Function to Right bar toggle
+                        //----------------------------------------------
+                        document.getElementById('toggleButton').addEventListener('click', function() {
+                            const chatMembers = document.querySelector('.chat-members');
+                            const iconVisible = document.getElementById('icon-visible');
+                            const iconHidden = document.getElementById('icon-hidden');
+                            const isVisible = this.getAttribute('data-visible') === 'true';
+                        
+                            if (isVisible) {
+                                chatMembers.classList.add('hidden');
+                                iconVisible.style.display = 'none';
+                                iconHidden.style.display = 'block';
+                                this.setAttribute('data-visible', 'false');
+                            } else {
+                                chatMembers.classList.remove('hidden');
+                                iconVisible.style.display = 'block';
+                                iconHidden.style.display = 'none';
+                                this.setAttribute('data-visible', 'true');
+                            }
+                        });
+                        
+                        
+                        //----------------------------------------------
+                        // Function to toggle chat rooms
+                        //----------------------------------------------
+                        document.getElementById('chatRoomsToggle').addEventListener('click', function() {
+                            const chatRooms = document.querySelector('.chat-rooms');
+                            const iconVisible = document.getElementById('icon-visible');
+                            const iconHidden = document.getElementById('icon-hidden');
+                            
+                            chatRooms.classList.toggle('collapsed');
+                            
+                            if (chatRooms.classList.contains('collapsed')) {
+                                iconVisible.style.display = 'none';
+                                iconHidden.style.display = 'block';
+                            } else {
+                                iconVisible.style.display = 'block';
+                                iconHidden.style.display = 'none';
+                            }
+                        });
                         
 
+                             //----------------------------------------------
+
+                           // Function to make links clickable and embed YouTube videos
+                        function linkify(inputText) {
+                            var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+                            //URLs starting with http://, https://, or ftp://
+                            replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+                            replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+                            //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+                            replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+                            replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+                            //Change email addresses to mailto:: links.
+                            replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+                            replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+                            // Embed YouTube videos
+                            const youtubePattern = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/g;
+                            replacedText = replacedText.replace(youtubePattern, '<iframe width="560" height="315" src="https://www.youtube.com/embed/$1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+
+                            return replacedText;
+}
+                        
+                        var username = "{{ request.user.username }}";  // Ensure the user is authenticated to access username
+                        console.log('Username:', username); // Debugging output
 
         });
         
     </script>
 
+    
+    <script>
+          // Ensure the room links and display element are selected correctly
+          const roomLinks = document.querySelectorAll('.channel-link');
+          const roomNameDisplay = document.querySelector('.chat-title-room');
+
+         // console.log('Room links found:', roomLinks.length); // Debugging output
+         // console.log('Room name display element:', roomNameDisplay); // Debugging output
+
+          roomLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default link action
+               // console.log('Room link clicked'); // Check if this logs when you click a room link
+                const roomName = this.getAttribute('data-room');
+               // console.log('Room clicked:', roomName); // This should show the room name in the console
+                roomNameDisplay.textContent = '🌠・' + roomName; // Update the room name display
+            });
+        });
+        
+
+
+        function toggleEmojiPicker() {
+            var picker = document.getElementById('emoji-picker');
+            picker.style.display = picker.style.display === 'flex' ? 'none' : 'flex';
+            if (picker.style.display === 'flex') {
+                loadEmojis(); // Ensure this is called to populate the picker
+            }
+        }
+        
+        
+        function loadEmojis() {
+            var picker = document.getElementById('emoji-picker');
+            picker.innerHTML = ''; // Clear previous emojis if any
+            // Define emojis
+            var emojis = ['😀', '😂', '🤬', '😊', '😍', '💩', '👍', '📈', '📉', '🚀', '💸', '✅', '👻', '💰', '🌍', '❤️', '🎉', '🎂'];
+            emojis.forEach(function(emoji) {
+                var span = document.createElement('span');
+                span.textContent = emoji;
+                span.className = 'emoji-span';  // Set the class name for the span
+                span.onclick = function() { insertEmoji(emoji); };
+                picker.appendChild(span);
+            });
+        }
+        
+        
+        
+        function insertEmoji(emoji) {
+            // Adjust selector to target the textarea for chat messages
+            var input = document.querySelector('.chat-message-input'); // Assuming this is the class for your chat message textarea
+            input.value += emoji; // Append emoji to the textarea content
+            input.focus(); // Optionally set focus back to the textarea
+            // Uncomment the next line if you want to send the message immediately after inserting an emoji
+          // document.querySelector('.chat-message-submit').click();
+        }
+        
+
+        
+
+        document.getElementById('toggleGifPicker').addEventListener('click', function() {
+            var picker = document.getElementById('gif-picker');
+            picker.style.display = picker.style.display === 'block' ? 'none' : 'block';
+            if (picker.style.display === 'block') {
+                loadGifs(); // Load GIFs when the picker is displayed
+            }
+        });
+        
+        function loadGifs() {
+            var apiKey = 'HnBk0eOngtbCc6S7u9Xt1vOXiaxf59VU';
+            var url = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=10`;
+        
+            fetch(url)
+                .then(response => response.json())
+                .then(content => {
+                    var picker = document.getElementById('gif-picker');
+                    picker.innerHTML = ''; // Clear existing GIFs if any
+                    content.data.forEach((gif) => {
+                        var img = document.createElement('img');
+                        img.src = gif.images.fixed_height.url;
+                        img.style.width = '100%';
+                        img.onclick = () => insertGif(gif.images.fixed_height.url);
+                        picker.appendChild(img);
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching trending GIFs:', err);
+                });
+        }
+        
+        function insertGif(gifUrl) {
+            var displayContainer = document.querySelector('.selected-gifs-container');
+            var img = document.createElement('img');
+            img.src = gifUrl;
+            img.alt = "Selected GIF";
+            img.style.maxWidth = "100px"; // Thumbnail size
+            img.style.marginRight = "5px";
+            displayContainer.appendChild(img);
+        
+            // Optional: Append the URL to the textarea for reference
+            // var input = document.getElementById('userInput');
+            // input.value += ` [GIF: ${gifUrl}] `; // This appends a reference, not the image itself
+        }
+        
+        
+        
+            
+    </script>
     <script type="text/javascript">
         var STATIC_URL = "{% static '' %}";
     </script>

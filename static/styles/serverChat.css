@@ -17,12 +17,57 @@
 }
 
 .chat-rooms {
-
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    overflow: hidden;
+    max-height: 100vh; /* Adjust based on your content's initial visible height */
+    opacity: 1;
 }
+
+/* Toggle show and hide  */
+.chat-rooms.collapsed {
+    max-height: 0; /* Collapse to no visible content */
+    opacity: 0; /* Fade out the content */
+    display: none;
+}
+
 
 .chat-members {
-
+    -webkit-animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    transition: opacity 0.5s, transform 0.5s;
+    opacity: 1;
+    transform: translateY(0px);
 }
+.chat-members.hidden {
+    opacity: 0;
+    transform: translateY(-20px); /* This creates a slight upward movement when hiding */
+    display: block !important; /* This overrides any 'display: none' inline styles during transition */
+    pointer-events: none; /* Prevents clicks during the transition */
+}
+/* Use this to keep the div from taking up space after the transition */
+.chat-members:not(.hidden) {
+    display: block;
+}
+.chat-members.hidden {
+    display: none !important; /* Enforce 'display: none' after a delay */
+    animation: disappear 0s linear 0.5s forwards;
+}
+
+@keyframes disappear {
+    to {
+        display: none;
+    }
+}
+@keyframes appear {
+    from {
+        opacity: 0;
+        display: block;  /* Make sure the element is displayed when the animation starts */
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 
 .chat-rooms,
 .chat-members {
@@ -214,6 +259,17 @@ button {
  transition: background-color 0.5s ease;
  border: 3px solid #1c153e;
 }
+.user-status-offline{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #939292e2;
+    transition: background-color 0.5s ease;
+    border: 4px solid #1c153e;
+}
 
 .user-container {
  display: flex;
@@ -261,27 +317,33 @@ button {
 }
 
 .change-status {
- display: flex;
- flex-direction: column;
- border: 0.5px solid var(--color-gray-10, #ffffff86);
- background: rgb(50 7 150 / 26%) 50% / cover no-repeat;
- box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
- backdrop-filter: blur(6px);
- padding: 5px;
- padding-left: 20px;
- border-top-left-radius: 15px;
- border-top-right-radius: 15px;
- overflow: hidden;
- transition: max-height 10s ease;
+    display: flex;
+    flex-direction: column;
+    border: 0.5px solid var(--color-gray-10, #ffffff86);
+    background: rgb(50 7 150 / 26%) 50% / cover no-repeat;
+    box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    padding: 5px;
+    padding-left: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    position: absolute;
+    bottom: 8vh;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    z-index: 100;
+    
 }
 
 .change-status > .status {
  display: flex;
  flex-direction: row;
- gap: 10px;
+ gap: 15px;
  align-items: center;
  padding: 5px;
- /* border-radius: 8px; */
+ border-radius: 8px;
 }
 
 .change-status > .status > .status-text {
@@ -290,27 +352,27 @@ button {
  font-style: normal;
  font-weight: 700;
  line-height: 28px;
- letter-spacing: -0.32px;
+
 }
 
 .change-status > .status > .status-online {
  width: 15px;
  height: 15px;
- /* border-radius: 50%; */
+ border-radius: 50%;
  background-color: #2ecc71;
 }
 
 .change-status > .status > .status-away {
  width: 15px;
  height: 15px;
- /* border-radius: 50%; */
+ border-radius: 50%;
  background-color: #FFA500;
 }
 
 .change-status > .status > .status-busy {
  width: 15px;
  height: 15px;
- /* border-radius: 50%; */
+ border-radius: 50%;
  background-color: #ff3318;
 }
 
@@ -337,6 +399,8 @@ button {
  display: grid;
  grid-template-rows: auto 1fr;
  height: 100%;
+ transition: 0.5s ease-in-out;
+ 
 }
 
 .chat-input {
@@ -350,6 +414,7 @@ button {
     align-items: center;
     justify-content: space-around;
     margin: 0px 0px 30px 0px;
+    height: 55px;
 }
 
 .chat-header {
@@ -519,7 +584,7 @@ button {
  scroll-behavior: smooth;
  display: flex;
  /* height: 105%; */
- height: 99%;
+ height: 96%;
  border-radius: 8px;
 }
 
@@ -673,6 +738,7 @@ button {
  width: 18px;
  height: 18px;
  font-size: small;
+ color: red;
 }
 
 .reactions-box > .react > .count {
@@ -757,73 +823,6 @@ button {
 
 .reply-input button.send-reply:hover {
  background-color: #0056b3;
-}
-
-.emoji-picker {
- display: none;
- position: absolute;
- bottom: 115%;
- right: 0;
- z-index: 1000;
- background-color: rgb(22 21 21);
- /* border-radius: 8px; */
- box-shadow: 0 2px 20px 0px rgb(0 0 0 / 41%);
- max-height: 200px;
- overflow-y: auto;
- width: 380px;
- scroll-behavior: smooth;
-}
-
-.emoji-picker::-webkit-scrollbar {
- width: 8px;
-}
-
-.emoji-picker::-webkit-scrollbar-thumb {
- background-color: rgba(0, 0, 0, 0.3);
- /* border-radius: 4px; */
-}
-
-.emoji-picker.show {
- display: block;
-}
-
-.emoji-picker button {
- display: inline-block;
- padding: 5px;
- font-size: 18px;
- cursor: pointer;
- background: none;
- /* border-radius: 8px; */
- border: none;
-}
-
-.emoji-picker button:hover {
- background-color: #00000069;
-}
-
-.emoji-picker button:focus {
- outline: none;
-}
-
-.emoji-button {
- background: none;
- border: none;
- cursor: pointer;
- display: flex;
- align-items: center;
- justify-content: center;
-}
-
-.emoji-button:focus {
- outline: none;
-}
-
-.emoji-button i {
- font-size: 24px;
- color: #555;
-}
-.emoji {
-
 }
 
 .reacts-available {
@@ -1022,7 +1021,7 @@ button {
 
 .memebers-list::-webkit-scrollbar-thumb {
  background-color: rgba(0, 0, 0, 0.3);
- /* border-radius: 4px; */
+ border-radius: 4px;
 }
 
 .reacts-available > span:hover {
@@ -1030,9 +1029,12 @@ button {
 }
 
 .users-list > li.user:hover {
- /* border-radius: 4px; */
+ border-radius: 4px;
  background: rgba(164, 92, 246, 0.32);
  padding: 5px 9px;
+ transition: 0.3s ease-in-out;
+ cursor: pointer;
+
 }
 
 .message-content > .message-text {
@@ -1217,3 +1219,212 @@ button {
     transform: scale(1.04); /* Slightly larger scale on hover/click */
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Shadow effect for depth */
 }
+
+.emoji-button{
+    cursor: pointer;
+}
+.emoji-button:active > svg{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.align-emojis{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    /* padding: 10px; */
+    justify-content: center;
+    position: relative;
+}
+
+#emoji-picker {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    border: 0.5px solid var(--color-gray-10, #ffffff62);
+    background: rgb(0 0 0 / 26%) 50% / cover no-repeat;
+    border-radius: 10px;
+    padding: 10px;
+    width: 275px;
+    height: auto;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    overflow-y: unset;
+    overflow-x: hidden;    
+}
+
+.emoji-span{
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    transition: 0.4s ease-in-out;
+    -webkit-animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.emoji-span:hover{
+    background: #00000069;
+    border-radius: 10px;
+    transition: 0.4s ease-in-out;
+
+}
+
+.emoji-span:active{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.gif-picker-button{
+    cursor: pointer;
+}
+
+.gif-picker-button:active{
+    background: #6e0ca669;
+    border-radius: 10px;
+    transition: 0.4s ease-in-out;
+}
+
+.gif-picker {
+    -webkit-animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    cursor: pointer;
+    position: absolute;
+    right: 1vh;
+    top: 56vh;
+    width: 260px;
+    height: 260px;
+    overflow-y: scroll;
+    background: white;
+    border-radius: 10px;
+    display: none;
+}
+.gif-picker >img{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 60px;
+    height: 122px;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+
+}
+
+.chat-message-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+
+}
+.chat-message-input:focus {
+    border-color: blue;
+}
+
+.file-preview-container{
+    position: absolute;
+    bottom: 10vh;
+    right: 10vh;
+}
+.file-preview{
+    position: absolute;
+    bottom: 10vh;
+    right: 10vh;
+}
+
+ @-webkit-keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+  }
+  
+
+@-webkit-keyframes slide-in-blurred-top {
+    0% {
+      -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+              transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+      -webkit-transform-origin: 50% 0%;
+              transform-origin: 50% 0%;
+      -webkit-filter: blur(40px);
+              filter: blur(40px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+              transform: translateY(0) scaleY(1) scaleX(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+      -webkit-filter: blur(0);
+              filter: blur(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-blurred-top {
+    0% {
+      -webkit-transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+              transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+      -webkit-transform-origin: 50% 0%;
+              transform-origin: 50% 0%;
+      -webkit-filter: blur(40px);
+              filter: blur(40px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+              transform: translateY(0) scaleY(1) scaleX(1);
+      -webkit-transform-origin: 50% 50%;
+              transform-origin: 50% 50%;
+      -webkit-filter: blur(0);
+              filter: blur(0);
+      opacity: 1;
+    }
+  }
+
+
+ @-webkit-keyframes fade-in-right {
+    0% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fade-in-right {
+    0% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
