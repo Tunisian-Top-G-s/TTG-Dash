@@ -64,6 +64,7 @@ urlpatterns = [
     path('getTransactions/', views.getTransactions, name="getTransaction"),
     path('getRanking/', views.getRanking, name="getRanking"),
     path('getTopUser/', views.getTopUser, name="getTopUser"),
+    path('getPoints/', views.getPoints, name="getPoints"),
     path('logout/', views.logout_view, name='logout'),
     path('', views.landingView, name="landing"),
 
@@ -109,7 +110,7 @@ urlpatterns = [
 
     path('getbtc/', views.get_btc_price, name='btc'),
     path('geteth/', views.get_eth_price, name='eth'),
-    path('getltc/', views.get_ltc_price, name='ltc'),
+    path('getsol/', views.get_sol_price, name='sol'),
 
 
     path('buy-course/', views.buyCourseView, name='buy-course'),

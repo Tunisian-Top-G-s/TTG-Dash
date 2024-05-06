@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "styles/home copy.css" %}">
+<link rel="stylesheet" href="{% static "styles/home.css" %}">
 {% block title %}<title>Home | Tunisian Top Gs</title>{% endblock title %}
 {% endblock head %}
 
@@ -89,11 +89,11 @@
         <div class="container-points">
 
             <div class="progress-bar">
-              <div class="progress-bar-inner" style="width: 0%;"></div>
+              <div class="progress-bar-inner points"></div>
             </div>
             <div class="point-calc">
                 <span class="Goal-levels">GOAL: LVL 3</span>
-                <span class="points-counter">{{user.customuser.points}} / {{next_points_goal}}</span>
+                <span class="points-counter points">{{user.customuser.points}} / {{next_points_goal}}</span>
             </div>
 
         </div>
@@ -336,7 +336,7 @@
 
     <div class="middle-bottom">
       <div class="youtube-player">
-        {% comment %} <iframe  src="https://www.youtube.com/embed/Bx1QWdsLNQk?si=w0T-xSDOdLHX7fNR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> {% endcomment %}
+        <iframe  src="https://www.youtube.com/embed/{{video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -400,7 +400,8 @@
           src: "{{ podcast.mp3.url }}",
           name: "{{ podcast.name }}",
           description: "{{ podcast.description }}",
-          image: "{{ podcast.image.url }}"
+          image: "{{ podcast.image.url }}",
+          banner: "{{ podcast.banner }}"
       },
   {% endfor %}
   ];

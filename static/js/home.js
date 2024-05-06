@@ -1,26 +1,50 @@
 
 points_counter = document.querySelector(".points-counter")
-courseProgressionCounter = document.querySelector(".progress-percent");
-courseProgressionSlider = document.querySelector(".progress-bar-inner");
-ajaxRequest('POST', "/course-progress/", null, function(response) {points_counter.innerText = response.course_progression;courseProgressionCounter.innerText = response.course_progression + "%";courseProgressionSlider.style.width = response.course_progression}, function(response) {const errorMessageDiv = document.getElementById("errorMessage");errorMessageDiv.textContent = "An error occurred while processing your request.";}, true, "Fetch course pgroggress")
+courseProgressionCounter = document.querySelector(".points-counter.points");
+courseProgressionSlider = document.querySelector(".progress-bar-inner.points");
+ajaxRequest('POST', "/getPoints/", null, function(response) {
+    courseProgressionCounter.innerText = response.points + "/" + response.goal;
+    courseProgressionSlider.style.width = "20%";
+}, function(response) {
+    const errorMessageDiv = document.getElementById("errorMessage");
+    errorMessageDiv.textContent = "An error occurred while processing your request.";
+}, true, "Fetch course progress", null);
 
 
 var lossesPercentageBtcElement = document.querySelectorAll('.btc-percentage');
 var lossesPercentageEthElement = document.querySelectorAll('.eth-percentage');
-var lossesPercentageEthElement = document.querySelectorAll('.eth-percentage');
+var lossesPercentageSolElement = document.querySelectorAll('.sol-percentage');
+var lossesPercentageAvaxElement = document.querySelectorAll('.avax-percentage');
 
 var lossesBtcElement = document.querySelectorAll('.btc-price');
 var lossesEthElement = document.querySelectorAll('.eth-price');
+var lossesSolElement = document.querySelectorAll('.sol-price');
+var lossesAvaxElement = document.querySelectorAll('.avax-price');
 
-ajaxRequest('GET', '/getDashboard/', null, function(response){
+console.log("kyrix/zend: load crypto animation while fetching the data from backend");
+function loadCryptoStats() {
+
+}
+
+
+console.log('kyrix/zend: move-down-right if crypto change is (-) and move-up-right if change is (+)')
+ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
         var btc = response["dashboard"].btc;
         var eth = response["dashboard"].eth;
+        var sol = response["dashboard"].sol;
+        var avax = response["dashboard"].avax;
 
         lossesPercentageBtcElement.forEach(function(element) {
-          element.textContent = '%' + btc[1].toFixed(2);
+          element.textContent = btc[1].toFixed(2) + "%";
         });
         lossesPercentageEthElement.forEach(function(element) {
-          element.textContent = '%' + eth[1].toFixed(2);
+          element.textContent = eth[1].toFixed(2) + "%";
+        });
+        lossesPercentageSolElement.forEach(function(element) {
+          element.textContent = sol[1].toFixed(2) + "%";
+        });
+        lossesPercentageAvaxElement.forEach(function(element) {
+          element.textContent = avax[1].toFixed(2) + "%";
         });
 
         lossesBtcElement.forEach(function(element) {
@@ -29,8 +53,14 @@ ajaxRequest('GET', '/getDashboard/', null, function(response){
         lossesEthElement.forEach(function(element) {
           element.textContent = '$' + eth[0];
         });
+        lossesSolElement.forEach(function(element) {
+          element.textContent = '$' + sol[0];
+        });
+        lossesAvaxElement.forEach(function(element) {
+          element.textContent = '$' + avax[0];
+        });
     }
-    , null, true, "Update Crypto stats")
+    , null, true, "Update Crypto stats", loadCryptoStats)
 
 
 // Event listener for the rating icons
@@ -99,7 +129,7 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
                 // Trigger animation after setting innerHTML
                 document.querySelector('.thank-you-message').classList.add('slide-in');
             }
-        }, null, true, "Feedback submit")
+        }, null, true, "Feedback submit", null)
     }
     else {
         console.log("kyrix/zend: 9ol ll user 'select an option w raj3o ye5tar option ml options'");
@@ -118,6 +148,7 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
 
 
 // Call the function to fetch course progress when the document is ready
+console.log('kyrix/zend: wa9tlli tenzel claim now w tjik claimed el button kbir yesser');
 $(document).ready(function() {
     changeCourseProgress();  // Ensure this function is defined and working properly
 
@@ -148,7 +179,7 @@ $(document).ready(function() {
             popupSpan.textContent = "An error occurred while processing your request.";
             popupImage.src = "{% static 'assets/error-icon.svg' %}";
             popupMessage.style.display = 'block';
-        }, true, "Claim daily points")
+        }, true, "Claim daily points", null)
     });
 
     /* Close pop up after 5 seconds */
@@ -170,7 +201,7 @@ function changeCourseProgress() {
         ajaxRequest('POST', "/course_progress/", {course_id: courseId}, function(response) {
             progressBar.style.width = `${response.course_progression}%`;
             progressPercent.innerText = `${response.course_progression}%`;
-        }, null, true, "Fetch Course Progression")
+        }, null, true, "Fetch Course Progression", null)
 
     });
 }
@@ -185,7 +216,7 @@ const audio = new Audio();
 function loadTrack(index) {
     audio.src = tracks[index].src;
     audio.load();
-    updateTrackInfo(tracks[index].name, tracks[index].image, tracks[index].description);
+    updateTrackInfo(tracks[index].name, tracks[index].image, tracks[index].description, tracks[index].banner);
 
     updateUI(false); 
 }
@@ -219,13 +250,20 @@ function updateUI(playing) {
 }
 
 // Update track information displayed on the UI
-function updateTrackInfo(name, image, description) {
+function updateTrackInfo(name, image, description, banner) {
     const trackNameElement = document.querySelector('.title-music'); // Ensure you have this element
     const trackImageElement = document.querySelector('.player-image'); // Ensure you have this element
     const trackDescriptionElement = document.querySelector('.description-music'); // Ensure you have this element
+    const trackBannerElement = document.querySelector('.player'); // Ensure you have this element
     if (trackNameElement) trackNameElement.textContent = name;
     if (trackImageElement) trackImageElement.src = image;
-    if (trackDescriptionElement) trackDescriptionElement.src = description;
+    if (trackDescriptionElement) trackDescriptionElement.textContent = description;
+    if (trackBannerElement) {
+        trackBannerElement.style.setProperty('--banner-url', `url('/media/${banner}')`);
+    }
+    else {
+        trackBannerElement.style.setProperty('--banner-url', `url('/media/${image}')`);
+    }
 }
 
 const playPauseButton = document.querySelector('.play-pause-button'); // Ensure you have a button with this class
@@ -287,3 +325,5 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.prev').addEventListener('click', previousTrack);
     loadTrack(0);
 });
+
+

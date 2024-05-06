@@ -102,7 +102,12 @@ class Feedback(models.Model):
 class Podcast(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='podcast_images/')
+    description = models.CharField(max_length=150, blank=True, null=True)
+    banner = models.ImageField(upload_to='podcast_banner/', blank=True, null=True)
     mp3 = models.FileField(upload_to='podcast_mp3s/')
 
     def __str__(self):
         return self.name
+    
+class featuredYoutubeVideo(models.Model):
+    video_id = models.CharField(max_length=100, blank=True, null=True)

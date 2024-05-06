@@ -50,17 +50,18 @@ from Users.models import CustomUser
 from django.shortcuts import render
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from Pages.models import Feedback, Podcast
+from Pages.models import Feedback, Podcast, featuredYoutubeVideo
 
 def homeView(request, *args, **kwargs):
     courses = request.user.customuser.enrolled_courses.all()
     featured_product = Home.objects.all().first().featured_product
     featured_course = Home.objects.all().first().featured_course
     podcasts = Podcast.objects.all()
+    video_id = featuredYoutubeVideo.objects.first().video_id
     next_points_goal = 500
     print(course_progress(request))
     print(level_progress(request))
-    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts})
+    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts, "video_id": video_id})
 
 
 def shopView(request, *args, **kwargs):
@@ -210,7 +211,8 @@ def getDashboard(request, *args, **kwargs):
             'losses_percentage': dashboard.calculate_change_percentage(),
             'btc': get_btc_price(),
             'eth': get_eth_price(),
-            'ltc': get_ltc_price(),
+            'sol': get_sol_price(),
+            'avax': get_avax_price(),
         }
 
         # Return the dictionary as JSON response
@@ -321,6 +323,10 @@ def course_progress(request, *args, **kwargs):
 
     return JsonResponse({"success": True, "course_progression": course.calculate_progress_percentage(user=user)})
 
+def getPoints(request, *args, **kwargs):
+    user=request.user.customuser
+    goal=1500
+    return JsonResponse({"success": True, "goal": goal, "points": user.points})
 
 def level_progress(request, *args, **kwargs):
     user = request.user.customuser
@@ -1142,11 +1148,18 @@ def get_eth_price():
     change = calculate_daily_change_percentage('ETH-USD')
     return [price_float, change]
 
-def get_ltc_price():
+def get_sol_price():
 
-    price_str = LiveCryptoData('LTC-USD').return_data()["price"]
+    price_str = LiveCryptoData('SOL-USD').return_data()["price"]
     price_float = float(price_str.iloc[0])
-    change = calculate_daily_change_percentage('LTC-USD')
+    change = calculate_daily_change_percentage('SOL-USD')
+    return [price_float, change]
+
+def get_avax_price():
+
+    price_str = LiveCryptoData('AVAX-USD').return_data()["price"]
+    price_float = float(price_str.iloc[0])
+    change = calculate_daily_change_percentage('AVAX-USD')
     return [price_float, change]
 
 

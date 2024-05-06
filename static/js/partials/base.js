@@ -1,4 +1,8 @@
-function ajaxRequest(method, url, data, successFunction, errorFunction, doLog, name="ajaxRequest") {
+function ajaxRequest(method, url, data, successFunction, errorFunction, doLog, name="ajaxRequest", beforeFunction) {
+    if (beforeFunction != null) {
+        beforeFunction()
+    }
+    
     if (doLog) {
         console.log(name + "...")
     }
