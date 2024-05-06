@@ -44,7 +44,7 @@ from Courses.models import Course, CourseProgression, Level, LevelProgression, M
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
-from .models import Dashboard
+from .models import Dashboard, Quest, UserQuestProgress
 from django.core.serializers import serialize
 from Users.models import CustomUser
 from django.shortcuts import render
@@ -1187,3 +1187,49 @@ def calculate_daily_change_percentage(ticker):
 
 def buyCourseView(request, *args, **kwargs):
     return render(request, 'buy-course.html', {})
+
+
+
+
+
+
+
+def start_quest(request, quest_id):
+    quest = get_object_or_404(Quest, pk=quest_id)
+    user = request.user
+
+    # Create or get UserQuestProgress instance for the user and quest
+    user_quest_progress, created = UserQuestProgress.objects.get_or_create(user=user, quest=quest)
+
+    # If it's a new instance, start from the first step
+    if created:
+        user_quest_progress.current_step = quest.steps.first()
+        user_quest_progress.save()
+
+    # Return JSON response indicating success
+    return JsonResponse({'success': True})
+
+def complete_step(request, user_quest_progress_id):
+    user_quest_progress = get_object_or_404(UserQuestProgress, pk=user_quest_progress_id)
+
+    # Call the complete_step method to mark the current step as completed
+    user_quest_progress.complete_step()
+
+    # Return JSON response indicating success
+    return JsonResponse({'success': True})
+
+def quest_detail(request, quest_id):
+    quest = get_object_or_404(Quest, pk=quest_id)
+
+    # Return JSON response with quest details
+    return JsonResponse({'title': quest.title, 'description': quest.description})
+
+def step_completed(request, user_quest_progress_id):
+    user_quest_progress = get_object_or_404(UserQuestProgress, pk=user_quest_progress_id)
+
+    # Return JSON response with user quest progress details
+    return JsonResponse({
+        'current_step_title': user_quest_progress.current_step.title,
+        'current_step_description': user_quest_progress.current_step.description,
+        'points_earned': user_quest_progress.points_earned
+    })

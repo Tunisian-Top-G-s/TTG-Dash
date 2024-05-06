@@ -111,3 +111,43 @@ class Podcast(models.Model):
     
 class featuredYoutubeVideo(models.Model):
     video_id = models.CharField(max_length=100, blank=True, null=True)
+
+class Quest(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def points(self):
+        return sum(step.points for step in self.steps.all())
+
+class Step(models.Model):
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='steps')
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    index = models.IntegerField(unique=True, blank=True, null=True)
+    points = models.IntegerField()
+
+class UserQuestProgress(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    quest = models.ForeignKey(Quest, on_delete=models.CASCADE)
+    current_step = models.ForeignKey(Step, on_delete=models.SET_NULL, null=True, blank=True)
+    points_earned = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.quest.title}"
+
+    def update_progress(self):
+        # Get the next step based on the current step's index
+        if self.current_step:
+            next_step = Step.objects.filter(quest=self.quest, index=self.current_step.index + 1).first()
+        else:
+            next_step = self.quest.steps.first()
+
+        # Update the current step
+        if next_step:
+            self.current_step = next_step
+            self.save()
+
+    def complete_step(self):
+        if self.current_step:
+            self.points_earned += self.current_step.points
+            self.update_progress()
