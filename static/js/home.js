@@ -20,10 +20,24 @@ var lossesBtcElement = document.querySelectorAll('.btc-price');
 var lossesEthElement = document.querySelectorAll('.eth-price');
 var lossesSolElement = document.querySelectorAll('.sol-price');
 var lossesAvaxElement = document.querySelectorAll('.avax-price');
+var cryptoChart = document.querySelectorAll('.coin-chart');
+var cryptoPrice = document.querySelectorAll('.coin-price');
+var cryptoLoader = document.querySelectorAll('.loading-coin');
+var PercentageDivBg = document.querySelectorAll('.percentage-coin');
+var PercentageArrowUP = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2EBE7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-up-right"><path d="M13 5H19V11"/><path d="M19 5L5 19"/></svg>';
+var PercentageArrowDown = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DA5C54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-down-right"><path d="M19 13V19H13"/><path d="M5 5L19 19"/></svg>';
 
 console.log("kyrix/zend: load crypto animation while fetching the data from backend");
 function loadCryptoStats() {
-
+    cryptoChart.forEach(function(element) {
+        element.style.display = 'none';
+    });
+    cryptoPrice.forEach(function(element) {
+        element.style.display = 'none';
+    });
+    cryptoLoader.forEach(function(element) {
+        element.style.display = 'flex';
+    });
 }
 
 
@@ -34,17 +48,109 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
         var sol = response["dashboard"].sol;
         var avax = response["dashboard"].avax;
 
+        cryptoChart.forEach(function(element) {
+            element.style.display = 'block';
+        });
+        cryptoPrice.forEach(function(element) {
+            element.style.display = 'flex';
+        });
+        cryptoLoader.forEach(function(element) {
+            element.style.display = 'none';
+        });
+
         lossesPercentageBtcElement.forEach(function(element) {
           element.textContent = btc[1].toFixed(2) + "%";
+          if (btc[1] > 0) {
+            //parent of the element
+            element.parentNode.classList.add('percentage');
+            //create another child and add svg to it 
+            var imgElement = document.createElement('img');
+            imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowUP));
+            imgElement.setAttribute('width', '24');
+            imgElement.setAttribute('height', '24');
+            element.parentNode.appendChild(imgElement);
+            
+          }
+          else {
+            element.parentNode.classList.add('percentage-down');
+            var imgElement = document.createElement('img');
+            imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowDown));
+            imgElement.setAttribute('width', '24');
+            imgElement.setAttribute('height', '24');
+    
+            // Append the <img> to the parent element
+            element.parentNode.appendChild(imgElement);
+            
+          }
         });
         lossesPercentageEthElement.forEach(function(element) {
           element.textContent = eth[1].toFixed(2) + "%";
+            if (eth[1] > 0) {
+                //parent of the element
+                element.parentNode.classList.add('percentage');
+                //create another child and add svg to it 
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowUP));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+                element.parentNode.appendChild(imgElement);
+            }
+            else {
+                element.parentNode.classList.add('percentage-down');
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowDown));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+        
+                // Append the <img> to the parent element
+                element.parentNode.appendChild(imgElement);
+            }
         });
         lossesPercentageSolElement.forEach(function(element) {
           element.textContent = sol[1].toFixed(2) + "%";
+            if (sol[1] > 0) {
+                //parent of the element
+                element.parentNode.classList.add('percentage');
+                //create another child and add svg to it 
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowUP));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+                element.parentNode.appendChild(imgElement);
+            }
+            else {
+                element.parentNode.classList.add('percentage-down');
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowDown));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+        
+                // Append the <img> to the parent element
+                element.parentNode.appendChild(imgElement);
+            }
         });
         lossesPercentageAvaxElement.forEach(function(element) {
           element.textContent = avax[1].toFixed(2) + "%";
+            if (avax[1] > 0) {
+                //parent of the element
+                element.parentNode.classList.add('percentage');
+                //create another child and add svg to it 
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowUP));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+                element.parentNode.appendChild(imgElement);
+            }
+            else {
+                element.parentNode.classList.add('percentage-down');
+                var imgElement = document.createElement('img');
+                imgElement.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(PercentageArrowDown));
+                imgElement.setAttribute('width', '24');
+                imgElement.setAttribute('height', '24');
+        
+                // Append the <img> to the parent element
+                element.parentNode.appendChild(imgElement);
+            }
         });
 
         lossesBtcElement.forEach(function(element) {
@@ -148,7 +254,7 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
 
 
 // Call the function to fetch course progress when the document is ready
-console.log('kyrix/zend: wa9tlli tenzel claim now w tjik claimed el button kbir yesser');
+
 $(document).ready(function() {
     changeCourseProgress();  // Ensure this function is defined and working properly
 
@@ -163,7 +269,17 @@ $(document).ready(function() {
         console.log('Claim button clicked.');
         ajaxRequest('POST', '/add_points/', null, function(response){
             if (response.success) {
-                claimButton.textContent = 'Claimed';
+                // Create a span inside claimButton to show the message "Claimed"
+                claimButton.innerHTML = '';
+                var spanElement = document.createElement('span');
+                var imgElement = document.createElement('img');
+                spanElement.textContent = 'Claimed';
+                var checkSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2EBE7B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>';
+                imgElement.src = 'data:image/svg+xml;base64,' + btoa(checkSVG);
+                claimButton.appendChild(imgElement);
+                claimButton.appendChild(spanElement);
+
+
                 claimButton.disabled = true;
                 popupMessage.classList.add('success');
                 popupImage.src = "{% static 'assets/points-icon.svg' %}";
