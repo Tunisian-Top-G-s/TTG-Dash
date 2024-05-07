@@ -1196,7 +1196,7 @@ def buyCourseView(request, *args, **kwargs):
 
 def start_quest(request, quest_id):
     quest = get_object_or_404(Quest, pk=quest_id)
-    user = request.user
+    user = request.user.customuser
 
     # Create or get UserQuestProgress instance for the user and quest
     user_quest_progress, created = UserQuestProgress.objects.get_or_create(user=user, quest=quest)
@@ -1209,8 +1209,10 @@ def start_quest(request, quest_id):
     # Return JSON response indicating success
     return JsonResponse({'success': True})
 
-def complete_step(request, user_quest_progress_id):
-    user_quest_progress = get_object_or_404(UserQuestProgress, pk=user_quest_progress_id)
+def complete_step(request, quest_id):
+    quest = get_object_or_404(Quest, pk=quest_id)
+    user = request.user.customuser
+    user_quest_progress = get_object_or_404(UserQuestProgress, user=user, quest=quest)
 
     # Call the complete_step method to mark the current step as completed
     user_quest_progress.complete_step()
@@ -1220,16 +1222,20 @@ def complete_step(request, user_quest_progress_id):
 
 def quest_detail(request, quest_id):
     quest = get_object_or_404(Quest, pk=quest_id)
+    
+    # Serialize the quest object into JSON format
+    quest_json = serialize('json', [quest])
 
     # Return JSON response with quest details
-    return JsonResponse({'title': quest.title, 'description': quest.description})
+    return JsonResponse({'quest': quest_json})
 
-def step_completed(request, user_quest_progress_id):
-    user_quest_progress = get_object_or_404(UserQuestProgress, pk=user_quest_progress_id)
+def step_completed(request, quest_id):
+    quest = get_object_or_404(Quest, pk=quest_id)
+    user = request.user.customuser
+    user_quest_progress = get_object_or_404(UserQuestProgress, user=user, quest=quest)
+
+    # Serialize the user_quest_progress object into JSON format
+    user_quest_progress_json = serialize('json', [user_quest_progress])
 
     # Return JSON response with user quest progress details
-    return JsonResponse({
-        'current_step_title': user_quest_progress.current_step.title,
-        'current_step_description': user_quest_progress.current_step.description,
-        'points_earned': user_quest_progress.points_earned
-    })
+    return JsonResponse({'user_quest_progress': user_quest_progress_json})
