@@ -230,10 +230,10 @@
     <div class="middle-middle">
         <div class="course-container">
           <div class="course">
-            <img src="{% static "assets/course.png" %}" alt="HTML">
+            <img src="{{featured_course.img.url}}" alt="HTML">
             <div class="course-info">
-              <span class="course-name">Trading Masterclass Course</span>
-              <span class="course-description">Celebrate Duolingo’s 10 year anniversary with a new exclusive Duo plushie!</span>
+              <span class="course-name">{{featured_course.title}}</span>
+              <span class="course-description">{{featured_course.description}}</span>
             </div>
             <div class="cours-progress">
               <div class="progress-bar">
