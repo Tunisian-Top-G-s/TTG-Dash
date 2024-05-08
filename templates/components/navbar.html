@@ -71,7 +71,7 @@
                         
                             </div>
                             <div class="content">
-                                <ul>
+                                <ul class="notifications-list">
                                     <li class="--unread" onclick="modifyContent(this)">
                                         <div class="notification-content">
                                             <div class="notif">
@@ -145,7 +145,7 @@
                                 <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M29,15c8.284,0 15,6.044 15,13.5c0,3.538 -1.525,6.748 -3.999,9.156c0.004,0.321 -0.001,3.344 3.999,5.344c0,0 -1,1 -3.5,1c-5.5,0 -7.5,-2.5 -7.5,-2.5h0.001c-1.276,0.317 -2.613,0.5 -4.001,0.5c-8.284,0 -15,-6.044 -15,-13.5c0,-7.456 6.716,-13.5 15,-13.5z" fill-opacity="0.6902" fill="#4d1ec1"></path><path d="M21,23h16v1.999h-16zM21,28h16v1.999h-16zM23,33h10v2h-10z" fill="#bbdefb"></path><path d="M34.874,23c0.716,-1.712 1.126,-3.561 1.126,-5.5c0,-0.324 -0.032,-0.64 -0.053,-0.959c-2.078,-0.979 -4.438,-1.541 -6.947,-1.541c-8.284,0 -15,6.044 -15,13.5c0,1.633 0.338,3.19 0.928,4.639c0.241,-0.152 0.465,-0.307 0.663,-0.463c1.139,0.215 2.282,0.324 3.409,0.324c3.748,0 7.209,-1.119 10.021,-3h-0.021v-2h2.476c0.919,-0.908 1.728,-1.912 2.391,-3h-0.867v-2z" fill-opacity="0.6902" fill="#4d1ec1"></path><path d="M21,24.999h12.867c0.389,-0.639 0.718,-1.309 1.007,-1.999h-13.874zM21,29.999h8.011c0.889,-0.594 1.711,-1.263 2.458,-1.999h-10.469z" fill="#64b5f6"></path><g><path d="M19,4c-8.284,0 -15,6.044 -15,13.5c0,3.538 1.525,6.748 3.999,9.156c-0.004,0.321 0.001,3.344 -3.999,5.344c0,0 1,1 3.5,1c5.5,0 7.5,-2.5 7.5,-2.5h-0.001c1.276,0.317 2.613,0.5 4.001,0.5c8.284,0 15,-6.044 15,-13.5c0,-7.456 -6.716,-13.5 -15,-13.5z" fill-opacity="0.6902" fill="#d4d1d9"></path><path d="M11,12.001h16v1.999h-16zM11,17h16v2h-16zM11,22h12v2h-12z" fill="#ffffff"></path></g></g></g>
                                 </svg>
                             <div class="">
-                                <span class="counter-noti-messd">+99</span>
+                                <span class="counter-noti-messd messages-counter">+99</span>
                             </div>
                         </button>
                         <div class="menu">
@@ -156,7 +156,7 @@
                                
                             </div>
                             <div class="content">
-                                <ul>
+                                <ul class="messages-list">
                                     <li class="--unread">
                                         <div>
                                             <div class="UserStatus">
@@ -238,7 +238,7 @@
 
                                 <div class="fols">
                                     <span class="username-under">Hi , {{user.username}}</span>
-                                    <span class="Emmail-user">Exemple@gmail.com</span>
+                                    <span class="Emmail-user">{{user.customuser.email}}</span>
                                 </div>
                             </div>
 
