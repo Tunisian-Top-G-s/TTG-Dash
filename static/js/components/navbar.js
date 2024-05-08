@@ -107,3 +107,34 @@ function getCurrentPage() {
 
     return pathArray;
 }
+function CountNotification(){
+    var count = document.querySelector('.counter-noti-messd');
+    var notificationList = document.querySelector('.notifications-list');
+    var notificationCount = notificationList.children.length;
+    if(notificationCount == 0){
+        count.innerHTML = 0;
+    }
+    else if(notificationCount > 9){
+        count.innerHTML = '9+';
+    }
+    else{
+        count.innerHTML = notificationCount;
+    }
+}
+CountNotification();
+
+function CountMessages(){
+    var count = document.querySelector('.messages-counter');
+    var messagesList = document.querySelector('.messages-list');
+    var messagesCount = messagesList.children.length;
+    if(messagesCount == 0){
+        count.innerHTML = 0;
+    }
+    else if(messagesCount > 9){
+        count.innerHTML = '9+';
+    }
+    else{
+        count.innerHTML = messagesCount;
+    }
+}
+CountMessages();

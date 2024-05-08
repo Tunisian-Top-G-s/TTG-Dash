@@ -69,7 +69,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
             imgElement.setAttribute('width', '24');
             imgElement.setAttribute('height', '24');
             element.parentNode.appendChild(imgElement);
-            
+
+            var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+            var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+            var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+            var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+            cryptoChar.setAttribute('src', '/static/assets/Chart-Up-1.svg');
+            console.log(cryptoChar.src);
           }
           else {
             element.parentNode.classList.add('percentage-down');
@@ -80,6 +86,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
     
             // Append the <img> to the parent element
             element.parentNode.appendChild(imgElement);
+
+            var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+            var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+            var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+            var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+            cryptoChar.setAttribute('src', '/static/assets/Chart-down-1.svg');
+            console.log(cryptoChar.src);
             
           }
         });
@@ -94,6 +107,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
                 imgElement.setAttribute('width', '24');
                 imgElement.setAttribute('height', '24');
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-Up-1.svg');
+                console.log(cryptoChar.src);
             }
             else {
                 element.parentNode.classList.add('percentage-down');
@@ -104,6 +124,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
         
                 // Append the <img> to the parent element
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-down-1.svg');
+                console.log(cryptoChar.src);
             }
         });
         lossesPercentageSolElement.forEach(function(element) {
@@ -117,6 +144,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
                 imgElement.setAttribute('width', '24');
                 imgElement.setAttribute('height', '24');
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-Up-1.svg');
+                console.log(cryptoChar.src);
             }
             else {
                 element.parentNode.classList.add('percentage-down');
@@ -127,6 +161,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
         
                 // Append the <img> to the parent element
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-down-1.svg');
+                console.log(cryptoChar.src);
             }
         });
         lossesPercentageAvaxElement.forEach(function(element) {
@@ -140,6 +181,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
                 imgElement.setAttribute('width', '24');
                 imgElement.setAttribute('height', '24');
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-Up-1.svg');
+                console.log(cryptoChar.src);
             }
             else {
                 element.parentNode.classList.add('percentage-down');
@@ -150,6 +198,13 @@ ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
         
                 // Append the <img> to the parent element
                 element.parentNode.appendChild(imgElement);
+
+                var parentDiv = element.parentNode; // Parent div with class "percentage-coin"
+                var grandParentDiv = parentDiv.parentNode; // Parent div with class "coin-info"
+                var cryptoCoinDiv = grandParentDiv.parentNode; // Parent div with class "crypto-coin"
+                var cryptoChar = cryptoCoinDiv.querySelector('.coin-chart');
+                cryptoChar.setAttribute('src', '/static/assets/Chart-down-1.svg');
+                console.log(cryptoChar.src);
             }
         });
 
