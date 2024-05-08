@@ -122,7 +122,19 @@
 	align-items: center;
 	gap: 10px;
 }
+.add-channel{
+	cursor: pointer;	
+	
+}
+.add-channel:hover{
+		transform: rotate(90deg); 
+		transition: 0.7s ease-in-out;
+	
+}
+.toggle-button{
+	cursor: pointer;
 
+}
 .text-channels-header {
 	display: flex;
 	flex-direction: row;
@@ -258,6 +270,7 @@ button {
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
+	cursor: pointer;
 }
 
 .user-pic>.user-status {
@@ -331,23 +344,22 @@ button {
 
 .change-status {
 	display: flex;
-	flex-direction: column;
-	border: 0.5px solid var(--color-gray-10, #ffffff86);
-	background: rgb(50 7 150 / 26%) 50% / cover no-repeat;
-	box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
-	backdrop-filter: blur(6px);
-	padding: 5px;
-	padding-left: 20px;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
-	position: absolute;
-	bottom: 8vh;
-	left: 0;
-	width: 100%;
-	overflow: hidden;
-	transition: max-height 0.5s ease-in-out;
-	z-index: 100;
-
+    flex-direction: column;
+    border: 0.5px solid #ffffff29;
+    background: rgb(50 7 150 / 26%) 50% / cover no-repeat;
+    box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    padding: 15px;
+    padding-left: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    position: absolute;
+    bottom: 7.81vh;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    z-index: 100;
 }
 
 .change-status>.status {
@@ -413,6 +425,7 @@ button {
 	grid-template-rows: auto 1fr;
 	height: 100%;
 	transition: 0.5s ease-in-out;
+	
 
 }
 
@@ -592,15 +605,17 @@ button {
 }
 
 .chat-container>.chat-box {
+	/* background: linear-gradient(271deg, #510aad 48.8%, #1890ff 151.36%); */
+	/* border: 0.5px solid #ffffff4e; */
+	/* height: 105%; */
 	padding: 10px 10px;
 	overflow-y: scroll;
 	flex-direction: column;
-	/* border: 0.5px solid #ffffff4e; */
 	scroll-behavior: smooth;
 	display: flex;
-	/* height: 105%; */
 	height: 96%;
 	border-radius: 8px;
+
 }
 
 .chat-container>.chat-box::-webkit-scrollbar-track {
@@ -626,14 +641,14 @@ button {
 }
 
 .chat-message {
+	/* background-color: #8066a029; */
+	/* border-radius: 8px; */
 	display: flex;
 	align-items: flex-start;
 	gap: 10px;
 	padding: 0px;
 	position: relative;
 	background: transparent;
-	/* background-color: #8066a029; */
-	/* border-radius: 8px; */
 	padding: 10px;
 	height: fit-content;
 }
@@ -718,21 +733,21 @@ button {
 
 .message-replied>.user-tag {
 	padding: 2px 5px;
-	/* border-radius: 6px; */
 	background: #a45cf6;
 	color: #D3D3D3;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 	font-size: small;
+	/* border-radius: 6px; */
 }
 
 .reactions-box {
 	display: flex;
 	align-items: center;
 	gap: 6px;
-	/* border-radius: 8px; */
 	padding: 5px 0;
+	/* border-radius: 8px; */
 }
 
 .reactions-box>.react {
@@ -770,10 +785,10 @@ button {
 
 .message-image>img {
 	max-width: 400px !important;
-	/* border-radius: 10px; */
 	-webkit-box-shadow: 3px 2px 30px -6px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 3px 2px 30px -6px rgba(0, 0, 0, 0.75);
 	box-shadow: 3px 2px 30px -6px rgba(0, 0, 0, 0.75);
+	/* border-radius: 10px; */
 }
 
 .replying-to {
@@ -821,8 +836,8 @@ button {
 	flex: 1;
 	border: none;
 	padding: 8px;
-	/* border-radius: 4px; */
 	outline: none;
+	/* border-radius: 4px; */
 }
 
 .reply-input button.send-reply {
@@ -830,9 +845,9 @@ button {
 	color: #fff;
 	border: none;
 	padding: 8px 16px;
-	/* border-radius: 4px; */
 	cursor: pointer;
 	outline: none;
+	/* border-radius: 4px; */
 }
 
 .reply-input button.send-reply:hover {
@@ -1295,7 +1310,16 @@ button {
 	transition: 0.4s ease-in-out;
 
 }
-
+.change-status-btn{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+}
+.change-status-btn > svg , .change-status-btn > i{
+	cursor: pointer;
+}
 .emoji-span:active {
 	transform: scale(1.1);
 	transition: 0.3s;
@@ -1304,7 +1328,11 @@ button {
 .gif-picker-button {
 	cursor: pointer;
 }
-
+.emoji-button> img {
+	width: 24px;
+	height: 24px;
+	border-radius: 100%;
+}
 .gif-picker-button:active {
 	background: #6e0ca669;
 	border-radius: 10px;
