@@ -1,91 +1,100 @@
-
-.container-lesson{
-    width: max-content;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 25px;
-    width: 100%;
-}
-.lesson{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-}
-.content-lesson{
-    /* width: 880px; */
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.content-text-inside{
-    color: #FFF;
-    font-family: Poppins;
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 35px; /* 205.882% */
-    letter-spacing: 1.53px;
-    text-transform: capitalize;
-    
-}
-.lesson-text{
-    color: #FFF;
-    font-family: Poppins;
-    font-size: 27px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 27px; /* 100% */
-    letter-spacing: 2.43px;
-    text-transform: uppercase;
-}
-.next-lesson{
-    display: flex;
-    width: 100%;
-    align-self: end;
-    align-items: center;
-    justify-content: space-around;
+.container-lesson {
+	width: max-content;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: 25px;
+	width: 100%;
 }
 
-.prev-btn{
-    text-decoration: none;
-    color: #FFF;
-    font-family: Poppins;
-    font-size: 19px;
-    font-style: normal;
-    cursor: pointer;
-    display: inline-block;
-    padding: 5px 20px;
-    border-radius: 6px;
-    border: 1px solid #FFF;
-    transition: 0.5s;
+.lesson {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 20px;
+	position: relative;
 }
 
-.keep-next{
-    text-decoration: none;
-     color: #FFF;
-     font-family: Poppins;
-     font-size: 19px;
-     font-style: normal;
-     cursor: pointer;
-     display: inline-block;
-     padding: 5px 20px;
-     border-radius: 6px;
-     border: 1px solid #FFF;
-     transition: 0.5s;
- 
- }
- .keep-next:hover{
-    background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
- }
- .prev-btn:hover{
-    background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
- }
- .iconlike{
-    align-self: flex-end;
+.content-lesson {
+	/* width: 880px; */
+	align-self: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.content-text-inside {
+	color: #FFF;
+	font-family: Poppins;
+	font-size: 17px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: 35px;
+	/* 205.882% */
+	letter-spacing: 1.53px;
+	text-transform: capitalize;
+
+}
+
+.lesson-text {
+	color: #FFF;
+	font-family: Poppins;
+	font-size: 27px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 27px;
+	/* 100% */
+	letter-spacing: 2.43px;
+	text-transform: uppercase;
+}
+
+.next-lesson {
+	display: flex;
+	width: 100%;
+	align-self: end;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.prev-btn {
+	text-decoration: none;
+	color: #FFF;
+	font-family: Poppins;
+	font-size: 19px;
+	font-style: normal;
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 20px;
+	border-radius: 6px;
+	border: 1px solid #FFF;
+	transition: 0.5s;
+}
+
+.keep-next {
+	text-decoration: none;
+	color: #FFF;
+	font-family: Poppins;
+	font-size: 19px;
+	font-style: normal;
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 20px;
+	border-radius: 6px;
+	border: 1px solid #FFF;
+	transition: 0.5s;
+
+}
+
+.keep-next:hover {
+	background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
+}
+
+.prev-btn:hover {
+	background: linear-gradient(270deg, rgba(164, 92, 246, 0.12) 16.35%, rgba(151, 71, 255, 0.12) 50%);
+}
+
+.iconlike {
+	align-self: flex-end;
 }
