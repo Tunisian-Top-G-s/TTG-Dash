@@ -41,12 +41,11 @@ function loadCryptoStats() {
 }
 
 
-console.log('kyrix/zend: move-down-right if crypto change is (-) and move-up-right if change is (+)')
-ajaxRequest('GET', '/getDashboard/', loadCryptoStats, function(response){
-        var btc = response["dashboard"].btc;
-        var eth = response["dashboard"].eth;
-        var sol = response["dashboard"].sol;
-        var avax = response["dashboard"].avax;
+ajaxRequest('GET', '/getCryptoDetails/', loadCryptoStats, function(response){
+        var btc = response["crypto_details"].btc;
+        var eth = response["crypto_details"].eth;
+        var sol = response["crypto_details"].sol;
+        var avax = response["crypto_details"].avax;
 
         cryptoChart.forEach(function(element) {
             element.style.display = 'block';
@@ -293,7 +292,6 @@ document.getElementById('submit-btn').addEventListener('click', function(event) 
         }, null, true, "Feedback submit", null)
     }
     else {
-        console.log("kyrix/zend: 9ol ll user 'select an option w raj3o ye5tar option ml options'");
         var popupMessage = document.getElementById('ErrorPopupMessage');
         var popupSpan = document.getElementById('ErrorPopupSpan');
         popupMessage.classList.add('error');
@@ -321,7 +319,6 @@ $(document).ready(function() {
 
     claimButton.addEventListener('click', function(event) {
         event.preventDefault(); // Stop the form from submitting normally
-        console.log('Claim button clicked.');
         ajaxRequest('POST', '/add_points/', null, function(response){
             if (response.success) {
                 // Create a span inside claimButton to show the message "Claimed"

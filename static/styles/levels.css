@@ -96,8 +96,8 @@
 .learning-body>.learning-titles {
 	display: flex;
 	flex-direction: column;
-	padding: 5px 5px;
-	gap: 5px;
+	padding: 10px 5px;
+	gap: 10px;
 }
 
 .learning-body>.learning-titles>.h1-text {

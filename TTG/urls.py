@@ -113,6 +113,9 @@ urlpatterns = [
     path('getsol/', views.get_sol_price, name='sol'),
 
 
+    path('getCryptoDetails/', views.getCryptoDetails, name='get_crypto_details'),
+
+
     path('buy-course/', views.buyCourseView, name='buy-course'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

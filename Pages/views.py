@@ -190,14 +190,22 @@ def verificationView(request, *args, **kwargs):
 def dashboardView(request, *args, **kwargs):
     dashboard = Dashboard.objects.get(id=1)
     transactionForm = TransactionForm
-    transactions = Transaction.objects.all().order_by('-date')[:5]  # Assuming 'date' is the field you want to order by
+    transactions = Transaction.objects.all().reverse().order_by('-date')[:4]  # Assuming 'date' is the field you want to order by
     reversed_transactions = reversed(transactions)
 
     top_users = CustomUser.objects.all()
     top_users = sorted(top_users, key=lambda user: user.calculate_balance(), reverse=True)[:5]
 
     top_user = sorted(top_users, key=lambda user: user.calculate_balance(), reverse=True)[:1][0]
-    return render(request, 'dashboard.html', {"dashboard": dashboard, "top_user_pfp": top_user.pfp, "transactions": reversed_transactions, "top_users": top_users, "top_user": top_user, "transactionForm": transactionForm})
+    return render(request, 'dashboard.html', {"dashboard": dashboard, "transactions": reversed_transactions, "top_users": top_users, "top_user": top_user, "transactionForm": transactionForm})
+
+def getCryptoDetails(request, *args, **kwargs):
+    context = {
+        'btc': get_crypto_price("BTC-USD"),
+        'eth': get_crypto_price("ETH-USD"),
+        'sol': get_crypto_price("SOL-USD")
+    }
+    return JsonResponse({"success": True, "crypto_details": context})
 
 def getDashboard(request, *args, **kwargs):
     if request.method == "GET":
@@ -209,10 +217,10 @@ def getDashboard(request, *args, **kwargs):
             'balance': dashboard.calculate_total_balance(),
             'profits_percentage': dashboard.calculate_change_percentage(),
             'losses_percentage': dashboard.calculate_change_percentage(),
-            'btc': get_btc_price(),
-            'eth': get_eth_price(),
-            'sol': get_sol_price(),
-            'avax': get_avax_price(),
+            'btc': get_crypto_price("BTC-USD"),
+            'eth': get_crypto_price("ETH-USD"),
+            'sol': get_crypto_price("SOL-USD"),
+            'avax': get_crypto_price("AVAX-USD"),
         }
 
         # Return the dictionary as JSON response
@@ -1132,6 +1140,13 @@ class HistoricalData(object):
             data.sort_index(ascending=True, inplace=True)
             data.drop_duplicates(subset=None, keep='first', inplace=True)
             return data
+
+
+def get_crypto_price(pair):
+    price_str = LiveCryptoData(pair).return_data()["price"]
+    price_float = float(price_str.iloc[0])
+    change = calculate_daily_change_percentage(pair)
+    return [price_float, change]
 
 
 def get_btc_price():

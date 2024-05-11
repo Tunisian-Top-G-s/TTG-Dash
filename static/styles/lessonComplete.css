@@ -39,9 +39,10 @@
 
 .lesson-container>.lesson-controls {
 	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-	width: 20vw;
+    align-items: center;
+    justify-content: space-between;
+    width: inherit;
+	/* width: 20vw; */
 }
 
 .lesson-controls>.prev-btn {
@@ -56,17 +57,24 @@
 }
 
 .lesson-controls>.next-btn-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 39px;
-	border: 1.5px solid #fff;
-	border-radius: 4px;
-	background-color: transparent;
-	width: 200px;
-	gap: 7px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 39px;
+    border: 1.5px solid #fff;
+    border-radius: 5px;
+    background-color: transparent;
+    width: 170px;
+    gap: 5px;
+	cursor: pointer;
 }
+.next-btn{
+	cursor: pointer;
+}
+.next-btn-container:active{
+	scale: 0.9;
 
+}
 .next-btn-container>.next-btn {
 	background-color: transparent;
 	border: none;

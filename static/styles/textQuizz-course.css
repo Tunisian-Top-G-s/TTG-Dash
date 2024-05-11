@@ -2,11 +2,12 @@
 
 .container-quiz {
 	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	align-items: center;
-	gap: 30px;
-	width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    height: auto;
 }
 
 .question-text {
@@ -131,7 +132,10 @@
 	border-radius: 6px;
 	border: 1px solid #FFF;
 	transition: 0.5s;
-
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
 }
 
 .iconlike {
