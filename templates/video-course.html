@@ -9,12 +9,17 @@
 {% endblock course-head %}
 
 {% block course-content %}
-    <div class="container-lesson" >
-        <div class="iconlike">
-            <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
-        </div>
+   
+<div class="container-lesson" >
+    <div class="iconlike" onclick="toggleLike(this)">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0,0,256,256">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M23,3c-0.55078,0 -1,0.44922 -1,1v7.75l-5,10v-1.75c0,-0.55078 -0.44922,-1 -1,-1h-13c-0.28516,0 -0.55859,0.12891 -0.75,0.34375c-0.19141,0.21484 -0.28516,0.49609 -0.25,0.78125l3,24c0.0625,0.5 0.49609,0.875 1,0.875h10c0.55078,0 1,-0.44531 1,-1v-1h1.15625c0.41406,1.16406 1.53906,2 2.84375,2h19c2.20703,0 4,-1.79297 4,-4c0,-0.82422 -0.26172,-1.58203 -0.6875,-2.21875c1.55859,-0.54687 2.6875,-2.03906 2.6875,-3.78125c0,-0.98047 -0.35156,-1.86719 -0.9375,-2.5625c1.16016,-0.69922 1.9375,-1.98437 1.9375,-3.4375c0,-0.98047 -0.35156,-1.86719 -0.9375,-2.5625c1.16016,-0.69922 1.9375,-1.98437 1.9375,-3.4375c0,-2.20703 -1.79297,-4 -4,-4h-14.625c0.60938,-1.92969 1.625,-5.38281 1.625,-7c0,-3.76562 -2.75781,-9 -5.46875,-9zM24,5h1.53125c0.91797,0 3.46875,3.48047 3.46875,7c0,1.56641 -1.39844,6.08203 -1.9375,7.6875c-0.10547,0.30469 -0.0625,0.64453 0.125,0.90625c0.1875,0.26172 0.49219,0.40625 0.8125,0.40625h16c1.10156,0 2,0.89844 2,2c0,1.10156 -0.89844,2 -2,2h-1c-0.55469,0 -1,0.44531 -1,1c0,0.55469 0.44531,1 1,1c1.10156,0 2,0.89844 2,2c0,1.10156 -0.89844,2 -2,2h-1c-0.55469,0 -1,0.44531 -1,1c0,0.55469 0.44531,1 1,1c1.10156,0 2,0.89844 2,2c0,1.10156 -0.89844,2 -2,2h-2c-0.55469,0 -1,0.44531 -1,1c0,0.55469 0.44531,1 1,1c1.10156,0 2,0.89844 2,2c0,1.10156 -0.89844,2 -2,2h-19c-0.55078,0 -1,-0.44922 -1,-1c0,-0.55469 -0.44922,-1 -1,-1h-2v-17h0.5c0.37891,0 0.73438,-0.22266 0.90625,-0.5625l5.5,-11c0.07031,-0.13672 0.09375,-0.28125 0.09375,-0.4375zM4.125,21h10.875v22h-8.125zM11.5,38c-0.82812,0 -1.5,0.67188 -1.5,1.5c0,0.82813 0.67188,1.5 1.5,1.5c0.82813,0 1.5,-0.67187 1.5,-1.5c0,-0.82812 -0.67187,-1.5 -1.5,-1.5z"></path></g></g>
+            </svg>
+    </div>
+
+    <div class="wrap-lessons">
         <div class="fill">
-            <span class="lesson-text">{{video.title}}</span>
+            <span class="lesson-text">{{ video.title }}</span>
         </div>
         <div class="lesson">
             <div class="lesson-video">
@@ -23,69 +28,56 @@
                </video>
             </div>
             <div class="lesson-container">
-                <span class="title-lesson-description">{{video.title}}</span>
-                <span class="description-step-video">{{video.notes}}</span>
-            </div>
-            <div class="next-lesson">
-                <a href="#" class="keep-next">NEXT</a>
+                <span class="title-lesson-description">{{ video.title }}</span>
+                <span class="description-step-video">{{ video.notes }}</span>
             </div>
         </div>
     </div>
+    <div class="next-lesson">
+        <a href="#" class="keep-next" id="nextLessonBtn">NEXT
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                    <g transform="scale(4,4)">
+                        <path d="M58,32c0,14.359 -11.641,26 -26,26c-14.359,0 -26,-11.641 -26,-26c0,-14.359 11.641,-26 26,-26c14.359,0 26,11.641 26,26zM41.713,30.001l-13.697,-13.833l-2.983,2.665l10.597,13.167l-10.598,13.168l2.983,2.665l13.698,-13.834l1.979,-1.999z"></path>
+                    </g>
+                </g>
+            </svg>
+        </a>
+    </div>
+</div>
 
-    <div class="container-lesson" style="display:none">
-        <div class="iconlike">
-            <img src="{% static "assets/Love Circled.png" %}" alt="iconlike">
-        </div>
-        
-        <div class="fill">
-            <span class="lesson-text">lesson 1 </span>
-        </div>
-    
-        <div class="content-lesson">
-            <span class="context-hints"></span>
-            <span class="content-text-inside">
-                {{video.summary}}
-            </span>
-        </div>
-
+<div class="container-quiz container-lesson">
+    <div class="iconlike">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0,0,256,256">
+            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(2,2)"><path d="M73.41406,19.00195c-2.5293,-0.10937 -5.00117,0.62227 -7.01367,2.19727c-2.3,1.8 -3.90078,4.40078 -4.30078,7.30078l-0.59961,4c-1.7,12.6 -8.69922,23.9 -19.19922,31c-1.4,0.9 -1.70078,2.79922 -0.80078,4.19922c0.9,1.4 2.79922,1.70078 4.19922,0.80078c11.9,-8.1 19.80078,-20.89922 21.80078,-35.19922l0.59961,-4c0.2,-1.3 0.90039,-2.50078 1.90039,-3.30078c1.1,-0.8 2.39922,-1.1 3.69922,-1c2.7,0.4 4.60078,2.89961 4.30078,5.59961l-0.59961,4c-0.5,3.7 -1.4,7.40078 -2.5,10.80078l-3.40039,9.59961c-0.3,0.9 -0.19961,1.89922 0.40039,2.69922c0.6,0.8 1.5,1.30078 2.5,1.30078h18.69922c2.1,0 4.00039,0.9 5.40039,2.5c1.3,1.6 1.9,3.69922 1.5,5.69922l-6.40039,36c-0.6,3.3 -3.50039,5.80078 -6.90039,5.80078h-29.89844c-4,0 -8.00078,-0.69961 -11.80078,-2.09961c-1.6,-0.6 -3.30039,0.19883 -3.90039,1.79883c-0.6,1.6 0.20078,3.30039 1.80078,3.90039c4.4,1.7 9.10039,2.5 13.90039,2.5h29.79883c6.3,0 11.70078,-4.49922 12.80078,-10.69922l6.40039,-36c0.7,-3.9 -0.30078,-7.80117 -2.80078,-10.70117c-2.5,-3 -6.1,-4.69922 -10,-4.69922l-14.5,0.09961l2,-5.59961c1.3,-3.9 2.20078,-7.9 2.80078,-12l0.59961,-4c0.4,-2.9 -0.39961,-5.79961 -2.09961,-8.09961c-1.7,-2.3 -4.40078,-3.90078 -7.30078,-4.30078c-0.3625,-0.05 -0.72461,-0.08203 -1.08594,-0.09766zM17,66c-1.7,0 -3,1.3 -3,3c0,1.7 1.3,3 3,3h12v37h-12c-1.7,0 -3,1.3 -3,3c0,1.7 1.3,3 3,3h15c1.7,0 3,-1.3 3,-3v-43c0,-1.7 -1.3,-3 -3,-3z"></path></g></g>
+            </svg>
+    </div>
+    <div class="title-default-quiz">
+        <span class="text-default-quiz">QUIZZEZ</span>
+    </div>
+    <div class="fill-question">
+        <span class="question-text">Question : {{ video.quiz.question }} </span>
+    </div>
+    <div id="container-answers" class="answers-design"></div>
         <div class="next-lesson">
             <div>
-                <a href="#" class="prev-btn">BACK</a>
+                <a href="#" class="prev-btn"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(4,4)"><path d="M58,32c0,14.359 -11.641,26 -26,26c-14.359,0 -26,-11.641 -26,-26c0,-14.359 11.641,-26 26,-26c14.359,0 26,11.641 26,26zM41.713,30.001l-13.697,-13.833l-2.983,2.665l10.597,13.167l-10.598,13.168l2.983,2.665l13.698,-13.834l1.979,-1.999z"></path></g></g>
+                    </svg>BACK</a>
             </div>
             <div>
-                <a href="#" class="keep-next">NEXT</a>
+                <a href="#" class="keep-next" id="nextLessonBtn" >NEXT <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                        <g transform="scale(4,4)">
+                            <path d="M58,32c0,14.359 -11.641,26 -26,26c-14.359,0 -26,-11.641 -26,-26c0,-14.359 11.641,-26 26,-26c14.359,0 26,11.641 26,26zM41.713,30.001l-13.697,-13.833l-2.983,2.665l10.597,13.167l-10.598,13.168l2.983,2.665l13.698,-13.834l1.979,-1.999z"></path>
+                        </g>
+                    </g>
+                </svg></a>
             </div>
         </div>
     </div>
 
-    <div class="container-quiz container-lesson" style="display:none">
-        <div class="iconlike">
-            <img src="{% static "assets/like.png" %}" alt="iconlike">
-        </div>
-        <div class="title-default-quiz">
-            <span class="text-default-quiz">QUIZZEZ</span>
-        </div>
-        <div class="fill-question">
-            <span class="question-text">Question : {{video.quiz.question}} </span>
-        </div>
-        <div id="container-answers" class="answers-design">
-
-
-
-
-        </div>
-
-        <div class="next-lesson">
-            <div>
-                <a href="#" class="prev-btn">BACK</a>
-            </div>
-            <div>
-                <a href="#" class="keep-next">NEXT</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="lesson-container container-lesson container-quiz" style="display:none">
+    <div class="lesson-container container-lesson container-quiz" >
         <div class="lesson-header">
             <img src="{% static "assets/check-icon.png" %}" alt="check-icon" />
             <span class="h1-title">Lesson Complete</span>
@@ -94,66 +86,25 @@
             <span class="p-text">Congratulations on completing this lesson! 🌟</span>
         </div>
         <div class="lesson-controls">
-            <button class="prev-btn">Back</button>
+            <button class="prev-btn"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(4,4)"><path d="M58,32c0,14.359 -11.641,26 -26,26c-14.359,0 -26,-11.641 -26,-26c0,-14.359 11.641,-26 26,-26c14.359,0 26,11.641 26,26zM41.713,30.001l-13.697,-13.833l-2.983,2.665l10.597,13.167l-10.598,13.168l2.983,2.665l13.698,-13.834l1.979,-1.999z"></path></g></g>
+                </svg>Back</button>
             <div class="next-btn-container">
                 <button class="next-btn finishStep" id="finishStep">Finish Step</button>
                 <img src="{% static "assets/next-icon-cropped.svg" %}" alt="next-icon" height="{30}" width="{30}" />
             </div>
         </div>
     </div>
-{% endblock course-content %}
+
+    {% endblock course-content %}
 
 {% block scripts %}
 <script src="{% static "js/textQuizz-course.js" %}"></script>
 <script>
-
-
-    var moduleDropdowns = document.querySelectorAll('.modules-dropdowns');
-    var moduleIds = [];
-
-    moduleDropdowns.forEach(function(dropdown) {
-        var moduleId = dropdown.dataset.id; // Extract the data-id attribute
-        moduleIds.push(moduleId); // Append the module ID to the list
-
-        dropdown.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent the default action of the event
-            var videoId = moduleId; // Assuming moduleId contains the ID of the clicked video
-            console.log(videoId); // Output the updated videoId
-            changeVideo(videoId)
-            // Send the videoId to the server using AJAX
-            $.ajax({
-                type: 'POST',
-                url: '/get-video/',
-                data: { "videoId": videoId }, // Send data as an object
-                beforeSend: function(xhr, settings) {
-                    xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(error) {
-                    console.error('Error', error);
-                }
-            });
-        });
-    });
-
-    console.log(moduleIds); // Output the list of module IDs
-
-    // Extract the videoId from the URL if it exists
-    var urlParams = new URLSearchParams(window.location.search);
-    var videoIdParam = urlParams.get('id');
-
-    // Check if the videoIdParam exists and is in moduleIds
-    if (videoIdParam && moduleIds.includes(videoIdParam)) {
-        var videoId = videoIdParam;
-        console.log("there is")
-        changeVideo(videoId)
-    } else {
-        // Default videoId set to the first video ID
-        var videoId = moduleIds.length > 0 ? moduleIds[0] : null;
-    }
-    console.log(videoId);
+    function toggleLike(element) {
+        element.classList.toggle('liked');
+     }
+  
 
     function updateProgressBar(percentage) {
         var progressBar = document.getElementById("progressBar");
@@ -179,6 +130,7 @@
     
     levelProgressText = document.querySelector('.percentage-progess');
     
+
     $.ajax({
         type: 'POST',
         url:'/level_progress/',
@@ -205,329 +157,268 @@
     
     
 
-    
 
-    // Other parts of your script...
+
+
     
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+// Handle the lesson navigation
+document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const nextLessonBtn = document.getElementById('nextLessonBtn');
+    const prevBtns = document.querySelectorAll('.prev-btn');
+    const lessonContainers = document.querySelectorAll('.container-lesson');
+
+    function showLesson(index) {
+        lessonContainers.forEach((container, i) => {
+            container.style.display = i === index ? 'flex' : 'none';
+        });
     }
 
-
-
-
-
-
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        let currentIndex = 0;
-    
-        function showLesson(index) {
-            const lessonContainers = document.querySelectorAll('.container-lesson');
-            lessonContainers.forEach((container, i) => {
-                if (i === index) {
-                    container.style.display = 'flex'; 
-                    //I changed the Display Block to Flex Problem CSS
-                } else {
-                    container.style.display = 'none';
-                }
-            });
+    function nextLesson() {
+        if (currentIndex < lessonContainers.length - 1) {
+            currentIndex++;
+            showLesson(currentIndex);
         }
-    
-        function nextLesson() {
-            const lessonContainers = document.querySelectorAll('.container-lesson');
-            if (currentIndex < lessonContainers.length - 1) {
-                currentIndex++;
-                showLesson(currentIndex);
-            }
+    }
+
+    function prevLesson() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showLesson(currentIndex);
         }
-    
-        function prevLesson() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                showLesson(currentIndex);
-            }
-        }
-    
-        document.addEventListener('click', function(event) {
-            if (event.target.matches('.keep-next')) {
-                nextLesson();
-            } else if (event.target.matches('.prev-btn')) {
-                prevLesson();
-            }
-        });
-    
-        // Show the first lesson initially
-        showLesson(currentIndex);
+    }
+
+    nextLessonBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        nextLesson();
     });
 
+    prevBtns.forEach(prevBtn => {
+        prevBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            prevLesson();
+        });
+    });
 
+    // Show the first lesson initially
+    showLesson(currentIndex);
+});
 
+function generateAnswers(answers, rightAnswer) {
+    const container = document.querySelector('#container-answers');
+    const nextLessonBtn = document.getElementById('nextLessonBtn');
 
+    console.log('Right Answer:', rightAnswer); // Debugging
 
+    container.innerHTML = ''; // Clear the container first if needed
 
+    // Remove any existing feedback message
+    const existingFeedback = document.querySelector('.feedback-message');
+    if (existingFeedback) {
+        existingFeedback.remove();
+    }
 
-    var answers = []
+    answers.forEach(answer => {
+        const answerDiv = document.createElement('div');
+        const answerSpan = document.createElement('span');
+
+        answerDiv.className = `answer answer-${answer.id}`;
+        answerSpan.classList.add('answers-texts');
+        answerSpan.textContent = answer.text;
+
+        answerDiv.appendChild(answerSpan);
+        container.appendChild(answerDiv);
+
+        answerDiv.addEventListener('click', function () {
+            // Disable further clicks
+            container.querySelectorAll('.answer').forEach(ans => ans.style.pointerEvents = 'none');
+
+            const isCorrect = answer.id === rightAnswer;
+            console.log('Selected Answer:', answer.id, 'Is Correct:', isCorrect);
+
+            answerDiv.style.backgroundColor = isCorrect ? '#0F0' : '#F00';
+
+            answers.forEach(ans => {
+                const div = document.querySelector(`.answer-${ans.id}`);
+                if (ans.id === rightAnswer) {
+                    div.classList.add('answer-right');
+                    if (!div.querySelector('img')) {
+                        const iconImage = document.createElement('img');
+                        iconImage.src = '/static/assets/Check Mark.png';
+                        iconImage.alt = 'Correct';
+                        div.appendChild(iconImage);
+                    }
+                } else if (ans.id === answer.id) {
+                    div.classList.add('answer-wrong');
+                    const iconImage = document.createElement('img');
+                    iconImage.src = '/static/assets/Close.png';
+                    iconImage.alt = 'Incorrect';
+                    div.appendChild(iconImage);
+                }
+            });
+
+            if (isCorrect) {
+                console.log('Next button will be shown');
+                nextLessonBtn.style.display = 'block';
+            } else {
+                console.log('Retry required');
+                displayFeedbackMessage("Sorry, that's incorrect. Please try again.");
+                showRetryButton();
+            }
+        });
+    });
+}
+
+function showRetryButton() {
+    const retryButton = document.createElement('button');
+    retryButton.textContent = 'Retry Quiz';
+    retryButton.classList.add('retry-button');
+    retryButton.onclick = function () {
+        document.location.reload(true); // Reload the page for simplicity
+    };
+
+    const container = document.querySelector('#container-answers');
+    const existingButton = document.querySelector('.retry-button');
+    if (!existingButton) {
+        container.after(retryButton);
+    }
+}
+
+function displayFeedbackMessage(message) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('feedback-message');
+    messageDiv.textContent = message;
+
+    const container = document.querySelector('#container-answers');
+    container.after(messageDiv);
+}
+
+function loadQuiz(videoId) {
+    const nextLessonBtn = document.getElementById('nextLessonBtn');
+    //nextLessonBtn.style.display = 'none'; // Hide the button initially
 
     $.ajax({
         type: 'POST',
         url: '/get-video/',
-        data: { "videoId": videoId }, // Send data as an object
-        beforeSend: function(xhr, settings) {
+        data: { "videoId": videoId },
+        beforeSend: function (xhr, settings) {
             xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
         },
-        success: function(response) {
-            console.log(response.video.quiz_options);
-        
-            var list_of_dicts = [];
-        
-            // Iterate through the original dictionary
-            for (var key in response.video.quiz_options) {
-                if (response.video.quiz_options.hasOwnProperty(key)) {
-                    // Create a new dictionary for each key-value pair
-                    var new_dict = {'id': parseInt(key) + 1, 'text': response.video.quiz_options[key]};
-                    // Append the new dictionary to the list
-                    list_of_dicts.push(new_dict);
-                }
-            }
+        success: function (response) {
+            console.log('Server response (loadQuiz):', response); // Log the response
 
-            
-            console.log(list_of_dicts);
-            
-            answers = list_of_dicts;
-            generateAnswers(answers, {{video.quiz.answer}})
+            if (response.success && response.video && response.video.quiz_options) {
+                const answers = Object.entries(response.video.quiz_options).map(([key, value], index) => ({
+                    id: index + 1,
+                    text: value
+                }));
+                const quiz = response.video.quiz || {};
+                generateAnswers(answers, quiz.answer || null);
+            } else {
+                console.error('Unexpected response format:', response);
+                displayFeedbackMessage("Error loading quiz data. Please try again.");
+            }
         },
-        error: function(error) {
-            console.error('Error', error);
+        error: function (error) {
+            console.error('Error (loadQuiz):', error);
+            displayFeedbackMessage("Error loading quiz data. Please try again.");
         }
     });
+}
 
+function changeVideo(videoId) {
+    $.ajax({
+        type: 'POST',
+        url: '/get-video/',
+        data: { "videoId": videoId },
+        beforeSend: function (xhr, settings) {
+            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
+        },
+        success: function (response) {
+            console.log('Server response (changeVideo):', response); // Log the response
 
-    
+            if (response.success && response.video) {
+                // Update UI elements with new video data
+                document.querySelector('.videoSRC').src = response.video.video_file;
+                document.querySelector('video').load();
+                document.querySelectorAll('.lesson-text').forEach(el => el.innerText = response.video.title);
+                document.querySelectorAll('.title-lesson-description').forEach(el => el.innerText = response.video.title);
+                document.querySelectorAll('.description-step-video').forEach(el => el.innerText = JSON.stringify(response.video.notes));
+                document.querySelectorAll('.question-text').forEach(el => el.innerText = `Question: ${response.video.quiz_question}`);
 
-    function generateAnswers(answers, rightAnswer) {
-        const container = document.querySelector('#container-answers');
-        container.innerHTML = ''; // Clear the container first if needed
-
-        // Remove any existing feedback message
-        const existingFeedback = document.querySelector('.feedback-message');
-        if (existingFeedback) {
-            existingFeedback.remove();
+                // Load quiz options
+                loadQuiz(videoId);
+            } else {
+                console.error('Unexpected response format:', response);
+                displayFeedbackMessage("Error loading video data. Please try again.");
+            }
+        },
+        error: function (error) {
+            console.error('Error (changeVideo):', error);
+            displayFeedbackMessage("Error loading video data. Please try again.");
         }
-        console.log(answers, "answersanswersanswersanswers")
-        answers.forEach(answer => {
-            const answerDiv = document.createElement('div');
-            const answerSpan = document.createElement('span');
+    });
+}
 
-            answerDiv.classList.add(`answer-${answer.id}`);
-            answerSpan.classList.add('answers-texts');
-            answerSpan.textContent = answer.text;
-
-            answerDiv.appendChild(answerSpan);
-            container.appendChild(answerDiv);
-
-            answerDiv.addEventListener('click', function() {
-                // Disable further clicks
-                container.querySelectorAll('div').forEach(div => {
-                    div.style.pointerEvents = 'none';
-                });
-
-                let selectedCorrectly = answer.id === 3; // Check if the selected answer is correct
-                answers.forEach(ans => {
-                    const div = document.querySelector(`.answer-${ans.id}`);
-                    if (ans.id === rightAnswer) { // Correct answer
-                        div.classList.add('answer-right');
-                        if (!div.querySelector('img')) {
-                            const iconImage = document.createElement('img');
-                            iconImage.src = './assets/Check Mark.png';
-                            iconImage.alt = 'Correct';
-                            div.appendChild(iconImage);
-                        }
-                    } else if (ans.id === answer.id) { // Selected answer if it's wrong
-                        div.classList.add('answer-wrong');
-                        const iconImage = document.createElement('img');
-                        iconImage.src = './assets/Close.png';
-                        iconImage.alt = 'Incorrect';
-                        div.appendChild(iconImage);
-                    }
-                });
-
-                if (!selectedCorrectly) {
-                    displayFeedbackMessage("Sorry, that's incorrect. Please try again.");
-                }
-
-                // Show a retry button
-                showRetryButton();
-            });
-        });
-    }
-
-    function showRetryButton() {
-        const retryButton = document.createElement('button');
-        retryButton.textContent = 'Retry Quiz';
-        retryButton.classList.add('retry-button'); // Use the class for styling
-        retryButton.onclick = function() {
-            document.location.reload(true); // Reload the page for simplicity
-        };
-
-        const container = document.querySelector('#container-answers');
-        // Remove existing retry button if it exists to prevent duplicates
-        const existingButton = document.querySelector('.retry-button');
-        if (!existingButton) {
-            container.after(retryButton); // Place the retry button outside and below the container
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; cookies.length > i; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
     }
+    return cookieValue;
+}
 
-    function displayFeedbackMessage(message) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('feedback-message');
-        messageDiv.textContent = message;
+document.addEventListener('DOMContentLoaded', function () {
+    const moduleDropdowns = document.querySelectorAll('.modules-dropdowns');
+    let moduleIds = [];
 
-        const container = document.querySelector('#container-answers');
-        container.after(messageDiv); // Place the message below the container
-    }
+    moduleDropdowns.forEach(function (dropdown) {
+        const moduleId = dropdown.dataset.id; // Extract the data-id attribute
+        moduleIds.push(moduleId); // Append the module ID to the list
 
+        dropdown.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the default action of the event
+            const videoId = moduleId; // Assuming moduleId contains the ID of the clicked video
+            changeVideo(videoId);
 
-    var finishStepButton = document.getElementById('finishStep');
-
-    if (finishStepButton) {
-        finishStepButton.addEventListener('click', function(event) {
-            console.log('finishStep event was triggered!');
-
+            // Send the videoId to the server using AJAX
             $.ajax({
                 type: 'POST',
-                url: '/videoFinished/',
-                data: { "videoId": videoId }, // Send data as an object
-                beforeSend: function(xhr, settings) {
+                url: '/get-video/',
+                data: { "videoId": videoId },
+                beforeSend: function (xhr, settings) {
                     xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
-                    var currentIndex = moduleIds.indexOf(videoId);
-
-                    // Check if the current video ID exists in the array and if there is a next video ID available
-                    if (currentIndex !== -1 && currentIndex < moduleIds.length - 1) {
-                        // Get the next video ID
-                        var nextVideoId = moduleIds[currentIndex + 1];
-                        console.log("Next Video ID:", nextVideoId);
-                    } else {
-                        console.log("No next video available or current video ID not found in the list.");
-                    }
-                    window.location.href = "/" + {{ level.id }} + '/video-course/?id=' + nextVideoId;
-
                 },
-                error: function(error) {
+                error: function (error) {
                     console.error('Error', error);
                 }
             });
-
         });
-    }
-
-    const lessonTextElements = document.querySelectorAll('.lesson-text');
-    const titleLessonDescriptionElements = document.querySelectorAll('.title-lesson-description');
-    const descriptionStepVideoElements = document.querySelectorAll('.description-step-video');
-    const contentTextInsideElements = document.querySelectorAll('.content-text-inside');
-    const questionTextElements = document.querySelectorAll('.question-text');
-    const videosrc = document.querySelector('.videoSRC');
-
-    function changeVideo(videoId) {
-        console.log("Changing video")
-        $.ajax({
-            type: 'POST',
-            url: '/get-video/',
-            data: { "videoId": videoId }, // Send data as an object
-            beforeSend: function(xhr, settings) {
-                xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-            },
-            success: function(response) {
-
-                var answers = []
-
-    $.ajax({
-        type: 'POST',
-        url: '/get-video/',
-        data: { "videoId": videoId }, // Send data as an object
-        beforeSend: function(xhr, settings) {
-            xhr.setRequestHeader('X-CSRFToken', getCookie("csrftoken"));
-        },
-        success: function(response) {
-            console.log(response.video.quiz_options);
-        
-            var list_of_dicts = [];
-        
-            // Iterate through the original dictionary
-            for (var key in response.video.quiz_options) {
-                if (response.video.quiz_options.hasOwnProperty(key)) {
-                    // Create a new dictionary for each key-value pair
-                    var new_dict = {'id': parseInt(key) + 1, 'text': response.video.quiz_options[key]};
-                    // Append the new dictionary to the list
-                    list_of_dicts.push(new_dict);
-                }
-            }
-
-            
-            console.log(list_of_dicts);
-            
-            answers = list_of_dicts;
-            generateAnswers(answers, video.answer)
-        },
-        error: function(error) {
-            console.error('Error', error);
-        }
     });
 
-                console.log(response);
-                lessonTextElements.forEach(element => {
-                    console.log('Change video for lesson text:', element);
-                    element.innerText = response.video.title;
-                });
-                
-                titleLessonDescriptionElements.forEach(element => {
-                    console.log('Change video for title lesson description:', element);
-                    element.innerText = response.video.title;
-                });
+    console.log('Output the list of module IDs:', moduleIds); // Output the list of module IDs
 
-                videosrc.src = response.video.video_file
-                let video = document.querySelector('video');
-                video.load();
-                descriptionStepVideoElements.forEach(element => {
-                    console.log('Change video for description step video:', element);
-                    element.innerText = JSON.stringify(response.video.notes);
-                });
-                
-                contentTextInsideElements.forEach(element => {
-                    console.log('Change video for content text inside:', element);
-                    element.innerText = JSON.stringify(response.video.summary);
-                });
-                
-                questionTextElements.forEach(element => {
-                    console.log('Change video for question text:', element);
-                    element.innerText = response.video.quiz_question;
-                });
+    // Extract the videoId from the URL if it exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoIdParam = urlParams.get('id');
 
-                rightAnswer = response.video.answer
-
-            },
-            error: function(error) {
-                console.error('Error', error);
-            }
-        });
-        
-        
+    // Check if the videoIdParam exists and is in moduleIds
+    let videoId = moduleIds.length > 0 ? moduleIds[0] : null;
+    if (videoIdParam && moduleIds.includes(videoIdParam)) {
+        videoId = videoIdParam;
     }
+    changeVideo(videoId);
+});
 
 </script>
 {% endblock scripts %}

@@ -20,6 +20,10 @@
                         <span class="modules-number">{{level.videos_count}}</span>
                         <span class="modules-text">Lessons</span>
                     </div>
+                    <div class="flex-ml">
+                        <span class="modules-number">{{level.videos_count}}</span>
+                        <span class="modules-text">Videos</span>
+                    </div>
                 </div>
             </div>
             <div class="icon-course">
@@ -29,21 +33,27 @@
     </div>
     <div class="container-sidebar-v">
         <div class="overview">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                <path d="M12.958 22.5C18.4809 22.5 22.958 18.0228 22.958 12.5C22.958 6.97715 18.4809 2.5 12.958 2.5C7.43516 2.5 2.95801 6.97715 2.95801 12.5C2.95801 18.0228 7.43516 22.5 12.958 22.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12.958 16.5V12.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12.958 8.5H12.968" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256">
+                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                    <g transform="scale(5.12,5.12)">
+                        <path d="M7,2v46h36v-46zM9,4h32v42h-32zM15,12v2h20v-2zM15,22v2h13v-2zM32,22v2h3v-2zM15,28v2h8v-2zM32,28v2h3v-2zM15,34v2h13v-2zM32,34v2h3v-2z"></path>
+                    </g>
+                </g>
             </svg>
             <span class="overview-text">Overview</span>
+            <div class="tooltip">Find all the steps below. Don't skip any, and call support if you need help</div>
         </div>
         <div class="container-modules">
             {% for module in modules %}
                 <div class="all-container-steps-modules">
                     <div class="dropdown-modules">
-                        
-                        <span class="module-text">Module {{module.module_number}} “{{module.title}}”</span>
-                        <h6>{{module.videos.count}} videos</h6>
-                        <a href="#" class="dropdownToggle"><img class="icon-default" src="{% static 'assets/arrow-down.png' %}" alt="Toggle Dropdown"></a>
+                        {% comment %} {{module.module_number}} {% endcomment %}
+                        <span class="module-text">  {{module.title}}</span>
+                        {% comment %} <span class='videos-count'>{{module.videos.count}} videos</span> {% endcomment %}
+                        <a href="#" class="dropdownToggle">
+                            <img class="icon-default arrow-icon" src="{% static 'assets/arrow-down.png' %}" alt="Toggle Dropdown">
+                        </a>
+
                     </div>
                     <div class="modules">
                         {% for video in module.videos.all %}
@@ -74,6 +84,17 @@
 </div>
 
 <script>
-    
+    const dropdownToggles = document.querySelectorAll('.dropdownToggle');
+
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            const arrowIcon = toggle.querySelector('.arrow-icon');
+            const modulesDropdowns = toggle.parentElement.nextElementSibling;
+
+            arrowIcon.classList.toggle('rotate');
+            modulesDropdowns.classList.toggle('open');
+        });
+    });
 </script>
 {% comment %} <script src="{% static 'js/sidebar-academy.js' %}"></script> {% endcomment %}
