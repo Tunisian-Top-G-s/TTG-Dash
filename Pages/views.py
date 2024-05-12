@@ -210,7 +210,8 @@ def getCryptoDetails(request, *args, **kwargs):
     context = {
         'btc': get_crypto_price("BTC-USD"),
         'eth': get_crypto_price("ETH-USD"),
-        'sol': get_crypto_price("SOL-USD")
+        'sol': get_crypto_price("SOL-USD"),
+        'avax': get_crypto_price("AVAX-USD"),
     }
     return JsonResponse({"success": True, "crypto_details": context})
 
