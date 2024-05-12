@@ -118,4 +118,10 @@ urlpatterns = [
 
     path('buy-course/', views.buyCourseView, name='buy-course'),
 
+    path('start-quest/', views.start_quest, name='start-quest'),
+    path('complete-step/', views.complete_step, name='complete-step'),
+    
+    path('quest-detail/', views.quest_detail, name='quest-detail'),
+    path('user-quest-progression/', views.user_quest_progression, name='user-quest-progression'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

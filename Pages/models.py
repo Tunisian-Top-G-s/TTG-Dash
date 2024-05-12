@@ -118,7 +118,7 @@ class featuredYoutubeVideo(models.Model):
 class Quest(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-
+    image = models.ImageField(upload_to="quests/", blank=True, null=True)
     def points(self):
         return sum(step.points for step in self.steps.all())
 
@@ -126,7 +126,7 @@ class Step(models.Model):
     quest = models.ForeignKey(Quest, on_delete=models.CASCADE, related_name='steps')
     title = models.CharField(max_length=100)
     description = models.TextField()
-    index = models.IntegerField(unique=True, blank=True, null=True)
+    index = models.IntegerField(blank=True, null=True)
     points = models.IntegerField()
 
 class UserQuestProgress(models.Model):
@@ -136,7 +136,7 @@ class UserQuestProgress(models.Model):
     points_earned = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.user.username} - {self.quest.title}"
+        return f"{self.user.user.username} - {self.quest.title}"
 
     def update_progress(self):
         # Get the next step based on the current step's index
@@ -154,3 +154,13 @@ class UserQuestProgress(models.Model):
         if self.current_step:
             self.points_earned += self.current_step.points
             self.update_progress()
+
+    def finished_steps_count(self):
+        if self.current_step:
+            print("there is current step")
+            # Count the number of steps with an index less than or equal to the index of the current step
+            return self.quest.steps.filter(index__lte=self.current_step.index).count()
+        else:
+            # If there's no current step, no steps are finished
+            print("there is no current step")
+            return 0

@@ -59,9 +59,16 @@ def homeView(request, *args, **kwargs):
     podcasts = Podcast.objects.all()
     video_id = featuredYoutubeVideo.objects.first().video_id
     next_points_goal = 500
+    quests = Quest.objects.all()
+    quests_and_progress = []
+    for quest in quests:
+        uqp, created = UserQuestProgress.objects.get_or_create(user=request.user.customuser, quest=quest)
+        quests_and_progress.append((quest,uqp))
+    
+
     print(course_progress(request))
     print(level_progress(request))
-    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts, "video_id": video_id})
+    return render(request, 'home.html', {"courses": courses, "next_points_goal": next_points_goal, "featured_product": featured_product, "feedback_options": Feedback.FEEDBACKS, "featured_course": featured_course, "podcasts": podcasts, "video_id": video_id, "quests_and_progress": quests_and_progress})
 
 
 def shopView(request, *args, **kwargs):
@@ -1244,7 +1251,7 @@ def quest_detail(request, quest_id):
     # Return JSON response with quest details
     return JsonResponse({'quest': quest_json})
 
-def step_completed(request, quest_id):
+def user_quest_progression(request, quest_id):
     quest = get_object_or_404(Quest, pk=quest_id)
     user = request.user.customuser
     user_quest_progress = get_object_or_404(UserQuestProgress, user=user, quest=quest)
