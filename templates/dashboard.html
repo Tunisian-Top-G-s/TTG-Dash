@@ -240,9 +240,10 @@
                 <div class="line-seperation"></div>
                     <div class="ranking-user">
                         {% for User in top_users %}
+                        
                             <div class="user-ranking-list">
                                 <div class="profile-user-ranking">
-                                    <img src="{% static 'assets/rank2.svg' %}" alt="{{User.rank}}" class="ranking-pic">
+                                    <img src="../static/assets/top{{forloop.counter}}.svg" alt="{{User.rank}}" class="ranking-pic">
                                     <img class="profile-user-pic" src="{{User.pfp.url}}" alt="">
                                     <span class="profile-user-name">{{ User.user.username }}</span>
                                 </div>
