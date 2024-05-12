@@ -47,7 +47,6 @@ ajaxRequest('GET', '/getCryptoDetails/', loadCryptoStats, function(response){
         var sol     = response["crypto_details"].sol;
         var avax    = response["crypto_details"].avax;
 
-        console.log(btc, eth, sol, avax);
 
         cryptoChart.forEach(function(element) {
             element.style.display = 'block';
@@ -495,5 +494,3 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.prev').addEventListener('click', previousTrack);
     loadTrack(0);
 });
-
-
