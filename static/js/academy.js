@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     var dropdownToggles = document.querySelectorAll('.dropdownToggle');
-
+    var currentVideo = null;
     dropdownToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(event) {
             event.preventDefault();
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var prev_next_bttns = document.querySelectorAll('.prev-next-bttn')
 
     prev_next_bttns.forEach(function (btn) {
-        console.log(prev_next_bttns)
         btn.addEventListener('click', function (e) {
             e.preventDefault();
             showLesson(lessonContainers, btn.getAttribute('data-index'));
@@ -26,32 +25,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
     showLesson(lessonContainers, 0);
 
-    const moduleDropdowns = document.querySelectorAll('.videos');
-    let moduleIds = [];
+    const videos = document.querySelectorAll('.videos');
+    let videosIDs = [];
 
-    moduleDropdowns.forEach(function (dropdown) {
-        const moduleId = dropdown.dataset.id; // Extract the data-id attribute
-        moduleIds.push(moduleId); // Append the module ID to the list
+    videos.forEach(function (video) {
+        const videoID = video.dataset.id;
+        videosIDs.push(videoID);
 
-        dropdown.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent the default action of the event
-            const videoId = moduleId; // Assuming moduleId contains the ID of the clicked video
-            changeVideo(videoId);
+        video.addEventListener('click', function (e) {
+            e.preventDefault();
+            changeVideo(videoID);
+            showLesson(lessonContainers, 0)
         });
     });
+    currentVideo = videosIDs[0]
+    changeVideo(currentVideo)
 
     // Extract the videoId from the URL if it exists
     const urlParams = new URLSearchParams(window.location.search);
     const videoIdParam = urlParams.get('id');
 
-    // Check if the videoIdParam exists and is in moduleIds
-    let videoId = moduleIds.length > 0 ? moduleIds[0] : null;
-    if (videoIdParam && moduleIds.includes(videoIdParam)) {
+    // Check if the videoIdParam exists and is in videosIDs
+    let videoId = videosIDs.length > 0 ? videosIDs[0] : null;
+    if (videoIdParam && videosIDs.includes(videoIdParam)) {
         videoId = videoIdParam;
+        changeVideo(videoId);
     }
-    changeVideo(videoId);
 
+    finishStepBttn = document.querySelector(".finishStep")
+    finishStepBttn.addEventListener("click", function(e) {
+        e.preventDefault();
+        console.log("finishStepBttn")
+        changeToNextVideo(lessonContainers, currentVideo)
+    })
 });
+
 function toggleLike(element) {
     element.classList.toggle('liked');
 }
@@ -68,27 +76,11 @@ function showLesson(lessonContainers, index) {
         container.style.display = i == index ? 'flex' : 'none';
     });
 }
-function nextLesson(lessonContainers, currentIndex) {
-    if (currentIndex < lessonContainers.length - 1) {
-        currentIndex++;
-        showLesson(lessonContainers, currentIndex);
-    }
-}
-function prevLesson(lessonContainers, currentIndex) {
-    if (currentIndex > 0) {
-        currentIndex--;
-        showLesson(lessonContainers, currentIndex);
-    }
-}
 
-
-
-
-function generateAnswers(answers, rightAnswer) {
+function generateAnswers(options, rightAnswer) {
     const container = document.querySelector('#container-answers');
-    const nextLessonBtn = document.getElementById('nextLessonBtn');
-
-    console.log('Right Answer:', rightAnswer); // Debugging
+    const nextLessonBtn = document.querySelector('.quizz-next-page-btn');
+    nextLessonBtn.style.display = 'none';
 
     container.innerHTML = ''; // Clear the container first if needed
 
@@ -98,63 +90,57 @@ function generateAnswers(answers, rightAnswer) {
         existingFeedback.remove();
     }
 
-    answers.forEach(answer => {
-        const answerDiv = document.createElement('div');
-        const answerSpan = document.createElement('span');
+    options.forEach(option => {
+        const optionDiv = document.createElement('div');
+        const optionSpan = document.createElement('span');
 
-        answerDiv.className = `answer answer-${answer.id}`;
-        answerSpan.classList.add('answers-texts');
-        answerSpan.textContent = answer.text;
+        optionDiv.className = `answer answer-${option.id}`;
+        optionSpan.classList.add('answers-texts');
+        optionSpan.textContent = option.text;
 
-        answerDiv.appendChild(answerSpan);
-        container.appendChild(answerDiv);
+        optionDiv.appendChild(optionSpan);
+        container.appendChild(optionDiv);
 
-        answerDiv.addEventListener('click', function () {
+        optionDiv.addEventListener('click', function () {
             // Disable further clicks
-            container.querySelectorAll('.answer').forEach(ans => ans.style.pointerEvents = 'none');
+            container.querySelectorAll('.answer').forEach(opt => opt.style.pointerEvents = 'none');
+            const isCorrect = option.id == rightAnswer;
 
-            const isCorrect = answer.id === rightAnswer;
-            console.log('Selected Answer:', answer.id, 'Is Correct:', isCorrect);
-
-            answerDiv.style.backgroundColor = isCorrect ? '#0F0' : '#F00';
-
-            answers.forEach(ans => {
-                const div = document.querySelector(`.answer-${ans.id}`);
-                if (ans.id === rightAnswer) {
-                    div.classList.add('answer-right');
-                    if (!div.querySelector('img')) {
-                        const iconImage = document.createElement('img');
-                        iconImage.src = '/static/assets/Check Mark.png';
-                        iconImage.alt = 'Correct';
-                        div.appendChild(iconImage);
-                    }
-                } else if (ans.id === answer.id) {
-                    div.classList.add('answer-wrong');
-                    const iconImage = document.createElement('img');
-                    iconImage.src = '/static/assets/Close.png';
-                    iconImage.alt = 'Incorrect';
-                    div.appendChild(iconImage);
-                }
-            });
+            optionDiv.style.backgroundColor = isCorrect ? '#0F0' : '#F00';
 
             if (isCorrect) {
-                console.log('Next button will be shown');
+                optionDiv.classList.add('answer-right');
+                if (!optionDiv.querySelector('img')) {
+                    const iconImage = document.createElement('img');
+                    iconImage.src = checkMarkSrc;
+                    iconImage.alt = 'Correct';
+                    optionDiv.appendChild(iconImage);
+                }
+            } else {
+                optionDiv.classList.add('answer-wrong');
+                const iconImage = document.createElement('img');
+                iconImage.src = closeMarkSrc;
+                iconImage.alt = 'Incorrect';
+                optionDiv.appendChild(iconImage);
+            }
+
+
+            if (isCorrect) {
                 nextLessonBtn.style.display = 'block';
             } else {
-                console.log('Retry required');
                 displayFeedbackMessage("Sorry, that's incorrect. Please try again.");
-                showRetryButton();
+                showRetryButton(options, rightAnswer);
             }
         });
     });
 }
 
-function showRetryButton() {
+function showRetryButton(options, rightAnswer) {
     const retryButton = document.createElement('button');
     retryButton.textContent = 'Retry Quiz';
     retryButton.classList.add('retry-button');
     retryButton.onclick = function () {
-        document.location.reload(true); // Reload the page for simplicity
+        generateAnswers(options, rightAnswer)
     };
 
     const container = document.querySelector('#container-answers');
@@ -173,22 +159,18 @@ function displayFeedbackMessage(message) {
     container.after(messageDiv);
 }
 
-
 function loadQuiz(videoId) {
     const nextLessonBtn = document.getElementById('nextLessonBtn');
     
     ajaxRequest('POST', '/get-video/', {"videoId": videoId}, function (response) {
-        console.log('Server response (loadQuiz):', response); // Log the response
 
         if (response.success && response.video && response.video.quiz_options) {
             const answers = Object.entries(response.video.quiz_options).map(([key, value], index) => ({
                 id: index + 1,
                 text: value
             }));
-            const quiz = response.video.quiz || {};
-            generateAnswers(answers, quiz.answer || null);
+            generateAnswers(answers, response["video"].answer || null);
         } else {
-            console.error('Unexpected response format:', response);
             displayFeedbackMessage("Error loading quiz data. Please try again.");
         }
     }, function() {
@@ -198,8 +180,8 @@ function loadQuiz(videoId) {
 }
 
 function changeVideo(videoId) {
+    currentVideo = videoId
     ajaxRequest('POST', '/get-video/', {"videoId": videoId}, function (response) {
-        console.log('Server response (changeVideo):', response); // Log the response
 
         if (response.success && response.video) {
             // Update UI elements with new video data
@@ -213,10 +195,17 @@ function changeVideo(videoId) {
             // Load quiz options
             loadQuiz(videoId);
         } else {
-            console.error('Unexpected response format:', response);
             displayFeedbackMessage("Error loading video data. Please try again.");
         }
     }, function() {
         displayFeedbackMessage("Error loading video data. Please try again.");
     }, true, "get current video details", null)
+}
+
+function changeToNextVideo(lessonContainers, currentVideoID) {
+    console.log(lessonContainers, currentVideoID)
+    ajaxRequest("POST", "/next-video/", {video_id: currentVideoID}, function(response) {
+        changeVideo(response.next_video)
+        showLesson(lessonContainers, 0);
+    }, null, true, "change to next video", null)
 }

@@ -92,7 +92,7 @@
                     </svg>BACK</a>
             </div>
             <div>
-                <a href="#" class="keep-next prev-next-bttn" id="nextLessonBtn" data-index="3" >NEXT <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
+                <a href="#" class="keep-next prev-next-bttn quizz-next-page-btn" id="nextLessonBtn" data-index="3" >NEXT <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256">
                     <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <g transform="scale(4,4)">
                             <path d="M58,32c0,14.359 -11.641,26 -26,26c-14.359,0 -26,-11.641 -26,-26c0,-14.359 11.641,-26 26,-26c14.359,0 26,11.641 26,26zM41.713,30.001l-13.697,-13.833l-2.983,2.665l10.597,13.167l-10.598,13.168l2.983,2.665l13.698,-13.834l1.979,-1.999z"></path>
@@ -127,6 +127,8 @@
 {% block scripts %}
 <script>
     var level_id = {{level.id}}
+    var checkMarkSrc = "{% static "assets/Check Mark.png" %}"
+    var closeMarkSrc = "{% static "assets\Close.png" %}"
 </script>
 <script src="{% static "js/academy.js" %}"></script>
 {% endblock scripts %}

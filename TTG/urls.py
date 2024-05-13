@@ -124,4 +124,7 @@ urlpatterns = [
     path('quest-detail/', views.quest_detail, name='quest-detail'),
     path('user-quest-progression/', views.user_quest_progression, name='user-quest-progression'),
 
+
+    path('next-video/', views.getNextVideo, name='next-video'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
