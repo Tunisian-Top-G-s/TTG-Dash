@@ -682,7 +682,7 @@ canvas {
 .transactions-history {
 	overflow-y: scroll;
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
 	gap: 15px;
 	max-height: 295px;
 	/* Default max height */
@@ -694,7 +694,7 @@ canvas {
 
 .ranking-container {
 	width: 535px;
-	height: 356px;
+	height: 100%;
 	border-radius: 10px;
 	border: 0.5px solid #ffffff86;
 	background: url(../assets/background-div.png), rgb(50 7 150 / 26%) 50% / cover no-repeat;

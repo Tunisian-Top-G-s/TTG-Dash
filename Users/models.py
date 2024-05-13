@@ -1,9 +1,7 @@
-#Users/models.py
-
 from django.contrib.auth.models import User
 from django.db import models
 from Ranks.models import Rank
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 from Courses.models import Course, CourseProgression, Video
 from django.utils import timezone
@@ -15,31 +13,31 @@ class Badge(models.Model):
     title = models.CharField(max_length=255)
     icon = models.ImageField(upload_to="Badge_img")
 
+
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    
+
     STATUS = (
         ('regular', 'Regular'),
         ('subscriber', 'Subscriber'),
         ('moderator', 'Moderator')
     )
-    
+
     status = models.CharField(max_length=20, choices=STATUS, default='regular')
-    tel = models.CharField(max_length=16, null=True)
-    address = models.CharField(max_length=255, blank=True)
-    pfp = models.ImageField(upload_to='user_images', default='default_user_image.png')
-    rank = models.ManyToManyField(Rank)
-    badges = models.ManyToManyField(Badge, related_name='customusers')
-    bio = models.TextField(max_length=150)
+    tel = models.CharField(max_length=16, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    pfp = models.ImageField(upload_to='user_images', default='default_user_image.png', null=True, blank=True)
+    rank = models.ManyToManyField(Rank, null=True, blank=True)
+    badges = models.ManyToManyField(Badge, related_name='customusers', null=True, blank=True)
+    bio = models.TextField(max_length=150, null=True, blank=True)
     enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
     last_added_points_time = models.DateTimeField(blank=True, null=True)
-    finished_videos = models.ManyToManyField(Video)
-    # Make email, first name, and last name required
-    email = models.EmailField(unique=True, blank=False, null=False)
-    first_name = models.CharField(max_length=30, blank=False, null=True)
-    last_name = models.CharField(max_length=30, blank=False, null=True)
-    points = models.IntegerField(default=0)
-    
+    finished_videos = models.ManyToManyField(Video, null=True, blank=True)
+    email = models.EmailField(blank=True, null=True)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    points = models.IntegerField(default=0, null=True, blank=True)
+
     def __str__(self):
         return str(self.user)
 
@@ -55,19 +53,15 @@ class CustomUser(models.Model):
         return profits - losses
 
     def calculate_overall_progress(self):
-        # Get all courses enrolled by the user
         enrolled_courses = self.enrolled_courses.all()
-
         overall_progress = 0
         total_courses = enrolled_courses.count()
 
-        # Calculate the progress for each enrolled course
         for course in enrolled_courses:
             course_progression, created = CourseProgression.objects.get_or_create(user=self, course=course)
             course_progress = course_progression.calculate_progression()
             overall_progress += course_progress
 
-        # Calculate the overall progress
         if total_courses > 0:
             overall_progress_percentage = (overall_progress / (total_courses * 100)) * 100
         else:
@@ -75,27 +69,9 @@ class CustomUser(models.Model):
 
         return overall_progress_percentage
 
-
     def pfp_image(self):
         return mark_safe('<img src="%s" width="50" height="50" style="object-fit:cover; border-radius: 6px;" />' % (self.pfp.url))
 
-    def save(self, *args, **kwargs):
-        # If the email field is not provided and a User instance exists, set the email field to the user's email
-        if not self.email and self.user:
-            self.email = self.user.email
-        super().save(*args, **kwargs)
-
-@receiver(post_save, sender=User)
-def create_custom_user(sender, instance, created, **kwargs):
-    if created and not hasattr(instance, 'customuser'):
-        CustomUser.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_custom_user(sender, instance, **kwargs):
-    try:
-        instance.customuser.save()
-    except CustomUser.DoesNotExist:
-        pass
 
 class Transaction(models.Model):
     user = models.ForeignKey(CustomUser, related_name='transactions', null=True, on_delete=models.CASCADE) 
@@ -103,14 +79,14 @@ class Transaction(models.Model):
         ('profit', 'Profit'),
         ('loss', 'Loss'),
     )
-    
+
     type = models.CharField(max_length=20, choices=TYPE, blank=False,  null=True)
     pair = models.CharField(max_length=20, blank=False,  null=True)
     amount = models.FloatField()
     img = models.ImageField(upload_to='user_transactions', blank=False, null=True)
     status = models.BooleanField(default=False, null=False, blank=False)
-    date = models.DateTimeField(null=True, blank=True)  # Date field is editable
-    
+    date = models.DateTimeField(null=True, blank=True)
+
     def save(self, *args, **kwargs):
         if not self.date:
             self.date = timezone.now()
@@ -119,13 +95,15 @@ class Transaction(models.Model):
     def __str__(self):
         return str(self.user)
 
+
 class Professor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='professor')
     description = models.CharField(max_length=255, blank=False, null=True)
 
     def __str__(self):
         return str(self.user)
-    
+
+
 class Address(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses', null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
@@ -135,3 +113,30 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.line}, {self.city}, {self.country} {self.zip_code}"
+
+
+@receiver(post_save, sender=User)
+def create_custom_user(sender, instance, created, **kwargs):
+    if created and not hasattr(instance, 'customuser'):
+        CustomUser.objects.create(user=instance, email=instance.email)
+
+@receiver(post_save, sender=User)
+def save_custom_user(sender, instance, **kwargs):
+    try:
+        instance.customuser.save()
+    except CustomUser.DoesNotExist:
+        pass
+
+
+# Les signaux pour la gestion de l'email sont déjà définis dans Users/models.py
+@receiver(pre_save, sender=CustomUser)
+def update_user_email(sender, instance, **kwargs):
+    # Vérifie si l'email a changé
+    if instance.pk:
+        try:
+            original_instance = CustomUser.objects.get(pk=instance.pk)
+            if original_instance.email != instance.email:
+                # Met à jour l'email dans l'utilisateur associé sans déclencher le signal
+                User.objects.filter(pk=instance.user.pk).update(email=instance.email)
+        except CustomUser.DoesNotExist:
+            pass
