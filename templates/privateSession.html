@@ -84,21 +84,21 @@
                         <div class="inputs">
                             <div>
                                 <div class="input-container">
-                                    <label for="name">First Name</label>
-                                    <input type="text" name="first_name" id="id_first_name" value="{{ form.instance.first_name }}">
+                                    <label for="id_first_name">First Name</label>
+                                    <input type="text" name="first_name" id="id_first_name" autocomplete="given-name" value="{{ form.instance.first_name }}">
                                 </div>
                                 <div class="input-container">
-                                    <label for="name">Email</label>
-                                    <input type="email" name="email" id="id_email" value="{{ form.instance.email }}">
+                                    <label for="id_email">Email</label>
+                                    <input type="email" name="email" id="id_email" autocomplete="email" value="{{ form.instance.email }}">
                                 </div>
                             </div>
                             <div>
                                 <div class="input-container">
-                                    <label for="name">Last Name</label>
-                                    <input type="text" name="last_name" id="id_last_name" value="{{ form.instance.last_name }}">
+                                    <label for="id_last_name">Last Name</label>
+                                    <input type="text" name="last_name" id="id_last_name" autocomplete="given-name" value="{{ form.instance.last_name }}">
                                 </div>
                                 <div class="input-container">
-                                    <label for="name">Phone Number</label>
+                                    <label for="id_phone_number">Phone Number</label>
                                     <input type="text" name="phone_number" id="id_phone_number" value="{{ form.instance.phone_number }}">
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                         <style>
                             
                         </style>
-                        <span class="id_cours">Course:</>
+                        <span class="id_cours">Course:</span>
                         {% for course in form.fields.cours.queryset %}
                        
                         <div class="checkbox-container">
@@ -226,13 +226,15 @@
                                 <span>Choose your perfect day :</span>
                                 <div class="calendar-container">
                                     
-                                    <label for="id_schedule">Schedule:</label>
-                                    <input type="datetime-local" name="schedule" id="id_schedule" value="{{ form.instance.schedule }}">
                                     
-                                    {% comment %} <div class="calendar"></div> {% endcomment %}
-                                    {% comment %} <form id="selectedDateForm" style="display: none;">
-                                        <input type="hidden" id="selectedDateInput" name="selected_date">
-                                    </form> {% endcomment %}
+                                        <div class="calendar">
+                                  
+                                    
+                                    <label for="id_schedule">Schedule:</label>
+                                    <input type="datetime-local" name="schedule" id="id_schedule" value="{{ form.instance.schedule|date:"Y-m-d\TH:i" }}">
+
+                                </div>
+                               
                                 </div>
                                 <div class="button-group">
                                     <button type="button" class="back-tab-btn">
@@ -328,5 +330,6 @@
             }
         });
     });
+    
     </script>
 {% endblock scripts %}

@@ -136,39 +136,39 @@ const calendar = document.querySelector('.calendar');
 const selectedDateInput = document.getElementById('selectedDateInput');
 const selectedDateForm = document.getElementById('selectedDateForm');
 
-// Generate calendar days
-function generateCalendar() {
-    const daysInMonth = 31; // You can adjust this based on the actual month
-    for (let i = 1; i <= daysInMonth; i++) {
-        const dayElement = document.createElement('div');
-        dayElement.textContent = i;
-        dayElement.classList.add('calendar-day');
+// // Generate calendar days
+// function generateCalendar() {
+//     const daysInMonth = 31; // You can adjust this based on the actual month
+//     for (let i = 1; i <= daysInMonth; i++) {
+//         const dayElement = document.createElement('div');
+//         dayElement.textContent = i;
+//         dayElement.classList.add('calendar-day');
 
-        if (unavailableDays.includes(i)) {
-            dayElement.classList.add('unavailable');
-        } else {
-            // Add event listener only if the day is available
-            dayElement.addEventListener('click', function() {
-                if (!this.classList.contains('unavailable')) {
-                    // Clear previously selected day
-                    const selectedDay = document.querySelector('.calendar-day.selected');
-                    if (selectedDay) {
-                        selectedDay.classList.remove('selected');
-                    }
+//         if (unavailableDays.includes(i)) {
+//             dayElement.classList.add('unavailable');
+//         } else {
+//             // Add event listener only if the day is available
+//             dayElement.addEventListener('click', function() {
+//                 if (!this.classList.contains('unavailable')) {
+//                     // Clear previously selected day
+//                     const selectedDay = document.querySelector('.calendar-day.selected');
+//                     if (selectedDay) {
+//                         selectedDay.classList.remove('selected');
+//                     }
 
-                    // Mark current day as selected
-                    this.classList.add('selected');
-                    selectedDateInput.value = i;
-                }
-            });
-        }
+//                     // Mark current day as selected
+//                     this.classList.add('selected');
+//                     selectedDateInput.value = i;
+//                 }
+//             });
+//         }
 
-        calendar.appendChild(dayElement);
-    }
-}
+//         calendar.appendChild(dayElement);
+//     }
+// }
 
 // Call the function to generate the calendar
-generateCalendar();
+// generateCalendar();
 
 
 function replaceScheduleBodyWithDoneContent() {
@@ -213,5 +213,25 @@ function replaceScheduleBodyWithDoneContent() {
 
         // Replace the schedule-body content with the new content
         scheduleBody.appendChild(doneBody);
+
+        // Prevent default action and handle go back functionality
+        goBackLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            // Call a function to handle what happens when "Go Back" is clicked
+            handleGoBack();
+        });
     }
 }
+
+function handleGoBack() {
+    // Example function to revert to the previous view or perform another action
+    const scheduleBody = document.querySelector('.schedule-body');
+    if (scheduleBody) {
+        // Code to restore the previous content or switch views
+        // This needs to be adapted based on how you manage views/states in your application
+    }
+}
+
+
+
+

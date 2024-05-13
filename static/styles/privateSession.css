@@ -1,4 +1,6 @@
 .wrapper-conatiner-prvsession {
+	background: url('../assets/Dashboard.svg') no-repeat;
+	background-size: cover;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -186,6 +188,7 @@
 	text-transform: capitalize;
 	width: -webkit-fill-available;
 	cursor: pointer;
+	user-select: none;    
 }
 
 .schedule-body {
@@ -457,6 +460,7 @@ ul.tabs li.current {
 	gap: 20px;
 	align-items: center;
 	justify-content: center;
+	
 }
 
 .checkbox-label>.professor>img {
@@ -555,46 +559,22 @@ ul.tabs li.current {
 .tab-link {
 	cursor: default;
 }
+.jello-horizontal {
+	-webkit-animation: jello-horizontal 0.9s both;
+	animation: jello-horizontal 0.9s both;
+}
 
-@media screen and (max-width: 768px) {
-	.span-popup {
-		padding: 0 1rem;
-	}
-
-	.popup-message {
-		width: fit-content;
-	}
-
-	.button-group {
-		flex-direction: column;
-	}
-
-	.calendar {
-		padding: 5px 0;
-	}
-
-	.next-tab-btn {
-		margin: 1rem 0;
-	}
-
-	.done-body {
-		flex-direction: column;
-		align-items: center;
-		padding: 0;
-		gap: 0;
-	}
-
-	.done-container>span:nth-child(2) {
-		text-align: start;
-	}
-
-	.schedule-container {
-		width: 90%;
-	}
-
-	.done-body>.schedule-body-right {
-		padding: 0;
-	}
+.id_cours{
+	color: #FFF;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
 }
 
 .popup-show {
@@ -615,12 +595,23 @@ ul.tabs li.current {
 /* -------------Media Querie---------------------- */
 
 @media screen and (max-width: 1215px) {
-	.main {
-		height: 100%;
+	.main{
+		height: 120vh;
+	}
+	.wrapper-conatiner-prvsession {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+		padding: 20px 20px;
+		align-items: center;
 	}
 
 	.schedule-body {
 		flex-direction: column;
+		gap: 10px;
+		border: none;
+		background: none;
 	}
 
 	.schedule-header {
@@ -628,10 +619,12 @@ ul.tabs li.current {
 	}
 
 	.schedule-body-right {
-		border: 0;
+		
 		padding: 0;
 	}
-
+	.done-body .schedule-body-right{
+		padding: 20px 20px;
+	}
 	.schedule-header>.img {
 		display: flex;
 		justify-content: center;
@@ -668,21 +661,21 @@ ul.tabs li.current {
 	}
 
 	.schedule-body-left img {
-		width: 100%;
+		width: 35%;
 	}
-
+	.done-container>span:nth-child(1){
+		font-size: 24px;
+		text-align: center;
+	}
 	.done-container>span:nth-child(2) {
 		width: 100%;
 		height: auto;
+		text-align: center;
 	}
-}
-
-.jello-horizontal {
-	-webkit-animation: jello-horizontal 0.9s both;
-	animation: jello-horizontal 0.9s both;
-}
-
-@media screen and (max-width: 1215px) {
+	.done-container{
+		padding: 0px;
+		gap: 28px;
+	}
 	.session-pictures {
 		padding: 0;
 		width: 65%;
@@ -710,31 +703,184 @@ ul.tabs li.current {
 	.checkbox-tile {
 		min-height: 50px;
 	}
-
 }
 
-@media screen and (max-width: 348px) {
+@media screen and (max-width: 768px) {
+	.wrapper-conatiner-prvsession {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+		padding: 20px 20px;
+		align-items: center;
+	}
+	.span-popup {
+		padding: 0 1rem;
+	}
+
+	.popup-message {
+		width: fit-content;
+	}
+
+	.button-group {
+		flex-direction: column;
+	}
+
+	.calendar {
+		padding: 5px 0;
+	}
+
+	.next-tab-btn {
+		margin: 1rem 0;
+	}
+
+	.done-body {
+		flex-direction: column;
+		align-items: center;
+		padding: 0;
+		gap: 10px;
+	}
+
+	.done-container>span:nth-child(2){
+		width: 60%;
+		font-size: 15px;
+		text-align: center;
+	}
+	.done-container>span:nth-child(1){
+		font-size: 20px;
+		text-align: center;
+		width: 60%;
+	}
+	.schedule-container {
+		width: 90%;
+	}
+
+	.done-body>.schedule-body-right {
+		padding: 0;
+	}
+}
+@media screen and (max-width: 425px) {
 	.session-pictures {
+		display: flex;
+		
+	}
+	.schedule-container{
+		border: none;
+		border-radius: 0px;
+		background: none;
+	}
+	.schedule-body{
+		border: none;
+		border-radius: none;
+		background : none;
+		box-shadow: none;
+		backdrop-filter: none;
+		
+	}
+	.schedule-container {
+		width: 100%;
+	}
+	.schedule-header{
+		width: 100%;
+		border: none;
+		border-radius: 0px;
+		padding: 0px;
+		background : none;
+		box-shadow: none;
+		backdrop-filter: none;
 		display: none;
 	}
-
-	.schedule-header span {
+	.wrapper-conatiner-prvsession{
+		padding: 0px;
+	}
+	.checkbox-label{
+		font-size: 14px;
+	}
+	.TimeSelection>span{
+		font-size: 20px;
+	}
+	.span.id_cours{
 		font-size: 16px;
 	}
+	.schedule-header span{
+		font-size: 16px;
+	}
+	.back-tab-btn{
+		padding: 10px 20px;
+		
+	}
 }
+@media  screen and (max-width: 375px) {
+	.done-container>span:nth-child(2){
+		width: 80%;
+	}
+	.checkbox-label{
+		font-size: 12px;
+	}
+	.TimeSelection>span{
+		font-size: 18px;
+	}
+	.span.id_cours{
+		font-size: 12px;
+	}
+	.schedule-header span{
+		font-size: 12px;
+	}
+	.schedule-body-left>span{
+		font-size: 18px;
+	
+	}
+	.TimeSelection .TimesAvailable>div{
+		gap: 15px
+	}
+	.schedule-header{
+		display: none;
+	}
+	.back-tab-btn{
+		padding: 5px 20px;
+		font-size: 14px;	
+	}
+}
+@media  screen and (max-width: 320px) {
+	.checkbox-label{
+		font-size: 13px;
+	}
+	.TimeSelection>span{
+		font-size: 16px;
+	}
+	.span.id_cours{
+		font-size: 10px;
+	}
+	.schedule-header span{
+		font-size: 10px;
+	}
+	.schedule-body-left>span{
+		font-size: 16px;
+	
+	}
+	.TimeSelection .TimesAvailable>div{
+		gap: 10px
+	}
+	.back-tab-btn{
+		padding: 5px 20px;
+		font-size: 12px;	
+	}
+	.tab-content>span{
+		font-size: 16px;
+	}
+	.schedule-body{
+		gap: 20px;
+	}
+	form label {
+		font-size: 14px;
+	}
+	form input {
+		font-size: 14px;
+	}
+	.schedule-body {
+		gap: 20px;
+	}
 
-/* ----------------------------------------------
- * Generated by Animista on 2024-2-20 23:6:18
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation jello-horizontal
- * ----------------------------------------
- */
 @-webkit-keyframes jello-horizontal {
 	0% {
 		-webkit-transform: scale3d(1, 1, 1);
@@ -772,6 +918,20 @@ ul.tabs li.current {
 	}
 }
 
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+	20%, 40%, 60%, 80% { transform: translateX(10px); }
+  }
+  
+  .shake-animation {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	perspective: 1000px;
+  }
+
+  
 @keyframes jello-horizontal {
 	0% {
 		-webkit-transform: scale3d(1, 1, 1);
@@ -842,18 +1002,7 @@ ul.tabs li.current {
 	}
 }
 
-/* ----------------------------------------------
- * Generated by Animista on 2024-3-9 22:49:18
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
 
-/**
- * ----------------------------------------
- * animation slide-in-blurred-left
- * ----------------------------------------
- */
 @-webkit-keyframes slide-in-blurred-left {
 	0% {
 		-webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
@@ -898,18 +1047,7 @@ ul.tabs li.current {
 	}
 }
 
-/* ----------------------------------------------
- * Generated by Animista on 2024-3-9 23:23:22
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
 
-/**
- * ----------------------------------------
- * animation bounce-in-top
- * ----------------------------------------
- */
 @-webkit-keyframes bounce-in-top {
 	0% {
 		-webkit-transform: translateY(-500px);
@@ -968,6 +1106,7 @@ ul.tabs li.current {
 		-webkit-animation-timing-function: ease-out;
 		animation-timing-function: ease-out;
 	}
+}
 }
 
 @keyframes bounce-in-top {
@@ -1036,25 +1175,22 @@ ul.tabs li.current {
 /* Label styling */
 .calendar-container label {
 	display: block;
-	color: #333;
+	color: #ffffff;
 	font-size: 16px;
 	font-weight: bold;
 }
 
 /* Input field styling */
 .calendar-container input[type="datetime-local"] {
-	width: 100%;
-	/* Full width to fill the container */
-	padding: 10px;
-	/* Padding inside the input for text spacing */
-	border: 1px solid #ccc;
-	/* Light grey border */
-	border-radius: 4px;
-	/* Rounded corners on the input field */
-	box-sizing: border-box;
-	/* Ensures padding does not add to the width */
-	font-size: 14px;
-	/* Font size that matches other form elements */
+	width: 40vh;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Focus state for input to highlight when active */
@@ -1068,9 +1204,13 @@ ul.tabs li.current {
 }
 
 .calendar {
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	padding: 5px 1rem;
+	/* display: grid; */ 
+    /* grid-template-columns: repeat(7, 1fr); */
+    /* padding: 5px 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
 }
 
 .calendar-day {
