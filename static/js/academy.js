@@ -205,7 +205,12 @@ function changeVideo(videoId) {
 function changeToNextVideo(lessonContainers, currentVideoID) {
     console.log(lessonContainers, currentVideoID)
     ajaxRequest("POST", "/next-video/", {video_id: currentVideoID}, function(response) {
+        finishVideo(currentVideoID)
         changeVideo(response.next_video)
         showLesson(lessonContainers, 0);
     }, null, true, "change to next video", null)
+}
+
+function finishVideo(video_id) {
+    ajaxRequest('POST', "/videoFinished/", {videoId: video_id}, null, null, true, "video finished", null)
 }
