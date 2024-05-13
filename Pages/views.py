@@ -197,7 +197,7 @@ def verificationView(request, *args, **kwargs):
 def dashboardView(request, *args, **kwargs):
     dashboard = Dashboard.objects.get(id=1)
     transactionForm = TransactionForm
-    transactions = Transaction.objects.all().reverse().order_by('-date')[:4]  # Assuming 'date' is the field you want to order by
+    transactions = Transaction.objects.all().order_by('-date')[:4]  # Assuming 'date' is the field you want to order by
     reversed_transactions = reversed(transactions)
 
     top_users = CustomUser.objects.all()
