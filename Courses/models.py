@@ -85,6 +85,7 @@ class Module(models.Model):
 class Video(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_videos', blank=True, null=True)
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='videos')
+    index = models.IntegerField(default=0)
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to="coursesVideos", max_length=100, blank=True, null=True)
     summary = models.JSONField(default=dict)
@@ -95,6 +96,10 @@ class Video(models.Model):
         super().save(*args, **kwargs)
         if self.module:
             self.module.update_completion_status()
+
+    def get_next_video(self):
+        next_video = Video.objects.filter(module=self.module, index__gt=self.index).order_by('index').first()
+        return next_video
 
 class Quiz(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_quiz', blank=True, null=True)

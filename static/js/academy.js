@@ -9,41 +9,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    levelProgressText = document.querySelector('.percentage-progess');
     ajaxRequest('POST', '/level_progress/', {level_id: level_id}, function(response) {
-        if (response.success) {
-            console.log(response);
-            // Set the width of the progress bar for the current course
-            levelProgressText.innerText = `${response.level_progression}% complete`;
-            updateProgressBar(response.level_progression);
-        } else {
-            console.log(response);
-        }
+        updateProgress(response.level_progression);
     }, null, true, "level progression", null)
-    
-    
-    /* CHANGE THIS */
-    let currentIndex = 0;
-    const nextLessonBtn = document.getElementById('nextLessonBtn');
-    const prevBtns = document.querySelectorAll('.prev-btn');
+
     const lessonContainers = document.querySelectorAll('.container-lesson');
+    var prev_next_bttns = document.querySelectorAll('.prev-next-bttn')
 
-    nextLessonBtn.addEventListener('click', function (event) {
-        event.preventDefault();
-        nextLesson(lessonContainers, currentIndex);
-    });
-    prevBtns.forEach(prevBtn => {
-        prevBtn.addEventListener('click', function (event) {
-            event.preventDefault();
-            prevLesson(lessonContainers, currentIndex);
-        });
-    });
+    prev_next_bttns.forEach(function (btn) {
+        console.log(prev_next_bttns)
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            showLesson(lessonContainers, btn.getAttribute('data-index'));
+        })
+    })
 
+    showLesson(lessonContainers, 0);
 
-    // Show the first lesson initially
-    showLesson(lessonContainers, currentIndex);
-
-    const moduleDropdowns = document.querySelectorAll('.modules-dropdowns');
+    const moduleDropdowns = document.querySelectorAll('.videos');
     let moduleIds = [];
 
     moduleDropdowns.forEach(function (dropdown) {
@@ -73,14 +56,16 @@ function toggleLike(element) {
     element.classList.toggle('liked');
 }
 
-function updateProgressBar(percentage) {
+function updateProgress(percentage) {
+    var levelProgressText = document.querySelector('.percentage-progess');
     var progressBar = document.getElementById("progressBar");
+    levelProgressText.innerText = `${percentage}% complete`;
     progressBar.style.width = percentage + '%';
 }
 
 function showLesson(lessonContainers, index) {
     lessonContainers.forEach((container, i) => {
-        container.style.display = i === index ? 'flex' : 'none';
+        container.style.display = i == index ? 'flex' : 'none';
     });
 }
 function nextLesson(lessonContainers, currentIndex) {
