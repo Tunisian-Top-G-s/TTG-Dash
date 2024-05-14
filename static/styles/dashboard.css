@@ -314,8 +314,8 @@ canvas {
 	height: 90px;
 	box-shadow: rgb(106, 74, 143) 0px 20px 100px 0px;
 	backdrop-filter: blur(6px);
-	max-width: max-content;
 	border: 1px solid #ffffff;
+	object-fit: cover;
 }
 
 .name-user {
@@ -408,7 +408,7 @@ canvas {
 	width: 600px;
 	display: flex;
 	flex-direction: column;
-	/* z-index: -1; */
+	z-index: -1;
 	gap: 10px;
 	padding: 10px 15px 0px 15px;
 	border-radius: 10px;
@@ -451,6 +451,7 @@ canvas {
 	width: 45px;
 	height: 45px;
 	border-radius: 39px;
+	object-fit: cover;
 }
 
 .ianloine {
@@ -706,7 +707,7 @@ canvas {
 	padding: 10px 15px;
 	-webkit-animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 	animation: fade-in 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	/* z-index: -1; */
+	z-index: -1;
 }
 
 .title-ranking {
@@ -751,6 +752,7 @@ canvas {
 	border: 1px solid rgba(255, 170, 255, 0.459)fa;
 	align-items: center;
 	justify-content: center;
+	object-fit: cover;
 }
 
 .profile-user-ranking>.profile-user-name {
@@ -1457,7 +1459,7 @@ input.radio {
 
 	.last-transaction-container {
 		width: 100%;
-		height: 356px;
+		height: auto;
 	}
 
 	.ranking-container {
