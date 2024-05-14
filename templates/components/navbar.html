@@ -271,40 +271,29 @@
                 </div>
             </div>
         </div>
-        <div class="navbar">
-            <div class="container nav-container" id="navContainer">
+
+        {% comment %} hamburger Navbar {% endcomment %}
+        <div id="navContainer" class="navbar">
+            <div class="container nav-container">
                 <div class="logo-f">
-                    <img src="{% static "assets/logo-ttg-white.png" %}" alt="Logo TTG" />
+                    <img src="{% static 'assets/logo-ttg-white.png' %}" alt="Logo TTG" />
                 </div>
-                <input class="checkbox" type="checkbox" name="" id="navToggle" />
-                <div class="hamburger-lines">
+                <input class="checkbox" type="checkbox" id="navToggle" />
+                <div id="hamburgerLines" class="hamburger-lines">
                     <span class="line line1"></span>
                     <span class="line line2"></span>
                     <span class="line line3"></span>
                 </div>
                 <div class="menu-items" id="dropDownMenu">
-                    <li><a class="menu-item" href="{% url "home" %}">
-                            <i data-lucide="home" color="white"></i>
-                            Home</a>
-                    </li>
-                    <li><a class="menu-item"  href="{% url "dashboard" %}">
-                            <i data-lucide="layout-dashboard" color="white"></i>
-                            Dashboard</a></li>
-                    <li><a class="menu-item" href="{% url "courses" %}">
-                            <i data-lucide="book-copy" color="white"></i>
-                            Academy</a></li>
-                    <li><a class="menu-item" href="{% url "server_chat" room_name="badges" %}">
-                            <i data-lucide="message-circle" color="white"></i>
-                            Chat</a></li>
-                    <li><a class="menu-item" href="{% url "private_session" %}">
-                            <i data-lucide="calendar-check" color="white"></i>
-                            Schedules</a></li>
-                    <li><a class="menu-item" href="{% url "shop" %}">
-                            <i data-lucide="shopping-cart" color="white"></i>
-                            Shop</a></li>
+                    <li><a class="menu-item" href="{% url 'home' %}"><i data-lucide="home" color="white"></i>Home</a></li>
+                    <li><a class="menu-item" href="{% url 'dashboard' %}"><i data-lucide="layout-dashboard" color="white"></i>Dashboard</a></li>
+                    <li><a class="menu-item" href="{% url 'courses' %}"><i data-lucide="book-copy" color="white"></i>Academy</a></li>
+                    <li><a class="menu-item" href="{% url 'server_chat' room_name='badges' %}"><i data-lucide="message-circle" color="white"></i>Chat</a></li>
+                    <li><a class="menu-item" href="{% url 'private_session' %}"><i data-lucide="calendar-check" color="white"></i>Schedules</a></li>
+                    <li><a class="menu-item" href="{% url 'shop' %}"><i data-lucide="shopping-cart" color="white"></i>Shop</a></li>
                 </div>
-
             </div>
         </div>
+        
 
 <script src="{% static "js/components/navbar.js" %}"></script>

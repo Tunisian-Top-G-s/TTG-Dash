@@ -741,6 +741,7 @@ span.sort-by-up-arrow {
 		width: 100px;
 		cursor: pointer;
 	}
+	
 	.nav-container {
 		display: flex;
 		justify-content: space-between;
@@ -796,7 +797,6 @@ span.sort-by-up-arrow {
 		z-index: 5;
 		opacity: 0;
 		cursor: pointer;
-		z-index: 3;
 	}
 
 	.nav-container .hamburger-lines {
@@ -818,6 +818,7 @@ span.sort-by-up-arrow {
 		width: 100%;
 		border-radius: 10px;
 		background: #ffffff;
+		transition: transform 0.3s ease, background 0.3s ease;
 	}
 
 	.nav-container .hamburger-lines .line1 {
@@ -845,6 +846,9 @@ span.sort-by-up-arrow {
 		flex-direction: column;
 		transition: transform 0.5s ease-in-out;
 		text-align: center;
+		position: fixed;
+		top: 0;
+		left: 0;
 	}
 
 	.navbar .menu-items li {
@@ -883,11 +887,11 @@ span.sort-by-up-arrow {
 		transform: rotate(45deg);
 		background: var(--PRIMARY-C) !important;
 	}
-
+	
 	.hamburger-lines.checked .line2 {
 		transform: scaleY(0);
 	}
-
+	
 	.hamburger-lines.checked .line3 {
 		transform: rotate(-45deg);
 		background: var(--PRIMARY-C) !important;
