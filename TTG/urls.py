@@ -18,6 +18,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.conf.urls.static import static
+from django_ckeditor_5 import views as ckeditor_views
 
 from Pages import views
 from django.contrib.auth import views as auth_views
@@ -123,5 +124,10 @@ urlpatterns = [
     
     path('quest-detail/', views.quest_detail, name='quest-detail'),
     path('user-quest-progression/', views.user_quest_progression, name='user-quest-progression'),
+
+
+    path('next-video/', views.getNextVideo, name='next-video'),
+
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

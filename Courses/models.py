@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
 from django.utils.html import mark_safe
-
-
+from django_ckeditor_5.fields import CKEditor5Field
 class Course(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -67,11 +66,12 @@ class Module(models.Model):
     module_number = models.IntegerField(blank=True, null=True)
     description = models.TextField()
 
-    def update_completion_status(self, user):
-        user_progress = UserCourseProgress.objects.get(user=user, course=self.level.course)
-        if all(video in user_progress.completed_videos.all() for video in self.videos.all()):
-            user_progress.completed_modules.add(self)
-            self.level.update_completion_status(user)
+    def update_completion_status(self, user=None):
+        if user:
+            user_progress = UserCourseProgress.objects.get(user=user, course=self.level.course)
+            if all(video in user_progress.completed_videos.all() for video in self.videos.all()):
+                user_progress.completed_modules.add(self)
+                self.level.update_completion_status(user)
 
     def calculate_progress_percentage(self, user):
         total_videos = self.videos.count()
@@ -88,8 +88,8 @@ class Video(models.Model):
     index = models.IntegerField(default=0)
     title = models.CharField(max_length=255)
     video_file = models.FileField(upload_to="coursesVideos", max_length=100, blank=True, null=True)
-    summary = models.JSONField(default=dict)
-    notes = models.JSONField(default=dict)
+    summary = CKEditor5Field(config_name='extends', blank=True, null=True)
+    notes = CKEditor5Field(config_name='extends', blank=True, null=True)
     finished = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):

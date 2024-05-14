@@ -335,7 +335,6 @@ def course_progress(request, *args, **kwargs):
     course_id = 1
     course = Course.objects.get(id=course_id)
 
-    print("ya walid", course.calculate_progress_percentage(user=user))
 
     return JsonResponse({"success": True, "course_progression": course.calculate_progress_percentage(user=user)})
 
@@ -350,7 +349,6 @@ def level_progress(request, *args, **kwargs):
     level_id = 1
     level = Level.objects.get(id=level_id)
 
-    print("ya walid", level.calculate_progress_percentage(user=user))
 
     return JsonResponse({"success": True, "level_progression": level.calculate_progress_percentage(user=user)})
 
@@ -756,6 +754,10 @@ def getVideoView(request, *args, **kwargs):
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
     
+def getNextVideo(request, *args, **kwargs):
+    next_video = Video.objects.get(id=request.POST.get('video_id')).get_next_video()
+    return JsonResponse({'success': True, "next_video": next_video.id})
+
 def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
     video = Video.objects.get(id=videoId)
