@@ -189,9 +189,21 @@ function changeVideo(videoId) {
             document.querySelector('video').load();
             document.querySelectorAll('.lesson-text').forEach(el => el.innerText = response.video.title);
             document.querySelectorAll('.title-lesson-description').forEach(el => el.innerText = response.video.title);
-            document.querySelectorAll('.description-step-video').forEach(el => el.innerText = JSON.stringify(response.video.notes));
-            document.querySelectorAll('.question-text').forEach(el => el.innerText = `Question: ${response.video.quiz_question}`);
+            
+            // Render HTML content for notes
+            document.querySelectorAll('.description-step-video').forEach(el => {
+                // Render CKEditor content as HTML
+                el.innerHTML = response.video.notes;
+            });
 
+            // Render CKEditor content for summary
+            document.querySelectorAll('.content-text-inside').forEach(el => {
+                el.innerHTML = response.video.summary;
+            });
+
+            document.querySelectorAll('.question-text').forEach(el => el.innerText = `Question: ${response.video.quiz_question}`);
+            //HIGHLIGHT CODE SNIPPETS
+            Prism.highlightAll();
             // Load quiz options
             loadQuiz(videoId);
         } else {

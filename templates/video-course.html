@@ -6,10 +6,23 @@
     <link rel="stylesheet" href="{% static "styles/notes-course.css" %}">
     <link rel="stylesheet" href="{% static "styles/textQuizz-course.css" %}">
     <link rel="stylesheet" href="{% static "styles/lessonComplete.css" %}">
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet">
+    <style>
+        pre[class*="language-"] {
+            background-color: transparent !important{% comment %} #282b30 {% endcomment %}; /* Set background color to transparent */
+        }
+        code[class*="language-"], pre[class*="language-"] {
+            text-shadow: none !important;
+        }
+    </style>
 {% endblock course-head %}
 
 {% block course-content %}
    
+
+
 <div class="container-lesson" >
     <div class="iconlike" onclick="toggleLike(this)">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0,0,256,256">
@@ -29,7 +42,7 @@
             </div>
             <div class="lesson-container">
                 <span class="title-lesson-description">{{ video.title }}</span>
-                <span class="description-step-video">{{ video.notes }}</span>
+                <span class="description-step-video">{{ video.notes|safe }}</span>
             </div>
         </div>
     </div>
@@ -129,6 +142,13 @@
     var level_id = {{level.id}}
     var checkMarkSrc = "{% static "assets/Check Mark.png" %}"
     var closeMarkSrc = "{% static "assets\Close.png" %}"
+</script>
+<!-- Include Prism.js JavaScript file -->
+<script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+<!-- Initialize Prism.js -->
+<script>
+    // Initialize Prism.js
+    Prism.highlightAll();
 </script>
 <script src="{% static "js/academy.js" %}"></script>
 {% endblock scripts %}
