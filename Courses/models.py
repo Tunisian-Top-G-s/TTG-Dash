@@ -27,6 +27,13 @@ class Course(models.Model):
         completed_levels = user_progress.completed_levels.count()
         return (completed_levels / total_levels) * 100
 
+    def update_completion_status(self, user):
+        user_progress = UserCourseProgress.objects.get(user=user, course=self)
+        all_levels_completed = all(level in user_progress.completed_levels.all() for level in self.admin_levels.all())
+        if all_levels_completed:
+            user_progress.completed = True
+            user_progress.save()
+
     def __str__(self):
         return self.title
 
@@ -63,6 +70,7 @@ class Module(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_modules', blank=True, null=True)
     level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='modules')
     title = models.CharField(max_length=255)
+    index = models.IntegerField(default=0)
     module_number = models.IntegerField(blank=True, null=True)
     description = models.TextField()
 
@@ -82,6 +90,10 @@ class Module(models.Model):
         completed_videos = user_progress.completed_videos.filter(module=self).count()
         return (completed_videos / total_videos) * 100
 
+    def get_next_module(self):
+        next_module = Module.objects.filter(level=self.level, index__gt=self.index).exclude(id=self.id).order_by('index').first()
+        return next_module
+
 class Video(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_videos', blank=True, null=True)
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='videos')
@@ -99,7 +111,7 @@ class Video(models.Model):
 
     def get_next_video(self):
         next_video = Video.objects.filter(module=self.module, index__gt=self.index).order_by('index').first()
-        return next_video
+        return next_video if next_video else None
 
 class Quiz(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_quiz', blank=True, null=True)

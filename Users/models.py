@@ -32,7 +32,8 @@ class CustomUser(models.Model):
     bio = models.TextField(max_length=150, null=True, blank=True)
     enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
     last_added_points_time = models.DateTimeField(blank=True, null=True)
-    finished_videos = models.ManyToManyField(Video, blank=True)
+    liked_videos = models.ManyToManyField(Video, blank=True)
+
     email = models.EmailField(blank=True, null=True)
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=30, blank=True, null=True)

@@ -349,7 +349,6 @@ def level_progress(request, *args, **kwargs):
     level_id = 1
     level = Level.objects.get(id=level_id)
 
-
     return JsonResponse({"success": True, "level_progression": level.calculate_progress_percentage(user=user)})
 
 def addPoints(request, *args, **kwargs):
@@ -755,8 +754,18 @@ def getVideoView(request, *args, **kwargs):
         return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
     
 def getNextVideo(request, *args, **kwargs):
-    next_video = Video.objects.get(id=request.POST.get('video_id')).get_next_video()
-    return JsonResponse({'success': True, "next_video": next_video.id})
+    video_id = request.POST.get('video_id')
+    current_video = Video.objects.get(id=video_id)
+    next_video = current_video.get_next_video()
+    
+    if not next_video:
+        # Get the next module
+        next_module = current_video.module.get_next_module()
+        if next_module:
+            # Get the first video in the next module
+            next_video = next_module.videos.order_by('index').first()
+    
+    return JsonResponse({'success': True, "next_video": next_video.id if next_video else None})
 
 def videoFinishedView(request, *args, **kwargs):
     videoId = request.POST.get("videoId")
@@ -768,6 +777,33 @@ def videoFinishedView(request, *args, **kwargs):
     
     return JsonResponse({'success': True, 'message':"video finished successfully"})
 
+def add_liked_video(request):
+    user = request.user.customuser
+    video = get_object_or_404(Video, id=request.POST.get("video_id"))
+
+    # Add the video to the user's liked videos
+    user.liked_videos.add(video)
+
+    # Return a success message
+    return JsonResponse({'success': True})
+
+def remove_liked_video(request):
+    user = request.user.customuser
+    video = get_object_or_404(Video, id=request.POST.get("video_id"))
+
+    user.liked_videos.remove(video)
+
+    return JsonResponse({'success': True})
+
+def is_video_liked(request):
+    user = request.user.customuser
+    video_id = request.POST.get("video_id")
+
+    # Check if the video is liked by the user
+    is_liked = user.liked_videos.filter(id=video_id).exists()
+
+    # Return a response indicating whether the video is liked or not
+    return JsonResponse({'is_liked': is_liked})
 
 def ProductView (request, product_id, *args, **kwargs):
     product = Product.objects.get(id=product_id)

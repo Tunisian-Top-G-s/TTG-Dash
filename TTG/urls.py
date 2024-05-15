@@ -128,6 +128,10 @@ urlpatterns = [
 
     path('next-video/', views.getNextVideo, name='next-video'),
 
+    path('add_liked_video/', views.add_liked_video, name='add_liked_video'),
+    path('remove_liked_video/', views.remove_liked_video, name='remove_liked_video'),
+    path('is_video_liked/', views.is_video_liked, name='is_video_liked'),
+
     path("ckeditor5/", include('django_ckeditor_5.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

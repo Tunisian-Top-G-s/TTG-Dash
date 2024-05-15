@@ -5,6 +5,7 @@ function ajaxRequest(method, url, data, successFunction, errorFunction, doLog, n
     
     if (doLog) {
         console.log(name + "...")
+
     }
 
     $.ajax({
@@ -22,7 +23,10 @@ function ajaxRequest(method, url, data, successFunction, errorFunction, doLog, n
             if (doLog) {
                 console.log(name ,"=> success: ", response);
             }
-            successFunction(response)
+            if (typeof successFunction === 'function') {
+                successFunction(response)
+            }
+
         },
 
         error: function(error) {
