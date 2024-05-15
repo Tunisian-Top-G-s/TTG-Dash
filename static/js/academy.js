@@ -256,6 +256,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     function finishVideo(video_id) {
-        ajaxRequest('POST', "/videoFinished/", {videoId: video_id}, null, null, true, "video finished", null)
+        ajaxRequest('POST', "/videoFinished/", {videoId: video_id}, function(response) {
+            ajaxRequest('POST', '/level_progress/', {level_id: level_id}, function(response) {
+                updateProgress(response.level_progression);
+            }, null, true, "level progression", null)
+        }, null, true, "video finished", null)
+        
     }
 });
