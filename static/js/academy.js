@@ -214,16 +214,18 @@ document.addEventListener("DOMContentLoaded", function() {
         ajaxRequest('POST', '/get-video/', {"videoId": videoId}, function (response) {
     
             if (response.success && response.video) {
-                // Update UI elements with new video data
                 document.querySelector('.videoSRC').src = response.video.video_file;
                 document.querySelector('video').load();
                 document.querySelectorAll('.lesson-text').forEach(el => el.innerText = response.video.title);
                 document.querySelectorAll('.title-lesson-description').forEach(el => el.innerText = response.video.title);
                 
-                // Render HTML content for notes
                 document.querySelectorAll('.description-step-video').forEach(el => {
-                    // Render CKEditor content as HTML
                     el.innerHTML = response.video.notes;
+                    // Add Fancybox attribute to images inside figure elements
+                    el.querySelectorAll('figure img').forEach(img => {
+                        img.closest('figure').setAttribute('data-fancybox', 'gallery');
+                        img.closest('figure').setAttribute('href', img.src);
+                    });
                 });
     
                 // Render CKEditor content for summary

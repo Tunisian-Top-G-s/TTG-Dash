@@ -404,13 +404,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const images = [
-  "../static/assets/gain1.png",
-  "../static/assets/gain2.png",
-  "../static/assets/gain3.png",
-  "../static/assets/gain4.png",
-  "../static/assets/gain5.png",
-  "../static/assets/gain6.png",
-  "../static/assets/gain14.png",
 ];
 
 const sliderContainer = document.getElementById("sliderContainer");
@@ -446,14 +439,6 @@ images.forEach((image, index) => {
 });
 
 const reverseImages = [
-  "../static/assets/gain7.png",
-  "../static/assets/gain8.png",
-  "../static/assets/gain9.png",
-  "../static/assets/gain10.png",
-  "../static/assets/gain11.png",
-  "../static/assets/gain12.png",
-  "../static/assets/gain13.png",
-  "../static/assets/gain13.png",
 ];
 
 const reverseSliderContainer = document.getElementById(
