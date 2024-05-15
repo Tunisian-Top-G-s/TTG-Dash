@@ -22,17 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
         if (this.checked) {
             hamburgerLines.classList.add("checked");
             dropdownMenu.style.transform = "translate(0)";
-            dropdownMenu.style.zIndex = "1";
+            dropdownMenu.style.zIndex = "120";
+            dropdownMenu.style.display = "block";
             navContainer.style.position = "fixed";
-            navContainer.style.zIndex = "100";
+            navContainer.style.zIndex = "120";
         } else {
             hamburgerLines.classList.remove("checked");
             dropdownMenu.style.transform = "translate(-150%)";
+            dropdownMenu.style.display = "none";
             navContainer.style.position = "relative";
             navContainer.style.zIndex = "100";
         }
     });
-
+    
+    
     navLinks.forEach(function (link) {
         link.addEventListener("click", function () {
             document.querySelectorAll('.nav-slipe').forEach(n => n.classList.remove('active-nav')); // Remove active class from all nav items

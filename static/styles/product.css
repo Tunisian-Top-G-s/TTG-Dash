@@ -581,7 +581,11 @@ input[type="radio"]:checked {
 	}
 
 }
-
+@media  screen and (max-width: 320px){
+	.selected-item-photos-views{
+		flex-wrap: wrap;
+	}
+}
 
 /* animation */
 @-webkit-keyframes wobble-hor-bottom {

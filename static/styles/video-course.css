@@ -92,7 +92,7 @@
     width: 100%;
     align-self: end;
     align-items: center;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     flex-direction: row;
 }
 .wrap-lessons{

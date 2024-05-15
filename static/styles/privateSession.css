@@ -591,6 +591,147 @@ ul.tabs li.current {
 	text-decoration: underline;
 	margin-left: auto;
 }
+/* Styling for the entire calendar container */
+
+
+/* Label styling */
+.calendar-container label {
+	display: block;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* Input field styling */
+.calendar-container input[type="datetime-local"] {
+	width: 40vh;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Focus state for input to highlight when active */
+.calendar-container input[type="datetime-local"]:focus {
+	border-color: #0056b3;
+	/* Blue border for focus state */
+	outline: none;
+	/* Removes default focus outline */
+	box-shadow: 0 0 5px rgba(0, 86, 179, 0.25);
+	/* Subtle blue glow */
+}
+
+.calendar {
+	/* display: grid; */ 
+    /* grid-template-columns: repeat(7, 1fr); */
+    /* padding: 5px 1rem; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.calendar-day {
+	border: 1px solid #ccc;
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 5px;
+	color: white;
+	font-size: large;
+}
+
+.calendar-day.unavailable {
+	background-color: #61616140;
+	cursor: not-allowed;
+	color: #0a0338;
+}
+
+.calendar-day.selected {
+	background-color: #6e30f5;
+	color: white;
+}
+
+.checkbox-container {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	justify-content: start;
+	align-items: center;
+	width: 100%;
+	padding: 10px;
+}
+
+span.id_cours {
+	color: #FFF;
+	font-size: 26px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	text-align: center;
+
+}
+
+/* Background color when checked */
+.checkbox-tile.checked {
+	border-color: var(--PRIVILY-C);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	color: var(--PRIVILY-C);
+	cursor: pointer;
+}
+
+.calendar-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	justify-content: center;
+}
+
+.calendar-container>label {
+	font-size: large;
+	color: white;
+}
+
+.calendar-container>input {
+	font-size: medium;
+}
+
+.checkbox-tile-session {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	min-height: 50px;
+	border-radius: 8px;
+	border: 0.5px solid #ffffff85;
+	box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
+	backdrop-filter: blur(250px);
+	transition: 0.15s ease;
+	cursor: pointer;
+	position: relative;
+	width: 100%;
+	-webkit-animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+	animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+.checkbox-tile-session>input[type="radio"] {
+	visibility: hidden;
+}
+
+.checkbox-tile-session:hover {
+	border-color: var(--PRIMARY-C);
+}
+
+.checkbox-tile-session.checked {
+	border-color: var(--PRIVILY-C);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	color: var(--PRIVILY-C);
+	cursor: pointer;
+}
 
 /* -------------Media Querie---------------------- */
 
@@ -974,6 +1115,7 @@ ul.tabs li.current {
 	animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+
 @-webkit-keyframes slide-in-left {
 	0% {
 		-webkit-transform: translateX(-100%);
@@ -1167,146 +1309,4 @@ ul.tabs li.current {
 		-webkit-animation-timing-function: ease-out;
 		animation-timing-function: ease-out;
 	}
-}
-
-/* Styling for the entire calendar container */
-
-
-/* Label styling */
-.calendar-container label {
-	display: block;
-	color: #ffffff;
-	font-size: 16px;
-	font-weight: bold;
-}
-
-/* Input field styling */
-.calendar-container input[type="datetime-local"] {
-	width: 40vh;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Focus state for input to highlight when active */
-.calendar-container input[type="datetime-local"]:focus {
-	border-color: #0056b3;
-	/* Blue border for focus state */
-	outline: none;
-	/* Removes default focus outline */
-	box-shadow: 0 0 5px rgba(0, 86, 179, 0.25);
-	/* Subtle blue glow */
-}
-
-.calendar {
-	/* display: grid; */ 
-    /* grid-template-columns: repeat(7, 1fr); */
-    /* padding: 5px 1rem; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-}
-
-.calendar-day {
-	border: 1px solid #ccc;
-	text-align: center;
-	cursor: pointer;
-	padding: 10px 5px;
-	color: white;
-	font-size: large;
-}
-
-.calendar-day.unavailable {
-	background-color: #61616140;
-	cursor: not-allowed;
-	color: #0a0338;
-}
-
-.calendar-day.selected {
-	background-color: #6e30f5;
-	color: white;
-}
-
-.checkbox-container {
-	display: flex;
-	flex-direction: row;
-	gap: 20px;
-	justify-content: start;
-	align-items: center;
-	width: 100%;
-	padding: 10px;
-}
-
-span.id_cours {
-	color: #FFF;
-	font-size: 26px;
-	font-style: normal;
-	font-weight: 700;
-	line-height: normal;
-	text-align: center;
-
-}
-
-/* Background color when checked */
-.checkbox-tile.checked {
-	border-color: var(--PRIVILY-C);
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-	color: var(--PRIVILY-C);
-	cursor: pointer;
-}
-
-.calendar-container {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	justify-content: center;
-}
-
-.calendar-container>label {
-	font-size: large;
-	color: white;
-}
-
-.calendar-container>input {
-	font-size: medium;
-}
-
-.checkbox-tile-session {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	min-height: 50px;
-	border-radius: 8px;
-	border: 0.5px solid #ffffff85;
-	box-shadow: 0px 20px 100px 0px rgba(0, 0, 0, 0.25);
-	backdrop-filter: blur(250px);
-	transition: 0.15s ease;
-	cursor: pointer;
-	position: relative;
-	width: 100%;
-	-webkit-animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-	animation: slide-in-blurred-left 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-}
-
-.checkbox-tile-session>input[type="radio"] {
-	visibility: hidden;
-}
-
-.checkbox-tile-session:hover {
-	border-color: var(--PRIMARY-C);
-}
-
-.checkbox-tile-session.checked {
-	border-color: var(--PRIVILY-C);
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-	color: var(--PRIVILY-C);
-	cursor: pointer;
 }

@@ -400,7 +400,7 @@ span.p-text {
 	.order {
 		width: 14rem;
 		padding: 25px;
-		margin-top: 2.4rem;
+		margin-top:2.5rem;
 	}
 
 	.items-container>form input {
@@ -442,45 +442,59 @@ span.p-text {
 	.items-container>form input {
 		width: 100%;
 	}
-}
-
-input[type="radio"]:checked {
-	border-color: var(--c);
-	background-size: 100% 100%;
-}
-
-input[type="radio"] {
-	--s: 0.7em;
-	--c: #ff004f;
-	height: var(--s);
-	aspect-ratio: 1;
-	border: calc(var(--s) / 8) solid #939393;
-	padding: calc(var(--s) / 8);
-	background: radial-gradient(farthest-side, var(--c) 94%, #0000) 50%/0 0 no-repeat content-box;
-	border-radius: 50%;
-	outline-offset: calc(var(--s) / 10);
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	cursor: pointer;
-	font-size: inherit;
-	transition: 0.3s;
-	margin: 0;
+	.order {
+		width: 14rem;
+		padding: 25px;
+		margin-top:2.5rem;
+	}
 }
 
 
-.spinner {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 26px;
-	height: 26px;
-	border-radius: 50%;
-	border-left-color: rgb(115, 11, 180);
-	animation: spin 1s ease infinite;
+
+@media screen and (max-width: 768px) {
+	.items-container>form input {
+		font-size: 12px;
+		height: 38px;
+	}
+
+	.order-total>.btn {
+		font-size: 14px;
+		padding: 10px 40px;
+	}
+
+	.place-order {
+		font-size: 12px !important;
+	}
+
+	.order-details>.h1-text {
+		font-size: 22px;
+	}
+
+	.items-container {
+		padding: 1.5rem;
+	}
+
+	.delivery-container {
+		padding: 1.5rem;
+	}
+
+	.delivery-container>.Title {
+		font-size: 18px;
+	}
+
+	.payment-method .payment>label {
+		font-size: 15px !important;
+	}
+	.order {
+		width: 14rem;
+		padding: 25px;
+		margin-top:0rem;
+	}
 }
 
+
+
+/* Animation */
 @keyframes spin {
 	0% {
 		transform: rotate(-0deg);
