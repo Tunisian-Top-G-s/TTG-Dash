@@ -778,6 +778,7 @@ def videoFinishedView(request, *args, **kwargs):
     return JsonResponse({'success': True, 'message':"video finished successfully"})
 
 def add_liked_video(request):
+    print("like video")
     user = request.user.customuser
     video = get_object_or_404(Video, id=request.POST.get("video_id"))
 
@@ -788,6 +789,7 @@ def add_liked_video(request):
     return JsonResponse({'success': True})
 
 def remove_liked_video(request):
+    print("dislike video")
     user = request.user.customuser
     video = get_object_or_404(Video, id=request.POST.get("video_id"))
 
@@ -796,12 +798,14 @@ def remove_liked_video(request):
     return JsonResponse({'success': True})
 
 def is_video_liked(request):
+    print("is video_liked?")
+
     user = request.user.customuser
     video_id = request.POST.get("video_id")
 
     # Check if the video is liked by the user
     is_liked = user.liked_videos.filter(id=video_id).exists()
-
+    print(is_liked)
     # Return a response indicating whether the video is liked or not
     return JsonResponse({'is_liked': is_liked})
 

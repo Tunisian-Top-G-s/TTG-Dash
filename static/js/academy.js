@@ -61,25 +61,29 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     
     document.querySelectorAll(".iconlike").forEach(function(element) {
-        toggleLikeCss(element)
+        toggleLikeCss(element);
         element.addEventListener("click", function(event) {
             toggleLike(event.currentTarget); // Pass the clicked element to toggleLike function
         });
     });
-
+    
     function toggleLike(element) {
         ajaxRequest("post", "/is_video_liked/", {video_id: currentVideo}, function(response) {
             if (response.is_liked) {
-                ajaxRequest("post", "/remove_liked_video/", {video_id: currentVideo}, null, null, true, "Like video", null);
+                ajaxRequest("post", "/remove_liked_video/", {video_id: currentVideo}, function() {
+                    toggleLikeCss(element);
+                }, null, true, "Like video", null);
             } else {
-                ajaxRequest("post", "/add_liked_video/", {video_id: currentVideo}, null, null, true, "Dislike video", null);
+                ajaxRequest("post", "/add_liked_video/", {video_id: currentVideo}, function() {
+                    toggleLikeCss(element);
+                }, null, true, "Dislike video", null);
             }
-            toggleLikeCss(element)
         }, null, true, "Toggle like video", null);
     }
+    
     function toggleLikeCss(element) {
         ajaxRequest("post", "/is_video_liked/", {video_id: currentVideo}, function(response) {
-            console.log(response)
+            console.log(response);
             if (response.is_liked) {
                 element.classList.add("liked");
             } else {
@@ -87,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, null, true, "Toggle like video", null);
     }
-    
     
     function updateProgress(percentage) {
         var levelProgressText = document.querySelector('.percentage-progess');
