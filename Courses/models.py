@@ -14,9 +14,7 @@ class Course(models.Model):
     def course_image(self):
         return mark_safe('<img src="%s" width="50" height="50" style="object-fit:cover; border-radius: 6px;" />' % (self.img.url))
 
-    def update_members_count(self):
-        self.members_count = self.enrolled_users.count()
-        self.save()
+
 
     def calculate_progress_percentage(self, user):
         total_levels = self.admin_levels.count()
@@ -43,6 +41,8 @@ class Level(models.Model):
     level_number = models.IntegerField()
     title = models.CharField(max_length=255)
     description = models.TextField()
+    def __str__(self):
+        return self.title    
 
     def videos_count(self):
         modules = self.modules.all()
@@ -93,6 +93,8 @@ class Module(models.Model):
     def get_next_module(self):
         next_module = Module.objects.filter(level=self.level, index__gt=self.index).exclude(id=self.id).order_by('index').first()
         return next_module
+    def __str__(self):
+        return self.title
 
 class Video(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_videos', blank=True, null=True)
@@ -112,6 +114,8 @@ class Video(models.Model):
     def get_next_video(self):
         next_video = Video.objects.filter(module=self.module, index__gt=self.index).order_by('index').first()
         return next_video if next_video else None
+    def __str__(self):
+        return self.title
 
 class Quiz(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='admin_quiz', blank=True, null=True)
