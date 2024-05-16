@@ -52,9 +52,6 @@
 }
 
 /* Use this to keep the div from taking up space after the transition */
-.chat-members:not(.hidden) {
-	display: block;
-}
 
 .chat-members.hidden {
 	display: none !important;
@@ -1083,13 +1080,10 @@ button {
 }
 
 .chat-rooms-mobile,
-.toggle-chat-room-mobile {
-	display: none;
-}
+.toggle-chat-room-mobile {width: 30px;}
 
 .chat-members-mobile,
 .toggle-chat-members-mobile {
-	display: none;
 }
 
 .chat-rooms,
@@ -1492,5 +1486,54 @@ button {
 		-webkit-transform: translateX(0);
 		transform: translateX(0);
 		opacity: 1;
+	}
+}
+.chat-rooms.show {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: unset;
+    pointer-events: unset;
+}
+.chat-members.show {
+	display: flex;
+	flex-direction: column;
+	opacity: 1;
+	transform: unset;
+	pointer-events: unset;
+}
+.mobile-toggles-btn{
+	display: none;
+}
+@media screen and (max-width: 768px) {
+	.mobile-toggles-btn{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem;
+	}
+	.chat-rooms {
+		display: none;
+		opacity: 0;
+		transform: translateY(-20px);
+		pointer-events: none;
+		width: 100%;
+	}
+	.chat-members {
+		display: none;
+		opacity: 0;
+		transform: translateY(-20px);
+		pointer-events: none;
+		width: 100%;
+	}
+	.chat-container.hidden{
+		display: none;
+	}
+	#chatRoomsToggle {
+		display: none !important;
+	}
+	#toggleButton{
+		display: none !important;
 	}
 }
