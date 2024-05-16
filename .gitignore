@@ -1,29 +1,32 @@
-./Carts/__pycache__
-./Carts/migrations
+Carts/__pycache__
+Carts/migrations
 
-./Courses/__pycache__
-./Courses/migrations
+Chat/__pycache__
+Chat/migrations
 
-./Orders/__pycache__
-./Orders/migrations
+Courses/__pycache__
+Courses/migrations
 
-./Pages/__pycache__
-./Pages/migrations
+Orders/__pycache__
+Orders/migrations
 
-./PrivateSessions/__pycache__
-./PrivateSessions/migrations
+Pages/__pycache__
+Pages/migrations
 
-./Products/__pycache__
-./Products/migrations
+PrivateSessions/__pycache__
+PrivateSessions/migrations
 
-./Ranks/__pycache__
-./Ranks/migrations
+Products/__pycache__
+Products/migrations
 
-./Reports/__pycache__
-./Reports/migrations
+Ranks/__pycache__
+Ranks/migrations
 
-./TTG/migrations
+Reports/__pycache__
+Reports/migrations
 
-./Users/__pycache__
-./Users/migrations
+TTG/migrations
+
+Users/__pycache__
+Users/migrations
 
