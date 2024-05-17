@@ -26,6 +26,7 @@ Reports/__pycache__
 Reports/migrations
 
 TTG/migrations
+TTG/__pycache__
 
 Users/__pycache__
 Users/migrations
