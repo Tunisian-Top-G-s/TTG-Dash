@@ -101,7 +101,7 @@ function displayOldMessages(messages) {
                 //console.log("Image data received:", message.file); // Log the data for debugging
                 fileContent = `<img src="/media/${message.file}" alt="Uploaded image" style="max-width: 200px;">`;
             } else {
-                // console.log("No image data received.");
+               // console.log("No image data received.");
             }
 
             const messageElement = document.createElement('div');
@@ -114,12 +114,18 @@ function displayOldMessages(messages) {
                 </div>
                 <div class="message-content">
                     <div class="user-info">
-                        <span class="user-name">${message.user__user__username}</span>
-                        <span class="message-date">${message.timestamp}</span>
+                        <span class="user-name">
+                            ${message.user__user__username}
+                        </span>
+                        <span class="message-date">
+                            ${message.timestamp}
+                        </span>
                     </div>
-                    <div class="message-text">${message.content}</div>
+                    <div class="message-text">
+                        ${message.content}
+                    </div>
                     <div class="image-user-upload">
-                    ${fileContent} <!-- Image displayed here if available -->
+                        ${fileContent}
                     </div>
                     <div class="reactions-box">
                         <div class="react">
@@ -128,12 +134,14 @@ function displayOldMessages(messages) {
                                     <path fill="#DD2C00" d="M39,28c0,8.395-6.606,15-15.001,15S9,36.395,9,28S22.479,12.6,20.959,5C24,5,39,15.841,39,28z"></path><path fill="#FF5722" d="M33,32c0-7.599-9-15-9-15c0,6.08-9,8.921-9,15c0,5.036,3.963,9,9,9S33,37.036,33,32z"></path><path fill="#FFC107" d="M18.999,35.406C19,32,24,30.051,24,27c0,0,4.999,3.832,4.999,8.406c0,2.525-2.237,4.574-5,4.574S18.998,37.932,18.999,35.406z"></path>
                                 </svg>
                             </div>
-                            <div class="count">0</div> <!-- Static reaction count -->
+                            <div class="count">
+                                0
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="reply-react">
-                    <button class="reply" onclick="sendReplyMessage()">
+                    <button class="reply">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply">
                             <polyline points="9 17 4 12 9 7"/>
                             <path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
@@ -141,6 +149,7 @@ function displayOldMessages(messages) {
                     </button>
                 </div>
             `;
+
             chatLog.appendChild(messageElement);
             chatLog.scrollTop = chatLog.scrollHeight; // Scroll to the bottom
         });
@@ -148,6 +157,93 @@ function displayOldMessages(messages) {
         //console.log('No old messages for this room.');
         // console.log('Messages:', messages);
     }
+}
+
+function addMessage(message) {
+    const chatLog = document.querySelector('#chatBox');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('chat-message');
+
+    const message_header = document.createElement('div');
+    message_header.classList.add('message-header');
+    message_header.innerHTML = `
+        <div class="user-pic">
+            <img src="/media/${message.user__pfp}" alt="user-pic"> 
+        </div>`;
+
+    const user_info = document.createElement('div');
+    user_info.classList.add('user-info');
+    user_info.innerHTML = `
+        <span class="user-name">
+            ${message.user__user__username}
+        </span>
+        <span class="message-date">
+            ${message.timestamp}
+        </span>`;
+
+    const message_text = document.createElement('div');
+    message_text.classList.add('message-text');
+    message_text.innerHTML = `${message.content}`;
+
+    const files_container = document.createElement('div');
+    files_container.classList.add('image-user-upload');
+    files_container.innerHTML = `<img src="${message.file}" alt="Uploaded file" style="max-width: 200px;">`;
+
+    const messageContent = document.createElement('div');
+    messageContent.classList.add('message-content');
+    messageContent.appendChild(user_info);
+    messageContent.appendChild(message_text);
+    messageContent.appendChild(files_container);
+
+    messageElement.appendChild(message_header);
+    messageElement.appendChild(messageContent);
+    
+    /* `
+        <div class="message-header">
+            <div class="user-pic">
+                <img src="/media/${message.user__pfp}" alt="user-pic"> 
+            </div>
+        </div>
+        <div class="message-content">
+            <div class="user-info">
+                <span class="user-name">
+                    ${message.user__user__username}
+                </span>
+                <span class="message-date">
+                    ${message.timestamp}
+                </span>
+            </div>
+            <div class="message-text">
+                ${message.content}
+            </div>
+            <div class="image-user-upload">
+
+            </div>
+            <div class="reactions-box">
+                <div class="react">
+                    <div class="emoji">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 48 48">
+                            <path fill="#DD2C00" d="M39,28c0,8.395-6.606,15-15.001,15S9,36.395,9,28S22.479,12.6,20.959,5C24,5,39,15.841,39,28z"></path><path fill="#FF5722" d="M33,32c0-7.599-9-15-9-15c0,6.08-9,8.921-9,15c0,5.036,3.963,9,9,9S33,37.036,33,32z"></path><path fill="#FFC107" d="M18.999,35.406C19,32,24,30.051,24,27c0,0,4.999,3.832,4.999,8.406c0,2.525-2.237,4.574-5,4.574S18.998,37.932,18.999,35.406z"></path>
+                        </svg>
+                    </div>
+                    <div class="count">
+                        0
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="reply-react">
+            <button class="reply">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-reply">
+                    <polyline points="9 17 4 12 9 7"/>
+                    <path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
+                </svg>
+            </button>
+        </div>
+    `; */
+
+    chatLog.appendChild(messageElement);
+    chatLog.scrollTop = chatLog.scrollHeight;
 }
 
 displayOldMessages(messages);
@@ -179,7 +275,6 @@ function displayMessage(data) {
             </div>
             <div class="message-text">${content}</div>
             ${fileContent}
-            ${gifContent}
         </div>
     `;
     chatLog.appendChild(messageElement);

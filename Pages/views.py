@@ -683,7 +683,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 def serverChatView(request, room_name, *args, **kwargs):
     customuser_id = request.user.customuser.id
     room = get_object_or_404(Room, name=room_name)
-    messages = Message.objects.filter(room=room).order_by('timestamp').values('user__user__username', 'content', 'user__pfp', 'timestamp')
+    messages = Message.objects.filter(room=room).order_by('timestamp').values('user__user__username', 'content', 'user__pfp', 'timestamp', 'file')
     messages_list = list(messages)
     
     # Convert QuerySet to list of dictionaries
