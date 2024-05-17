@@ -15,18 +15,17 @@
     {{ room_name|json_script:"room-name" }}
     {{ user_id|json_script:"user-id" }}
 
+    
+    <div class="mobile-toggles-btn">
+        <button class="toggle-chat-room-mobile" onclick="toggleRoomsMobile()">
+            <i data-lucide="align-left"></i>
+        </button>
+        <button class="toggle-chat-members-mobile" onclick="toggleMembersMobile()">
+            <i data-lucide="users"></i>
+        </button>
+        
+    </div>
     <div class="chat-wrapper">
-            
-
-        <div class="mobile-toggles-btn">
-            <button class="toggle-chat-room-mobile" onclick="toggleRoomsMobile()">
-                <i data-lucide="align-left"></i>
-            </button>
-            <button class="toggle-chat-members-mobile" onclick="toggleMembersMobile()">
-                <i data-lucide="users"></i>
-            </button>
-            
-        </div>
         <div class="chat-rooms">
             <div class="toggle-left-bar">
                 <div class="chat-rooms-header">

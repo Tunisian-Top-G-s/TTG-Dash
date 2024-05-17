@@ -524,3 +524,22 @@ function insertGif(gifUrl) {
 }
 
 console.log('Username:', username); // Debugging output
+
+
+function toggleRoomsMobile() {
+    const rooms = document.querySelector('.chat-rooms');
+    const members = document.querySelector('.chat-members');
+    const chat = document.querySelector('.chat-container');
+    rooms.classList.toggle('show');
+    members.classList.toggle('hidden');
+    chat.classList.toggle('hidden');
+}
+function toggleMembersMobile() {
+    const rooms = document.querySelector('.chat-rooms');
+    const members = document.querySelector('.chat-members');
+    const chat = document.querySelector('.chat-container');
+    rooms.classList.toggle('hidden');
+    members.classList.toggle('show');
+    chat.classList.toggle('hidden');
+
+}
